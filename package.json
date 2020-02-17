@@ -1,0 +1,60 @@
+{
+  "name": "MontageMosaicsQuote",
+  "version": "1.0.0",
+  "description": "An app to provide users with a quote.",
+  "main": "server.js",
+  "scripts": {
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "client": "cd client && npm run start",
+    "seed": "node scripts/seedDB.js",
+    "install": "cd client && npm install",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ontargetsolutions/montagemosaics.git"
+  },
+  "author": "Irina Machado",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ontargetsolutions/montagemosaics/issues"
+  },
+  "homepage": "https://github.com/Ontargetsolutions/montagemosaics#readme",
+  "devDependencies": {
+    "concurrently": "^4.1.2",
+    "nodemon": "^1.18.7"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.25",
+    "@fortawesome/free-solid-svg-icons": "^5.11.2",
+    "@fortawesome/react-fontawesome": "^0.1.7",
+    "@material-ui/core": "^4.7.1",
+    "@material-ui/icons": "^4.5.1",
+    "axios": "^0.18.1",
+    "country-state-city": "^1.0.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.16.3",
+    "google-maps-react": "^2.0.2",
+    "if-env": "^1.0.4",
+    "install": "^0.13.0",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.27",
+    "multer": "^1.4.2",
+    "mysql2": "^2.1.0",
+    "node-sass": "^4.13.1",
+    "nodemailer": "^6.3.1",
+    "npm": "^6.13.6",
+    "proptypes": "^1.1.0",
+    "react-fontawesome": "^1.7.1",
+    "react-loader-spinner": "^3.1.5",
+    "react-moment": "^0.9.6",
+    "react-responsive-carousel": "^3.1.51",
+    "react-router-dom": "^5.1.2",
+    "request-promise": "^4.2.5",
+    "sequelize": "^5.21.3",
+    "sequelize-cli": "^5.5.1"
+  }
+}
