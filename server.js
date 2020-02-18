@@ -1,11 +1,11 @@
 const express = require("express");
 var path = require("path");
 
-const db =require('./models');
+// const db =require('./models');
 
-const routes = require("./routes");
+// const routes = require("./routes");
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 5000;
 
 // Define middleware here
 app.use(express.static(path.join(__dirname + "./client/public")));
@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("./client/build"));
 }
 // Add routes, both API and view
-app.use(routes);
+// app.use(routes);
 
 // Connect to the Mongo DB
 // mongoose.connect(
@@ -26,21 +26,21 @@ app.use(routes);
 // Setup app listener and database connection
 app.listen(PORT, () => {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}`);
-  db.sequelize
-    .sync()
-    .then(() => {
-      db.sequelize
-        .authenticate()
-        .then(() => {
-          console.log('Connection to database has been established successfully.');
-        })
-        .catch(err => {
-          console.error('Unable to connect to the database:', err);
-        });
-    })
-    .catch(err => {
-      console.error('Unable to connect to the database:', err);
-    });
+  // db.sequelize
+  //   .sync()
+  //   .then(() => {
+  //     db.sequelize
+  //       .authenticate()
+  //       .then(() => {
+  //         console.log('Connection to database has been established successfully.');
+  //       })
+  //       .catch(err => {
+  //         console.error('Unable to connect to the database:', err);
+  //       });
+  //   })
+  //   .catch(err => {
+  //     console.error('Unable to connect to the database:', err);
+  //   });
 });
 
 
