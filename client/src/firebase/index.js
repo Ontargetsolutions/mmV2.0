@@ -9,12 +9,12 @@ import 'firebase/database';
 
 // Initialize Firebase 
 const config = {
-   apiKey: "AIzaSyDFb4n6xky8O6vf6nk8lS8SGSObw16Vpxw",
-   authDomain: "mmquotes-38225.firebaseapp.com",
-   databaseURL: "https://mmquotes-38225.firebaseio.com",
-   projectId: "mmquotes-38225",
-   storageBucket: "mmquotes-38225.appspot.com",
-   messagingSenderId: "237890054688",
+   apiKey: "AIzaSyD_2FLh1f_BJyKdzeqMvF-oB9Av2cLG6ps", // Your Api key will be here
+   authDomain: "reactify-61b82.firebaseapp.com", // Your auth domain
+   databaseURL: "https://reactify-61b82.firebaseio.com", // data base url
+   projectId: "reactify-61b82", // project id
+   storageBucket: "", // storage bucket
+   messagingSenderId: "598228895769" // messaging sender id
 };
 
 firebase.initializeApp(config);

@@ -1,4 +1,3 @@
-
 /**
  * App.js Layout Start Here
  */
