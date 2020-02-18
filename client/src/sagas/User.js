@@ -2,8 +2,8 @@
  * Auth Sagas
  */
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
-import { USER_UPDATE } from "Actions/types";
-import { updateUserFailure, updateUserSuccess } from "Actions";
+import { USER_UPDATE } from "../actions/types";
+import { updateUserFailure, updateUserSuccess, signUpUserInFirebaseFailure, deleteUserFailure} from "actions";
 import { NotificationManager } from "react-notifications";
 
 import API from "../api/index";
@@ -24,7 +24,7 @@ import {
   getWorkersList,
   getPersonByIdFailure,
   getPersonByIdSuccess,
-} from "../actions/UserActions";
+} from "../actions/index";
 
 import { auth } from "../firebase";
 
@@ -169,22 +169,22 @@ function* updateUserS(payload) {
 /**
  * DELETE USER
  */
-function* deleteUserS(data) {
-  const id = data.payload;
-  console.log(`id en la saga${JSON.stringify(data)}`);
-  try {
-    const userDeleted = yield call(deleteUserRequest, id);
-    if (userDeleted.message) {
-      yield put(deleteUserFailure(userDeleted.message));
-    } else {
-      NotificationManager.success(`User deleted successfuly`);
-      yield put(getUserList());
-      yield put(getWorkersList());
-    }
-  } catch (error) {
-    yield put(deleteUserFailure(error));
-  }
-}
+// function* deleteUserS(data) {
+//   const id = data.payload;
+//   console.log(`id en la saga${JSON.stringify(data)}`);
+//   try {
+//     const userDeleted = yield call(deleteUserRequest, id);
+//     if (userDeleted.message) {
+//       yield put(deleteUserFailure(userDeleted.message));
+//     } else {
+//       NotificationManager.success(`User deleted successfuly`);
+//       yield put(getUserList());
+//       yield put(getWorkersList());
+//     }
+//   } catch (error) {
+//     yield put(deleteUserFailure(error));
+//   }
+// }
 
 /**
  * GET USER LIST
@@ -268,9 +268,9 @@ export function* createUsertWatcher() {
 /**
  * DELETE User
  */
-export function* deleteUsertWatcher() {
-  yield takeEvery(DELETE_USER, deleteUserS);
-}
+// export function* deleteUsertWatcher() {
+//   yield takeEvery(DELETE_USER, deleteUserS);
+// }
 /**
  * DELETE User
  */
@@ -286,7 +286,7 @@ export default function* rootSaga() {
     fork(updateUserWatcher),
     fork(getUserListWatcher),
     fork(createUsertWatcher),
-    fork(deleteUsertWatcher),
+    // fork(deleteUsertWatcher),
     fork(getWorkersListWatcher),  
     fork(getPersonByIdWatcher),
 

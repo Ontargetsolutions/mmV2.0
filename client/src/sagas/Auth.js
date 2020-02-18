@@ -14,7 +14,7 @@ import {
   FETCH_STATE,
   FETCH_CITY,
   GET_USER,
-} from 'Actions/types';
+} from 'actions/types';
 
 import {
   signinUserSuccess,
@@ -32,7 +32,7 @@ import {
   getUserFailure,
   getUserSuccess,
   showAuthMessage
-} from 'Actions';
+} from '../actions/index';
 import {stringify} from 'querystring';
 
 import API from '../api/index';
@@ -253,7 +253,7 @@ function* signinUserWithGoogleAccount({payload}) {
       if (user.data != '') {
         localStorage.setItem ('user_id', signUpUser.user.uid);
         localStorage.setItem ('user_info', signUpUser.user.email);
-        yield put (signinUserSuccess ({userAuthe: signInUser.user.email, userData: user.data}));
+        yield put (signinUserSuccess ({userAuthe: signUpUser.user.email, userData: user.data}));
         payload.push ('/');
       } 
       else {

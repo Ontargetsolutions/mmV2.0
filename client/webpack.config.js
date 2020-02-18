@@ -48,14 +48,14 @@ module.exports = {
 	// resolve alias (Absolute paths)
 	resolve: {
 		alias: {
-			Actions: path.join('src/actions/'),
-			Components: path.join('src/components/'),
-			Assets: path.join('src/assets/'),
-			Util: path.join('src/util/'),
-			Routes: path.join('src/routes/'),
-			Constants: path.join('src/constants/'),
-			Helpers: path.join('src/helpers/'),
-			Api: path.join('src/api/')
+			actions: path.join('src/actions/'),
+			components: path.join('src/components/'),
+			assets: path.join('src/assets/'),
+			util: path.join('src/util/'),
+			routes: path.join('src/routes/'),
+			constants: path.join('src/constants/'),
+			helpers: path.join('src/helpers/'),
+			api: path.join('src/api/')
 		}
 	},
 	module: {

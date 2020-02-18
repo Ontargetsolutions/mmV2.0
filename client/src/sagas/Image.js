@@ -8,7 +8,7 @@ import api from '../api';
 /**
  * SAVE IMAGE FUNCTION
  */
-const saveImageRequest = async () =>
+const saveImageRequest = async (data) =>
   await api
     .saveImage(data)
     .then (image => image)
