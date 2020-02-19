@@ -14,12 +14,8 @@ const AsyncEcommerceDashboardComponent = Loadable({
    loading: () => <RctPageLoader />,
 });
 
-// crm dashboard
-const AsyncCrmComponent = Loadable({
-   loader: () => import("../../routes/crm/dashboard"),
-   loading: () => <RctPageLoader />,
-});
+
 export {
    AsyncEcommerceDashboardComponent,
-   AsyncCrmComponent
+
 };
