@@ -10,7 +10,7 @@ import {
     UPDATE_USERS_SEARCH,
     SEARCH_USERS,
     GET_RECENT_CHAT_USERS
-} from '../sactions/types';
+} from '../actions/types';
 
 // chat users
 import recentChatUsers from 'assets/data/chat-app/users';
