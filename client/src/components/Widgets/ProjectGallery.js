@@ -6,7 +6,7 @@ import Slider from "react-slick";
 
 
 // rct card box
-import { RctCard, RctCardContent } from 'components/RctCard';
+import { RctCard, RctCardContent } from '../../components/RctCard';
 
 
 export default class ProjectGallery extends Component {
@@ -34,7 +34,7 @@ export default class ProjectGallery extends Component {
                         return (
                            <div key={index} className="gallery-item">
                               <div className="gallery-img">
-                                 <img src={require(`Assets/img/${slide}`)} height="252" alt="gallery" className="img-fluid d-block" />
+                                 <img src={require(`../../assets/img/${slide}`)} height="252" alt="gallery" className="img-fluid d-block" />
                               </div>
                            </div>
                         )
