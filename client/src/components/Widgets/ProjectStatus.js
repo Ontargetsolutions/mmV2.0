@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Progress, Badge } from 'reactstrap';
 
 // rct card box
-import { RctCardContent } from 'components/RctCard';
+import { RctCardContent } from '../../components/RctCard';
 
 class ProjectStatus extends Component {
    render() {
