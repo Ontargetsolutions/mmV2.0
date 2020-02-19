@@ -8,10 +8,10 @@ import { NotificationManager } from 'react-notifications';
 import 'react-quill/dist/quill.snow.css';
 
 // rct card box
-import { RctCardFooter } from 'components/RctCard';
+import { RctCardFooter } from '../../components/RctCard';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 const modules = {
 	toolbar: [

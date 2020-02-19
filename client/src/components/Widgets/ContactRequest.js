@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import SweetAlert from 'react-bootstrap-sweetalert'
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 class ContactRequestWidget extends Component {
 

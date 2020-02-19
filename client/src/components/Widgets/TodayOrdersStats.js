@@ -5,10 +5,10 @@ import React from 'react';
 import CountUp from 'react-countup';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 // rct card box
-import { RctCardContent } from 'components/RctCard';
+import { RctCardContent } from '../../components/RctCard';
 
 const TotalOrderStats = () => (
     <div className="current-widget bg-primary">

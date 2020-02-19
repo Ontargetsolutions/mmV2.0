@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 
 // api
-import api from 'api';
+import api from '../../api';
 
 class RecentOrders extends Component {
 

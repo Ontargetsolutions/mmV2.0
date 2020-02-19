@@ -4,10 +4,10 @@
 import React from 'react';
 
 // chart
-import SimpleBarChart from 'components/Charts/SimpleBarChart';
+import SimpleBarChart from '../../components/Charts/SimpleBarChart';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 // rct card box
 import { RctCard, RctCardContent } from 'components/RctCard';

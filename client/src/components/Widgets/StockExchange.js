@@ -7,12 +7,12 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
 // section loader
-import RctSectionLoader from 'components/RctSectionLoader/RctSectionLoader';
+import RctSectionLoader from '../../components/RctSectionLoader/RctSectionLoader';
 
 // rct card footer
-import { RctCardFooter } from 'components/RctCard';
+import { RctCardFooter } from '../../components/RctCard';
 
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 class StockExchange extends Component {
 

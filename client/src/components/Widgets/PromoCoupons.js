@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages'
+import IntlMessages from '../../util/IntlMessages'
 
 export default class PromoCoupons extends Component {
    render() {

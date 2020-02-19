@@ -5,13 +5,13 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 
 // card component
-import { RctCardFooter } from 'components/RctCard';
+import { RctCardFooter } from '../../components/RctCard';
 
 // chart
-import HorizontalBarChart from 'components/Charts/HorizontalBarChart';
+import HorizontalBarChart from '../../components/Charts/HorizontalBarChart';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 const TrafficChannel = ({ label, chartdata, labels }) => (
    <div className="sales-chart-wrap">

@@ -5,10 +5,10 @@ import React from 'react';
 import { VectorMap } from 'react-jvectormap';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 // chart config
-import ChartConfig from 'constants/chart-config';
+import ChartConfig from '../../constants/chart-config';
 
 const OnlineVisitorsWidget = ({ data }) => (
     <div className="card">

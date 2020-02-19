@@ -4,10 +4,10 @@
 import React, { Component } from 'react';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 // chart component
-import TinyPieChart from 'components/Charts/TinyPieChart';
+import TinyPieChart from '../../components/Charts/TinyPieChart';
 
 export default class Revenue extends Component {
 	render() {

@@ -5,7 +5,7 @@ import React, { Component, Fragment } from 'react';
 import { Button, ButtonGroup } from 'reactstrap';
 
 // chart
-import StackedAreaChart from 'components/Charts/StackedAreaChart';
+import StackedAreaChart from '../../components/Charts/StackedAreaChart';
 
 class TotalEarnsWithAreaChart extends Component {
     render() {

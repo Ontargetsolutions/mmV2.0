@@ -6,10 +6,10 @@ import { Card, CardBody } from 'reactstrap';
 import Button from '@material-ui/core/Button';
 
 // chart component
-import SpacePieChart from 'components/Charts/SpacePieChart';
+import SpacePieChart from '../../components/Charts/SpacePieChart';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 export default class Space extends Component {
 	render() {

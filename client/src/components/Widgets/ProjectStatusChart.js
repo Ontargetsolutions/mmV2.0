@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 // rct card box
-import { RctCardContent } from 'components/RctCard';
+import { RctCardContent } from '../../components/RctCard';
 
 /* amChart Imports */
 import * as am4core from "@amcharts/amcharts4/core";

@@ -7,7 +7,7 @@ import { Badge } from 'reactstrap';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 // api
-import api from 'api';
+import api from '../../api';
 import { Fab } from '@material-ui/core';
 
 class SocialCompanines extends Component {

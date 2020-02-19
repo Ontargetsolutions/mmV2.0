@@ -19,13 +19,13 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import Snackbar from '@material-ui/core/Snackbar';
 
 // api
-import api from 'api';
+import api from '../../api';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 // rct section loader
-import RctSectionLoader from 'components/RctSectionLoader/RctSectionLoader';
+import RctSectionLoader from '../../components/RctSectionLoader/RctSectionLoader';
 import { Fab } from '@material-ui/core';
 
 export default class TodoListWidget extends Component {

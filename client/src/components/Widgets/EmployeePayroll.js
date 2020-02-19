@@ -6,13 +6,13 @@ import update from 'react-addons-update';
 import { Badge } from 'reactstrap';
 
 // api
-import api from 'api';
+import api from '../../api';
 
 // rct section loader
-import RctSectionLoader from 'components/RctSectionLoader/RctSectionLoader';
+import RctSectionLoader from '../../components/RctSectionLoader/RctSectionLoader';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 class EmployPayroll extends Component {
 

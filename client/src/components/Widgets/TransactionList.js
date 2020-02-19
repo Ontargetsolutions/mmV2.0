@@ -17,7 +17,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { Badge } from 'reactstrap';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 function TabContainer({ children, dir }) {
    return (

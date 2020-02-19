@@ -7,7 +7,7 @@ import ListItem from '@material-ui/core/ListItem';
 import { Link } from '@material-ui/core';
 
 // rct card box
-import { RctCardContent } from 'components/RctCard';
+import { RctCardContent } from '../../components/RctCard';
 
 
 class UpcomingEvents extends Component {

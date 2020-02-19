@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 
 // chart
-import EmailStatisticChart from 'components/Charts/EmailStatistic';
+import EmailStatisticChart from '../../components/Charts/EmailStatistic';
 
 class EmailStatisticsVersion2 extends Component {
 	render() {

@@ -5,7 +5,7 @@ import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
 
 // rct card box
-import { RctCard, RctCardContent } from 'components/RctCard';
+import { RctCard, RctCardContent } from '../../components/RctCard';
 
 export default class LineChart extends Component {
 

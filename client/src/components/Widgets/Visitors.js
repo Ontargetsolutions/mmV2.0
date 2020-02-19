@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react'
 import CountUp from 'react-countup';
 
 // chart
-import NewsVisitorsChart from 'components/Charts/NewsVisitorsChart';
+import NewsVisitorsChart from '../../components/Charts/NewsVisitorsChart';
 
 export default class Visitors extends Component {
 	render() {

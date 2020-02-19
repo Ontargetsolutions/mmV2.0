@@ -31,7 +31,7 @@ const BlogLayoutTwo = ({ classes }) => (
       </CardContent>
       <CardMedia
          className={classes.media}
-         image={require('assets/img/post-1.jpg')}
+         image={require('../../assets/img/post-1.jpg')}
          title="Contemplative Reptile"
       />
       <CardContent>

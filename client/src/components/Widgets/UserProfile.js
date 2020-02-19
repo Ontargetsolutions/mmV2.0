@@ -6,7 +6,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 export default class UserProfile extends Component {
    render() {
@@ -17,7 +17,7 @@ export default class UserProfile extends Component {
                <div className="d-flex user-avatar">
                   <Avatar
                      alt="user 2"
-                     src={require('assets/avatars/user-2.jpg')}
+                     src={require('../../assets/avatars/user-2.jpg')}
                      className="size-100 rounded-circle mr-15"
                   />
                   <div className="user-info text-white pt-20">

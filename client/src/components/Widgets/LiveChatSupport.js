@@ -9,7 +9,7 @@ import Fab from '@material-ui/core/Fab';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 // rct card box
-import { RctCardContent } from 'components/RctCard';
+import { RctCardContent } from '../../components/RctCard';
 
 class LiveChatSupport extends Component {
    render() {

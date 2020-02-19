@@ -5,16 +5,16 @@ import React from 'react';
 import CountUp from 'react-countup';
 
 // chart
-import TinyLineChart from 'components/Charts/TinyLineChart';
+import TinyLineChart from '../../components/Charts/TinyLineChart';
 
 // constants
-import ChartConfig from 'constants/chart-config';
+import ChartConfig from '../../constants/chart-config';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 // rct card box
-import { RctCard, RctCardFooter, RctCardContent } from 'components/RctCard';
+import { RctCard, RctCardFooter, RctCardContent } from '../../components/RctCard';
 
 const TotalSales = ({ label, chartdata, labels }) => (
     <RctCard>

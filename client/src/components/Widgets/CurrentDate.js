@@ -5,10 +5,10 @@ import React, { Component } from 'react';
 import moment from 'moment';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 // rct card box
-import { RctCardContent } from 'components/RctCard';
+import { RctCardContent } from '../../components/RctCard';
 
 class CurrentDate extends Component {
     render() {

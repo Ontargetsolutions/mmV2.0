@@ -7,10 +7,10 @@ import Button from '@material-ui/core/Button';
 import StarRatingComponent from 'react-star-rating-component';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 // chart config
-import AppConfig from 'constants/AppConfig';
+import AppConfig from '../../constants/AppConfig';
 
 export default class Rating extends Component {
 

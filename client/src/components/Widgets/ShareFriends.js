@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 
 // inlt messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 export default class ShareFriends extends Component {
 	render() {
@@ -21,7 +21,7 @@ export default class ShareFriends extends Component {
 					</ul>
 				</div>
 				<div className="py-20 d-xs-none">
-					<img className="img-fluid" alt="share" src={require('assets/img/share.png')} />
+					<img className="img-fluid" alt="share" src={require('../../assets/img/share.png')} />
 				</div>
 			</div>
 		)

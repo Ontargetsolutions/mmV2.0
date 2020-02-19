@@ -5,7 +5,7 @@
 import React from 'react';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 const Notes = () => (
   <div className="lazy-up">

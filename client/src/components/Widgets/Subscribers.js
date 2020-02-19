@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import CountUp from 'react-countup';
 
 // chart
-import SubscriberDoughnutChart from 'components/Charts/SubscriberDoughnutChart';
+import SubscriberDoughnutChart from '../../components/Charts/SubscriberDoughnutChart';
 
 export default class Subscribers extends Component {
    render() {

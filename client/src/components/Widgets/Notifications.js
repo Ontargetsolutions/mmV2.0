@@ -11,10 +11,10 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import Typography from '@material-ui/core/Typography';
 
 // api
-import api from 'api';
+import api from '../../api';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 function TabContainer({ children, dir }) {
    return (

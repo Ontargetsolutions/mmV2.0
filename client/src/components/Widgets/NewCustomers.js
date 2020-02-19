@@ -19,15 +19,15 @@ import Avatar from '@material-ui/core/Avatar';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 // api
-import api from 'api';
+import api from '../../api';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 // rct section loader
-import RctSectionLoader from 'components/RctSectionLoader/RctSectionLoader';
+import RctSectionLoader from '../../components/RctSectionLoader/RctSectionLoader';
 
-import DeleteConfirmationDialog from 'components/DeleteConfirmationDialog/DeleteConfirmationDialog';
+import DeleteConfirmationDialog from '../../components/DeleteConfirmationDialog/DeleteConfirmationDialog';
 
 class NewCustomers extends Component {
 

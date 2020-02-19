@@ -3,13 +3,13 @@
  */
 import React, { Component } from 'react'
 import { Input, FormGroup } from 'reactstrap';
-import ChartConfig from 'constants/chart-config';
+import ChartConfig from '../../constants/chart-config';
 
 // chart
-import CampaignBarChart from 'components/Charts/CampaignBarChart';
+import CampaignBarChart from '../../components/Charts/CampaignBarChart';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 const campaigns = {
 	yesterday: [

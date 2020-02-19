@@ -4,13 +4,13 @@
 import React from 'react';
 
 // dynamic line chart
-import DynamicLineChart from 'components/Charts/DynamicLineChart';
+import DynamicLineChart from '../../components/Charts/DynamicLineChart';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 // rct card box
-import { RctCard, RctCardContent } from 'components/RctCard';
+import { RctCard, RctCardContent } from '../../components/RctCard';
 
 const BandwidthAreaChart = () => (
     <RctCard customClasses="gradient-primary overflow-hidden">

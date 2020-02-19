@@ -7,7 +7,7 @@ import ListItem from '@material-ui/core/ListItem'
 import { Scrollbars } from 'react-custom-scrollbars';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 const data = [
     {

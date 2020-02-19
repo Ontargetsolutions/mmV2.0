@@ -7,15 +7,15 @@ import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
+import { Fab } from '@material-ui/core';
 // Api
 import api from 'api';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 // card component
-import { RctCardFooter } from 'components/RctCard';
-import { Fab } from '@material-ui/core';
+import { RctCardFooter } from '../../components/RctCard';
 
 
 export default class Comments extends Component {

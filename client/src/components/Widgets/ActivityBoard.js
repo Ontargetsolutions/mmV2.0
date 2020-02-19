@@ -13,16 +13,16 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
 // api
-import api from 'api';
+import api from '../../api';
 
 // card component
-import { RctCardFooter } from 'components/RctCard';
+import { RctCardFooter } from '../../components/RctCard';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 // rct section loader
-import RctSectionLoader from 'components/RctSectionLoader/RctSectionLoader';
+import RctSectionLoader from '../../components/RctSectionLoader/RctSectionLoader';
 
 export default class ActivityBoard extends Component {
 	state = {

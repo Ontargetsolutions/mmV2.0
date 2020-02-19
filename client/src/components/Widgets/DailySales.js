@@ -4,16 +4,16 @@
 import React from 'react';
 
 // chart
-import SalesChart from 'components/Charts/SalesChart';
+import SalesChart from '../../components/Charts/SalesChart';
 
 // card component
-import { RctCardFooter } from 'components/RctCard';
+import { RctCardFooter } from '../../components/RctCard';
 
 // constants
-import ChartConfig from 'constants/chart-config';
+import ChartConfig from '../../constants/chart-config';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 const DailySales = ({ label, chartdata, labels }) => (
 	<div>

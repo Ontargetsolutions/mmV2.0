@@ -19,13 +19,13 @@ import { Fab } from '@material-ui/core';
 
 
 // api
-import api from 'api';
+import api from '../../api';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 // rct section loader
-import RctSectionLoader from 'components/RctSectionLoader/RctSectionLoader';
+import RctSectionLoader from '../../components/RctSectionLoader/RctSectionLoader';
 class NewEmails extends Component {
 
    state = {

@@ -4,7 +4,7 @@
 import React, { Component, Fragment } from 'react';
 
 // chart
-import ProductStatsChart from 'components/Charts/ProductStatsChart';
+import ProductStatsChart from '../../components/Charts/ProductStatsChart';
 
 class ProductStats extends Component {
     render() {

@@ -9,13 +9,13 @@ import ListItem from '@material-ui/core/ListItem';
 import IconButton from '@material-ui/core/IconButton';
 
 // card component
-import { RctCardFooter } from 'components/RctCard';
+import { RctCardFooter } from '../../components/RctCard';
 
 //chart component
-import DoughnutChart from 'components/Charts/DoughnutChart';
+import DoughnutChart from '../../components/Charts/DoughnutChart';
 
 // intl messagess
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 class SupportRequest extends Component {
    render() {

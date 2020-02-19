@@ -8,7 +8,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 export default class BookingInfo extends Component {
     render() {

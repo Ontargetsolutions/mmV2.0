@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 // api
-import api from 'api';
+import api from '../../api';
 
 class ProductReportsWidget extends Component {
 

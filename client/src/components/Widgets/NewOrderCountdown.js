@@ -6,10 +6,10 @@ import { Card, CardBody } from 'reactstrap';
 import IconButton from '@material-ui/core/IconButton';
 
 // components
-import CountDown from 'components/CountDown/CountDown';
+import CountDown from '../../components/CountDown/CountDown';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 export default class NewOrderCountdown extends Component {
     render() {

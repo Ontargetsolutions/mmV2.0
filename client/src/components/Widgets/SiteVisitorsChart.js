@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
 // chart config
-import ChartConfig from 'constants/chart-config';
+import ChartConfig from '../../constants/chart-config';
 
 class SiteVisitorChart extends Component {
     render() {

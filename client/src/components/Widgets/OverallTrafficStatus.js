@@ -5,13 +5,13 @@ import React, { Component, Fragment } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 // chart
-import StackedBarChart from 'components/Charts/StackedBarChart';
+import StackedBarChart from '../../components/Charts/StackedBarChart';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 // chart config
-import ChartConfig from 'constants/chart-config';
+import ChartConfig from '../../constants/chart-config';
 
 export default class OverallTrafficStatus extends Component {
     render() {

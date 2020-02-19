@@ -4,10 +4,10 @@
 import React, { Component } from 'react';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 // rct card box
-import { RctCardContent } from 'components/RctCard';
+import { RctCardContent } from '../../components/RctCard';
 
 function checkTime(i) {
 	if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10

@@ -11,7 +11,7 @@ export default class Reminders extends React.Component {
 					<div className="media p-20">
 						<div className="mr-25">
 							<img
-								src={require('assets/avatars/user-2.jpg')}
+								src={require('../../assets/avatars/user-2.jpg')}
 								className="rounded-circle"
 								alt="user profile"
 								width="90"

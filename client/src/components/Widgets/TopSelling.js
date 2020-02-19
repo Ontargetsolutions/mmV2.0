@@ -5,10 +5,10 @@ import React, { Component } from "react";
 import Slider from "react-slick";
 
 // api
-import api from 'api';
+import api from '../../api';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 export default class TopSellingWidget extends Component {
 

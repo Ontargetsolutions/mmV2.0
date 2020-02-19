@@ -2,7 +2,7 @@
 import React, { Component, Fragment } from 'react'
 
 // chart
-import StackedLineChart from 'components/Charts/StackedLineChart';
+import StackedLineChart from '../../components/Charts/StackedLineChart';
 
 export default class NewslaterCampaign extends Component {
    render() {
