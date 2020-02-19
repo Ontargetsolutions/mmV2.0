@@ -4,7 +4,7 @@ export default [
         id: 2,
         first_name: 'Elisabeth',
         last_name: 'Ortega',
-        photo_url: require('../../../assets/avatars/user-1.jpg'),
+        photo_url: require('../../assets/avatars/user-1.jpg'),
         last_chat_date: 'yesterday',
         isActive: true,
         status: "online",
