@@ -8,12 +8,12 @@ import api from 'api';
 
 import {
     GET_FEEDBACKS,
-} from 'actions/types';
+} from '../actions/types';
 
 import {
     getFeedbacksSuccess,
     getFeedbacksFailure
-} from 'actions';
+} from '../actions';
 
 /**
  * Send Todos Request To Server

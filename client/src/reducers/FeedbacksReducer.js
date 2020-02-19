@@ -22,7 +22,7 @@ import {
     ON_SEARCH_IDEA,
     ON_COMMENT_FEEDBACK,
     GET_FEEDBACKS_FAILURE
-} from 'actions/types';
+} from '../actions/types';
 
 /**
  * initial state

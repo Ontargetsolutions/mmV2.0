@@ -17,10 +17,10 @@ import {
 	STOP_USER_TOUR,
 	TOGGLE_DARK_SIDENAV,
 	CHANGE_AGENCY_LAYOUT_BG
-} from 'actions/types';
+} from '../actions/types';
 
 // app config
-import AppConfig from 'constants/AppConfig';
+import AppConfig from '../constants/AppConfig';
 
 /**
  * initial app settings

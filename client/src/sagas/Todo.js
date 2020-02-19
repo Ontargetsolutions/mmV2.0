@@ -8,12 +8,12 @@ import api from 'api';
 
 import {
     GET_TODOS,
-} from 'actions/types';
+} from '../actions/types';
 
 import {
     getTodosSuccess,
     getTodosFailure
-} from 'actions';
+} from '../actions';
 
 /**
  * Send Todos Request To Server

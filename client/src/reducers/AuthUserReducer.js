@@ -12,7 +12,7 @@ import {
     SIGNUP_USER_FAILURE,
     LOGOUT_USER_SUCCESS,
     LOGOUT_USER_FAILURE
-} from 'actions/types';
+} from '../actions/types';
 
 /**
  * initial auth user

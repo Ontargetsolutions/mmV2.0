@@ -3,8 +3,8 @@
  */
 import update from 'react-addons-update';
 // todo data
-import users from 'assets/data/todo-app/users';
-import labels from 'assets/data/todo-app/labels';
+import users from '../assets/data/todo-app/users';
+import labels from '../assets/data/todo-app/labels';
 
 // action types
 import {
@@ -38,7 +38,7 @@ import {
     ON_LABEL_MENU_ITEM_SELECT,
     UPDATE_SEARCH,
     SEARCH_TODO
-} from 'actions/types';
+} from '../actions/types';
 
 // initial state
 const INIT_STATE = {

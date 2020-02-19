@@ -5,8 +5,8 @@ import update from 'react-addons-update';
 import { TOGGLE_MENU, AGENCY_TOGGLE_MENU } from 'actions/types';
 
 // nav links
-import navLinks from 'components/Sidebar/NavLinks';
-import agencyNavLinks from 'components/AgencyMenu/NavLinks';
+import navLinks from '../components/Sidebar/NavLinks';
+import agencyNavLinks from '../components/AgencyMenu/NavLinks';
 
 const INIT_STATE = {
 	sidebarMenus: navLinks,

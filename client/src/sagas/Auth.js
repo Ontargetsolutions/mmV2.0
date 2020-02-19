@@ -17,7 +17,7 @@ import {
     LOGIN_GITHUB_USER,
     LOGOUT_USER,
     SIGNUP_USER
-} from 'actions/types';
+} from '../actions/types';
 
 import {
     signinUserSuccess,
@@ -26,7 +26,7 @@ import {
     signUpUserInFirebaseFailure,
     logoutUserFromFirebaseSuccess,
     logoutUserFromFirebaseFailure
-} from 'actions';
+} from '../actions';
 import { NotificationManager } from 'react-notifications';
 /**
  * Sigin User With Email and Password Request

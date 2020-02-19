@@ -8,12 +8,12 @@ import api from 'api';
 
 import {
     GET_EMAILS,
-} from 'actions/types';
+} from '../actions/types';
 
 import {
     getEmailsSuccess,
     getEmailsFailure
-} from 'actions';
+} from '../actions';
 
 /**
  * Send Email Request To Server

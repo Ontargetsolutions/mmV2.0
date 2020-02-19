@@ -30,11 +30,11 @@ import {
     EMAIL_SENT_SUCCESSFULLY,
     FILTER_EMAILS_WITH_LABELS,
     ADD_LABELS_INTO_EMAILS
-} from 'actions/types';
+} from '../actions/types';
 
 // email data
-import folders from 'assets/data/email-app/folders';
-import labels from 'assets/data/email-app/labels';
+import folders from '../assets/data/email-app/folders';
+import labels from '../assets/data/email-app/labels';
 
 const INITIAL_STATE = {
     allEmail: null,
