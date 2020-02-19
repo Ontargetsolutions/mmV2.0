@@ -6,7 +6,7 @@ import 'react-toggle-switch/dist/css/switch.min.css';
 // Use for weather icons
 import 'weather-icons/css/weather-icons.min.css'
 // Use Themify Icon
-import 'assets/themify-icons/themify-icons.css';
+// import 'assets/themify-icons/themify-icons.css';
 // Use For Full Calender
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 // notifications
