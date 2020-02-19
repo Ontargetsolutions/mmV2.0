@@ -1,5 +1,5 @@
 // chart config
-import ChartConfig from 'constants/chart-config';
+import ChartConfig from '../../../constants/chart-config';
 
 // visitors data
 export const visitorsData = {
@@ -40,19 +40,19 @@ export const topSellingProducts = {
          id: 1,
          productName: 'HD Classic Gold Headphone',
          price: '300',
-         productImage: require('assets/img/device-1.jpg')
+         productImage: require('../../../assets/img/device-1.jpg')
       },
       {
          id: 2,
          productName: 'HD Classic Gold Headphone',
          price: '300',
-         productImage: require('assets/img/device-2.jpg')
+         productImage: require('../../../assets/img/device-2.jpg')
       },
       {
          id: 3,
          productName: 'HD Classic Gold Headphone',
          price: '300',
-         productImage: require('assets/img/device-3.jpg')
+         productImage: require('../../../assets/img/device-3.jpg')
       }
    ]
 }

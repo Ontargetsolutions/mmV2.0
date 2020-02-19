@@ -5,10 +5,10 @@
 import React, { Component } from 'react'
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../../util/IntlMessages';
 
 // page title bar
-import PageTitleBar from 'components/PageTitleBar/PageTitleBar';
+import PageTitleBar from '../../../components/PageTitleBar/PageTitleBar';
 
 
 export default class EcommerceDashboard extends Component {
