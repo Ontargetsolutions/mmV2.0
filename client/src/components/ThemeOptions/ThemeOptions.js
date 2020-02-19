@@ -26,7 +26,7 @@ import {
 } from 'actions';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 class ThemeOptions extends Component {
 
@@ -182,7 +182,7 @@ class ThemeOptions extends Component {
 													<Tooltip title={theme.name} placement="top" key={key}>
 														<img
 															onClick={() => this.changeThemeColor(theme)}
-															src={require(`assets/img/${theme.name}-theme.png`)}
+															src={require(`../../assets/img/${theme.name}-theme.png`)}
 															alt="theme"
 															className={classnames('img-fluid mr-5', { 'active': theme.id === activeTheme.id })}
 														/>

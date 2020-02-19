@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from "react-redux";
 import classnames from "classnames";
 
-import { agencyLayoutBgHandler } from "actions";
+import { agencyLayoutBgHandler } from "../../actions";
 
 class AgencyLayoutBgProvider extends Component {
 
