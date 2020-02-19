@@ -2,7 +2,7 @@
  * Sidebar Reducers
  */
 import update from 'react-addons-update';
-import { TOGGLE_MENU, AGENCY_TOGGLE_MENU } from 'actions/types';
+import { TOGGLE_MENU, AGENCY_TOGGLE_MENU } from '../actions/types';
 
 // nav links
 import navLinks from '../components/Sidebar/NavLinks';
