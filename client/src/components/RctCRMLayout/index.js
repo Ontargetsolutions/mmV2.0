@@ -12,7 +12,7 @@ import classnames from 'classnames';
 import Header from '../Header/Header';
 import SidebarContent from '../Sidebar';
 import Footer from '../Footer/Footer';
-import ThemeOptions from '..ThemeOptions/ThemeOptions';
+import ThemeOptions from '../ThemeOptions/ThemeOptions';
 
 // preload ../Components
 import PreloadHeader from '../PreloadLayout/PreloadHeader';
