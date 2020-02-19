@@ -13,7 +13,7 @@ import {
 } from '../actions/types';
 
 // chat users
-import recentChatUsers from 'assets/data/chat-app/users';
+import recentChatUsers from '../assets/data/chat-app/users';
 
 const INITIAL_STATE = {
     admin_photo_url: require('../assets/img/user-7.jpg'),
