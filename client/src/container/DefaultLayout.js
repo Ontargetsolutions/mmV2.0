@@ -6,7 +6,7 @@ import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // app default layout
-import RctAppLayout from 'components/RctAppLayout';
+import RctAppLayout from '../components/RctAppLayout';
 
 // router service
 import routerService from "../services/_routerService";
