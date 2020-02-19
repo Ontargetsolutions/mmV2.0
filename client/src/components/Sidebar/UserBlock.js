@@ -75,7 +75,7 @@ class UserBlock extends Component {
 						>
 							<div className="user-profile">
 								<img
-									src={require('assets/avatars/user-15.jpg')}
+									src={require('../../assets/avatars/user-15.jpg')}
 									alt="user profile"
 									className="img-fluid rounded-circle"
 									width="50"
