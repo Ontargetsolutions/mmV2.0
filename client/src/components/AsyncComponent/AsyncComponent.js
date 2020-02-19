@@ -21,8 +21,5 @@ const AsyncCrmComponent = Loadable({
 });
 export {
    AsyncEcommerceDashboardComponent,
-   AsyncSaasDashboardComponent,
-   AsyncAgencyDashboardComponent,
-   AsyncNewsDashboardComponent,
    AsyncCrmComponent
 };
