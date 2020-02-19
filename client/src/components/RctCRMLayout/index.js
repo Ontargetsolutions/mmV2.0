@@ -9,21 +9,21 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import classnames from 'classnames';
 
 // Components
-import Header from 'components/Header/Header';
-import SidebarContent from 'components/Sidebar';
-import Footer from 'components/Footer/Footer';
-import ThemeOptions from 'components/ThemeOptions/ThemeOptions';
+import Header from '../Header/Header';
+import SidebarContent from '../Sidebar';
+import Footer from '../Footer/Footer';
+import ThemeOptions from '..ThemeOptions/ThemeOptions';
 
-// preload Components
-import PreloadHeader from 'components/PreloadLayout/PreloadHeader';
-import PreloadSidebar from 'components/PreloadLayout/PreloadSidebar';
+// preload ../Components
+import PreloadHeader from '../PreloadLayout/PreloadHeader';
+import PreloadSidebar from '../PreloadLayout/PreloadSidebar';
 
 
 // app config
-import AppConfig from 'constants/AppConfig';
+import AppConfig from '../../constants/AppConfig';
 
 // actions
-import { collapsedSidebarAction, startUserTour } from 'actions';
+import { collapsedSidebarAction, startUserTour } from '../../actions';
 
 class MainApp extends Component {
 
