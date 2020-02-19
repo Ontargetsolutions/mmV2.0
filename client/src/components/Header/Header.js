@@ -13,7 +13,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { withRouter } from 'react-router-dom';
 
 // actions
-import { collapsedSidebarAction } from 'actions';
+import { collapsedSidebarAction } from '../../actions';
 
 
 // components

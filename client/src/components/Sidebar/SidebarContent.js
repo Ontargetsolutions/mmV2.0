@@ -7,12 +7,12 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 import NavMenuItem from './NavMenuItem';
 
 // redux actions
-import { onToggleMenu } from 'actions';
+import { onToggleMenu } from '../../actions';
 
 class SidebarContent extends Component {
 

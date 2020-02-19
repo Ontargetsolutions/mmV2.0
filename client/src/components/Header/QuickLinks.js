@@ -10,10 +10,10 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { withRouter } from "react-router-dom";
 
 // helpers
-import { getAppLayout } from "helpers/helpers";
+import { getAppLayout } from "../../helpers/helpers";
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 const QuickLinks = ({ location }) => (
 	<UncontrolledDropdown nav className="list-inline-item quciklink-dropdown tour-step-1">

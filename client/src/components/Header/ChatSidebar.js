@@ -8,7 +8,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
 // data
-import users from 'assets/data/chat-app/users';
+import users from '../../assets/data/chat-app/users';
 
 // helpers
 import { textTruncate } from 'Helpers/helpers';

@@ -9,7 +9,7 @@ import { Badge } from 'reactstrap';
 import Tooltip from '@material-ui/core/Tooltip';
 
 // actions
-import { setLanguage, rtlLayoutAction } from 'actions';
+import { setLanguage, rtlLayoutAction } from '../../actions';
 
 class LanguageProvider extends Component {
 

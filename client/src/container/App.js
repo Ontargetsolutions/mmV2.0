@@ -9,17 +9,10 @@ import { NotificationContainer } from 'react-notifications';
 // rct theme provider
 import RctThemeProvider from './RctThemeProvider';
 
-//Horizontal Layout
-// import HorizontalLayout from './HorizontalLayout';
-
-//Agency Layout
-// import AgencyLayout from './AgencyLayout';
-
 //Main App
 import RctDefaultLayout from './DefaultLayout';
 
-// boxed layout
-// import RctBoxedLayout from './RctBoxedLayout';
+
 // CRM layout
 import CRMLayout from './CRMLayout';
 /**
@@ -45,9 +38,6 @@ class App extends Component {
                authUser={user}
                component={RctDefaultLayout}
             />
-            {/* <Route path="/horizontal" component={HorizontalLayout} /> */}
-            {/* <Route path="/agency" component={AgencyLayout} /> */}
-            {/* <Route path="/boxed" component={RctBoxedLayout} /> */}
             <Route path="/dashboard" component={CRMLayout} />
          </RctThemeProvider>
       );

@@ -6,10 +6,10 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 // app config
-import AppConfig from 'constants/AppConfig';
+import AppConfig from '../../constants/AppConfig';
 
 const Footer = () => (
 	<div className="rct-footer d-flex justify-content-between align-items-center">

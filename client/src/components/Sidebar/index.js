@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 // redux actions
-import { collapsedSidebarAction } from 'actions';
+import { collapsedSidebarAction } from '../../actions';
 
 // components
 import UserBlock from './UserBlock';

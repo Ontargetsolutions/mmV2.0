@@ -11,7 +11,7 @@ import classNames from 'classnames';
 import Chip from '@material-ui/core/Chip';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 class NavMenuItem extends Component {
 

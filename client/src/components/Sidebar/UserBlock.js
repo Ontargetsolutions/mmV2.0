@@ -12,10 +12,10 @@ import { NotificationManager } from 'react-notifications';
 import SupportPage from '../Support/Support';
 
 // redux action
-import { logoutUserFromFirebase } from 'actions';
+import { logoutUserFromFirebase } from '../../actions';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 class UserBlock extends Component {
 
