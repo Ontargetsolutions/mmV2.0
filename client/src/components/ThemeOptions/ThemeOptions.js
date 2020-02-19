@@ -23,7 +23,7 @@ import {
 	rtlLayoutAction,
 	changeThemeColor,
 	toggleDarkSidebar
-} from 'actions';
+} from '../../actions';
 
 // intl messages
 import IntlMessages from '../../util/IntlMessages';
