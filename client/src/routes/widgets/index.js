@@ -22,9 +22,9 @@ const Pages = ({ match }) => (
 		<Switch>
 			<Redirect exact from={`${match.url}/`} to={`${match.url}/user`} />
 			<Route path={`${match.url}/user`} component={AsyncUserWidgetComponent} />
-			<Route path={`${match.url}/charts`} component={AsyncUserChartsComponent} />
+			{/* <Route path={`${match.url}/charts`} component={AsyncUserChartsComponent} />
 			<Route path={`${match.url}/general`} component={AsyncGeneralWidgetsComponent} />
-			<Route path={`${match.url}/promo`} component={AsyncPromoWidgetsComponent} />
+			<Route path={`${match.url}/promo`} component={AsyncPromoWidgetsComponent} /> */}
 		</Switch>
 	</div>
 );
