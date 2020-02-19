@@ -66,12 +66,12 @@ const INIT_STATE = {
 	},
 	// sidebar background image
 	sidebarBackgroundImages: [
-		require('assets/img/sidebar-1.jpg'),
-		require('assets/img/sidebar-2.jpg'),
-		require('assets/img/sidebar-3.jpg'),
-		require('assets/img/sidebar-4.jpg'),
+		require('../assets/img/sidebar-1.jpg'),
+		require('../assets/img/sidebar-2.jpg'),
+		require('../assets/img/sidebar-3.jpg'),
+		require('../assets/img/sidebar-4.jpg'),
 	],
-	bgImagePath: require('assets/img/bg-3.jpg'),
+	bgImagePath: require('../assets/img/bg-3.jpg'),
 	enableSidebarBackgroundImage: AppConfig.enableSidebarBackgroundImage, // default enable sidebar background
 	selectedSidebarImage: AppConfig.sidebarImage, // default sidebar background image
 	locale: AppConfig.locale,
