@@ -1,14 +1,11 @@
 // routes
-import Dashboard from 'routes/dashboard';
-import Crm from 'routes/crm';
+import Dashboard from '../routes/dashboard';
+
 
 export default [
    {
       path: 'dashboard',
       component: Dashboard
    },
-   {
-      path: 'crm',
-      component: Crm
-   }
+
 ]
