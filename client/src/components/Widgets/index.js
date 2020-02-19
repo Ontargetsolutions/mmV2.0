@@ -359,10 +359,10 @@ const SessionSlider = Loadable({
    loading: MyLoadingComponent
 })
 
-const AgencyWelcomeBlock = Loadable({
-   loader: () => import("./AgencyWelcomeBlock"),
-   loading: MyLoadingComponent
-})
+// const AgencyWelcomeBlock = Loadable({
+//    loader: () => import("./AgencyWelcomeBlock"),
+//    loading: MyLoadingComponent
+// })
 
 const TrendingNews = Loadable({
    loader: () => import("./TrendingNews"),
@@ -547,7 +547,7 @@ export {
    TodayOrdersStatsWidget,
    ActivityWidget,
    SessionSlider,
-   AgencyWelcomeBlock,
+   // AgencyWelcomeBlock,
    TrendingNews,
    TopHeadlines,
    Visitors,

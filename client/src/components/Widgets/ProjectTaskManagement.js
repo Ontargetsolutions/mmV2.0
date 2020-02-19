@@ -13,19 +13,19 @@ import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
 
 //Data File
-import { projectTaskData } from 'routes/widgets/data';
+import { projectTaskData } from '../../routes/widgets/data';
 
 // rct section loader
-import RctSectionLoader from 'components/RctSectionLoader/RctSectionLoader';
+import RctSectionLoader from '../../components/RctSectionLoader/RctSectionLoader';
 
 // card component
-import { RctCardFooter } from 'components/RctCard';
+import { RctCardFooter } from '../../components/RctCard';
 
 //Helper
-import { getTheDate, convertDateToTimeStamp } from 'Helpers/helpers';
+import { getTheDate, convertDateToTimeStamp } from '../../helpers/helpers';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 export default class ProjectTaskManagement extends Component {
    constructor(props) {

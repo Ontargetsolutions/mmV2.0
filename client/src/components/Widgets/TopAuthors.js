@@ -7,7 +7,7 @@ const topAuthors = [
 	{
 		id: 1,
 		name: "Natasha Knight",
-		avatarSrc: require("Assets/img/user-1.jpg"),
+		avatarSrc: require("../../assets/img/user-1.jpg"),
 		phone: "+01 2345 67890",
 		email: "natasha@example.com",
 		address: "E-51 Phase-1 Mohali",
@@ -18,7 +18,7 @@ const topAuthors = [
 	{
 		id: 2,
 		name: "Lisa Roy",
-		avatarSrc: require("Assets/img/user-2.jpg"),
+		avatarSrc: require("../../assets/img/user-2.jpg"),
 		phone: "+01 2345 67890",
 		email: "lisa@example.com",
 		address: "London United Kingdom",
@@ -29,7 +29,7 @@ const topAuthors = [
 	{
 		id: 3,
 		name: "Andre Hicks",
-		avatarSrc: require("Assets/img/user-3.jpg"),
+		avatarSrc: require("../../assets/img/user-3.jpg"),
 		phone: "+01 2345 67890",
 		email: "hicksandre@example.com",
 		address: "778 Nicole Station Suite 903",
@@ -40,7 +40,7 @@ const topAuthors = [
 	{
 		id: 4,
 		name: "Jhon Smith",
-		avatarSrc: require("Assets/img/user-4.jpg"),
+		avatarSrc: require("../../assets/img/user-4.jpg"),
 		phone: "+01 2345 67890",
 		email: "jhon@example.com",
 		address: "E-51 Phase-1 Mohali",

@@ -169,7 +169,7 @@ class NewCustomers extends Component {
 		if (addNewCustomerDetails.customer_name !== '' && addNewCustomerDetails.customer_email !== '') {
 			this.setState({ editCustomerModal: false, sectionReload: true });
 			let newCustomer = addNewCustomerDetails
-			newCustomer.id = new Date().getTime(),
+			newCustomer.id = new Date().getTime();
 				newCustomer.photo_url = '';
 			let newCustomers = this.state.newCustomers;
 			let self = this;

@@ -6,17 +6,17 @@ import { Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 import classnames from 'classnames';
 
 // chart component
-import TinyLineChart from 'components/Charts/TinyLineChart';
-import TinyAreaChart from 'components/Charts/TinyAreaChart';
+import TinyLineChart from '.../../components/Charts/TinyLineChart';
+import TinyAreaChart from '.../../components/Charts/TinyAreaChart';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '.../../util/IntlMessages';
 
 // chart config
-import ChartConfig from 'constants/chart-config';
+import ChartConfig from '.../../constants/chart-config';
 
 // helpers
-import { hexToRgbA } from 'Helpers/helpers';
+import { hexToRgbA } from '.../../helpers/helpers';
 
 export default class EmailStatics extends Component {
 

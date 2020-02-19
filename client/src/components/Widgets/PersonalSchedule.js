@@ -11,19 +11,19 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from 'reactstrap';
 
 // api
-import api from 'api';
+import api from '.../../api';
 
 //Helper
-import { getTheDate, convertDateToTimeStamp } from 'Helpers/helpers';
+import { getTheDate, convertDateToTimeStamp } from '.../../helpers/helpers';
 
 //rct card component
-import { RctCardFooter } from "Components/RctCard";
+import { RctCardFooter } from ".../../components/RctCard";
 
 // rct section loader
-import RctSectionLoader from 'components/RctSectionLoader/RctSectionLoader';
+import RctSectionLoader from '.../../components/RctSectionLoader/RctSectionLoader';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '.../../util/IntlMessages';
 
 export default class PersonalSchedule extends Component {
 

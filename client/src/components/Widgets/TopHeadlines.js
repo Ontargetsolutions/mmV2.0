@@ -6,10 +6,10 @@ import Button from '@material-ui/core/Button';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 // card component
-import { RctCardFooter } from 'components/RctCard';
+import { RctCardFooter } from '../../components/RctCard';
 
 //Data
 const headlinesData = [
@@ -19,7 +19,7 @@ const headlinesData = [
       place: "New Delhi",
       category: "Technology",
       badgeColor: "danger",
-      imgUrl: require("Assets/img/gallery-1.jpg"),
+      imgUrl: require("../../assets/img/gallery-1.jpg"),
       time: "4 Hours Ago",
       date: "July 11 2018"
    },
@@ -29,7 +29,7 @@ const headlinesData = [
       place: "Mumbai",
       category: "Weather",
       badgeColor: "info",
-      imgUrl: require("Assets/img/gallery-2.jpg"),
+      imgUrl: require("../../assets/img/gallery-2.jpg"),
       time: "6 Hours Ago",
       date: "July 11 2018"
    },
@@ -39,7 +39,7 @@ const headlinesData = [
       place: "Croatia",
       category: "Sports",
       badgeColor: "primary",
-      imgUrl: require("Assets/img/gallery-3.jpg"),
+      imgUrl: require("../../assets/img/gallery-3.jpg"),
       time: "12 Hours Ago",
       date: "July 11 2018"
    },
@@ -49,7 +49,7 @@ const headlinesData = [
       place: "USA",
       category: "World",
       badgeColor: "success",
-      imgUrl: require("Assets/img/gallery-4.jpg"),
+      imgUrl: require("../../assets/img/gallery-4.jpg"),
       time: "Yesterday",
       date: "July 10 2018"
    },
@@ -59,7 +59,7 @@ const headlinesData = [
       place: "India",
       category: "Entertainment",
       badgeColor: "warning",
-      imgUrl: require("Assets/img/gallery-5.jpg"),
+      imgUrl: require("../../assets/img/gallery-5.jpg"),
       time: "1 hour ago",
       date: "July 11 2018"
    }

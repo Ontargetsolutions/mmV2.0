@@ -4,8 +4,8 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 import { connect } from "react-redux";
-import ChartConfig from "Constants/chart-config";
-import { hexToRgbA } from "helpers/helpers";
+import ChartConfig from "../../constants/chart-config";
+import { hexToRgbA } from "../../helpers/helpers";
 
 // chart options
 const options = {

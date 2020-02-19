@@ -13,16 +13,16 @@ import Tooltip from '@material-ui/core/Tooltip';
 import api from 'api';
 
 // card component
-import { RctCardFooter } from 'components/RctCard';
+import { RctCardFooter } from '.../../components/RctCard';
 
 // rct section loader
-import RctSectionLoader from 'components/RctSectionLoader/RctSectionLoader';
+import RctSectionLoader from '.../../components/RctSectionLoader/RctSectionLoader';
 
 //Helper
-import { getTheDate } from 'Helpers/helpers';
+import { getTheDate } from '.../../helpers/helpers';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '.../../util/IntlMessages';
 
 class ProjectItem extends Component {
 	constructor(props) {

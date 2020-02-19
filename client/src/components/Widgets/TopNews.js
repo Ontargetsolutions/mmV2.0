@@ -4,13 +4,13 @@ import React, { Component } from 'react'
 import Slider from "react-slick";
 
 //Helper
-import { textTruncate} from "helpers/helpers";
+import { textTruncate} from "../../helpers/helpers";
 
 
 const newsData = [
    {
       id: 1,
-      newsSrc:require("Assets/img/news-slide-1.jpg"),
+      newsSrc:require("../../assets/img/news-slide-1.jpg"),
       newsTitle: "#WorldPopulationDay: India Likely to Overtake China by 2022",
       newsContent: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
       likes: "1k",
@@ -19,7 +19,7 @@ const newsData = [
    },
    {
       id: 2,
-      newsSrc: require("Assets/img/news-slide-2.jpg"),
+      newsSrc: require("../../assets/img/news-slide-2.jpg"),
       newsTitle: "Check status of Mumbai local, long-distance trains as rains continue",
       newsContent: "when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries",
       likes: "2k",
@@ -28,7 +28,7 @@ const newsData = [
    },
    {
       id: 3,
-      newsSrc: require("Assets/img/news-slide-3.jpg"),
+      newsSrc: require("../../assets/img/news-slide-3.jpg"),
       newsTitle: "Croatia lowest ranked team in history to reach World Cup final",
       newsContent: "It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, ",
       likes: "500",
@@ -37,7 +37,7 @@ const newsData = [
    },
    {
       id: 4,
-      newsSrc: require("Assets/img/news-slide-4.jpg"),
+      newsSrc: require("../../assets/img/news-slide-4.jpg"),
       newsTitle: "Telecom Commission approves net neutrality, new telecom policy",
       newsContent: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old",
       likes: "4k",
@@ -46,7 +46,7 @@ const newsData = [
    },
    {
       id: 5,
-      newsSrc: require("Assets/img/news-slide-5.jpg"),
+      newsSrc: require("../../assets/img/news-slide-5.jpg"),
       newsTitle: "Vistara orders Boeing, Airbus jets worth $3.1 billion",
       newsContent: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
       likes: "100",

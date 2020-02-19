@@ -2,6 +2,8 @@
  * Sales doughnut chart
 */
 import React, { Component } from 'react';
+// rct card box
+import { RctCardContent } from 'components/RctCard';
 
 /* amChart Imports */
 import * as am4core from "@amcharts/amcharts4/core";
@@ -9,8 +11,6 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 am4core.useTheme(am4themes_animated);
 
-// rct card box
-import { RctCardContent } from 'components/RctCard';
 
 export default class SalesDoughnutChart extends Component {
    componentDidMount() {
