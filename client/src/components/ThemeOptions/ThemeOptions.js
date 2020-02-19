@@ -9,7 +9,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Switch from '@material-ui/core/Switch';
 import Tooltip from '@material-ui/core/Tooltip';
-import AppConfig from 'constants/AppConfig';
+import AppConfig from '../../constants/AppConfig';
 
 import AgencyLayoutBgProvider from "./AgencyLayoutBgProvider";
 
