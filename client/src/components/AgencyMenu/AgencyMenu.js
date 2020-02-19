@@ -12,11 +12,11 @@ import IntlMessages from 'util/IntlMessages';
 
 import navLinks from './NavLinks';
 import NavMenuItem from './NavMenuItem';
-import Sidebar from 'components/Sidebar';
+import Sidebar from '../Sidebar';
 
 //Component
-import SearchForm from 'components/Header/SearchForm';
-import MobileSearchForm from 'components/Header/MobileSearchForm';
+import SearchForm from '../Header/SearchForm';
+import MobileSearchForm from '../Header/MobileSearchForm';
 
 class AgencyMenu extends Component {
 

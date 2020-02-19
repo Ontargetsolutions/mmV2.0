@@ -7,12 +7,12 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 import AgencySidebarMenuItem from './AgencySidebarMenuItem';
 
 // redux actions
-import { onToggleAgencyMenu } from 'actions';
+import { onToggleAgencyMenu } from '../../actions';
 
 class AgencySidebar extends Component {
 

@@ -8,7 +8,7 @@ import IntlMessages from 'util/IntlMessages';
 import Chip from '@material-ui/core/Chip';
 
 //Helper
-import { getAppLayout } from "helpers/helpers";
+import { getAppLayout } from "../../helpers/helpers";
 
 class NavMenuItem extends Component {
 

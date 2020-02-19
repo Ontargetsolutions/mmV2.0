@@ -11,10 +11,10 @@ import classNames from 'classnames';
 import Chip from '@material-ui/core/Chip';
 
 //Helper
-import { getAppLayout } from "helpers/helpers";
+import { getAppLayout } from "../../helpers/helpers";
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 class AgencySidebarMenuItem extends Component {
 
