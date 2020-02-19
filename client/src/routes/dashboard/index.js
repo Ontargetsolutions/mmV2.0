@@ -10,7 +10,7 @@ import {
    AsyncSaasDashboardComponent,
    AsyncAgencyDashboardComponent,
    AsyncNewsDashboardComponent
-} from 'components/AsyncComponent/AsyncComponent';
+} from '../../components/AsyncComponent/AsyncComponent';
 
 const Dashboard = ({ match }) => (
    <div className="dashboard-wrapper">
