@@ -5,19 +5,19 @@ import React from 'react';
 import CountUp from 'react-countup';
 
 // chart
-import TinyAreaChart from '.../../components/Charts/TinyAreaChart';
+import TinyAreaChart from '../../components/Charts/TinyAreaChart';
 
 // chart config
-import ChartConfig from '.../../constants/chart-config';
+import ChartConfig from '../../constants/chart-config';
 
 // intl messages
-import IntlMessages from '.../../util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 // rct card box
-import { RctCard, RctCardContent } from '.../../components/RctCard';
+import { RctCard, RctCardContent } from '../../components/RctCard';
 
 // helpers
-import { hexToRgbA } from '.../../helpers/helpers';
+import { hexToRgbA } from '../../helpers/helpers';
 
 const UsersAreaChart = ({ data }) => (
     <RctCard>
