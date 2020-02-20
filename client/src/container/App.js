@@ -15,6 +15,16 @@ import RctDefaultLayout from './DefaultLayout';
 
 // CRM layout
 import CRMLayout from './CRMLayout';
+
+// async components
+import {
+   AsyncSessionLoginComponent,
+   AsyncSessionRegisterComponent,
+   AsyncSessionPage404Component,
+   AsyncClientDashboardComponent,
+
+ } from 'Components/AsyncComponent/AsyncComponent';
+
 /**
  * Initial Path To Check Whether User Is Logged In Or Not
  */

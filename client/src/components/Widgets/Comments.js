@@ -9,7 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 
 import { Fab } from '@material-ui/core';
 // Api
-import api from 'api';
+import api from '../../api';
 
 // intl messages
 import IntlMessages from '../../util/IntlMessages';

@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import Loadable from 'react-loadable';
-import PreloadWidget from 'components/PreloadLayout/PreloadWidget';
+import PreloadWidget from '../../components/PreloadLayout/PreloadWidget';
 
 const MyLoadingComponent = () => (
    <PreloadWidget />
