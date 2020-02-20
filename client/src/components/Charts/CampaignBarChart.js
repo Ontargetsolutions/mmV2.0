@@ -8,7 +8,7 @@ import {
 	CartesianGrid,
 	Tooltip
 } from 'recharts';
-import ChartConfig from 'constants/chart-config';
+import ChartConfig from '../../constants/chart-config';
 
 class SimpleBarChartComponent extends Component {
 	render() {

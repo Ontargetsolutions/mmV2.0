@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { Bar } from 'react-chartjs-2';
 
 // chart config
-import ChartConfig from 'constants/chart-config';
+import ChartConfig from '../../constants/chart-config';
 
 export default class StackedBarChart extends Component {
    render() {

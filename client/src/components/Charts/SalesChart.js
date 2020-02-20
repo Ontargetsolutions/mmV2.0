@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 
 // chart config file
-import ChartConfig from 'constants/chart-config';
+import ChartConfig from '../../constants/chart-config';
 
 // Main Component
 export default class SalesChart extends Component {

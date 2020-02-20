@@ -5,7 +5,7 @@ import React from 'react';
 import { Pie } from 'react-chartjs-2';
 
 // chart congig
-import ChartConfig from 'constants/chart-config';
+import ChartConfig from '../../constants/chart-config';
 
 const options = {
     legend: {

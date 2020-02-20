@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import ChartConfig from 'constants/chart-config';
+import ChartConfig from '../../constants/chart-config';
 
 const options = {
   legend: {
