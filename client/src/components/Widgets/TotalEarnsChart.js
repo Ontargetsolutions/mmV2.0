@@ -6,8 +6,8 @@ import { Line } from 'react-chartjs-2';
 import { Button, ButtonGroup } from 'reactstrap';
 
 // chart config
-import ChartConfig from '.../../constants/chart-config';
-import { hexToRgbA } from '.../../helpers/helpers';
+import ChartConfig from '../../constants/chart-config';
+import { hexToRgbA } from '../../helpers/helpers';
 
 // chart options
 const options = {
