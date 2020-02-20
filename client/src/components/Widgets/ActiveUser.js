@@ -77,7 +77,7 @@ export default class ActiveUser extends Component {
                             <ListItem key={key} className="border-bottom d-flex justify-content-between align-items-center p-20">
                                 <div className="w-60 d-flex">
                                     <div className="flag-img mr-30">
-                                        <img src={require(`Assets/flag-icons/${data.flag}.png`)} alt="flag-img" className="img-fluid" width="44" height="30" />
+                                        <img src={require(`../../assets/flag-icons/${data.flag}.png`)} alt="flag-img" className="img-fluid" width="44" height="30" />
                                     </div>
                                     <span>{data.countryName}</span>
                                 </div>
