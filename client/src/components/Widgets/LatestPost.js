@@ -21,19 +21,19 @@ import Snackbar from '@material-ui/core/Snackbar';
 import { Fab } from '@material-ui/core';
 
 // api
-import api from '.../../api';
+import api from '../../api';
 
 //Helper
-import { getTheDate, convertDateToTimeStamp } from '.../../helpers/helpers';
+import { getTheDate, convertDateToTimeStamp } from '../../helpers/helpers';
 
 // card component
-import { RctCardFooter } from '.../../components/RctCard';
+import { RctCardFooter } from '../../components/RctCard';
 
 // rct section loader
-import RctSectionLoader from '.../../components/RctSectionLoader/RctSectionLoader';
+import RctSectionLoader from '../../components/RctSectionLoader/RctSectionLoader';
 
 // intl messages
-import IntlMessages from '.../../util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 export default class LatestPost extends Component {
 
