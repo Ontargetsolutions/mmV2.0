@@ -39,11 +39,17 @@ module.exports = {
 	},
 	devServer: {
 		contentBase: './src/index.js',
-		host: '0.0.0.0',
+		// host: '0.0.0.0',
 		compress: true,
 		port: 3000, // port number
 		historyApiFallback: true,
-		quiet: true
+		quiet: true,
+		proxy: [
+			{
+			  context: ['/'],
+			  target: 'http://localhost:5000',
+			},
+		  ],
 	},
 	// resolve alias (Absolute paths)
 	resolve: {

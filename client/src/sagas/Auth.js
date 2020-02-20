@@ -35,7 +35,7 @@ import {
 } from '../actions';
 import {stringify} from 'querystring';
 
-import API from '../api/index';
+import userAPI from '../api/UserAPI';
 
 const actionCodeSettings = {
   url: 'http://localhost:3000',
@@ -70,19 +70,20 @@ const registerMySQL = async (
   type,
   companyName
 ) =>
-  await API.register ({
-    email,
-    password,
-    name,
-    phone,
-    address1,
-    address2,
-    city,
-    country,
-    stateC,
-    zipcode,
-    type,
-    companyName
+  await userAPI.saveUser ({
+    Name: name,
+    Phone: phone,
+    AccountType: type,
+    Company: companyName,
+    Email: email,
+    Address1: address1,
+    Address2: address2,
+    City: city,
+    Country: country,
+    State: stateC,
+    Zip: zipcode,
+    Active: true,
+    Rol: "Client"
   })
     .then (userCreated => userCreated)
     .catch (error => error);
@@ -126,25 +127,12 @@ const deletingASignedFirebaseUser = async () => {
     .catch (error => error);
 };
 
-/**
- * Fectch countries
- */
-const fetchCountriesRequest = async () =>
-  await API.getCountries ()
-    .then (countries => countries)
-    .catch (error => error);
-
-/**
- * Fectch States
- */
-const fetchStateRequest = async country =>
-  await API.getStates (country).then (states => states).catch (error => error);
 
 /**
  * Find User by Email
  */
 const findUserRequest = async email =>
-  await API.getUserByEmail (email).then (user => user).catch (error => error);
+  await userAPI.getUserByEmail (email).then (user => user).catch (error => error);
 
 /**
  * Signout Request
@@ -308,7 +296,7 @@ function* createUserWithEmailPassword({payload}) {
       email,
       password
     );
-
+    console.log(`looq ue vira de firebase ${JSON.stringify(signUpUser)}`)
     if (signUpUser.message) {
       yield put (signUpUserInFirebaseFailure (signUpUser.message));
     } else {
@@ -327,7 +315,7 @@ function* createUserWithEmailPassword({payload}) {
         type,
         companyName
       );
-
+      console.log(`looq ue vira de mysql ${JSON.stringify(userCreated)}`)
       localStorage.setItem (
         'user_info',
         // JSON.stringify (userCreated.data.email)
@@ -366,42 +354,6 @@ function* changeThePassword (payload) {
   } catch (error) {
     yield put (changePasswordFailure (error));
     console.log (`entro al error de la saga grande error ${error}`);
-  }
-}
-
-/**
- * Fetch the Countries
- */
-function* fetchCountries () {
-  try {
-    const countries = yield call (fetchCountriesRequest);
-    if (countries.message) {
-      yield put (fetchCountryFailure (countries.message));
-    } else {
-      yield put (fetchCountrySuccess (countries.data));
-    }
-  } catch (error) {
-    yield put (changePasswordFailure (error));
-    // console.log (`entro al error de la saga grande error ${error}`);
-  }
-}
-
-/**
- * Fetch the States
- */
-function* fetchStates (payload) {
-  const country = payload.payload;
-  // console.log (`country en la saga pa fetch states ${country}`);
-  try {
-    const states = yield call (fetchStateRequest, country);
-    if (states.message) {
-      yield put (fetchStateFailure (states.message));
-    } else {
-      yield put (fetchStateSuccess (states.data));
-    }
-  } catch (error) {
-    yield put (fetchStateFailure (error));
-    // console.log (`entro al error de la saga grande error ${error}`);
   }
 }
 
@@ -447,20 +399,6 @@ export function* changePassword () {
   yield takeEvery (CHANGE_PASSWORD, changeThePassword);
 }
 
-/**
- * FETCH COUNTRY
- */
-export function* fetchCountryWatcher () {
-  yield takeEvery (FETCH_COUNTRY, fetchCountries);
-}
-
-/**
- * FETCH STATE
- */
-export function* fetchStateWatcher () {
-  yield takeEvery (FETCH_STATE, fetchStates);
-}
-
 
 /**
  * GET USER
@@ -480,9 +418,6 @@ export default function* rootSaga () {
     fork (signOutUser),
     fork (changePassword),
     fork (createUserAccount),
-    fork (fetchCountryWatcher),
-    fork (fetchStateWatcher),
     fork (getUserByEmailWatcher),
-
   ]);
 }

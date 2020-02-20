@@ -27,32 +27,6 @@ module.exports = {
       .then(data => res.json(data))
       .catch(err => res.status(422).json(err));
   },
-  getCountryFromAPI: (req, res) => {
-    const countryList = countriesStates.getAllCountries();
-    console.log(`backend controladora countries ${JSON.stringify(countryList)}`);
-    // const api = process.env.BATUTTA_KEY;
-    // const nhtsaEndpoint = new URL(
-    //   `http://battuta.medunes.net/api/country/all/?key=${api}`
-    // );
-    // request
-    //   .get({ url: nhtsaEndpoint })
-    //   .then(data => res.send(data))
-    //   .catch(err => res.status(422).json(err));
-  },
-
-  getStateFromAPI: (req, res) => {
-    console.log(`backend controladora states ${req.params.country}`);
-    const api = process.env.BATUTTA_KEY;
-    const countryCode = req.params.country;
-    console.log(`backend ruta buscar state ${countryCode}`);
-    const nhtsaEndpoint = new URL(
-      `http://battuta.medunes.net/api/region/${countryCode}/all/?key=${api}`
-    );
-    request
-      .get({ url: nhtsaEndpoint })
-      .then(data => res.send(data))
-      .catch(err => res.status(422).json(err));
-  },
 
   register: (req, res) => {
     console.log(

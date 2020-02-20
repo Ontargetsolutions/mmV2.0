@@ -19,7 +19,9 @@ import {
  */
 const INIT_STATE = {
     user: localStorage.getItem('user_id'),
-    loading: false
+    loading: false,
+    userAuthe: localStorage.getItem ('user_info'),
+    userData: {},
 };
 
 export default (state = INIT_STATE, action) => {
@@ -49,11 +51,17 @@ export default (state = INIT_STATE, action) => {
             return { ...state, loading: true };
 
         case SIGNUP_USER_SUCCESS:
-            NotificationManager.success('Account Created');
-            return { ...state, loading: false, user: action.payload.uid };
+            NotificationManager.success ('Account Created');
+            console.log(`action.payload en el reducer despues de autentificar ${JSON.stringify(action.payload)}`)
+            return {
+              ...state,
+              loading: false,
+              user: action.payload.uid,
+              userAuthe: action.payload.userAuthe.Email,
+            };
 
         case SIGNUP_USER_FAILURE:
-            NotificationManager.error(action.payload);
+            // NotificationManager.error(action.payload);
             return { ...state, loading: false };
 
         default: return { ...state };

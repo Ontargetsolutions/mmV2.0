@@ -24,6 +24,9 @@ import AppConfig from '../constants/AppConfig';
 // redux action
 import {signupUserInFirebase, fetchCountry, fetchState} from '../actions';
 
+const countriesStates= require('countrycitystatejson');
+
+
 class SignupFirebase extends Component {
   state = {
     name: '',
@@ -35,34 +38,30 @@ class SignupFirebase extends Component {
     city: '',
     type: '',
     companyName: '',
-    country: 'af',
+    country: 'AD',
     stateC: '',
     zipcode: '',
     checkedCompany: false,
   };
-
+  
+  
   handleChangeCountry = event => {
     this.setState ({country: event.target.value});
-    this.props.fetchState (event.target.value);
   };
+
   handleChangeState = event => {
     this.setState ({stateC: event.target.value});
   };
 
   handleChange = name => (event, checked) => {
     this.setState ({[name]: checked});
-    if(this.state.checkedCompany){
-      this.setState({type: "personal"})
-    }else{
-      this.setState({type: "company"})
+    if (this.state.checkedCompany) {
+      this.setState ({type: 'personal'});
+    } else {
+      this.setState ({type: 'company'});
     }
   };
 
-  componentDidMount () {
-    this.props.fetchCountry ();
-    const count = this.state.country;
-    this.props.fetchState (count);
-  }
 
   /**
    * On User Signup
@@ -80,7 +79,7 @@ class SignupFirebase extends Component {
       stateC,
       zipcode,
       companyName,
-      type
+      type,
     } = this.state;
     if (
       email !== '' &&
@@ -93,7 +92,7 @@ class SignupFirebase extends Component {
       zipcode !== ''
     ) {
       if (stateC !== '') {
-        console.log(`state ${JSON.stringify(this.state)}`)
+        console.log (`state ${JSON.stringify (this.state)}`);
         this.props.signupUserInFirebase (
           {
             email,
@@ -107,7 +106,7 @@ class SignupFirebase extends Component {
             stateC,
             zipcode,
             type,
-            companyName
+            companyName,
           },
           this.props.history
         );
@@ -133,7 +132,10 @@ class SignupFirebase extends Component {
       state,
       zipcode,
     } = this.state;
-    const {loading, countries, states} = this.props;
+    const {loading} = this.props;
+    
+      const countires = countriesStates.getCountries();
+      const states = countriesStates.getStatesByShort(this.state.country);
 
     return (
       <QueueAnim type="bottom" duration={2000}>
@@ -308,16 +310,16 @@ class SignupFirebase extends Component {
                             id="country"
                             onChange={this.handleChangeCountry}
                           >
-                            {countries.map ((count, index) => {
+                            {countires.map ((count, index) => {
                               return (
-                                <option value={count.code} key={index}>
+                                <option value={count.shortName} key={index}>
                                   {count.name}
                                 </option>
                               );
                             })}
                           </Input>
                         </Col>
-                        <Col sm={4}>
+                          <Col sm={4}> 
                           <Input
                             className="mb-20"
                             type="select"
@@ -327,12 +329,12 @@ class SignupFirebase extends Component {
                           >
                             {states.map ((state, index) => {
                               return (
-                                <option value={state.region} key={index}>
-                                  {state.region}
+                                <option value={state} key={index}>
+                                  {state}
                                 </option>
                               );
                             })}
-                          </Input>
+                          </Input> 
                         </Col>
                       </FormGroup>
                       <FormGroup row>
@@ -396,12 +398,10 @@ class SignupFirebase extends Component {
 
 // map state to props
 const mapStateToProps = ({authUser}) => {
-  const {loading, countries, cities, states} = authUser;
-  return {loading, countries, cities, states};
+  const {loading} = authUser;
+  return {loading };
 };
 
 export default connect (mapStateToProps, {
   signupUserInFirebase,
-  fetchCountry,
-  fetchState,
 }) (SignupFirebase);

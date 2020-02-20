@@ -70,13 +70,13 @@ class Signin extends Component {
                 <div className="d-flex justify-content-between">
                   <div className="session-logo">
                     <Link to="/">
-                      <img
+                      {/* <img
                         src={AppConfig.appLogo}
                         alt="session-logo"
                         className="img-fluid"
                         width="110"
                         height="35"
-                      />
+                      /> */}
                     </Link>
                   </div>
                   <div>
