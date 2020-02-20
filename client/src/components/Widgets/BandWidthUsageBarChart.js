@@ -10,7 +10,7 @@ import SimpleBarChart from '../../components/Charts/SimpleBarChart';
 import IntlMessages from '../../util/IntlMessages';
 
 // rct card box
-import { RctCard, RctCardContent } from 'components/RctCard';
+import { RctCard, RctCardContent } from '../../components/RctCard';
 
 const BandWidthUsageBarChart = ({ data }) => (
     <RctCard customClasses="gradient-success overflow-hidden">
