@@ -122,7 +122,7 @@ const Activity = () => (
 						<p className="text-muted">Postd a new blog in website</p>
 						<div className="media media-full">
 							<img
-								src={require('assets/img/gallery-6.jpg')}
+								src={require('../../assets/img/gallery-6.jpg')}
 								className="img-fluid mr-20"
 								alt="post"
 								width="300"
