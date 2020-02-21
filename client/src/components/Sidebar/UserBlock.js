@@ -1,149 +1,131 @@
 /**
  * User Block Component
  */
-import React, { Component } from 'react';
-import { Dropdown, DropdownToggle, DropdownMenu } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Badge } from 'reactstrap';
-import { NotificationManager } from 'react-notifications';
+import React, {Component} from 'react';
+import {Dropdown, DropdownToggle, DropdownMenu} from 'reactstrap';
+import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {Badge} from 'reactstrap';
+import {NotificationManager} from 'react-notifications';
 
 // components
 import SupportPage from '../Support/Support';
 
 // redux action
-import { logoutUserFromFirebase } from '../../actions';
+import {logoutUserFromFirebase, getUser} from '../../actions';
 
 // intl messages
 import IntlMessages from '../../util/IntlMessages';
 
+
 class UserBlock extends Component {
+  state = {
+    userDropdownMenu: false,
+    isSupportModal: false,
+  };
 
-	state = {
-		userDropdownMenu: false,
-		isSupportModal: false
-	}
+  componentDidMount () {
+    const email = this.props.userAuthe
+    console.log (`====>email despues de la funcion ${JSON.stringify(email)}`);
+    // toString().replace (/['"]+/g, '');
+    // this.props.getUser (email);
+  }
 
-	/**
+  /**
 	 * Logout User
 	 */
-	logoutUser() {
-		this.props.logoutUserFromFirebase();
-	}
+  logoutUser (e) {
+    e.preventDefault ();
+    this.props.logoutUserFromFirebase ();
+  }
 
-	/**
+  /**
 	 * Toggle User Dropdown Menu
 	 */
-	toggleUserDropdownMenu() {
-		this.setState({ userDropdownMenu: !this.state.userDropdownMenu });
-	}
+  toggleUserDropdownMenu () {
+    this.setState ({userDropdownMenu: !this.state.userDropdownMenu});
+  }
 
-	/**
+  /**
 	 * Open Support Modal
 	 */
-	openSupportModal() {
-		this.setState({ isSupportModal: true });
-	}
+  openSupportModal () {
+    this.setState ({isSupportModal: true});
+  }
 
-	/**
+  /**
 	 * On Close Support Page
 	 */
-	onCloseSupportPage() {
-		this.setState({ isSupportModal: false });
-	}
+  onCloseSupportPage () {
+    this.setState ({isSupportModal: false});
+  }
 
-	/**
+  /**
 	 * On Submit Support Page
 	 */
-	onSubmitSupport() {
-		this.setState({ isSupportModal: false });
-		NotificationManager.success('Message has been sent successfully!');
-	}
+  onSubmitSupport () {
+    this.setState ({isSupportModal: false});
+    NotificationManager.success ('Message has been sent successfully!');
+  }
 
-	render() {
-		return (
-			<div className="top-sidebar">
-				<div className="sidebar-user-block">
-					<Dropdown
-						isOpen={this.state.userDropdownMenu}
-						toggle={() => this.toggleUserDropdownMenu()}
-						className="rct-dropdown"
-					>
-						<DropdownToggle
-							tag="div"
-							className="d-flex align-items-center"
-						>
-							<div className="user-profile">
-								<img
-									src={require('../../assets/avatars/user-15.jpg')}
-									alt="user profile"
-									className="img-fluid rounded-circle"
-									width="50"
-									height="100"
-								/>
-							</div>
-							<div className="user-info">
-								<span className="user-name ml-4">Lucile Beck</span>
-								<i className="zmdi zmdi-chevron-down dropdown-icon mx-4"></i>
-							</div>
-						</DropdownToggle>
-						<DropdownMenu>
-							<ul className="list-unstyled mb-0">
-								<li className="p-15 border-bottom user-profile-top bg-primary rounded-top">
-									<p className="text-white mb-0 fs-14">Lucile Beck</p>
-									<span className="text-white fs-14">info@example.com</span>
-								</li>
-								<li>
-									<Link to={{
-										pathname: '/app/users/user-profile-1',
-										state: { activeTab: 0 }
-									}}>
-										<i className="zmdi zmdi-account text-primary mr-3"></i>
-										<span><IntlMessages id="widgets.profile" /></span>
-									</Link>
-								</li>
-								<li>
-									<Link to={{
-										pathname: '/app/users/user-profile-1',
-										state: { activeTab: 2 }
-									}}>
-										<i className="zmdi zmdi-comment-text-alt text-success mr-3"></i>
-										<span><IntlMessages id="widgets.messages" /></span>
-										<Badge color="danger" className="pull-right">3</Badge>
-									</Link>
-								</li>
-								<li>
-									<Link to="/app/pages/feedback">
-										<i className="zmdi zmdi-edit text-warning mr-3"></i>
-										<span><IntlMessages id="sidebar.feedback" /></span>
-										<Badge color="info" className="pull-right">1</Badge>
-									</Link>
-								</li>
-								<li className="border-top">
-									<a href="#">
-										<i className="zmdi zmdi-power text-danger mr-3"></i>
-										<span><IntlMessages id="widgets.logOut" /></span>
-									</a>
-								</li>
-							</ul>
-						</DropdownMenu>
-					</Dropdown>
-				</div>
-				<SupportPage
-					isOpen={this.state.isSupportModal}
-					onCloseSupportPage={() => this.onCloseSupportPage()}
-					onSubmit={() => this.onSubmitSupport()}
-				/>
-			</div>
-		);
-	}
+  render () {
+	const {userAuthe, userData} = this.props;
+    return (
+      <div className="top-sidebar">
+        <div className="sidebar-user-block">
+          <Dropdown
+            isOpen={this.state.userDropdownMenu}
+            toggle={() => this.toggleUserDropdownMenu ()}
+            className="rct-dropdown"
+          >
+            <DropdownToggle tag="div" className="d-flex align-items-center">
+              {/* <div className="user-profile">
+                <img
+                  src={require ('Assets/avatars/user-15.jpg')}
+                  alt="user profile"
+                  className="img-fluid rounded-circle"
+                  width="50"
+                  height="100"
+                />
+              </div> */}
+              <div className="user-info">
+                <span className="user-name ml-4">{userData.Name}</span>
+                <i className="zmdi zmdi-chevron-down dropdown-icon mx-4" />
+              </div>
+            </DropdownToggle>
+            <DropdownMenu>
+              <ul className="list-unstyled mb-0">
+                <li className="p-15 border-bottom user-profile-top bg-primary rounded-top">
+                  <p className="text-white mb-0 fs-14">{userData.Name}</p>
+                  <span className="text-white fs-14">{userData.Email}</span>
+                </li>
+                <li className="border-top">
+                  <a href="#" onClick={e => this.logoutUser (e)}>
+                    <i className="zmdi zmdi-power text-danger mr-3" />
+                    <IntlMessages id="widgets.logOut" />
+                  </a>
+                </li>
+              </ul>
+            </DropdownMenu>
+          </Dropdown>
+        </div>
+        <SupportPage
+          isOpen={this.state.isSupportModal}
+          onCloseSupportPage={() => this.onCloseSupportPage ()}
+          onSubmit={() => this.onSubmitSupport ()}
+        />
+      </div>
+    );
+  }
 }
 
 // map state to props
-const mapStateToProps = ({ settings }) => {
-	return settings;
-}
+const mapStateToProps = ({settings, authUser}) => {
+  const {userAuthe, userData} = authUser;
+  return {settings, userAuthe, userData};
+};
 
-export default connect(mapStateToProps, {
-	logoutUserFromFirebase
-})(UserBlock);
+export default connect (mapStateToProps, {
+  logoutUserFromFirebase,
+  getUser,
+}) (UserBlock);
