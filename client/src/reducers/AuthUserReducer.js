@@ -13,6 +13,9 @@ import {
   LOGOUT_USER_SUCCESS,
   LOGOUT_USER_FAILURE,
   SHOW_MESSAGE,
+  GET_USER_SUCCESS,
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_FAILURE,
 } from '../actions/types';
 
 /**
@@ -52,9 +55,6 @@ export default (state = INIT_STATE, action) => {
 
     case SIGNUP_USER_SUCCESS:
       NotificationManager.success ('Account Created');
-      console.log (
-        `action.payload en el reducer despues de autentificar ${JSON.stringify (action.payload)}`
-      );
       return {
         ...state,
         loading: false,
@@ -67,6 +67,22 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
       };
+
+    case GET_USER_SUCCESS:
+      console.log (
+        `action.payload en el reducer despues de autentificar ${JSON.stringify (action.payload)}`
+      );
+      return {...state, userData: action.payload};
+
+    case USER_UPDATE_SUCCESS:
+      NotificationManager.success ('Profile Updated Successfully!');
+      return {...state, userData: action.payload};
+
+    case USER_UPDATE_FAILURE:
+      NotificationManager.error (
+        'Fail to update the profile, ' + action.payload
+      );
+      return {...state};
 
     case SIGNUP_USER_FAILURE:
       // NotificationManager.error(action.payload);

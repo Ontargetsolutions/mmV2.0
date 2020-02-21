@@ -9,10 +9,12 @@
 }
 .rct-page-content {
   padding: $grid-gutter-width; //24px;
+
 }
 .rct-footer {
 	box-shadow: $footer-box-shadow;
 	background-color: $footer-bg;
+	color: white !important;
 	padding: 1.25rem; //20px;
 	z-index: 9;
 	h5 {

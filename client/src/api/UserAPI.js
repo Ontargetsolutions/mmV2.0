@@ -11,6 +11,7 @@ export default {
   },
   // Gets the user with the given email
   getUserByEmail: function(email) {
+    console.log(`api forntend user data ${email}`)
     return axios.get("/api/users/email/" + email);
   },
   // Update the user with the given id
@@ -19,7 +20,6 @@ export default {
   },
   // Saves a user to the database
   saveUser: function(userData) {
-      console.log(`api forntend user data ${JSON.stringify(userData)}`)
     return axios.post("/api/users", userData);
   },
   // Gets users by { ... }

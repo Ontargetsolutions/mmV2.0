@@ -18,8 +18,9 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   getUserByEmail: (req, res) => {
+    console.log(`en backend pa buscar el usuario ${JSON.stringify(req.params)} `)
     db.User.findOne({ where: { Email: req.params.email } })
-      .then(data => res.json(data))
+      .then(data => res.send(data))
       .catch(err => res.status(422).json(err));
   },
   getPersonById: (req, res) => {

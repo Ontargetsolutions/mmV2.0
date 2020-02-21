@@ -40,10 +40,19 @@ const AsyncSessionPage404Component = Loadable ({
   loading: () => <RctPageLoader />,
 });
 
+/*---------------- Client ------------------*/
+
+// SProfile
+const AsyncProfileComponent = Loadable ({
+  loader: () => import ('../../routes/Clients/Profile'),
+  loading: () => <RctPageLoader />,
+});
+
 export {
   AsyncEcommerceDashboardComponent,
   AsyncSessionLoginComponent,
   AsyncSessionRegisterComponent,
   AsyncSessionForgotPasswordComponent,
   AsyncSessionPage404Component,
+  AsyncProfileComponent
 };

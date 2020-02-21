@@ -168,6 +168,7 @@ function* signInUserWithEmailPassword({payload}) {
     } else {
       localStorage.setItem ('user_id', signInUser.user.uid);
       localStorage.setItem ('user_info', signInUser.user.email);
+      yield call(getUserByEmail, signInUser.user.email )
       yield put (
         signinUserSuccess ({
           uid: signInUser.user.uid,
@@ -186,14 +187,14 @@ function* signInUserWithEmailPassword({payload}) {
  */
 function* getUserByEmail (payload) {
   const email = payload.payload;
-  console.log(`en saga para obtener datos de usurios logeado ${JSON.stringify(payload)}`)
+  console.log(`****************email en saga para obtener datos de usurios logeado ${JSON.stringify(payload)}`)
   try {
     const user = yield call (findUserRequest, email);
-    console.log(`user devuelto ${JSON.stringify(payload)}`)
+    console.log(`user devuelto ${JSON.stringify(user)}`)
     if (user.message) {
       yield put (getUserFailure (user.message));
     } else {
-      yield put (getUserSuccess (user));
+      yield put (getUserSuccess (user.data));
     }
   } catch (error) {
     yield put (getUserFailure (error));

@@ -25,10 +25,10 @@ class UserBlock extends Component {
   };
 
   componentDidMount () {
-    const email = this.props.userAuthe
+    const email = this.props.userAuthe;
     console.log (`====>email despues de la funcion ${JSON.stringify(email)}`);
     // toString().replace (/['"]+/g, '');
-    // this.props.getUser (email);
+    this.props.getUser (email);
   }
 
   /**
@@ -70,6 +70,7 @@ class UserBlock extends Component {
 
   render () {
 	const {userAuthe, userData} = this.props;
+	console.log(`user que viene para la barra del lado ${JSON.stringify(userData)}  userAute ${userAuthe} `)
     return (
       <div className="top-sidebar">
         <div className="sidebar-user-block">
@@ -97,7 +98,7 @@ class UserBlock extends Component {
               <ul className="list-unstyled mb-0">
                 <li className="p-15 border-bottom user-profile-top bg-primary rounded-top">
                   <p className="text-white mb-0 fs-14">{userData.Name}</p>
-                  <span className="text-white fs-14">{userData.Email}</span>
+                  <span className="text-white fs-14">{userAuthe}</span>
                 </li>
                 <li className="border-top">
                   <a href="#" onClick={e => this.logoutUser (e)}>
