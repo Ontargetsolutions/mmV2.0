@@ -186,7 +186,6 @@ function* signInUserWithEmailPassword({payload}) {
  */
 function* getUserByEmail (payload) {
   const email = payload.payload;
-  console.log(`email en saga para obtener datos de usurios logeado ${JSON.stringify(payload)}`)
   console.log(`en saga para obtener datos de usurios logeado ${JSON.stringify(payload)}`)
   try {
     const user = yield call (findUserRequest, email);
@@ -211,12 +210,13 @@ function* signinUserWithFacebookAccount({payload}) {
       yield put (signinUserFailure (signUpUser.message));
     } else {
       const user = yield call (findUserRequest, signUpUser.user.email);
-      if (user.data != '') {
+      if (user.data) {
         localStorage.setItem ('user_id', signUpUser.user.uid);
         yield put (signinUserSuccess (signUpUser));
         payload.push ('/');
       } 
       else {
+        console.log(`no encontro el usuario`);
         yield call (deletingASignedFirebaseUser);
         yield put (showAuthMessage ('You need to Sign Up First'));
         localStorage.removeItem ('user_id');
@@ -238,13 +238,15 @@ function* signinUserWithGoogleAccount({payload}) {
       yield put (signinUserFailure (signUpUser.message));
     } else {
       const user = yield call (findUserRequest, signUpUser.user.email);
-      if (user.data != '') {
+      if (user.data) {
+        console.log(`encontro el usuario`);
         localStorage.setItem ('user_id', signUpUser.user.uid);
         localStorage.setItem ('user_info', signUpUser.user.email);
         yield put (signinUserSuccess ({userAuthe: signUpUser.user.email, userData: user.data}));
         payload.push ('/');
       } 
       else {
+        console.log(`no encontro el usuario`);
         yield call (deletingASignedFirebaseUser);
         yield put (showAuthMessage ('You need to Sign Up First'));
         localStorage.removeItem ('user_id');
@@ -253,7 +255,7 @@ function* signinUserWithGoogleAccount({payload}) {
     }
   } catch (error) {
     yield put (signinUserFailure (error));
-  }
+  }  
 }
 
 /**
