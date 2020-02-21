@@ -18,11 +18,11 @@ module.exports = {
     operatorsAliases: false,
   },
   production: {
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-    host: process.env.DB_HOST,
-    dialect: 'mysql',
-    operatorsAliases: false,
+    // username: process.env.DB_USERNAME,
+    // password: process.env.DB_PASSWORD,
+    // database: process.env.DB_DATABASE,
+    // host: process.env.DB_HOST,
+    'use_env_variable': 'JAWSDB_URL',
+     dialect: 'mysql'
   }
 };
