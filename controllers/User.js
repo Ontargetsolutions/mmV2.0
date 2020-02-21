@@ -32,21 +32,7 @@ module.exports = {
     console.log(
       `en la controladora para ver el body ${JSON.stringify(req.body)}`
     );
-    db.User.create({
-      Name: req.body.Name,
-      Phone: req.body.Phone,
-      AccountType: req.body.AccountType,
-      Company: req.body.Company,
-      Email: req.body.Email,
-      Address1: req.body.Address1,
-      Address2: req.body.Address2,
-      City: req.body.City,
-      Country: req.body.Country,
-      State: req.body.State,
-      Zip: req.body.Zip,
-      Active: req.body.Active,
-      Rol: req.body.Rol
-    })
+    db.User.create(req.body)
       .then(response => res.send(response))
       .catch(err => res.status(422).json(err));
   },
