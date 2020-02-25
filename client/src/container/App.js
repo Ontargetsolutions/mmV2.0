@@ -79,6 +79,7 @@ class App extends Component {
         <Route path="/signin" component={AppSignIn} />
         <Route path="/signup" component={AppSignUp} />
         <Route path="/session/404" component={AsyncSessionPage404Component} />
+        <Route path="/client" component={AsyncClientDashboardComponent} />
       </RctThemeProvider>
     );
   }

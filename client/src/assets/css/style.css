@@ -1,0 +1,115 @@
+/* * body {
+  background-image: url("../images/rct-session-banner.png") !important;
+  background-size: cover !important;
+   background-size: 100% !important; 
+  background-repeat: no-repeat !important;
+  /* background-attachment: unset !important; 
+} */
+
+.buttons-wrapper {
+  position: absolute;
+  height: calc(75vh);
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 800;
+  top: 0;
+  pointer-events: none;
+  width: 100%;
+  }
+  .buttons-wrapper a {
+    pointer-events: auto;
+  }
+  .mg-rg {
+    margin-right: 1rem;
+    margin-left: 1rem;
+    margin-top: 1rem;
+  }
+  .buttonStyle{
+    background-color: white !important;
+    width: 400px !important;
+    height: 100px !important;
+    /* font-family: 'Playball', cursive !important; */
+    font-size: 40px !important;
+    color: bold rgb(20,40,72) !important;
+ 
+  }
+
+  .divPic{
+    background-color: gray!important;
+    width: 400px !important;
+    height: 400px !important;
+    font-family: 'Playball', cursive !important;
+    border: solid 5px black;
+    margin: 10px;
+
+ 
+  }
+
+  #linkHit a:visited {
+    background-color: cyan;
+  }
+
+/* selected link
+#linkHit a:active {
+  background-color: hotpink;
+}
+
+
+#linkHit a:link {
+  color: red;
+
+} */
+
+/* visited link */
+#linkHit a:visited {
+
+  background-color: rgb(139, 198, 250);
+}
+
+/* mouse over link */
+#linkHit a:hover {
+
+  background-color: rgb(139, 198, 250);
+}
+
+/* selected link */
+#linkHit a:active {
+  background-color: rgb(139, 198, 250);
+}
+
+.linkHit{
+  background-color: rgb(139, 198, 250);
+}
+
+  .linkStyle{
+    font-size: 50px !important;
+  }
+  .btnStartProducts{
+    font-size: 2rem !important;
+    width: 340px !important;
+    height: 65px !important;
+    padding: 0px !important;
+    margin: 10px !important;
+    color: rgb(27, 158, 175)  !important;
+    font-weight: bold !important;
+  }
+  .rowforButton{
+    /* margin-top: 4%; */
+    justify-content: center !important;
+  }
+  .productsRadiobuttonHeader{
+    /* font-family: 'Playball', cursive !important; */
+    font-size: 50px !important; 
+    color: black;
+    font-weight: bold !important;
+    color: rgb(27, 158, 175) !important;
+  }
+
+  .imageSelected{
+
+  border: solid 5px red;
+
+  }
