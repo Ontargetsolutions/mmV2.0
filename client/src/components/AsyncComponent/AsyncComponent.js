@@ -48,11 +48,32 @@ const AsyncProfileComponent = Loadable ({
   loading: () => <RctPageLoader />,
 });
 
+// My quotes
+const AsyncMyQuotesComponent = Loadable ({
+  loader: () => import ('../../routes/Clients/MyQuotes'),
+  loading: () => <RctPageLoader />,
+});
+
+// Client Dashboard
+const AsyncClientDashboardComponent = Loadable ({
+  loader: () => import ('../../routes/Clients/Dashboard'),
+  loading: () => <RctPageLoader />,
+});
+
+// Products Page
+const AsyncProductsComponent = Loadable({
+  loader: () => import("../../routes/Clients/quote"),
+  loading: () => <RctPageLoader />,
+});
+
 export {
   AsyncEcommerceDashboardComponent,
   AsyncSessionLoginComponent,
   AsyncSessionRegisterComponent,
   AsyncSessionForgotPasswordComponent,
   AsyncSessionPage404Component,
-  AsyncProfileComponent
+  AsyncProfileComponent,
+  AsyncMyQuotesComponent,
+  AsyncClientDashboardComponent,
+  AsyncProductsComponent
 };

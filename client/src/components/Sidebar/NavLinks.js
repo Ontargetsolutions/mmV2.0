@@ -20,7 +20,7 @@ export default {
      {
        menu_title: 'sidebar.myOrders',
        menu_icon: 'zmdi zmdi-flower',
-       path: '/app/myorders',
+       path: '/app/myquotes',
        new_item: false,
        type_multi: null,
      },

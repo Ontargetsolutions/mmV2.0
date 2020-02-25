@@ -194,10 +194,6 @@ class SignupFirebase extends Component {
                             onChange={e =>
                               this.setState ({name: e.target.value})}
                           />
-                          {/* <span className="has-icon">
-                          <i className="ti-user" />
-                        </span> */}
-                          {/* </FormGroup> */}
                         </Col>
                         <Col sm={4}>
                           {/* <FormGroup className="has-wrapper"> */}
