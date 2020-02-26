@@ -19,7 +19,7 @@ import Frames from "./Frames";
 import ArtGallery from './ArtGallery';
 import WallFloor from './WallFloor';
 
-import { saveQuote } from "../../../../actions/QuoteActions";
+import { saveQuote } from "../../../../actions";
 
 import { NavLink } from "react-router-dom";
 
@@ -83,7 +83,6 @@ class VerticalLinearStepper extends React.Component {
   handleNext = (isFinished, e) => {
     e.preventDefault();
     if (isFinished) this.props.saveQuote({...this.props.quote, user: this.props.userData});
-
     this.setState({
       activeStep: this.state.activeStep + 1
     });

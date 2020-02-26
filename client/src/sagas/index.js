@@ -8,12 +8,16 @@ import authSagas from './Auth';
 import emailSagas from './Email';
 import todoSagas from './Todo';
 import feedbacksSagas from './Feedbacks';
+import userSaga from './User';
+import quoteSaga from './Quote';
 
 export default function* rootSaga(getState) {
     yield all([
         authSagas(),
         emailSagas(),
         todoSagas(),
-        feedbacksSagas()
+        feedbacksSagas(), 
+        userSaga(),
+        quoteSaga()
     ]);
 }

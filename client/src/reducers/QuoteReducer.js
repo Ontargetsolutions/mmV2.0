@@ -100,12 +100,13 @@ export default (state = INIT_STATE, action) => {
       return { ...state, myOrders: action.payload };
 
     case SELECT_ADDRESS:
+        console.log(`reducer para actualizar la delivery address, ${JSON.stringify(action.payload)}`)
       return {
         ...state,
         address1: action.payload.address.address1,
         address2: action.payload.address.address2,
         city: action.payload.address.city,
-        state: action.payload.address.stateC,
+        state: action.payload.address.state,
         country: action.payload.address.country,
         zipcode: action.payload.address.zipcode
       };

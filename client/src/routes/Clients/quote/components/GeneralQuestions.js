@@ -28,21 +28,18 @@ class GerneralQuestions extends Component {
     type: "",
     country: this.props.userData.Country,
     stateC: this.props.userData.State,
-    zipcode: this.props.userData.Zipcode,
+    zipcode: this.props.userData.Zip,
     sizeMurals: "3x3"
   };
 
   componentDidMount() {
-    // this.props.fetchCountry();
-    // const count = "af";
-    // this.props.fetchState(count);
     this.props.selectDeliveryAddress({
       address: {
         address1: this.props.userData.Address1,
         address2: this.props.userData.Address2,
         city: this.props.userData.City,
         country: this.props.userData.Country,
-        stateC: this.props.userData.State,
+        state: this.props.userData.State,
         zipcode: this.props.userData.Zip
       }
     });
@@ -62,13 +59,6 @@ class GerneralQuestions extends Component {
 
   handleChange = name => (event, checked) => {
     this.setState({ [name]: checked });
-    // if (this.state.checkedAddress) {
-    //   this.setState ({type: 'differentAddress'});
-    //   console.log(this.state);
-    // } else {
-    //   this.setState ({type: 'sameAddress'});
-    //   console.log(this.state);
-    // }
   };
 
   handleChangeCountry = event => {
@@ -87,7 +77,7 @@ class GerneralQuestions extends Component {
         address2: this.state.address2,
         city: this.state.city,
         country: this.state.country,
-        stateC: this.state.stateC,
+        state: this.state.stateC,
         zipcode: this.state.zipcode
       }
     });
@@ -95,7 +85,7 @@ class GerneralQuestions extends Component {
   };
 
   render() {
-    const { address1, address2, city, zipcode } = this.state;
+    const { address1, address2, city, zipcode, country, stateC } = this.state;
     const countires = countriesStates.getCountries();
     const states = countriesStates.getStatesByShort(this.state.country);
     return (
@@ -153,7 +143,7 @@ class GerneralQuestions extends Component {
                 placeholder="Quantity"
                 onChange={e => {
                   this.setState({ quantity: e.target.value });
-                  this.props.pickQantity(e.target.value);
+                  this.props.pickQuantity(e.target.value);
                 }}
               />
             </Col>
@@ -204,6 +194,7 @@ class GerneralQuestions extends Component {
                 <Col sm={8}>
                   <Input
                     className="mb-20"
+                    value={country}
                     type="select"
                     bsSize="lg"
                     id="country"
@@ -221,6 +212,7 @@ class GerneralQuestions extends Component {
                 <Col sm={4}>
                   <Input
                     className="mb-20"
+                    value={stateC}
                     type="select"
                     bsSize="lg"
                     id="states"
@@ -279,13 +271,12 @@ class GerneralQuestions extends Component {
 }
 
 // map state to props
-const mapStateToProps = ({ auth, quote }) => {
-  const { loading, user } = auth;
+const mapStateToProps = ({ authUser, quote }) => {
+  const {  userData } = authUser;
   const { serviceSelected } = quote;
   return {
-    loading,
     serviceSelected,
-    user,
+    userData,
     quote
   };
 };
@@ -294,6 +285,4 @@ export default connect(mapStateToProps, {
   pickDimentions,
   pickQuantity,
   selectDeliveryAddress
-  // fetchCountry,
-  // fetchState
 })(GerneralQuestions);

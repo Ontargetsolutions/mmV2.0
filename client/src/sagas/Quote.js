@@ -13,25 +13,26 @@ import {
 } from "../actions/types";
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
 
-import API from "../api/index";
+import quoteAPI from "../api/QuoteAPI";
+import utilAPI from "../api/UtilAPI";
 
 const getImagesFomAdobeRequest = async parameter =>
-  await API.getImagebyWord(parameter)
+  await utilAPI.getImagesFromAdobe(parameter)
     .then(imageList => imageList)
     .catch(error => error);
 
 const uploadImageRequest = async data =>
-  await API.uploadPic(data)
+  await utilAPI.uploadPic(data)
     .then(info => info)
     .catch(error => error);
 
 const saveQuoteRequest = async data =>
-  await API.saveQuote(data)
+  await quoteAPI.saveQuote(data)
     .then(quote => quote)
     .catch(error => error);
 
 const getMyOrdersListRequest = async data =>
-  await API.myQuotes(data)
+  await quoteAPI.myQuotes(data)
     .then(list => list)
     .catch(error => error);
 
@@ -74,6 +75,7 @@ function* getMyOrdersListS(payload) {
  * SAVE THE QUOTE
  */
 function* saveQuoteS(payload) {
+  console.log(` guardar quota en la saga payload ${payload}`);
   const {
     material,
     imageUploaded,

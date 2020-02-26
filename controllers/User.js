@@ -30,9 +30,6 @@ module.exports = {
   },
 
   register: (req, res) => {
-    console.log(
-      `en la controladora para ver el body ${JSON.stringify(req.body)}`
-    );
     db.User.create(req.body)
       .then(response => res.send(response))
       .catch(err => res.status(422).json(err));
@@ -42,18 +39,8 @@ module.exports = {
     db.User.findOne({ id: req.params.id })
       .then(data => {
         data
-          .update({
-            Name: req.body.name,
-            Email: req.body.email,
-            Phone: req.body.phone,
-            Address1: req.body.address1,
-            Address2: req.body.address2,
-            City: req.body.city,
-            Country: req.body.country,
-            State: req.body.stateC,
-            Zip: req.body.zipcode
-          })
-          .then(dbModel => res.json(dbModel))
+          .update(req.body)
+          .then(dbModel => res.send(dbModel))
           .catch(err => res.status(422).json(err));
       })
       .catch(err => res.status(422).json(err));

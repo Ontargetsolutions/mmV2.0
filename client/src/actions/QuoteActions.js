@@ -109,7 +109,7 @@ export const pickQuantity = quantity => ({
 /**
  * Redux Action to save the quote
  */
-export const saveQuote = quote => ({
+export const saveQuote = quote => (console.log(`en la accion pa salvar`),{
   type: SAVE_QUOTE,
   payload: quote
 });

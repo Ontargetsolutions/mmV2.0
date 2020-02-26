@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 // react component for creating dynamic tables
 import IconButton from '@material-ui/core/IconButton';
 import ReactTable from 'react-table';
+import moment from 'moment';
 
 import {connect} from 'react-redux';
 
@@ -37,39 +38,27 @@ class MyOrdersTable extends Component {
                 return {
                   id1: key,
                   id: prop[0],
-                  date: prop[15],
+                  date: prop[15].toDateString,
                   size: prop[5],
                   quantity: prop[7],
                   product: prop[6],
                   status: prop[14],
                   cost: prop[1],
-                  // actions: (
-                  //   <div className="actions-right">
-                  //     <IconButton
-                  //       color="primary"
-                  //       aria-label="Edit"
-                  //       onClick={() =>
-                  //         alert (
-                  //           "You've pressed the edit button on colmun id: " +
-                  //             key
-                  //         )}
-                  //     >
-                  //       <i className="zmdi zmdi-eye" />
-                  //     </IconButton>
-                  //     <IconButton
-                  //       color="primary"
-                  //       aria-label="Edit"
-                  //       onClick={() =>
-                  //         alert (
-                  //           "pay for this order: " +
-                  //             key
-                  //         )}
-                  //     >
-                  //       <i className="zmdi zmdi-money" />
-                  //     </IconButton>
-
-                  //   </div>
-                  // ),
+                  actions: (
+                    <div className="actions-right">
+                      <IconButton
+                        color="primary"
+                        aria-label="Edit"
+                        onClick={() =>
+                          alert (
+                            "You've pressed the edit button on colmun id: " +
+                              key
+                          )}
+                      >
+                        <i className="zmdi zmdi-eye" />
+                      </IconButton>
+                    </div>
+                  ),
                 };
               })
             : ''
@@ -79,6 +68,11 @@ class MyOrdersTable extends Component {
           {
             Header: 'Date',
             accessor: 'date',
+            Cell: date => {
+              return moment(date.updated_at)
+                .local()
+                .format("MM-DD-YYYY")
+            }
           },
           {
             Header: 'Product',

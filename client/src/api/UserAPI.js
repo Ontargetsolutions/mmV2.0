@@ -16,6 +16,7 @@ export default {
   },
   // Update the user with the given id
   updateUser: function(id, userData) {
+    console.log(`api forntend user data ${userData}, id ${id}`);
     return axios.put("/api/users/" + id, userData);
   },
   // Saves a user to the database

@@ -6,7 +6,6 @@ import { USER_UPDATE } from "../actions/types";
 import { updateUserFailure, updateUserSuccess } from "../actions";
 import { NotificationManager } from "react-notifications";
 
-import API from "../api/index";
 import {
   GET_USERS,
   ADD_USER,
@@ -17,7 +16,6 @@ import {
 import {
   getUserListFailure,
   getUserListSuccess,
-  signUpUserInFirebaseFailure,
   deleteUserFailure,
   deleteUserSuccess,
   getUserList,
@@ -28,136 +26,49 @@ import {
   getPersonByIdSuccess,
 } from "../actions/UserActions";
 
-import { auth } from "../firebase";
 
-const updateUserRequest = async user =>
-  await API.updateUsers(user)
+import userAPI from "../api/UserAPI";
+
+const updateUserRequest = async (id, user) =>
+  await userAPI.updateUser(id, user)
     .then(authUser => authUser)
     .catch(error => error);
 
 const getUserListRequest = async user =>
-  await API.getAllUsers()
+  await userAPI.getUsers()
     .then(usersList => usersList)
     .catch(error => error);
 
 const getWorkerListRequest = async user =>
-  await API.getAllWorkers()
+  await userAPI.getUsersWhere()
     .then(workersList => workersList)
     .catch(error => error);
 
 const getPersonByIdRequest = async id =>
-  await API.getPersonById(id)
+  await userAPI.getUser(id)
     .then(person => person)
     .catch(error => error);
 
-/**
- * Register the user in MySQL
- */
-const registerMySQL1 = async (
-  email,
-  password,
-  name,
-  phone,
-  address1,
-  address2,
-  city,
-  country,
-  stateC,
-  zipcode,
-  type,
-  companyName
-) =>
-  await API.addNewUser({
-    email,
-    password,
-    name,
-    phone,
-    address1,
-    address2,
-    city,
-    country,
-    stateC,
-    zipcode,
-    type,
-    companyName,
-  })
-    .then(userCreated => userCreated)
-    .catch(error => error);
 
-/**
- * Create User
- */
-const createUserWithEmailPasswordRequest1 = async (email, password) =>
-  await auth
-    .createUserWithEmailAndPassword(email, password)
-    .then(authUser => authUser)
-    .catch(error => error);
 
 /**
  * Delete User
  */
-const deleteUserRequest = async id =>
-  await API.deleteUsers(id)
-    .then(authUser => authUser)
-    .catch(error => error);
+// const deleteUserRequest = async id =>
+//   await API.deleteUsers(id)
+//     .then(authUser => authUser)
+//     .catch(error => error);
 
-/**
- * Create User In Firebase
- */
-function* createUserWithEmailPasswordS(payload) {
-  console.log(
-    `payload de user que llega a la saga grande ${JSON.stringify(payload)}`
-  );
-  const {
-    email,
-    password,
-    name,
-    phone,
-    address1,
-    address2,
-    city,
-    country,
-    stateC,
-    zipcode,
-    rol,
-  } = payload.payload;
-  try {
-    const signUpUser = yield call(
-      createUserWithEmailPasswordRequest1,
-      email,
-      password
-    );
-    if (signUpUser.message) {
-      yield put(signUpUserInFirebaseFailure(signUpUser.message));
-    } else {
-      const userCreated = yield call(
-        registerMySQL1,
-        email,
-        password,
-        name,
-        phone,
-        address1,
-        address2,
-        city,
-        country,
-        stateC,
-        zipcode,
-        rol
-      );
-      yield put(getWorkersList());
-    }
-  } catch (error) {
-    yield put(signUpUserInFirebaseFailure(error));
-  }
-}
 
 /**
  * UPDATE USER
  */
 function* updateUserS(payload) {
+  console.log(`usuario a ser modificado ${JSON.stringify(payload.payload)}`)
   const user = payload.payload;
   try {
-    const userUpdated = yield call(updateUserRequest, user);
+    const userUpdated = yield call(updateUserRequest,user.Id, user);
+    console.log(`user updated ${JSON.stringify(userUpdated)}`)
     if (userUpdated.message) {
       yield put(updateUserFailure(userUpdated.message));
     } else {
@@ -171,22 +82,22 @@ function* updateUserS(payload) {
 /**
  * DELETE USER
  */
-function* deleteUserS(data) {
-  const id = data.payload;
-  console.log(`id en la saga${JSON.stringify(data)}`);
-  try {
-    const userDeleted = yield call(deleteUserRequest, id);
-    if (userDeleted.message) {
-      yield put(deleteUserFailure(userDeleted.message));
-    } else {
-      NotificationManager.success(`User deleted successfuly`);
-      yield put(getUserList());
-      yield put(getWorkersList());
-    }
-  } catch (error) {
-    yield put(deleteUserFailure(error));
-  }
-}
+// function* deleteUserS(data) {
+//   const id = data.payload;
+//   console.log(`id en la saga${JSON.stringify(data)}`);
+//   try {
+//     const userDeleted = yield call(deleteUserRequest, id);
+//     if (userDeleted.message) {
+//       yield put(deleteUserFailure(userDeleted.message));
+//     } else {
+//       NotificationManager.success(`User deleted successfuly`);
+//       yield put(getUserList());
+//       yield put(getWorkersList());
+//     }
+//   } catch (error) {
+//     yield put(deleteUserFailure(error));
+//   }
+// }
 
 /**
  * GET USER LIST
@@ -263,16 +174,16 @@ export function* getWorkersListWatcher() {
 /**
  * Create User
  */
-export function* createUsertWatcher() {
-  yield takeEvery(ADD_USER, createUserWithEmailPasswordS);
-}
+// export function* createUsertWatcher() {
+//   yield takeEvery(ADD_USER, createUserWithEmailPasswordS);
+// }
 
 /**
  * DELETE User
  */
-export function* deleteUsertWatcher() {
-  yield takeEvery(DELETE_USER, deleteUserS);
-}
+// export function* deleteUsertWatcher() {
+//   yield takeEvery(DELETE_USER, deleteUserS);
+// }
 /**
  * DELETE User
  */
@@ -287,8 +198,8 @@ export default function* rootSaga() {
   yield all([
     fork(updateUserWatcher),
     fork(getUserListWatcher),
-    fork(createUsertWatcher),
-    fork(deleteUsertWatcher),
+    // fork(createUsertWatcher),
+    // fork(deleteUsertWatcher),
     fork(getWorkersListWatcher),  
     fork(getPersonByIdWatcher),
 

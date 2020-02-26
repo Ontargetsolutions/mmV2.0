@@ -21,7 +21,7 @@ import IntlMessages from '../../../../util/IntlMessages';
 
 // redux action
 
-import {updateUser, getUser} from '../../../../actions';
+import {updateUser} from '../../../../actions/UserActions';
 
 const countriesStates = require ('countrycitystatejson');
 
@@ -46,24 +46,25 @@ class Profile extends Component {
     this.setState ({stateC: event.target.value});
   };
 
-  componentDidMount () {
-    // this.props.getUser ();
-  }
   /**
     * On Update Profile
     */
   onUpdateProfile () {
     const user = {
-      name: this.state.name,
-      email: this.state.email,
-      phone: this.state.phone,
-      address1: this.state.address1,
-      address2: this.state.address2,
-      city: this.state.city,
-      country: this.state.country,
-      stateC: this.state.stateC,
-      zipcode: this.state.zipcode,
-      id: this.state.id,
+      Name: this.state.name,
+      Phone: this.state.phone,
+      // AccountType: type,
+      // Company: companyName,
+      // Email: this.state.email,
+      Address1: this.state.address1,
+      Address2: this.state.address2,
+      City: this.state.city,
+      Country: this.state.country,
+      State: this.state.stateC,
+      Zip: this.state.zipcode,
+      Active: true,
+      Rol: "Client",
+      Id: this.state.id,
     };
     this.props.updateUser (user);
   }
@@ -76,7 +77,6 @@ class Profile extends Component {
 
     const countires = countriesStates.getCountries ();
     const statesList = countriesStates.getStatesByShort (this.state.country);
-    console.log (`states ${statesList}`);
 
     return (
       <div className="profile-wrapper w-50">
@@ -108,6 +108,7 @@ class Profile extends Component {
                 type="email"
                 name="Email"
                 id="Email"
+                readonly="readonly"
                 className="input-lg"
                 value={this.state.email}
                 onChange={e => this.setState ({email: e.target.value})}
@@ -261,6 +262,5 @@ const mapStateToProps = ({authUser}) => {
 };
 
 export default connect (mapStateToProps, {
-  updateUser,
-  getUser
+  updateUser
 }) (Profile);
