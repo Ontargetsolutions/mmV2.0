@@ -13,6 +13,6 @@ export default {
         image
       )}`
     );
-    return axios.post(`/api/image`, image);
+    return axios.post(`/api/image/upload`, image);
   }
 };

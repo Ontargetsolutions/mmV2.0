@@ -6,7 +6,8 @@ import {
    AsyncProfileComponent,
    AsyncMyQuotesComponent,
    AsyncClientDashboardComponent,
-   AsyncProductsComponent
+   AsyncProductsComponent,
+   AsyncViewQuoteComponent
 
  } from "../components/AsyncComponent/AsyncComponent";
 
@@ -30,5 +31,9 @@ export default [
   {
     path: 'quote',
     component: AsyncProductsComponent,
+  },
+  {
+    path: 'viewQuote',
+    component: AsyncViewQuoteComponent,
   },
 ];

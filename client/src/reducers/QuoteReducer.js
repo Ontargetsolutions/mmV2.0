@@ -10,7 +10,9 @@ import {
   PICK_FRAME,
   SAVE_IMAGE_UPLOADED,
   GET_ORDERS_LIST_FAILURE,
-  GET_ORDERS_LIST_SUCCESS
+  GET_ORDERS_LIST_SUCCESS,
+  GET_QUOTE_BY_ID_SUCCESS,
+  GET_QUOTE_BY_ID_FAILURE
 } from "../actions/types";
 
 import { NotificationManager } from "react-notifications";
@@ -30,7 +32,8 @@ const INIT_STATE = {
   address1: "",
   address2: "",
   zipcode: "",
-  myOrders: []
+  myOrders: [],
+  actualQuote: {}
 };
 
 export default (state = INIT_STATE, action) => {
@@ -96,11 +99,17 @@ export default (state = INIT_STATE, action) => {
       return { ...state };
 
     case GET_ORDERS_LIST_SUCCESS:
-      console.log(`reducer en la lista de quotas, ${JSON.stringify(action.payload)}`)
+      console.log(
+        `reducer en la lista de quotas, ${JSON.stringify(action.payload)}`
+      );
       return { ...state, myOrders: action.payload };
 
     case SELECT_ADDRESS:
-        console.log(`reducer para actualizar la delivery address, ${JSON.stringify(action.payload)}`)
+      console.log(
+        `reducer para actualizar la delivery address, ${JSON.stringify(
+          action.payload
+        )}`
+      );
       return {
         ...state,
         address1: action.payload.address.address1,
@@ -110,7 +119,18 @@ export default (state = INIT_STATE, action) => {
         country: action.payload.address.country,
         zipcode: action.payload.address.zipcode
       };
+    case GET_QUOTE_BY_ID_SUCCESS:
+      console.log(
+        `reducer en la quote by id, ${JSON.stringify(action.payload)}`
+      );
+      return { ...state, actualQuote: action.payload };
 
+    case GET_QUOTE_BY_ID_FAILURE:
+      console.log(
+        `reducer en la quote by id, ${JSON.stringify(action.payload)}`
+      );
+      NotificationManager.error (action.payload);
+      return { ...state};
     default:
       return { ...state };
   }

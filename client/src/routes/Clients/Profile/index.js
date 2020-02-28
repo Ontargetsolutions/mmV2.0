@@ -46,11 +46,6 @@ export default class UserProfile extends Component {
       const { activeTab } = this.state;
       return (
          <div className="userProfile-wrapper">
-            <Helmet>
-               <title>User Profile</title>
-               <meta name="description" content="User Profile" />
-            </Helmet>
-            <PageTitleBar title={<IntlMessages id="sidebar.userProfile" />} match={this.props.match} />
             <RctCard>
                <UserBlock />
                <div className="rct-tabs">

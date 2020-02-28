@@ -1,40 +1,41 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
 // react component for creating dynamic tables
-import IconButton from '@material-ui/core/IconButton';
-import ReactTable from 'react-table';
-import moment from 'moment';
+import IconButton from "@material-ui/core/IconButton";
+import ReactTable from "react-table";
+import moment from "moment";
+import { NavLink } from "react-router-dom";
 
-import {connect} from 'react-redux';
+import { connect } from "react-redux";
 
 // redux action
-import {getMyQuotesList} from '../../../actions/QuoteActions';
+import { getMyQuotesList } from "../../../actions/QuoteActions";
 
 class MyOrdersTable extends Component {
-  componentDidMount () {
-    this.props.getMyQuotesList (this.props.userData.id);
+  componentDidMount() {
+    this.props.getMyQuotesList(this.props.userData.id);
   }
 
   formatUserList = list => {
     const rows = list
-      ? list.map (dataValue => {
+      ? list.map(dataValue => {
           let dataRow = [];
           for (let key in dataValue) {
-            dataRow.push (dataValue[key]);
+            dataRow.push(dataValue[key]);
           }
           return dataRow;
         })
-      : '';
+      : "";
     return rows;
   };
 
-  render () {
-    let dataOrganized = this.formatUserList (this.props.myOrders);
+  render() {
+    let dataOrganized = this.formatUserList(this.props.myOrders);
 
     return (
       <ReactTable
         data={
           dataOrganized
-            ? dataOrganized.map ((prop, key) => {
+            ? dataOrganized.map((prop, key) => {
                 return {
                   id1: key,
                   id: prop[0],
@@ -46,60 +47,65 @@ class MyOrdersTable extends Component {
                   cost: prop[1],
                   actions: (
                     <div className="actions-right">
-                      <IconButton
-                        color="primary"
-                        aria-label="Edit"
-                        onClick={() =>
-                          alert (
-                            "You've pressed the edit button on colmun id: " +
-                              key
-                          )}
+                      <NavLink
+                        to={{
+                          pathname: "/app/viewQuote",
+                          quoteid: {
+                            id: prop[0]
+                          }
+                        }}
                       >
-                        <i className="zmdi zmdi-eye" />
-                      </IconButton>
+                        <IconButton
+                          color="primary"
+                          aria-label="Edit"
+                          // onClick={() => {}}
+                        >
+                          <i className="zmdi zmdi-eye" />
+                        </IconButton>
+                      </NavLink>
                     </div>
-                  ),
+                  )
                 };
               })
-            : ''
+            : ""
         }
         filterable
         columns={[
           {
-            Header: 'Date',
-            accessor: 'date',
+            Header: "Date",
+            accessor: "date",
             Cell: date => {
               return moment(date.updated_at)
                 .local()
-                .format("MM-DD-YYYY")
+                .format("MM-DD-YYYY");
             }
           },
           {
-            Header: 'Product',
-            accessor: 'product',
+            Header: "Product",
+            accessor: "product"
           },
           {
-            Header: 'Size',
-            accessor: 'size',
+            Header: "Size",
+            accessor: "size"
           },
           {
-            Header: 'Quantity',
-            accessor: 'quantity',
+            Header: "Quantity",
+            accessor: "quantity"
           },
           {
-            Header: 'Status',
-            accessor: 'status',
+            Header: "Status",
+            accessor: "status"
           },
           {
-            Header: 'Price',
-            accessor: 'cost',
+            Header: "Price",
+            accessor: "cost"
           },
           {
-            Header: 'Actions',
-            accessor: 'actions',
+            Header: "Actions",
+            accessor: "actions",
             sortable: false,
-            filterable: false,
-          },
+            filterable: false
+          }
         ]}
         defaultPageSize={10}
         showPaginationTop
@@ -111,12 +117,12 @@ class MyOrdersTable extends Component {
 }
 
 // map state to props
-const mapStateToProps = ({quote, authUser}) => {
-  const {myOrders} = quote;
-  const {userData} = authUser;
-  return {myOrders, userData};
+const mapStateToProps = ({ quote, authUser }) => {
+  const { myOrders } = quote;
+  const { userData } = authUser;
+  return { myOrders, userData };
 };
 
-export default connect (mapStateToProps, {
-  getMyQuotesList,
-}) (MyOrdersTable);
+export default connect(mapStateToProps, {
+  getMyQuotesList
+})(MyOrdersTable);

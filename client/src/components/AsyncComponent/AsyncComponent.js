@@ -66,6 +66,11 @@ const AsyncProductsComponent = Loadable({
   loading: () => <RctPageLoader />,
 });
 
+// View Quote
+const AsyncViewQuoteComponent = Loadable({
+  loader: () => import("../../routes/Clients/ViewQuote"),
+  loading: () => <RctPageLoader />,
+});
 export {
   AsyncEcommerceDashboardComponent,
   AsyncSessionLoginComponent,
@@ -75,5 +80,6 @@ export {
   AsyncProfileComponent,
   AsyncMyQuotesComponent,
   AsyncClientDashboardComponent,
-  AsyncProductsComponent
+  AsyncProductsComponent,
+  AsyncViewQuoteComponent
 };

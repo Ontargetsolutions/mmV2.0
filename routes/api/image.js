@@ -32,9 +32,9 @@ const uploadsFile = multer({
   fileFilter: fileFilter
 });
 
-
 // Matches with "/api/image"
 router
-  .post(uploadsFile.single('userImage'), Image.create);
+  .route("/upload")
+  .post(uploadsFile.single("userImage"), Image.create);
 
 module.exports = router;

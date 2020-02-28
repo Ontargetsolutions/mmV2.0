@@ -40,7 +40,7 @@ class Services extends Component {
       <div className="ecom-dashboard-wrapper">
       
           <div className="row">
-            <Col md={3} sm={12}>
+            {/* <Col md={3} sm={12}> */}
               <FormControl component="fieldset">
                 {/* <FormLabel
                   className="productsRadiobuttonHeader"
@@ -89,7 +89,7 @@ class Services extends Component {
                   />
                 </RadioGroup>
               </FormControl>
-            </Col>
+            {/* </Col> */}
             {/* <Col md={9} sm={12}>
               {this.state.service === "Custom-Framed Murals" && <CarMurals />}
               {this.state.service === "Kitchen-Backsplash" && <CarKitchen />}

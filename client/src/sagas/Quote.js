@@ -4,12 +4,15 @@ import {
   saveQuoteFailure,
   saveQuoteSuccess,
   getMyQuotesListFailure,
-  getMyQuotesListSuccess
+  getMyQuotesListSuccess,
+  getQuoteByIdFailure,
+  getQuoteByIdSuccess
 } from "../actions/QuoteActions";
 import {
   GET_ADOBE_STOCK_IMAGES,
   SAVE_QUOTE,
-  GET_ORDERS_LIST
+  GET_ORDERS_LIST,
+  GET_QUOTE_BY_ID
 } from "../actions/types";
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
 
@@ -17,23 +20,33 @@ import quoteAPI from "../api/QuoteAPI";
 import utilAPI from "../api/UtilAPI";
 
 const getImagesFomAdobeRequest = async parameter =>
-  await utilAPI.getImagesFromAdobe(parameter)
+  await utilAPI
+    .getImagesFromAdobe(parameter)
     .then(imageList => imageList)
     .catch(error => error);
 
 const uploadImageRequest = async data =>
-  await utilAPI.uploadPic(data)
+  await utilAPI
+    .uploadPic(data)
     .then(info => info)
     .catch(error => error);
 
 const saveQuoteRequest = async data =>
-  await quoteAPI.saveQuote(data)
+  await quoteAPI
+    .saveQuote(data)
     .then(quote => quote)
     .catch(error => error);
 
 const getMyOrdersListRequest = async data =>
-  await quoteAPI.myQuotes(data)
+  await quoteAPI
+    .myQuotes(data)
     .then(list => list)
+    .catch(error => error);
+
+const getOrderByIdRequest = async id =>
+  await quoteAPI
+    .orderById(id)
+    .then(order => order)
     .catch(error => error);
 
 /**
@@ -68,6 +81,25 @@ function* getMyOrdersListS(payload) {
     }
   } catch (error) {
     yield put(getMyQuotesListFailure(error));
+  }
+}
+
+/**
+ * GET ORDER BY ID
+ */
+function* getOrderByIdS(payload) {
+  console.log(`en la saga orderbyid ${JSON.stringify(payload)}`);
+  const id = payload.payload;
+  try {
+    const order = yield call(getOrderByIdRequest, id);
+    console.log(`order devuelta ${JSON.stringify(order)}`);
+    if (order.message) {
+      yield put(getQuoteByIdFailure(order.message));
+    } else {
+      yield put(getQuoteByIdSuccess(order.data));
+    }
+  } catch (error) {
+    yield put(getQuoteByIdFailure(error));
   }
 }
 
@@ -122,7 +154,6 @@ function* saveQuoteS(payload) {
       UserId: user.id,
       Cost: 0,
       Product: serviceSelected
-
     });
     console.log(`quote en la saga ${JSON.stringify(quote)}`);
     if (quote.message) {
@@ -150,10 +181,17 @@ export function* saveQuoteWatcher() {
 }
 
 // /**
-//  * Save the quote in the database
+//  * Get list of all ordersby client
 //  */
 export function* getMyOrdersListWatcher() {
   yield takeEvery(GET_ORDERS_LIST, getMyOrdersListS);
+}
+
+// /**
+//  * Get order by Id
+//  */
+export function* getOrderByIdWatcher() {
+  yield takeEvery(GET_QUOTE_BY_ID, getOrderByIdS);
 }
 
 /**
@@ -163,6 +201,7 @@ export default function* rootSaga() {
   yield all([
     fork(getImagesFomAdobeWatcher),
     fork(saveQuoteWatcher),
-    fork(getMyOrdersListWatcher)
+    fork(getMyOrdersListWatcher),
+    fork(getOrderByIdWatcher)
   ]);
 }

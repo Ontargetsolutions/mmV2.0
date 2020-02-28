@@ -93,8 +93,8 @@ class GerneralQuestions extends Component {
         <Form>
           <FormGroup row>
             <Col sm={6}>
-              <Label for="size" sm={2}>
-                Dimentions:
+              <Label for="size" sm={4}>
+                Dimentions  (sq ft):
               </Label>
               {this.props.serviceSelected != "Custom-Framed Murals" && (
                 <Input

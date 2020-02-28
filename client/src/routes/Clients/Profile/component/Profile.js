@@ -71,18 +71,11 @@ class Profile extends Component {
 
   render () {
     const {userData} = this.props;
-    console.log (
-      `userData 111111111111111111111111: ${JSON.stringify (userData)}`
-    );
-
     const countires = countriesStates.getCountries ();
     const statesList = countriesStates.getStatesByShort (this.state.country);
 
     return (
       <div className="profile-wrapper w-50">
-        <h2 className="heading">
-          <IntlMessages id="widgets.personalDetails" />
-        </h2>
         <Form>
           <FormGroup row>
             <Label for="Name" sm={3}>
@@ -108,7 +101,7 @@ class Profile extends Component {
                 type="email"
                 name="Email"
                 id="Email"
-                readonly="readonly"
+                readonly="readOnly"
                 className="input-lg"
                 value={this.state.email}
                 onChange={e => this.setState ({email: e.target.value})}

@@ -1,54 +1,47 @@
 /**
  * Hits Component
  */
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-import {pickImage, pickFrame} from '../../../../actions/QuoteActions';
+import { pickImage, pickFrame } from "../../../../actions/QuoteActions";
 
 // Card Component
-import {RctCard} from '../../../../components/RctCard';
+import { RctCard } from "../../../../components/RctCard";
 
 //Actions
 
 //Helper
-import {textTruncate} from '../../../../helpers/helpers';
+import { textTruncate } from "../../../../helpers/helpers";
 
 class Hit extends Component {
   state = {
-    loading: false,
+    loading: false
   };
 
   //Select the image
-  onSelect (imageId, e) {
-    this.setState ({loading: true});
+  onSelect(imageId, e) {
+    this.setState({ loading: true });
     this.props.art
-      ? this.props.pickImage (imageId)
-      : this.props.pickFrame (imageId);
+      ? this.props.pickImage(imageId)
+      : this.props.pickFrame(imageId);
 
-    e.preventDefault ();
-    console.log (`reducer ${JSON.stringify (this.props.quote)}`);
+    e.preventDefault();
+    console.log(`reducer ${JSON.stringify(this.props.quote)}`);
   }
 
-  onViewDesciption ( desc) {
-    // e.preventDefault ();
-    // this.props.art ? 'self': window.open(desc);//////////////////////////////////
-    // window.open(desc);
-    // return false;////////////////////////////////////
-    // if (desc != undefined) {
-    //   window.location.href = desc;
-    //   target = '_blank';
-    // } else {
-    //   window.location.href = '#';
-    // }
+  onViewDesciption(desc) {
+    //eslint-disable-next-line no-unused-expressions
+    this.props.art ? "self" : window.open(desc);
+    return false;
   }
 
-  render () {
-    const {hit} = this.props;
+  render() {
+    const { hit } = this.props;
 
-    const {loading} = this.state;
+    const { loading } = this.state;
     return (
       <RctCard customClasses="d-flex  mb-0 flex-column justify-content-between overflow-hidden">
         <div className=" overflow-hidden">
@@ -56,23 +49,23 @@ class Hit extends Component {
             id="linkHit"
             className={
               this.props.imageSelectedId === hit.image ||
-                this.props.frameSelected === hit.image
-                ? 'imageSelected text-center '
-                : 'text-center'
+              this.props.frameSelected === hit.image
+                ? "imageSelected text-center "
+                : "text-center"
             }
           >
             <img src={hit.image} className="img-fluid" alt="product" />
           </div>
           <div
             className="overlay-content d-flex align-items-end"
-            onClick={e => this.onSelect (hit.image, e)}
+            onClick={e => this.onSelect(hit.image, e)}
           >
             <a
               href="#"
               className="bg-primary text-center w-100 cart-link text-white py-2 "
-              onClick={e => this.onViewDesciption (hit.description)}
+              onClick={e => this.onViewDesciption(hit.description)}
             >
-              {this.props.art ? "Select" : "Description"} 
+              {this.props.art ? "Select" : "Description"}
             </a>
           </div>
         </div>
@@ -91,12 +84,12 @@ class Hit extends Component {
 }
 
 // map state to props
-const mapStateToProps = ({quote}) => {
-  const {imagesAdobeStock, imageSelectedId, frameSelected} = quote;
-  return {imagesAdobeStock, quote, imageSelectedId, frameSelected};
+const mapStateToProps = ({ quote }) => {
+  const { imagesAdobeStock, imageSelectedId, frameSelected } = quote;
+  return { imagesAdobeStock, quote, imageSelectedId, frameSelected };
 };
 
-export default connect (mapStateToProps, {
+export default connect(mapStateToProps, {
   pickImage,
-  pickFrame,
-}) (Hit);
+  pickFrame
+})(Hit);

@@ -15,7 +15,10 @@ import {
   SAVE_QUOTE_FAILURE,
   GET_ORDERS_LIST,
   GET_ORDERS_LIST_SUCCESS,
-  GET_ORDERS_LIST_FAILURE
+  GET_ORDERS_LIST_FAILURE,
+  GET_QUOTE_BY_ID,
+  GET_QUOTE_BY_ID_SUCCESS,
+  GET_QUOTE_BY_ID_FAILURE
 } from "./types";
 
 /**
@@ -151,5 +154,27 @@ export const getMyQuotesListSuccess = list => ({
  */
 export const getMyQuotesListFailure = error => ({
   type: GET_ORDERS_LIST_FAILURE,
+  payload: error
+});
+
+
+export const getQuoteById = id => ({
+  type: GET_QUOTE_BY_ID,
+  payload: id
+});
+
+/**
+ * Redux Action to save the quote success
+ */
+export const getQuoteByIdSuccess = quote => ({
+  type: GET_QUOTE_BY_ID_SUCCESS,
+  payload: quote
+});
+
+/**
+ * Redux Action to save the quote failure
+ */
+export const getQuoteByIdFailure = error => ({
+  type: GET_QUOTE_BY_ID_FAILURE,
   payload: error
 });
