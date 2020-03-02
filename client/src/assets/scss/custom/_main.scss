@@ -21,7 +21,18 @@
 		margin-bottom: 0;
 		color: $gray-600;
 		font-size: 0.875rem; //14px;
+	};
+	a {
+		margin-bottom: 0;
+		color: $gray-600;
+		font-size: 0.875rem; //14px;
+	};
+	a:hover {
+		margin-bottom: 0;
+		color: white !important;
+		font-size: 0.875rem; //14px;
 	}
+
 }
 .rct-block {
 	background-color: $block-bg;

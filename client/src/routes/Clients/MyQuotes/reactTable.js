@@ -57,10 +57,39 @@ class MyOrdersTable extends Component {
                       >
                         <IconButton
                           color="primary"
-                          aria-label="Edit"
-                          // onClick={() => {}}
+                          aria-label="View"
                         >
                           <i className="zmdi zmdi-eye" />
+                        </IconButton>
+                      </NavLink>
+                      <NavLink
+                        to={{
+                          pathname: "/app/invoice",
+                          quoteid: {
+                            id: prop[0]
+                          }
+                        }}
+                      >
+                        <IconButton
+                          color="primary"
+                          aria-label="Invoice"
+                        >
+                          <i className="zmdi zmdi-receipt" />
+                        </IconButton>
+                      </NavLink>
+                      <NavLink
+                        to={{
+                          pathname: "/app/checkout",
+                          quoteid: {
+                            id: prop[0]
+                          }
+                        }}
+                      >
+                        <IconButton
+                          color="primary"
+                          aria-label="Checkout"
+                        >
+                          <i className="zmdi zmdi-card" />
                         </IconButton>
                       </NavLink>
                     </div>
@@ -85,7 +114,7 @@ class MyOrdersTable extends Component {
             accessor: "product"
           },
           {
-            Header: "Size",
+            Header: "Size (sqft)",
             accessor: "size"
           },
           {
@@ -97,7 +126,7 @@ class MyOrdersTable extends Component {
             accessor: "status"
           },
           {
-            Header: "Price",
+            Header: "Price (USD)",
             accessor: "cost"
           },
           {

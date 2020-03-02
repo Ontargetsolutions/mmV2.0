@@ -51,7 +51,67 @@ class ViewQuote extends Component {
           {this.props.actualQuote.Product === "Custom-Framed Murals" && (
             <div>
               <div className="row">
-                <Col sm={6}>
+                <Col sm={4}>
+                  <h1>Art:</h1>
+                  <CardImg
+                    top
+                    width="25%"
+                    height="25%"
+                    src={this.props.actualQuote.ImagePath}
+                    className="img-fluid"
+                    alt="Art"
+                  />
+                </Col>
+                <Col sm={4}>
+                  <h1>Frame:</h1>
+                  <CardImg
+                    top
+                    width="25%"
+                    height="25%"
+                    src={this.props.actualQuote.FramePath}
+                    className="img-fluid"
+                    alt="Frame"
+                  />
+                </Col>
+                <Col sm={4}>
+                  <CardBody>
+                    <CardText>
+                      <div className="row">
+                        <h1>Details:</h1>
+                      </div>
+                      <div className="row">
+                        <h3>Quantity: </h3>
+                        <span>{`${this.props.actualQuote.Quantity}`}</span>
+                      </div>
+                      <div className="row">
+                        <h3>Dimentions: </h3>
+                        <span>{this.props.actualQuote.Size} sqft</span>
+                      </div>
+                      <div className="row">
+                        <h3>Delivery address:</h3>
+                        <span>{`${this.props.actualQuote.Address1} ${this.props.actualQuote.Address2} ${this.props.actualQuote.City}, ${this.props.actualQuote.State} ${this.props.actualQuote.Zip}`}</span>
+                      </div>
+                      <div className="row">
+                        <h3>Price:</h3>
+                        {this.props.actualQuote.Cost}
+                      </div>
+                    </CardText>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      className="text-white"
+                    >
+                      Reorder
+                    </Button>
+                  </CardBody>
+                </Col>
+              </div>
+            </div>
+          )}
+          {this.props.actualQuote.Product !== "Custom-Framed Murals" && (
+            <div>
+              <div className="row">
+                <Col sm={4}>
                   <CardImg
                     top
                     width="25%"
@@ -62,61 +122,40 @@ class ViewQuote extends Component {
                   />
                 </Col>
                 <Col sm={6}>
-                  <CardImg
-                    top
-                    width="25%"
-                    height="25%"
-                    src={this.props.actualQuote.FramePath}
-                    className="img-fluid"
-                    alt="Frame"
-                  />
+                  <CardBody>
+                    <CardText>
+                      <div className="row">
+                        <h1>Details:</h1>
+                      </div>
+                      <div className="row">
+                        <h3>Quantity: </h3>
+                        <span>{`${this.props.actualQuote.Quantity}`}</span>
+                      </div>
+                      <div className="row">
+                        <h3>Dimentions: </h3>
+                        <span>{this.props.actualQuote.Size} sqft</span>
+                      </div>
+                      <div className="row">
+                        <h3>Delivery address:</h3>
+                        <span>{`${this.props.actualQuote.Address1} ${this.props.actualQuote.Address2} ${this.props.actualQuote.City}, ${this.props.actualQuote.State} ${this.props.actualQuote.Zip}`}</span>
+                      </div>
+                      <div className="row">
+                        <h3>Price:</h3>
+                        ${this.props.actualQuote.Cost}
+                      </div>
+                    </CardText>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      className="text-white"
+                    >
+                      Reorder
+                    </Button>
+                  </CardBody>
                 </Col>
               </div>
             </div>
           )}
-          {this.props.actualQuote.Product !== "Custom-Framed Murals" && (
-            <div>
-              <CardImg
-                top
-                width="50%"
-                height="25%"
-                src={this.props.actualQuote.ImagePath}
-                className="img-fluid"
-                alt="Frame"
-              />
-            </div>
-          )}
-          <CardBody>
-            <CardTitle>
-              <h1>Details:</h1>
-            </CardTitle>
-            {/* <CardSubtitle>Card subtitle</CardSubtitle> */}
-            <CardText>
-              <div className="row">
-                <h3>Quantity: </h3>
-                <span>{`${this.props.actualQuote.Quantity}`}</span>
-              </div>
-              <div className="row">
-                <h3>Dimentions: </h3>
-                <span>{this.props.actualQuote.Size}</span>
-              </div>
-              <div className="row">
-                <h3>Delivery address:</h3>
-                <span>{`${this.props.actualQuote.Address1} ${this.props.actualQuote.Address2} ${this.props.actualQuote.City}, ${this.props.actualQuote.State} ${this.props.actualQuote.Zip}`}</span>
-              </div>
-              <div className="row">
-                <h3>Price:</h3>
-                {this.props.actualQuote.Cost}
-              </div>
-            </CardText>
-            <Button
-              variant="contained"
-              color="primary"
-              className="text-white float-right"
-            >
-              Reorder
-            </Button>
-          </CardBody>
         </Card>
       </div>
     );

@@ -71,6 +71,18 @@ const AsyncViewQuoteComponent = Loadable({
   loader: () => import("../../routes/Clients/ViewQuote"),
   loading: () => <RctPageLoader />,
 });
+
+// View Quote
+const AsyncInvoiceComponent = Loadable({
+  loader: () => import("../../routes/Clients/Invoice"),
+  loading: () => <RctPageLoader />,
+});
+
+// View Quote
+const AsyncCheckoutComponent = Loadable({
+  loader: () => import("../../routes/Clients/Checkout"),
+  loading: () => <RctPageLoader />,
+});
 export {
   AsyncEcommerceDashboardComponent,
   AsyncSessionLoginComponent,
@@ -81,5 +93,7 @@ export {
   AsyncMyQuotesComponent,
   AsyncClientDashboardComponent,
   AsyncProductsComponent,
-  AsyncViewQuoteComponent
+  AsyncViewQuoteComponent,
+  AsyncInvoiceComponent,
+  AsyncCheckoutComponent
 };

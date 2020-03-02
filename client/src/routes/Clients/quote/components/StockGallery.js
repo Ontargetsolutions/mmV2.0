@@ -24,7 +24,6 @@ class Gallery extends Component {
   getGalleryImages (e) {
     e.preventDefault();
     this.props.getAdobeImages (this.state.word);
-    console.log(  `hereeeeeeeeeeeeeeeeeeeeeeeeeeee`)
   }
 
   render () {
@@ -63,14 +62,14 @@ class Gallery extends Component {
                 <div className="col-sm-6 col-md-4 col-xl-3" key={key}>
                   <RctCard>
                     <RctCardContent>
-                      <div className={this.props.imageSelectedId === image.stock_id ?"product-image mb-20 imageSelected": "product-image mb-20"} >
+                      <div className={this.props.imageSelectedId === image.thumbnail_url ?"product-image mb-20 imageSelected": "product-image mb-20"} >
                         <a
                           href="#"
                           onClick={e => {
                             e.preventDefault();
                             // this.setState ({imageSelected: image.stock_id});
-                            console.log (image.stock_id);
-                            this.props.pickImage(image.stock_id);
+                            console.log (image.thumbnail_url);
+                            this.props.pickImage(image.thumbnail_url);
                             console.log(`ttttttttttttttttttttttttttttt`+JSON.stringify(this.props.quote));
                           }}
                         >
