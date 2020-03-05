@@ -1,10 +1,3 @@
-/* * body {
-  background-image: url("../images/rct-session-banner.png") !important;
-  background-size: cover !important;
-   background-size: 100% !important; 
-  background-repeat: no-repeat !important;
-  /* background-attachment: unset !important; 
-} */
 
 .buttons-wrapper {
   position: absolute;
@@ -19,22 +12,24 @@
   pointer-events: none;
   width: 100%;
   }
+
   .buttons-wrapper a {
     pointer-events: auto;
   }
+
   .mg-rg {
     margin-right: 1rem;
     margin-left: 1rem;
     margin-top: 1rem;
   }
+
   .buttonStyle{
-    background-color: white !important;
+    background-color: rgb(20,40,72) !important;
     width: 400px !important;
     height: 100px !important;
-    /* font-family: 'Playball', cursive !important; */
-    font-size: 40px !important;
-    color: bold rgb(20,40,72) !important;
- 
+    font-family: 'Playball', cursive !important;
+    font-size: 25px !important;
+    color: white !important;
   }
 
   .divPic{
@@ -47,38 +42,6 @@
 
  
   }
-
-  #linkHit a:visited {
-    background-color: cyan;
-  }
-
-/* selected link
-#linkHit a:active {
-  background-color: hotpink;
-}
-
-
-#linkHit a:link {
-  color: red;
-
-} */
-
-/* visited link */
-#linkHit a:visited {
-
-  background-color: rgb(139, 198, 250);
-}
-
-/* mouse over link */
-#linkHit a:hover {
-
-  background-color: rgb(139, 198, 250);
-}
-
-/* selected link */
-#linkHit a:active {
-  background-color: rgb(139, 198, 250);
-}
 
 .linkHit{
   background-color: rgb(139, 198, 250);
@@ -109,7 +72,41 @@
   }
 
   .imageSelected{
-
   border: solid 5px red;
-
   }
+
+
+
+ @media (max-width: 765px) and (min-width: 320px) {
+  .buttons-wrapper {
+    position: absolute;
+    height: calc(25vh);
+    margin-top: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 400;
+    top: 0;
+    pointer-events: none;
+    width: 100%;
+    }
+    .buttons-wrapper a {
+      pointer-events: auto;
+    }
+  
+    .mg-rg {
+      margin-right: 1rem;
+      margin-left: 1rem;
+      margin-top: 1rem;
+    }
+  
+    .buttonStyle{
+      background-color: rgb(20,40,72) !important;
+      width: 200px !important;
+      height: 50px !important;
+      font-family: 'Playball', cursive !important;
+      font-size: 15px !important;
+      color: white !important;
+    }
+}

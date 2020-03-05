@@ -16,8 +16,8 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 
 //Components
-import Hit from "./Hits";
-import Filters from "./Filters";
+import Hit from "./HitsArtGallery";
+import Filters from "./FiltersArtGallery";
 
 const searchClient = algoliasearch(
   "AF197BQP6P",
@@ -50,7 +50,7 @@ export default class Shop extends Component {
           </div>
           <div className="row">
             <div className="col-lg-3 col-md-4 d-none d-md-block">
-              <Filters />
+              <Filters  art={true} />
             </div>
             <div className="col-lg-9 col-md-8 col-sm-12">
               <div className="shop-content">

@@ -73,6 +73,7 @@ class Profile extends Component {
     const {userData} = this.props;
     const countires = countriesStates.getCountries ();
     const statesList = countriesStates.getStatesByShort (this.state.country);
+    console.log(`stateList ${statesList}`);
 
     return (
       <div className="profile-wrapper w-50">
