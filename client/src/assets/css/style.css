@@ -75,6 +75,7 @@
   border: solid 5px red;
   }
 
+  #iconify { color: white; }
 
 
  @media (max-width: 765px) and (min-width: 320px) {
@@ -109,4 +110,5 @@
       font-size: 15px !important;
       color: white !important;
     }
+   
 }

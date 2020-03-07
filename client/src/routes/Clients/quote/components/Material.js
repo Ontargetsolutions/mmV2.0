@@ -22,7 +22,7 @@ import {pickMaterial, pickService} from '../../../../actions/QuoteActions';
 
 class Materials extends Component {
   state = {
-    material: 'Art Gallery',
+    material: 'Extensive Gallery',
   };
 
   // componentDidMount(){
@@ -30,7 +30,7 @@ class Materials extends Component {
   // }
 
   componentWillMount () {
-    this.props.pickMaterial ('Art Gallery');
+    this.props.pickMaterial ('Extensive Gallery');
     console.log (`reducer en el comp will mount ${this.props.material}`);
   }
 
@@ -56,12 +56,12 @@ class Materials extends Component {
               value={this.state.material}
               onChange={e => this.handleChangeRadio (e, 'material')}
             >
-              {this.props.serviceSelected === 'Custom-Framed Murals' &&
+              {/* {this.props.serviceSelected === 'Custom-Framed Murals' &&
                 <FormControlLabel
                   value="Art Gallery"
                   control={<Radio />}
                   label="Art Gallery"
-                />}
+                />} */}
               {this.props.serviceSelected === 'Custom-Framed Murals' &&
                 <FormControlLabel
                   value="Extensive Gallery"

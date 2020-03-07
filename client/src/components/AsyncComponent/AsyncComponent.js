@@ -83,6 +83,13 @@ const AsyncCheckoutComponent = Loadable({
   loader: () => import("../../routes/Clients/Checkout"),
   loading: () => <RctPageLoader />,
 });
+
+// Shop
+const AsyncShopComponent = Loadable({
+  loader: () => import("../../routes/Clients/Shop"),
+  loading: () => <RctPageLoader />,
+});
+
 export {
   AsyncEcommerceDashboardComponent,
   AsyncSessionLoginComponent,
@@ -95,5 +102,6 @@ export {
   AsyncProductsComponent,
   AsyncViewQuoteComponent,
   AsyncInvoiceComponent,
-  AsyncCheckoutComponent
+  AsyncCheckoutComponent,
+  AsyncShopComponent
 };

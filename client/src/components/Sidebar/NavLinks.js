@@ -9,6 +9,13 @@ export default {
        type_multi: null,
      },
      {
+      menu_title: 'sidebar.shop',
+      menu_icon: 'zmdi zmdi-shopping-cart-plus',
+      path: '/app/shop',
+      new_item: false,
+      type_multi: null,
+    },
+     {
        menu_title: 'sidebar.profile',
        menu_icon: 'zmdi zmdi-accounts',
        path: '/app/profile',

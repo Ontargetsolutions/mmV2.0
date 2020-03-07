@@ -11,15 +11,16 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Tooltip from '@material-ui/core/Tooltip';
 import { withRouter } from "react-router-dom";
+import '../../assets/css/style.css'
 
 //Helper
-import { textTruncate, getAppLayout } from "helpers/helpers";
+import { textTruncate, getAppLayout } from "../../helpers/helpers";
 
 //Actions
-import { deleteItemFromCart } from "actions";
+import { deleteItemFromCart } from "../../actions";
 
 //intl Messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 class Carts extends Component {
 
@@ -47,8 +48,8 @@ class Carts extends Component {
 			<UncontrolledDropdown nav className="list-inline-item cart-dropdown">
 				<DropdownToggle nav className="p-0">
 					<Tooltip title="Shopping Cart" placement="bottom">
-						<IconButton aria-label="bag">
-							<i className="zmdi zmdi-shopping-cart"></i>
+						<IconButton aria-label="bag" id='iconify'>
+							<i  className="zmdi zmdi-shopping-cart iconify"></i>
 							<Badge
 								color="success"
 								className="badge-xs badge-top-right"

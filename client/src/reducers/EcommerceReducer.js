@@ -26,26 +26,6 @@ const INIT_STATE = {
 			price: 45,
 			productQuantity: 1,
 			totalPrice: 45
-		},
-		{
-			objectID: '3',
-			image: require('../assets/img/product-3.png'),
-			name: 'Bluetooth Speaker',
-			description: 'Rechargeable Battery',
-			brand: 'JBL',
-			price: 96,
-			productQuantity: 1,
-			totalPrice: 96
-		},
-		{
-			objectID: '4',
-			image: require('../assets/img/product-4.png'),
-			name: 'D.J. Speaker',
-			description: '3d Surround Sound',
-			brand: 'JBL',
-			price: 87,
-			productQuantity: 1,
-			totalPrice: 87
 		}
 	],
 	newCartItem: {
@@ -87,8 +67,6 @@ export default (state = INIT_STATE, action) => {
 				objectID:action.payload.objectID,
 				name: action.payload.name,
 				image: action.payload.image,
-				description: action.payload.description,
-				brand: action.payload.brand,
 				price: action.payload.price,
 				productQuantity: 1,
 				totalPrice: action.payload.price
