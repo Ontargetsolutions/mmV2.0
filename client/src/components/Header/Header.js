@@ -126,7 +126,7 @@ class Header extends Component {
                     </Tooltip>
                   </li>
                 )}
-                <li className="list-inline-item search-icon d-inline-block">
+                {/* <li className="list-inline-item search-icon d-inline-block">
                   <SearchForm />
                   <IconButton
                     mini="true"
@@ -141,7 +141,8 @@ class Header extends Component {
                       this.setState({ isMobileSearchFormVisible: false })
                     }
                   />
-                </li>
+                </li> */}
+                
               </ul>
             )}
           </div>
@@ -156,11 +157,10 @@ class Header extends Component {
                 </IconButton>
               </Tooltip>
             </li> */}
-            <li className="list-inline-item">
+            <li className="list-inline-item d-inline-block">
             <Cart />
             </li>
-           
-            <li className="list-inline-item">
+            <li className="list-inline-item d-inline-block">
               <UserBlock />
             </li>
           </ul>

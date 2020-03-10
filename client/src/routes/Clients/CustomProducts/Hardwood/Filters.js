@@ -13,7 +13,7 @@ import {
 } from 'react-instantsearch/dom';
 
 // Card Component
-import {RctCard, RctCardContent} from '../../../../components/RctCard';
+import {RctCard, RctCardContent} from '../../../components/RctCard';
 
 const Filters = ({props}) => {
   return (

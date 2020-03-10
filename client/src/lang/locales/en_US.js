@@ -789,5 +789,11 @@ export default {
    'sidebar.Clientreport': 'Clients Report',
    'sidebar.admin':'Admin',
    'components.searchImage': 'Search',
+   'sidebar.shopinstock':'Shop in Stock',
+   'sidebar.customProducts':'Custom your product',
+   'sidebar.MyData': 'My info',
+   'sidebar.mosaics': 'Mosaics',
+   'sidebar.hardwoodFlooring': 'Hardwood-Flooring',
+   'sidebar.IznikPersian': 'Iznik-Persian tiles'
    
 }

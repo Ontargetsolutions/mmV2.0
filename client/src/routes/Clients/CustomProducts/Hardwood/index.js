@@ -8,7 +8,8 @@ import {
   Pagination,
   Configure,
   MenuSelect,
-  Panel
+  Panel,
+  SearchBox,
 } from "react-instantsearch/dom";
 import algoliasearch from 'algoliasearch/lite';
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
@@ -16,8 +17,8 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 
 //Components
-import Hit from "./HitsArtGallery";
-import Filters from "./FiltersArtGallery";
+import Hit from "./Hits";
+import Filters from "./Filters";
 
 const searchClient = algoliasearch(
   "AF197BQP6P",
@@ -28,7 +29,7 @@ export default class Shop extends Component {
   render() {
     return (
       <div className="shop-wrapper">
-        <InstantSearch searchClient={searchClient} indexName="art_mm">
+        <InstantSearch searchClient={searchClient} indexName="de_mmquote">
           <div className="mb-30 filter-sm-wrap d-block d-md-none">
             <ExpansionPanel>
               <ExpansionPanelSummary
@@ -39,9 +40,20 @@ export default class Shop extends Component {
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
                 <div className="d-sm-flex justify-content-between w-100">
+                <Panel className="mx-10 mb-20 mb-sm-0" header="Search">
+                    <SearchBox
+                      translations={{placeholder: 'Search Products'}}
+                      showLoadingIndicator
+                    />
+                  </Panel>
                   <Panel className="mx-10 mb-20 mb-sm-0" header="Category">
                     <div className="app-selectbox-sm">
                       <MenuSelect attribute="category" limit={5} />
+                    </div>
+                  </Panel>
+                  <Panel className="mx-10 mb-20 mb-sm-0" header="Material">
+                    <div className="app-selectbox-sm">
+                      <MenuSelect attribute="material" limit={5} />
                     </div>
                   </Panel>
                 </div>

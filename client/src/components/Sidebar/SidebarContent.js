@@ -56,7 +56,7 @@ class SidebarContent extends Component {
                 className="rct-mainMenu p-0 m-0 list-unstyled"
                 subheader={
                   <ListSubheader className="side-title" component="li">
-                    <IntlMessages id="sidebar.quotes" />
+                    <IntlMessages id="sidebar.MyData" />
                   </ListSubheader>
                 }
               >

@@ -51,4 +51,16 @@ export default [
     path: 'shop',
     component: AsyncShopComponent,
   },
+  {
+    path: 'custom/mosaics',
+    component: AsyncProductsComponent,
+  },
+  {
+    path: 'custom/hardwood',
+    component: AsyncProductsComponent,
+  },
+  {
+    path: 'custom/tiles',
+    component: AsyncProductsComponent,
+  },
 ];

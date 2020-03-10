@@ -9,21 +9,49 @@ export default {
        type_multi: null,
      },
      {
-      menu_title: 'sidebar.shop',
+      menu_title: 'sidebar.shopinstock',
       menu_icon: 'zmdi zmdi-shopping-cart-plus',
       path: '/app/shop',
       new_item: false,
       type_multi: null,
     },
-     {
-       menu_title: 'sidebar.profile',
-       menu_icon: 'zmdi zmdi-accounts',
-       path: '/app/profile',
-       new_item: false,
-       type_multi: null,
-     },
+    {
+      menu_title: 'sidebar.customProducts',
+      menu_icon: 'zmdi zmdi-photo-size-select-large',
+      // path: '/app/custom',
+      new_item: false,
+      type_multi: null,
+      type_multi: null,
+      child_routes: [
+         {
+            path: "/app/custom/mosaics",
+            menu_icon: 'zmdi zmdi-grid',
+            menu_title: "sidebar.mosaics"
+         },
+         {
+            path: "/app/custom/hardwood",
+            menu_icon: 'zmdi zmdi-view-stream',
+            menu_title: "sidebar.hardwoodFlooring"
+         },
+         {
+            path: "/app/custom/tiles",
+            menu_icon: 'zmdi zmdi-view-quilt',
+            menu_title: "sidebar.IznikPersian"
+         }
+      ]    
+      
+
+    },
+
    ],
    category2: [
+    {
+      menu_title: 'sidebar.profile',
+      menu_icon: 'zmdi zmdi-accounts',
+      path: '/app/profile',
+      new_item: false,
+      type_multi: null,
+    },
      {
        menu_title: 'sidebar.myOrders',
        menu_icon: 'zmdi zmdi-flower',

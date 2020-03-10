@@ -16,7 +16,7 @@ import StockGallery from "../components/StockGallery";
 import UpladPic from "../components/UploadPicture";
 import GerneralQuestions from "../components/GeneralQuestions";
 import Frames from "./Frames";
-import ArtGallery from './ArtGallery';
+
 import WallFloor from './WallFloor';
 
 import { saveQuote } from "../../../../actions";
@@ -54,8 +54,7 @@ class VerticalLinearStepper extends React.Component {
         return <Material />;
       case 2: {
         switch (this.props.material) {
-          case "Art Gallery":
-            return <ArtGallery />;
+
           case "Extensive Gallery":
             return <StockGallery />;
           case "Patterns":

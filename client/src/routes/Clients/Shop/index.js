@@ -8,7 +8,8 @@ import {
   Pagination,
   Configure,
   MenuSelect,
-  Panel
+  Panel,
+  SearchBox,
 } from "react-instantsearch/dom";
 import algoliasearch from 'algoliasearch/lite';
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
@@ -39,9 +40,20 @@ export default class Shop extends Component {
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
                 <div className="d-sm-flex justify-content-between w-100">
+                <Panel className="mx-10 mb-20 mb-sm-0" header="Search">
+                    <SearchBox
+                      translations={{placeholder: 'Search Products'}}
+                      showLoadingIndicator
+                    />
+                  </Panel>
                   <Panel className="mx-10 mb-20 mb-sm-0" header="Category">
                     <div className="app-selectbox-sm">
                       <MenuSelect attribute="category" limit={5} />
+                    </div>
+                  </Panel>
+                  <Panel className="mx-10 mb-20 mb-sm-0" header="Material">
+                    <div className="app-selectbox-sm">
+                      <MenuSelect attribute="material" limit={5} />
                     </div>
                   </Panel>
                 </div>
