@@ -6,35 +6,14 @@ import {
 import update from 'react-addons-update';
 
 const INIT_STATE = {
-	cart: [
-		{
-			objectID: '1',
-			image: require('../assets/img/product-1.png'),
-			name: 'Speaker',
-			description: 'Rechargeable Battery',
-			brand: 'JBL',
-			price: 50,
-			productQuantity: 1,
-			totalPrice: 50
-		},
-		{
-			objectID: '2',
-			image: require('../assets/img/product-2.png'),
-			name: 'Headphone',
-			description: 'Clear Sound',
-			brand: 'JBL',
-			price: 45,
-			productQuantity: 1,
-			totalPrice: 45
-		}
-	],
+	cart: [],
 	newCartItem: {
 		objectID:"",
 		name: "",
 		image: "",
-		description: "",
-		brand: "",
 		price: null,
+		material: "",
+		dimentions: "",
 		productQuantity: null,
 		totalPrice: null
 	},
@@ -63,11 +42,14 @@ export default (state = INIT_STATE, action) => {
 			});
 
 		case ON_ADD_ITEM_TO_CART:
+			console.log(`lo que llega al reducer para agragar al carro ${JSON.stringify(action.payload)}`);
 			let newCartItem = {
-				objectID:action.payload.objectID,
+				objectID: action.payload.objectID,
 				name: action.payload.name,
 				image: action.payload.image,
 				price: action.payload.price,
+				material: action.payload.material,
+				dimentions: action.payload.dimentions,
 				productQuantity: 1,
 				totalPrice: action.payload.price
 			};

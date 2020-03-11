@@ -90,6 +90,12 @@ const AsyncShopComponent = Loadable({
   loading: () => <RctPageLoader />,
 });
 
+// Cart
+const AsyncCartComponent = Loadable({
+  loader: () => import("../../routes/Clients/Cart"),
+  loading: () => <RctPageLoader />,
+});
+
 export {
   AsyncEcommerceDashboardComponent,
   AsyncSessionLoginComponent,
@@ -103,5 +109,6 @@ export {
   AsyncViewQuoteComponent,
   AsyncInvoiceComponent,
   AsyncCheckoutComponent,
-  AsyncShopComponent
+  AsyncShopComponent,
+  AsyncCartComponent
 };

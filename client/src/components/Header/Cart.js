@@ -14,7 +14,7 @@ import { withRouter } from "react-router-dom";
 import '../../assets/css/style.css'
 
 //Helper
-import { textTruncate, getAppLayout } from "../../helpers/helpers";
+import {  getAppLayout } from "../../helpers/helpers";
 
 //Actions
 import { deleteItemFromCart } from "../../actions";
@@ -31,7 +31,7 @@ class Carts extends Component {
 		for (const item of cart) {
 			totalPrice += item.totalPrice
 		}
-		return totalPrice.toFixed(2);
+		return totalPrice;
 	}
 
 	//Is Cart Empty
@@ -63,7 +63,7 @@ class Carts extends Component {
 					<div className="dropdown-content">
 						<div className="dropdown-top d-flex justify-content-between rounded-top bg-primary">
 							<span className="text-white font-weight-bold"><IntlMessages id="components.cart" /></span>
-							<Badge color="warning">4 NEW</Badge>
+							{/* <Badge color="warning">4 NEW</Badge> */}
 						</div>
 						{this.isCartEmpty() ? (
 							<div className="text-center p-4">
@@ -81,9 +81,9 @@ class Carts extends Component {
 															<img src={cart.image} alt="products" className="media-object" width="63" height="63" />
 														</div>
 														<div className="media-body">
-															<span className="fs-14 d-block">{textTruncate(cart.name, 25)}</span>
-															<span className="fs-12 d-block text-muted">{textTruncate(cart.description, 50)}</span>
-															<span className="fs-12 d-block text-muted">{cart.brand}</span>
+															<span className="fs-14 d-block">{cart.name}</span>
+															{/* <span className="fs-12 d-block text-muted">{cart.description, 50)}</span> */}
+															{/* <span className="fs-12 d-block text-muted">{cart.brand}</span> */}
 														</div>
 													</div>
 													<div className="text-center">
@@ -104,7 +104,7 @@ class Carts extends Component {
 											<Button
 												variant="raised"
 												component={Link}
-												to={`/${getAppLayout(location)}/ecommerce/cart`}
+												to={`/${getAppLayout(location)}/cart`}
 												color="primary"
 												className="mr-10 btn-xs bg-primary text-white"
 											>

@@ -10,7 +10,8 @@ import {
    AsyncViewQuoteComponent,
    AsyncInvoiceComponent,
    AsyncCheckoutComponent,
-   AsyncShopComponent
+   AsyncShopComponent,
+   AsyncCartComponent
 
  } from "../components/AsyncComponent/AsyncComponent";
 
@@ -62,5 +63,9 @@ export default [
   {
     path: 'custom/tiles',
     component: AsyncProductsComponent,
+  },
+  {
+    path: 'cart',
+    component: AsyncCartComponent,
   },
 ];
