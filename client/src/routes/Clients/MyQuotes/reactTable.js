@@ -40,7 +40,7 @@ class MyOrdersTable extends Component {
                 return {
                   id1: key,
                   id: prop[0],
-                  date: prop[15].toDateString,
+                  date: prop[15],
                   size: prop[5],
                   quantity: prop[7],
                   product: prop[6],
@@ -100,7 +100,7 @@ class MyOrdersTable extends Component {
             Header: 'Date',
             accessor: 'date',
             Cell: date => {
-              return moment (date.updated_at).local ().format ('MM-DD-YYYY');
+              return moment (date).format ('MM-DD-YYYY');
             },
           },
           {

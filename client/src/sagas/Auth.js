@@ -127,6 +127,15 @@ const deletingASignedFirebaseUser = async () => {
     .catch (error => error);
 };
 
+const sendEmailVerification = async email => {
+  await auth
+  .sendPasssendEmailVerification() (email, actionCodeSettings)
+  .then (res => {
+    console.log (`res de la llamada a la funcion que manda el email verification ${res}`);
+  })
+  .catch (error => error);
+}
+
 
 /**
  * Find User by Email
@@ -318,20 +327,30 @@ function* createUserWithEmailPassword({payload}) {
         type,
         companyName
       );
-      console.log(`looq ue vira de mysql ${JSON.stringify(userCreated)}`)
-      localStorage.setItem (
-        'user_info',
-        // JSON.stringify (userCreated.data.email)
-        userCreated.data.Email
-      );
-      localStorage.setItem ('user_id', signUpUser.user.uid);
-      yield put (
-        signUpUserInFirebaseSuccess ({
-          uid: signUpUser.user.uid,
-          userAuthe: userCreated.data,
-        })
-      );
-      history.push ('/');
+      console.log(`loq ue vira de mysql ${JSON.stringify(userCreated)}`);
+
+      ////////////////////// here  ////////////////////////////////////////////////////////////////////////////////////
+      if(signUpUser && signUpUser.emailVerified === false){
+        auth.sendEmailVerification().then(function(){
+          console.log("email verification sent to user");
+        });
+      }
+    ////////////////////// here  ////////////////////////////////////////////////////////////////////////////////////
+  
+      // localStorage.setItem (
+      //   'user_info',
+      //   // JSON.stringify (userCreated.data.email)
+      //   userCreated.data.Email
+      // );
+      // localStorage.setItem ('user_id', signUpUser.user.uid);
+      // yield put (
+      //   signUpUserInFirebaseSuccess ({
+      //     uid: signUpUser.user.uid,
+      //     userAuthe: userCreated.data,
+      //   })
+      // );
+
+      history.push ('/sigin');
       // }
     }
   } catch (error) {
