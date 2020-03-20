@@ -21,6 +21,7 @@ import {
   AsyncSessionRegisterComponent,
   AsyncSessionPage404Component,
   AsyncClientDashboardComponent,
+  AsyncForgotPasswordComponent
 } from '../components/AsyncComponent/AsyncComponent';
 
 import AppSignIn from './SigninFirebase';
@@ -79,6 +80,7 @@ class App extends Component {
         <Route path="/signin" component={AppSignIn} />
         <Route path="/signup" component={AppSignUp} />
         <Route path="/session/404" component={AsyncSessionPage404Component} />
+        <Route path="/forgot-password" component={AsyncForgotPasswordComponent} />
         <Route path="/client" component={AsyncClientDashboardComponent} />
       </RctThemeProvider>
     );

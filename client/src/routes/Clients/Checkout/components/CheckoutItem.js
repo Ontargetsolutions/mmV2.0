@@ -77,8 +77,8 @@ class CheckoutItem extends Component {
                                  </div>
                                  <div className="media-body text-truncate">
                                     <span className="fs-14 d-block text-truncate">{cart.name}</span>
-                                    <span className="fs-12 d-block text-muted text-truncate">{cart.description}</span>
-                                    <span className="fs-12 d-block text-muted">{cart.brand}</span>
+                                    <span className="fs-12 d-block text-muted text-truncate">{cart.material}</span>
+                                    {/* <span className="fs-12 d-block text-muted">{cart.brand}</span> */}
                                  </div>
                               </div>
                               <div className="w-10">

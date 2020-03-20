@@ -7,14 +7,14 @@ const request = require("request-promise");
 module.exports = {
   getAllUsers: (req, res) => {
     db.User.findAll({ where: { Rol: "Client", Active: true } })
-      .then(data => res.json(data))
+      .then(data => res.send(data))
       .catch(err => res.status(422).json(err));
   },
   getAllWorkers: (req, res) => {
     db.User.findAll({
       where: { Rol: { [Sequelize.Op.or]: ["Admin", "Seller"] }, Active: true }
     })
-      .then(data => res.json(data))
+      .then(data => res.send(data))
       .catch(err => res.status(422).json(err));
   },
   getUserByEmail: (req, res) => {
@@ -25,7 +25,7 @@ module.exports = {
   },
   getPersonById: (req, res) => {
     db.User.findOne({ where: { id: req.params.id } })
-      .then(data => res.json(data))
+      .then(data => res.send(data))
       .catch(err => res.status(422).json(err));
   },
 

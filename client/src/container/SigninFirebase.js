@@ -55,7 +55,7 @@ class Signin extends Component {
 	 * On Forgot password
 	 */
   onForgotPassword () {
-    this.props.history.push('/session/forgot-password');
+    this.props.history.push('/forgot-password');
   }
   render () {
     const {email, password} = this.state;

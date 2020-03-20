@@ -11,7 +11,8 @@ import {
    AsyncInvoiceComponent,
    AsyncCheckoutComponent,
    AsyncShopComponent,
-   AsyncCartComponent
+   AsyncCartComponent,
+   AsyncForgotPasswordComponent
 
  } from "../components/AsyncComponent/AsyncComponent";
 
@@ -67,5 +68,9 @@ export default [
   {
     path: 'cart',
     component: AsyncCartComponent,
+  },
+  {
+    path: 'forgot-password',
+    component: AsyncForgotPasswordComponent,
   },
 ];

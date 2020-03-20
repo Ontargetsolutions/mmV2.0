@@ -96,6 +96,13 @@ const AsyncCartComponent = Loadable({
   loading: () => <RctPageLoader />,
 });
 
+// ForgotPassword
+const AsyncForgotPasswordComponent = Loadable({
+  loader: () => import("../../routes/session/forgot-password"),
+  loading: () => <RctPageLoader />,
+});
+
+
 export {
   AsyncEcommerceDashboardComponent,
   AsyncSessionLoginComponent,
@@ -110,5 +117,6 @@ export {
   AsyncInvoiceComponent,
   AsyncCheckoutComponent,
   AsyncShopComponent,
-  AsyncCartComponent
+  AsyncCartComponent,
+  AsyncForgotPasswordComponent
 };

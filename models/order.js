@@ -6,6 +6,12 @@ module.exports = (sequelize, DataTypes) => {
       Cost: {
         type: DataTypes.REAL,
       },
+      HandleFee: {
+        type: DataTypes.REAL,
+      },
+      DeliveryFee: {
+        type: DataTypes.REAL,
+      },
       ImageType: {
         type: DataTypes.STRING,
       },
@@ -53,8 +59,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       Status: {
         type: DataTypes.STRING,
-
-      }
+      },
+      // InvoiceId: {
+      //   type: DataTypes.STRING,
+      // }
  
     }
   );

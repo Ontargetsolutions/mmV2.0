@@ -794,6 +794,9 @@ export default {
    'sidebar.MyData': 'My info',
    'sidebar.mosaics': 'Mosaics',
    'sidebar.hardwoodFlooring': 'Hardwood-Flooring',
-   'sidebar.IznikPersian': 'Iznik-Persian tiles'
+   'sidebar.IznikPersian': 'Iznik-Persian tiles',
+   'components.Price':'Price',
+   'components.EstimatedTaxes':'Estimated Taxes',
+   'components.EstimatedShipping':'Estimated Shipping'
    
 }
