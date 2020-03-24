@@ -70,9 +70,9 @@ class CheckoutItem extends Component {
   render() {
     const { cart } = this.props;
     const { success } = this.state;
-    const { taxes, TotalPrice, shipping } = this.props.data
-      ? this.props.data
-      : 0;
+    const { cost, quantity } = this.props.data ? this.props.data : 0;
+    const { taxes, TotalPrice, shipping } = this.props.data ? this.props.data : 0;
+
 
     let taxes1 = this.calcTaxes(
       this.props.actualQuote.Quantity,
@@ -150,7 +150,7 @@ class CheckoutItem extends Component {
             <IntlMessages id="components.EstimatedShipping" />
           </span>
           <span className="font-weight-bold">
-            $ {shipping !== 0 ? shipping : 1}
+            $ 11
           </span>
         </div>
         <div className=" d-flex justify-content-between align-items-center py-4">
@@ -158,7 +158,7 @@ class CheckoutItem extends Component {
             <IntlMessages id="components.EstimatedTaxes" />
           </span>
           <span className="font-weight-bold">
-            $ {taxes !== 0 ? taxes : taxes1}
+            $ {taxes1}
           </span>
         </div>
         <div className="border-top d-flex justify-content-between align-items-center py-4">
@@ -166,7 +166,7 @@ class CheckoutItem extends Component {
             <IntlMessages id="components.totalPrice" />
           </span>
           <span className="font-weight-bold">
-            $ {TotalPrice !== 0 ? TotalPrice : suma1}
+            $ { suma1}
           </span>
         </div>
 

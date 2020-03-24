@@ -20,7 +20,6 @@ class Invoice extends Component {
   componentDidMount() {
     const { id } = this.props.location.quoteid;
     this.props.getQuoteById(id);
-   
   }
 
   calcTotal = (quantity, price) => {
@@ -203,30 +202,43 @@ class Invoice extends Component {
                   </div>
                   <div className="totle-amount col-sm-12 col-md-4 text-right">
                     <h2 className="invoice-title">USD {suma}</h2>
-                    <NavLink
-                      to={{
-                        pathname: "/app/checkout",
-                        quoteid: {
-                          id: this.props.actualQuote.id
-                        },
-                        data: {
-                          taxes: taxes,
-                          TotalPrice: suma,
-                          shipping: 0
-                        },
-                        source:{
-                          source:'invoice'
-                        }
-                      }}
-                    >
-                      <Button
-                        variant="contained"
-                        className="btn-success text-white btn-icon"
-                      >
-                        <i className="ti-wallet mr-10"></i>{" "}
-                        <IntlMessages id="components.payNow" />
-                      </Button>
-                    </NavLink>
+                    <div className="row">
+                      <div className="col-sm-6">
+                        <Button
+                          // variant="contained"
+                          className="btn-info text-white btn-icon"
+                        >
+                          <i className="ti-save mr-10"></i>{" "}
+                          <IntlMessages id="components.Save" />
+                        </Button>
+                      </div>
+                      <div className="col-sm-6">
+                        <NavLink
+                          to={{
+                            pathname: "/app/checkout",
+                            quoteid: {
+                              id: this.props.actualQuote.id
+                            },
+                            data: {
+                              taxes: taxes,
+                              TotalPrice: suma,
+                              shipping: 0
+                            },
+                            source: {
+                              source: "invoice"
+                            }
+                          }}
+                        >
+                          <Button
+                            variant="contained"
+                            className="btn-success text-white btn-icon"
+                          >
+                            <i className="ti-wallet mr-10"></i>{" "}
+                            <IntlMessages id="components.payNow" />
+                          </Button>
+                        </NavLink>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

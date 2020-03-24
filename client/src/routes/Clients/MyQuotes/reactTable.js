@@ -7,6 +7,7 @@ import { NavLink } from "react-router-dom";
 import Tooltip from "@material-ui/core/Tooltip";
 
 import { connect } from "react-redux";
+import Moment from "react-moment";
 
 // redux action
 import { getMyQuotesList } from "../../../actions/QuoteActions";
@@ -90,6 +91,10 @@ class MyOrdersTable extends Component {
                               },
                               source: {
                                 source: "checkout"
+                              },
+                              data:{
+                                quantity: prop[9],
+                                cost: prop[1]
                               }
                             }}
                           >
@@ -112,8 +117,8 @@ class MyOrdersTable extends Component {
           {
             Header: "Date",
             accessor: "date",
-            Cell: date => {
-              return moment(date).format("MM-DD-YYYY");
+            Cell: props => {
+              return <Moment format="YYYY/MM/DD">{props.value}</Moment>;
             }
           },
           {

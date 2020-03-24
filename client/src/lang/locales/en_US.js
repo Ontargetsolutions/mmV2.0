@@ -797,6 +797,7 @@ export default {
    'sidebar.IznikPersian': 'Iznik-Persian tiles',
    'components.Price':'Price',
    'components.EstimatedTaxes':'Estimated Taxes',
-   'components.EstimatedShipping':'Estimated Shipping'
+   'components.EstimatedShipping':'Estimated Shipping',
+   'components.Save': 'Save'
    
 }

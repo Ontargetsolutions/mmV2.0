@@ -31,7 +31,7 @@ class Checkout extends Component {
                   />
                 )}
                 {source.source === "checkout" && (
-                  <CheckoutQuote quoteid={this.props.location.quoteid} />
+                  <CheckoutQuote quoteid={this.props.location.quoteid}  data={this.props.location.data}/>
                 )}
                 {source === 'cart' && (
                   <CheckoutItem />
