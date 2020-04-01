@@ -17,7 +17,8 @@ import IntlMessages from "../../../../util/IntlMessages";
 import {
   getAdobeImages,
   pickImage,
-  setGalleryFilterCriteria
+  setGalleryFilterCriteria,
+  setLoader
 } from "../../../../actions/QuoteActions";
 import Filters from "./extGalleryFilter";
 
@@ -37,8 +38,6 @@ class Gallery extends Component {
     criteria: "",
     actualPage: 1,
     picsPerPage: 12,
-    loading: false,
-    pics: this.props.imagesAdobeStock ? this.props.imagesAdobeStock : []
   };
   s;
 
@@ -50,13 +49,13 @@ class Gallery extends Component {
   // get gallery images
   getGalleryImages(e) {
     e.preventDefault();
+    this.props.setLoader("true");
     const criteria = this.props.extGalleryFilter;
     criteria === ""
       ? NotificationManager.error(
           "You need to type or select any search criteria"
         )
-      : this.props.getAdobeImages(criteria);
-    this.setState({ loading: true });
+      : this.props.getAdobeImages(criteria)
   }
 
   handleChangeRadio = e => {
@@ -134,7 +133,7 @@ class Gallery extends Component {
             pickImage={this.props.pickImage}
             imageSelected={this.props.imageSelectedId}
           />
-          {galleryImages.length !== 0 && (
+          {galleryImages.length !== 0 && !loading &&(
             <Pagination
               postPerPage={picsPerPage}
               TotalPost={galleryImages.length}
@@ -168,6 +167,7 @@ export default withStyles(style)(
   connect(mapStateToProps, {
     getAdobeImages,
     setGalleryFilterCriteria,
-    pickImage
+    pickImage,
+    setLoader
   })(Gallery)
 );

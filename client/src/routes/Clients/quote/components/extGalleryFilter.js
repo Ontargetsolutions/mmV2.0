@@ -35,7 +35,7 @@ const listItems = [
     status: false
   },
   {
-    itemName: "cityscape Paintings",
+    itemName: "Cityscape Paintings",
     status: false
   },
   {

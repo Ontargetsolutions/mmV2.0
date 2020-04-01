@@ -16,7 +16,8 @@ import {
   GET_IMAGE,
   GET_IMAGE_FAILURE,
   GET_IMAGE_SUCCESS,
-  GET_GALLERY_FILTER_CRITERIA
+  GET_GALLERY_FILTER_CRITERIA,
+  SET_LOADER_TRUE
 } from "../actions/types";
 
 import { NotificationManager } from "react-notifications";
@@ -45,20 +46,21 @@ const INIT_STATE = {
 
 export default (state = INIT_STATE, action) => {
   switch (action.type) {
-
     case GET_ADOBE_STOCK_IMAGES_SUCCESS:
       return {
         ...state,
         imagesAdobeStock: action.payload,
         loading: false,
-        imageSelectedId: action.payload.length !==0 ? action.payload[0].id : state.imageSelectedId
+        imageSelectedId:
+          action.payload.length !== 0
+            ? action.payload[0].id
+            : state.imageSelectedId
       };
 
     case GET_GALLERY_FILTER_CRITERIA:
       return {
         ...state,
-        extGalleryFilter: action.payload,
-
+        extGalleryFilter: action.payload
       };
 
     case GET_ADOBE_STOCK_IMAGES_FAILURE:
@@ -105,8 +107,12 @@ export default (state = INIT_STATE, action) => {
     case PICK_QUANTITY:
       return { ...state, quantity: action.payload };
 
+    case SET_LOADER_TRUE:
+      console.log(`en el reducer loading ${action.payload}`);
+      return { ...state, loading: action.payload };
+
     case PICK_IMAGE:
-      console.log(`en pick image reducer ${action.payload }`)
+      console.log(`en pick image reducer ${action.payload}`);
       return { ...state, imageSelectedId: action.payload };
 
     case PICK_FRAME:

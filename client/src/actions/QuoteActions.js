@@ -22,7 +22,8 @@ import {
   GET_IMAGE,
   GET_IMAGE_SUCCESS,
   GET_IMAGE_FAILURE,
-  GET_GALLERY_FILTER_CRITERIA
+  GET_GALLERY_FILTER_CRITERIA,
+  SET_LOADER_TRUE
 } from "./types";
 
 /**
@@ -150,6 +151,11 @@ export const setGalleryFilterCriteria = criteria => (
 export const getImageSuccess = data => ({
   type: GET_IMAGE_SUCCESS,
   payload: data
+});
+
+export const setLoader = loading => (console.log(`en la accion pa cambiar el loaders`),{
+  type: SET_LOADER_TRUE,
+  payload: loading
 });
 
 /**
