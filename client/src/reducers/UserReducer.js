@@ -48,11 +48,6 @@ export default (state = INIT_STATE, action) => {
       };
 
     case GET_USER_BY_ID_SUCCESS:
-      console.log(
-        `action.payload en el reducer despues de un cambio ${JSON.stringify(
-          action.payload
-        )}`
-      );
       return {
         ...state,
         loading: false,

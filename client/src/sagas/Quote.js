@@ -6,7 +6,9 @@ import {
   getMyQuotesListFailure,
   getMyQuotesListSuccess,
   getQuoteByIdFailure,
-  getQuoteByIdSuccess
+  getQuoteByIdSuccess,
+  getImageFailure,
+  getImageSuccess
 } from "../actions/QuoteActions";
 import {
   GET_ADOBE_STOCK_IMAGES,
@@ -31,11 +33,18 @@ const uploadImageRequest = async data =>
     .then(info => info)
     .catch(error => error);
 
+const getImageRequest = async id =>
+  await utilAPI
+    .getPictureById(id)
+    .then(info => info)
+    .catch(error => error);
+
 const saveQuoteRequest = async data =>
   await quoteAPI
     .saveQuote(data)
     .then(quote => quote)
     .catch(error => error);
+
 
 const getMyOrdersListRequest = async data =>
   await quoteAPI
@@ -56,7 +65,6 @@ function* getImagesFomAdobeS(payload) {
   const parameter = payload.payload;
   try {
     const images = yield call(getImagesFomAdobeRequest, parameter);
-    console.log(`en la saga images ${JSON.stringify(images)}`);
     if (images.message) {
       yield put(getAdobeImagesFailure(images.message));
     } else {
@@ -88,15 +96,24 @@ function* getMyOrdersListS(payload) {
  * GET ORDER BY ID
  */
 function* getOrderByIdS(payload) {
-  console.log(`en la saga orderbyid ${JSON.stringify(payload)}`);
   const id = payload.payload;
   try {
     const order = yield call(getOrderByIdRequest, id);
-    console.log(`order devuelta ${JSON.stringify(order)}`);
     if (order.message) {
       yield put(getQuoteByIdFailure(order.message));
     } else {
-      yield put(getQuoteByIdSuccess(order.data));
+      if (order.data.ImageId !== null) {
+        const pic = yield call(getImageRequest, order.data.ImageId);
+        console.log(`imagen que viene de la bd ${JSON.stringify(pic)}`);
+        if (pic.message) {
+          yield put(getImageFailure(pic.message));
+        } else {
+          yield put(getImageSuccess(pic.data));
+        }
+        yield put(getQuoteByIdSuccess(order.data));
+      } else {
+        yield put(getQuoteByIdSuccess(order.data));
+      }
     }
   } catch (error) {
     yield put(getQuoteByIdFailure(error));
@@ -107,7 +124,7 @@ function* getOrderByIdS(payload) {
  * SAVE THE QUOTE
  */
 function* saveQuoteS(payload) {
-  console.log(` guardar quota en la saga payload ${payload}`);
+  console.log(` guardar quota en la saga payload ${JSON.stringify(payload.payload)}`);
   const {
     material,
     imageUploaded,
@@ -124,16 +141,17 @@ function* saveQuoteS(payload) {
     zipcode,
     user
   } = payload.payload;
-
   try {
     if (material === "Upload a pic") {
-      var imageData = yield call(uploadImageRequest, imageUploaded);
+      var imageData = yield call(uploadImageRequest, {
+        imageUploaded,
+        id: user.id
+      });
     }
-
     const quote = yield call(saveQuoteRequest, {
-      Cost: "",
+      // Cost: "",
       ImagePath:
-        material === "Upload a pic" ? imageData.data.path : imageSelectedId,
+        material === "Upload a pic" ? imageData.data.id : imageSelectedId,
       FramePath: frameSelected,
       ImageType:
         material === "Upload a pic"
@@ -141,7 +159,6 @@ function* saveQuoteS(payload) {
           : material === "Extensive Gallery"
           ? "adobe"
           : "company",
-      // ImageUploadedPath: material === "Upload a pic" ? imageData.data.path : '',
       Size: size,
       Quantity: quantity,
       Address1: address1,
@@ -152,6 +169,7 @@ function* saveQuoteS(payload) {
       Zip: zipcode,
       Status: "Ordered",
       UserId: user.id,
+      ImageId: imageData ? imageData.data.id: null,
       Cost: 0,
       Product: serviceSelected
     });

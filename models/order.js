@@ -6,9 +6,6 @@ module.exports = (sequelize, DataTypes) => {
       Cost: {
         type: DataTypes.REAL,
       },
-      HandleFee: {
-        type: DataTypes.REAL,
-      },
       DeliveryFee: {
         type: DataTypes.REAL,
       },
@@ -69,7 +66,7 @@ module.exports = (sequelize, DataTypes) => {
   Order.associate = function (models) {
     // associations can be defined here
     Order.belongsTo (models.User, {onDelete: 'SET NULL'});
-    // Order.belongsTo (models.Image, {onDelete: 'SET NULL'});
+    Order.belongsTo (models.Image, {onDelete: 'SET NULL'});
     // Order.belongsTo (models.Frame, {onDelete: 'SET NULL'});
     // Order.belongsTo (models.Pattern, {onDelete: 'SET NULL'});
   };

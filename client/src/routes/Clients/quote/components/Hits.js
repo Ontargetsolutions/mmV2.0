@@ -69,15 +69,6 @@ class Hit extends Component {
             </a>
           </div>
         </div>
-        {/* <div className="product-info border-top p-3">
-					<div className="d-flex justify-content-between">
-						<h2 className="text-danger">$ {hit.name}</h2>
-					</div>
-					<h4 className="text-dark">{textTruncate(hit.name, 25)}</h4>
-					<p className="mb-5 text-muted font-xs">
-						{textTruncate(hit.description, 50)}
-					</p>
-				</div> */}
       </RctCard>
     );
   }

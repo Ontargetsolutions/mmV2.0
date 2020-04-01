@@ -69,9 +69,6 @@ export default (state = INIT_STATE, action) => {
       };
 
     case GET_USER_SUCCESS:
-      console.log (
-        `action.payload en el reducer despues de autentificar ${JSON.stringify (action.payload)}`
-      );
       return {...state, userData: action.payload};
 
     case USER_UPDATE_SUCCESS:

@@ -18,7 +18,11 @@ import {
   GET_ORDERS_LIST_FAILURE,
   GET_QUOTE_BY_ID,
   GET_QUOTE_BY_ID_SUCCESS,
-  GET_QUOTE_BY_ID_FAILURE
+  GET_QUOTE_BY_ID_FAILURE,
+  GET_IMAGE,
+  GET_IMAGE_SUCCESS,
+  GET_IMAGE_FAILURE,
+  GET_GALLERY_FILTER_CRITERIA
 } from "./types";
 
 /**
@@ -123,6 +127,37 @@ export const saveQuote = quote => (console.log(`en la accion pa salvar`),{
 export const saveQuoteSuccess = quote => ({
   type: SAVE_QUOTE_SUCCESS,
   payload: quote
+});
+
+
+/**
+ * Redux Action to get image
+ */
+export const getImage = data => (console.log(`en la accion pa salvar`),{
+  type: GET_IMAGE,
+  payload: data
+});
+
+export const setGalleryFilterCriteria = criteria => (
+  console.log(`en la accion pa salvar`),{
+  type: GET_GALLERY_FILTER_CRITERIA,
+  payload: criteria
+});
+
+/**
+ * Redux Action to get image success
+ */
+export const getImageSuccess = data => ({
+  type: GET_IMAGE_SUCCESS,
+  payload: data
+});
+
+/**
+ * Redux Action to get image success
+ */
+export const getImageFailure = err => ({
+  type: GET_IMAGE_FAILURE,
+  payload: err
 });
 
 /**

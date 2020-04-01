@@ -1,16 +1,9 @@
 const router = require("express").Router();
 const Image = require("../../controllers/Image");
+const multer = require('multer');
 
-const multer = require("multer");
-
-const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, "./uploads/");
-  },
-  filename: function(req, file, cb) {
-    cb(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);
-  }
-});
+var storage = multer.memoryStorage()
+// var upload = multer({storage: storage});
 
 const fileFilter = (req, file, cb) => {
   if (
@@ -24,6 +17,7 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
+
 const uploadsFile = multer({
   storage: storage,
   limits: {
@@ -32,9 +26,17 @@ const uploadsFile = multer({
   fileFilter: fileFilter
 });
 
+
 // Matches with "/api/image"
 router
-  .route("/upload")
-  .post(uploadsFile.single("userImage"), Image.create);
+  .route("/upload/:id")
+  .post(uploadsFile.single("userImage"), Image.uploadFile);
+
+  
+// router.route("/uploadImage")
+// .post(upload.single("image"), Image.create);
+
+router.route("/getImage/:id")
+.get(Image.findFile);
 
 module.exports = router;

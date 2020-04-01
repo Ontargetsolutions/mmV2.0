@@ -42,7 +42,6 @@ export default (state = INIT_STATE, action) => {
 			});
 
 		case ON_ADD_ITEM_TO_CART:
-			console.log(`lo que llega al reducer para agragar al carro ${JSON.stringify(action.payload)}`);
 			let newCartItem = {
 				objectID: action.payload.objectID,
 				name: action.payload.name,

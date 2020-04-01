@@ -110,9 +110,6 @@ class VerticalLinearStepper extends React.Component {
       ) {
         return true;
       } else {
-        console.log(
-          `serviceSelected: ${this.props.serviceSelected}, activeStep ${this.state.activeStep},  size: ${this.props.size}`
-        );
         if (
           this.props.serviceSelected != "Custom-Framed Murals" &&
           this.state.activeStep === 3 &&

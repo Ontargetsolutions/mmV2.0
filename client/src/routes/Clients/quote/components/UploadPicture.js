@@ -2,30 +2,31 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { FormGroup, Input, Col, Form } from "reactstrap";
 
 import "../../../../assets/css/style.css";
 
 import { saveImageUpload, pickImage } from "../../../../actions/QuoteActions";
 
-import api from '../../../../api/QuoteAPI';
-
+import api from "../../../../api/UtilAPI";
 
 import upIma from "../../../../assets/img/CC_Upload.jpg";
 
 class UploadPicture extends Component {
   state = {
-    image: upIma
+    image: upIma,
+    userId: this.props.userData.id
   };
 
   uploadImage(e) {
     let imageFormObj = new FormData();
     imageFormObj.append("userImage", e.target.files[0]);
+    // imageFormObj.append("userId", this.state.userId);
     this.setState({ image: URL.createObjectURL(e.target.files[0]) });
     // api.uploadPic(imageFormObj);
-  
-    this.props.saveImageUpload(imageFormObj);
-    this.props.pickImage('imageUploaded');
 
+    this.props.saveImageUpload(imageFormObj);
+    this.props.pickImage("imageUploaded");
   }
 
   render() {
@@ -45,9 +46,10 @@ class UploadPicture extends Component {
   }
 }
 
-const mapStateToProps = ({ quote }) => {
+const mapStateToProps = ({ quote, authUser }) => {
   const { imageSelectedId, frameSelected } = quote;
-  return {  quote, imageSelectedId, frameSelected};
+  const { userData } = authUser;
+  return { quote, imageSelectedId, frameSelected, userData };
 };
 
 export default connect(mapStateToProps, {

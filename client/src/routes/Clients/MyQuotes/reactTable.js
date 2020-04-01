@@ -43,10 +43,10 @@ class MyOrdersTable extends Component {
                   id1: key,
                   id: prop[0],
                   date: prop[17],
-                  size: prop[7],
-                  quantity: prop[9],
-                  product: prop[8],
-                  status: prop[16],
+                  size: prop[6],
+                  quantity: prop[8],
+                  product: prop[7],
+                  status: prop[15],
                   cost: prop[1],
                   actions: (
                     <div className="actions-right">
@@ -93,7 +93,7 @@ class MyOrdersTable extends Component {
                                 source: "checkout"
                               },
                               data:{
-                                quantity: prop[9],
+                                quantity: prop[8],
                                 cost: prop[1]
                               }
                             }}

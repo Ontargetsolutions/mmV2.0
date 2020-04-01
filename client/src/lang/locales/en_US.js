@@ -798,6 +798,8 @@ export default {
    'components.Price':'Price',
    'components.EstimatedTaxes':'Estimated Taxes',
    'components.EstimatedShipping':'Estimated Shipping',
-   'components.Save': 'Save'
+   'components.Save': 'Save',
+   'widgets.Filters':'Filters:',
+   'components.clearSelection': 'Clear'
    
 }

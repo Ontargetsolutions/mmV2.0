@@ -18,11 +18,13 @@ const saveImageRequest = async () =>
  * SAVE IMAGE SAGA
  */
 function* saveImageS (data) {
+ 
     try {
       const image = yield call (saveImageRequest, data);
       if (image.message) {
         yield put (saveImageFailure (image.message));
       } else {
+        
         yield put (saveImageSuccess (image.data));
       }
     } catch (error) {

@@ -7,6 +7,7 @@ export default {
   },
   // Save the quote
   saveQuote: quote => {
+    console.log(`jeloouuuuu en salvar couta en api frontend`);
     return axios.post(`/api/quote`, quote);
   },
   orderById: Id =>{

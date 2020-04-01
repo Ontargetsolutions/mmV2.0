@@ -14,6 +14,8 @@ import {
   CardImgOverlay
 } from "reactstrap";
 import Button from "@material-ui/core/Button";
+import ImageLoader from "react-image-file";
+import { CircularProgress } from "@material-ui/core";
 
 import "../../../assets/css/style.css";
 
@@ -43,7 +45,9 @@ class ViewQuote extends Component {
 
   render() {
     console.log(
-      `id que viene de la tabla ${JSON.stringify(this.props.location.quoteid)}`
+      `id de la imagen que viene de la tabla quotas ${JSON.stringify(
+        this.props.actualQuote
+      )}`
     );
     return (
       <div className="cardsmasonry-wrapper">
@@ -53,14 +57,25 @@ class ViewQuote extends Component {
               <div className="row">
                 <Col sm={4}>
                   <h1>Art:</h1>
-                  <CardImg
-                    top
-                    width="25%"
-                    height="25%"
-                    src={this.props.actualQuote.ImagePath}
-                    className="img-fluid"
-                    alt="Art"
-                  />
+                  {this.props.actualQuote.ImageType === "upload" &&
+                    (this.props.actualImage.Data ? (
+                      <ImageLoader
+                        file={this.props.actualImage.Data.data}
+                        alt="some text"
+                      />
+                    ) : (
+                      <CircularProgress color="secondary"></CircularProgress>
+                    ))}
+                  {this.props.actualQuote.ImageType !== "upload" && (
+                    <CardImg
+                      top
+                      width="25%"
+                      height="25%"
+                      src={this.props.actualQuote.ImagePath}
+                      className="img-fluid"
+                      alt="Art"
+                    />
+                  )}
                 </Col>
                 <Col sm={4}>
                   <h1>Frame:</h1>
@@ -75,27 +90,26 @@ class ViewQuote extends Component {
                 </Col>
                 <Col sm={4}>
                   <CardBody>
-                    <CardText>
-                      <div className="row">
-                        <h1>Details:</h1>
-                      </div>
-                      <div className="row">
-                        <h3>Quantity: </h3>
-                        <span>{`${this.props.actualQuote.Quantity}`}</span>
-                      </div>
-                      <div className="row">
-                        <h3>Dimentions: </h3>
-                        <span>{this.props.actualQuote.Size} sqft</span>
-                      </div>
-                      <div className="row">
-                        <h3>Delivery address:</h3>
-                        <span>{`${this.props.actualQuote.Address1} ${this.props.actualQuote.Address2} ${this.props.actualQuote.City}, ${this.props.actualQuote.State} ${this.props.actualQuote.Zip}`}</span>
-                      </div>
-                      <div className="row">
-                        <h3>Price:</h3>
-                        {this.props.actualQuote.Cost}
-                      </div>
-                    </CardText>
+                    <div className="row">
+                      <h1>Details:</h1>
+                    </div>
+                    <div className="row">
+                      <h3>Quantity: </h3>
+                      <span>{`${this.props.actualQuote.Quantity}`}</span>
+                    </div>
+                    <div className="row">
+                      <h3>Dimentions: </h3>
+                      <span>{this.props.actualQuote.Size} sqft</span>
+                    </div>
+                    <div className="row">
+                      <h3>Delivery address:</h3>
+                      <span>{`${this.props.actualQuote.Address1} ${this.props.actualQuote.Address2} ${this.props.actualQuote.City}, ${this.props.actualQuote.State} ${this.props.actualQuote.Zip}`}</span>
+                    </div>
+                    <div className="row">
+                      <h3>Price:</h3>
+                      {this.props.actualQuote.Cost}
+                    </div>
+
                     <Button
                       variant="contained"
                       color="primary"
@@ -112,38 +126,47 @@ class ViewQuote extends Component {
             <div>
               <div className="row">
                 <Col sm={4}>
-                  <CardImg
-                    top
-                    width="25%"
-                    height="25%"
-                    src={this.props.actualQuote.ImagePath}
-                    className="img-fluid"
-                    alt="Art"
-                  />
+                  {this.props.actualQuote.ImageType === "upload" &&
+                    (this.props.actualImage.Data ? (
+                      <ImageLoader
+                        file={this.props.actualImage.Data.data}
+                        alt="some text"
+                      />
+                    ) : (
+                      <CircularProgress color="secondary"></CircularProgress>
+                    ))}
+                  {this.props.actualQuote.ImageType !== "upload" && (
+                    <CardImg
+                      top
+                      width="25%"
+                      height="25%"
+                      src={this.props.actualQuote.ImagePath}
+                      className="img-fluid"
+                      alt="Art"
+                    />
+                  )}
                 </Col>
                 <Col sm={6}>
                   <CardBody>
-                    <CardText>
-                      <div className="row">
-                        <h1>Details:</h1>
-                      </div>
-                      <div className="row">
-                        <h3>Quantity: </h3>
-                        <span>{`${this.props.actualQuote.Quantity}`}</span>
-                      </div>
-                      <div className="row">
-                        <h3>Dimentions: </h3>
-                        <span>{this.props.actualQuote.Size} sqft</span>
-                      </div>
-                      <div className="row">
-                        <h3>Delivery address:</h3>
-                        <span>{`${this.props.actualQuote.Address1} ${this.props.actualQuote.Address2} ${this.props.actualQuote.City}, ${this.props.actualQuote.State} ${this.props.actualQuote.Zip}`}</span>
-                      </div>
-                      <div className="row">
-                        <h3>Price:</h3>
-                        ${this.props.actualQuote.Cost}
-                      </div>
-                    </CardText>
+                    <div className="row">
+                      <h1>Details:</h1>
+                    </div>
+                    <div className="row">
+                      <h3>Quantity: </h3>
+                      <span>{`${this.props.actualQuote.Quantity}`}</span>
+                    </div>
+                    <div className="row">
+                      <h3>Dimentions: </h3>
+                      <span>{this.props.actualQuote.Size} sqft</span>
+                    </div>
+                    <div className="row">
+                      <h3>Delivery address:</h3>
+                      <span>{`${this.props.actualQuote.Address1} ${this.props.actualQuote.Address2} ${this.props.actualQuote.City}, ${this.props.actualQuote.State} ${this.props.actualQuote.Zip}`}</span>
+                    </div>
+                    <div className="row">
+                      <h3>Price:</h3>${this.props.actualQuote.Cost}
+                    </div>
+
                     <Button
                       variant="contained"
                       color="primary"
@@ -163,8 +186,8 @@ class ViewQuote extends Component {
 }
 
 const mapStateToProps = ({ quote }) => {
-  const { actualQuote } = quote;
-  return { quote, actualQuote };
+  const { actualQuote, actualImage } = quote;
+  return { quote, actualQuote, actualImage };
 };
 
 export default connect(mapStateToProps, { getQuoteById })(ViewQuote);
