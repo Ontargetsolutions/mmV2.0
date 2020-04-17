@@ -14,4 +14,6 @@ router
 
 router.route("/client/:clientId").get(Quote.getMyOrders);
 
+router.route("/invoiceNumber").post(Quote.getQuotesByDate);
+
 module.exports = router;

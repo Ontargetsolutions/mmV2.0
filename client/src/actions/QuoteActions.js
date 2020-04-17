@@ -23,7 +23,19 @@ import {
   GET_IMAGE_SUCCESS,
   GET_IMAGE_FAILURE,
   GET_GALLERY_FILTER_CRITERIA,
-  SET_LOADER_TRUE
+  SET_LOADER_TRUE,
+  GENERATE_INVOICE_NUMBER,
+  GENERATE_INVOICE_NUMBER_FAILURE,
+  GENERATE_INVOICE_NUMBER_SUCCESS,
+  PICK_PRODUCT,
+  PICK_ART_SOURCE,
+  PICK_THICKNESS,
+  PICK_WIDTH,
+  PICK_LENGTH,
+  PICK_TYPE,
+  PICK_STYLE,
+  PICK_FINISH,
+  PICK_HARDWOOD
 } from "./types";
 
 /**
@@ -59,13 +71,76 @@ export const pickService = service => ({
 });
 
 /**
- * Redux Action to pick the source of the art
+ * Redux Action to pick the product
  */
-export const pickMaterial = material => ({
-  type: PICK_MATERIAL,
-  payload: material
+export const pickProduct = product => ({
+  type: PICK_PRODUCT,
+  payload: product
 });
 
+/**
+ * Redux Action to pick the hardwood thinckness
+ */
+export const pickThickness = thickness => ({
+  type: PICK_THICKNESS,
+  payload: thickness
+});
+
+/**
+ * Redux Action to pick the hardwood width
+ */
+export const pickWidth = width => ({
+  type: PICK_WIDTH,
+  payload: width
+});
+
+/**
+ * Redux Action to pick the hardwood lenght
+ */
+export const pickLength = lenght => ({
+  type: PICK_LENGTH,
+  payload: lenght
+});
+
+/**
+ * Redux Action to pick the hardwood type
+ */
+export const pickType = htype => (console.log(`picking the type ${htype}`),{
+  type: PICK_TYPE,
+  payload: htype
+});
+
+/**
+ * Redux Action to pick the hardwood style
+ */
+export const pickStyle = style => ({
+  type: PICK_STYLE,
+  payload: style
+});
+
+/**
+ * Redux Action to pick the hardwood finish
+ */
+export const pickFinish = finish => ({
+  type: PICK_FINISH,
+  payload: finish
+});
+
+/**
+ * Redux Action to pick the hardwood 
+ */
+export const pickHardwood = hardwood => ({
+  type: PICK_HARDWOOD,
+  payload: hardwood
+});
+
+/**
+ * Redux Action to pick the source of the art
+ */
+export const pickArtSource = artSource => ({
+  type: PICK_ART_SOURCE,
+  payload: artSource
+});
 /**
  * Redux Action to pick the dimentions of the art
  */
@@ -117,7 +192,7 @@ export const pickQuantity = quantity => ({
 /**
  * Redux Action to save the quote
  */
-export const saveQuote = quote => (console.log(`en la accion pa salvar`),{
+export const saveQuote = quote => ({
   type: SAVE_QUOTE,
   payload: quote
 });
@@ -130,17 +205,15 @@ export const saveQuoteSuccess = quote => ({
   payload: quote
 });
 
-
 /**
  * Redux Action to get image
  */
-export const getImage = data => (console.log(`en la accion pa salvar`),{
+export const getImage = data => ({
   type: GET_IMAGE,
   payload: data
 });
 
-export const setGalleryFilterCriteria = criteria => (
-  console.log(`en la accion pa salvar`),{
+export const setGalleryFilterCriteria = criteria => ({
   type: GET_GALLERY_FILTER_CRITERIA,
   payload: criteria
 });
@@ -153,7 +226,7 @@ export const getImageSuccess = data => ({
   payload: data
 });
 
-export const setLoader = loading => (console.log(`en la accion pa cambiar el loaders`),{
+export const setLoader = loading => ({
   type: SET_LOADER_TRUE,
   payload: loading
 });
@@ -198,7 +271,6 @@ export const getMyQuotesListFailure = error => ({
   payload: error
 });
 
-
 export const getQuoteById = id => ({
   type: GET_QUOTE_BY_ID,
   payload: id
@@ -218,4 +290,18 @@ export const getQuoteByIdSuccess = quote => ({
 export const getQuoteByIdFailure = error => ({
   type: GET_QUOTE_BY_ID_FAILURE,
   payload: error
+});
+
+export const generateInvoiceNumber = order => ({
+  type: GENERATE_INVOICE_NUMBER,
+  payload: order
+});
+
+export const generateInvoiceNumberFailure = error => ({
+  type: GENERATE_INVOICE_NUMBER_FAILURE,
+  payload: error
+});
+export const generateInvoiceNumberSuccess = invoiceNumber => ({
+  type: GENERATE_INVOICE_NUMBER_SUCCESS,
+  payload: invoiceNumber
 });

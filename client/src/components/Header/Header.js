@@ -18,6 +18,7 @@ import { collapsedSidebarAction } from "../../actions";
 // components
 import SearchForm from "./SearchForm";
 import MobileSearchForm from "./MobileSearchForm";
+import Notifications from './Notifications';
 import UserBlock from "../Sidebar/UserBlock";
 import Cart from "./Cart";
 
@@ -159,6 +160,9 @@ class Header extends Component {
             </li> */}
             <li className="list-inline-item d-inline-block">
             <Cart />
+            </li>
+            <li className="list-inline-item d-inline-block">
+            <Notifications />
             </li>
             <li className="list-inline-item d-inline-block">
               <UserBlock />

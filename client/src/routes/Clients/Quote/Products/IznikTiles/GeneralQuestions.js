@@ -7,13 +7,12 @@ import Switch from "@material-ui/core/Switch";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
 
 import {
   pickDimentions,
   selectDeliveryAddress,
   pickQuantity
-} from "../../../../actions/QuoteActions";
+} from "../../../../../actions/QuoteActions";
 
 const countriesStates = require("countrycitystatejson");
 
@@ -94,22 +93,8 @@ class GerneralQuestions extends Component {
           <FormGroup row>
             <Col sm={6}>
               <Label for="size" sm={4}>
-                Dimentions  (sq ft):
-              </Label>
-              {this.props.serviceSelected != "Custom-Framed Murals" && (
-                <Input
-                  type="size"
-                  value={this.props.size}
-                  name="size"
-                  id="size"
-                  className="has-input input-lg"
-                  placeholder="Type a dimention in sft"
-                  onChange={e => {
-                    this.props.pickDimentions(e.target.value);
-                  }}
-                />
-              )}
-              {this.props.serviceSelected === "Custom-Framed Murals" && (
+                Dimentions (sq ft):
+              </Label>            
                 <RadioGroup
                   aria-label="size"
                   name="sizeMurals"
@@ -117,22 +102,47 @@ class GerneralQuestions extends Component {
                   onChange={e => this.handleChangeRadio(e, "sizeMurals")}
                   onClick={console.log(this.state.sizeMurals)}
                 >
-                  <FormControlLabel
-                    value="3x3"
-                    control={<Radio />}
-                    label="3x3 ft"
-                  />
-                  <FormControlLabel
-                    value="3x5"
-                    control={<Radio />}
-                    label="3x5 ft"
-                  />
+                  <div className="row">
+                    <Col sm={6}>
+                      <FormControlLabel
+                        value="3x3"
+                        control={<Radio />}
+                        label="3x3 ft"
+                      />
+                      <FormControlLabel
+                        value="4x4"
+                        control={<Radio />}
+                        label="4x4 ft"
+                      />
+                      <FormControlLabel
+                        value="3x6"
+                        control={<Radio />}
+                        label="3x6 ft"
+                      />
+                    </Col>
+                    <Col sm={6}>
+                      <FormControlLabel
+                        value="4x8"
+                        control={<Radio />}
+                        label="4x8 ft"
+                      />
+                      <FormControlLabel
+                        value="6x6"
+                        control={<Radio />}
+                        label="6x6 ft"
+                      />
+                      <FormControlLabel
+                        value="8x8"
+                        control={<Radio />}
+                        label="8x8 ft"
+                      />
+                    </Col>
+                  </div>
                 </RadioGroup>
-              )}
             </Col>
             <Col sm={6}>
               <Label for="quantity" sm={2}>
-                Quantity:
+                Quantity (Tiles):
               </Label>
               <Input
                 value={this.state.quantity}
@@ -272,7 +282,7 @@ class GerneralQuestions extends Component {
 
 // map state to props
 const mapStateToProps = ({ authUser, quote }) => {
-  const {  userData } = authUser;
+  const { userData } = authUser;
   const { serviceSelected } = quote;
   return {
     serviceSelected,

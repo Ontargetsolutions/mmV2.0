@@ -3,15 +3,10 @@
  */
 
 import React, { Component } from "react";
-// import Search from './components/Search';
-// import StockPage from './components/StockGallery';
-import Stepper from './components/Stepper';
-
-
-
+import Stepper from './Stepper';
 
 // rct card box
-import RctCollapsibleCard from "../../../components/RctCollapsibleCard/RctCollapsibleCard";
+import RctCollapsibleCard from "../../../../../components/RctCollapsibleCard/RctCollapsibleCard";
 
 
 class Products extends Component {
@@ -22,12 +17,8 @@ class Products extends Component {
       <div className="ecom-dashboard-wrapper">
         <RctCollapsibleCard >
           <div className="row">
-            {/* <Search /> */}
             <Stepper />
-          </div>
-
-            {/* <StockPage /> */}
-   
+          </div>   
         </RctCollapsibleCard>
       </div>
     );

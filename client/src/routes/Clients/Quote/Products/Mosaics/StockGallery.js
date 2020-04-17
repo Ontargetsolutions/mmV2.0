@@ -12,14 +12,14 @@ import AdobeImages from "./AdobeImage";
 import Pagination from "./Pagination";
 
 // intl messages
-import IntlMessages from "../../../../util/IntlMessages";
+import IntlMessages from "../../../../../util/IntlMessages";
 
 import {
   getAdobeImages,
   pickImage,
   setGalleryFilterCriteria,
   setLoader
-} from "../../../../actions/QuoteActions";
+} from "../../../../../actions/QuoteActions";
 import Filters from "./extGalleryFilter";
 
 const style = theme => ({
@@ -39,13 +39,9 @@ class Gallery extends Component {
     actualPage: 1,
     picsPerPage: 12,
   };
-  s;
 
-  componentDidMount() {
-    // this.setState({ loading: this.props.loading });
-    // this.props.getAdobeImages("Modern Art");
-    // this.setState({loading: true});
-  }
+
+
   // get gallery images
   getGalleryImages(e) {
     e.preventDefault();

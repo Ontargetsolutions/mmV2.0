@@ -2,15 +2,22 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { FormGroup, Input, Col, Form } from "reactstrap";
+import { Badge } from "reactstrap";
+import Tooltip from "@material-ui/core/Tooltip";
+import IconButton from '@material-ui/core/IconButton';
+// npm install --save-dev @iconify/react @iconify/icons-zmdi
+import { Icon, InlineIcon } from '@iconify/react';
+import infoOutline from '@iconify/icons-zmdi/info-outline';
 
-import "../../../../assets/css/style.css";
 
-import { saveImageUpload, pickImage } from "../../../../actions/QuoteActions";
+import "../../../../../assets/css/style.css";
 
-import api from "../../../../api/UtilAPI";
+import {
+  saveImageUpload,
+  pickImage
+} from "../../../../../actions/QuoteActions";
 
-import upIma from "../../../../assets/img/CC_Upload.jpg";
+import upIma from "../../../../../assets/img/CC_Upload.jpg";
 
 class UploadPicture extends Component {
   state = {
@@ -34,6 +41,15 @@ class UploadPicture extends Component {
       <div className="dropzone-wrapper">
         <div className="row">
           <h1>Upload your file</h1>
+          <Tooltip
+            placement="top"
+            title="You can upload your own art/ picture here."
+          >
+            <IconButton aria-label="bag" id="iconify" >
+            <Icon icon={infoOutline} color="black" md-18 />
+              <Badge color="info" className="badge-xs badge-top-right"></Badge>
+            </IconButton>
+          </Tooltip>
         </div>
         <div className="row">
           <input type="file" onChange={e => this.uploadImage(e)} />

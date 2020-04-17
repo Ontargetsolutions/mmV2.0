@@ -3,41 +3,32 @@
  */
 
 import React, {Component} from 'react';
-import {FormGroup, Input, Label, Col} from 'reactstrap';
-import MatButton from '@material-ui/core/Button';
-import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 
-// rct card box
-import RctCollapsibleCard
-  from '../../../../components/RctCollapsibleCard/RctCollapsibleCard';
 
-import {pickMaterial, pickService} from '../../../../actions/QuoteActions';
+
+import {pickArtSource, pickService} from '../../../../../actions/QuoteActions';
 
 class Materials extends Component {
   state = {
-    material: 'Extensive Gallery',
+    artSource: 'Extensive Gallery',
   };
 
-  // componentDidMount(){
-  //   this.props.pickMaterial(this.state.material);
-  // }
-
   componentWillMount () {
-    this.props.pickMaterial ('Extensive Gallery');
-    console.log (`reducer en el comp will mount ${this.props.material}`);
+    this.props.pickArtSource ('Extensive Gallery');
+    console.log (`reducer en el comp will mount ${this.props.artSource}`);
   }
 
   handleChangeRadio = (e, key) => {
     this.setState ({[key]: e.target.value});
-    this.props.pickMaterial (e.target.value);
-    console.log (`reducer en el  handle change  ${this.props.material}`);
+    this.props.pickArtSource (e.target.value);
+    console.log (`reducer en el  handle change  ${this.props.artSource}`);
   };
 
   render () {
@@ -51,17 +42,11 @@ class Materials extends Component {
                   component="legend"
                 ></FormLabel> */}
             <RadioGroup
-              aria-label="materials"
-              name="materials"
-              value={this.state.material}
-              onChange={e => this.handleChangeRadio (e, 'material')}
+              aria-label="artSource"
+              name="artSource"
+              value={this.state.artSource}
+              onChange={e => this.handleChangeRadio (e, 'artSource')}
             >
-              {/* {this.props.serviceSelected === 'Custom-Framed Murals' &&
-                <FormControlLabel
-                  value="Art Gallery"
-                  control={<Radio />}
-                  label="Art Gallery"
-                />} */}
               {this.props.serviceSelected === 'Custom-Framed Murals' &&
                 <FormControlLabel
                   value="Extensive Gallery"
@@ -96,11 +81,11 @@ class Materials extends Component {
 
 // map state to props
 const mapStateToProps = ({quote}) => {
-  const {serviceSelected, material} = quote;
-  return {serviceSelected, material};
+  const {serviceSelected, artSource} = quote;
+  return {serviceSelected, artSource};
 };
 
 export default connect (mapStateToProps, {
-  pickMaterial,
+  pickArtSource,
   pickService,
 }) (Materials);

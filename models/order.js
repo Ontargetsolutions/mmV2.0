@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       DeliveryFee: {
         type: DataTypes.REAL,
       },
-      ImageType: {
+      ImageSource: {
         type: DataTypes.STRING,
       },
       ImagePath: {
@@ -23,6 +23,9 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       Product: {
+        type: DataTypes.STRING,
+      },
+      Service: {
         type: DataTypes.STRING,
       },
       Quantity: {
@@ -57,9 +60,30 @@ module.exports = (sequelize, DataTypes) => {
       Status: {
         type: DataTypes.STRING,
       },
-      // InvoiceId: {
-      //   type: DataTypes.STRING,
-      // }
+      InvoiceNumber: {
+        type: DataTypes.STRING,
+      },
+      HardwoodThickness: {
+        type: DataTypes.STRING,
+      },
+      HardwoodWidth: {
+        type: DataTypes.STRING,
+      },
+      HardwoodLength: {
+        type: DataTypes.STRING,
+      },
+      HardwoodType: {
+        type: DataTypes.STRING,
+      },
+      HardwoodStyle: {
+        type: DataTypes.STRING,
+      },
+      HardwoodFinish: {
+        type: DataTypes.STRING,
+      },
+      HardwoodSelected: {
+        type: DataTypes.STRING,
+      }
  
     }
   );

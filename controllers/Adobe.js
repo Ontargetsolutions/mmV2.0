@@ -6,7 +6,6 @@ module.exports = {
   getImages: (req, res) => {
 
     const param = req.params.word;
-    // const offset = req.params.offset;
     const header = {
       "x-api-key": process.env.API_KEY_ADOBE_STOCK,
       "x-product": "MMQuotes/1.0.0"

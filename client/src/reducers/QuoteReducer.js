@@ -2,7 +2,6 @@ import {
   GET_ADOBE_STOCK_IMAGES_SUCCESS,
   GET_ADOBE_STOCK_IMAGES_FAILURE,
   PICK_SERVICE,
-  PICK_MATERIAL,
   PICK_DIMENTIONS,
   SELECT_ADDRESS,
   PICK_QUANTITY,
@@ -17,19 +16,31 @@ import {
   GET_IMAGE_FAILURE,
   GET_IMAGE_SUCCESS,
   GET_GALLERY_FILTER_CRITERIA,
-  SET_LOADER_TRUE
+  SET_LOADER_TRUE,
+  GENERATE_INVOICE_NUMBER_SUCCESS,
+  GENERATE_INVOICE_NUMBER_FAILURE,
+  PICK_ART_SOURCE,
+  PICK_PRODUCT,
+  PICK_THICKNESS,
+  PICK_WIDTH,
+  PICK_LENGTH,
+  PICK_TYPE,
+  PICK_STYLE,
+  PICK_FINISH,
+  PICK_HARDWOOD
 } from "../actions/types";
 
 import { NotificationManager } from "react-notifications";
 
 const INIT_STATE = {
   imagesAdobeStock: [],
-  material: "Art Gallery",
+  artSource: "Art Gallery",
   imageUploaded: {},
   imageSelectedId: "",
   serviceSelected: "Custom-Framed Murals",
+  productSelected: "",
   frameSelected: "",
-  size: "3x3",
+  size: "36x36",
   quantity: 1,
   country: "",
   state: "",
@@ -41,7 +52,16 @@ const INIT_STATE = {
   actualQuote: {},
   actualImage: {},
   extGalleryFilter: "",
-  loading: false
+  loading: false,
+  invoiceNumber: "",
+  status: "",
+  hardwoodThickness: "",
+  hardwoodWidth: "",
+  hardwoodLength: "",
+  hardwoodType: "",
+  hardwoodStyle: "",
+  hardwoodFinish: "",
+  hardwoodSelected: ""
 };
 
 export default (state = INIT_STATE, action) => {
@@ -62,17 +82,82 @@ export default (state = INIT_STATE, action) => {
         ...state,
         extGalleryFilter: action.payload
       };
+    case GENERATE_INVOICE_NUMBER_SUCCESS:
+      return {
+        ...state,
+        invoiceNumber: action.payload
+      };
+    case GENERATE_INVOICE_NUMBER_FAILURE:
+      NotificationManager.error(action.payload);
+      return {
+        ...state
+      };
 
     case GET_ADOBE_STOCK_IMAGES_FAILURE:
       NotificationManager.error(action.payload);
       return { ...state };
+
+    case PICK_PRODUCT:
+      console.log(`Product selected: ${action.payload}, ${JSON.stringify(state)}`);
+      return {
+        ...state,
+        productSelected: action.payload,
+        imagesAdobeStock: [],
+        artSource: "",
+        imageUploaded: {},
+        imageSelectedId: "",
+        frameSelected: "",
+        quantity: 1,
+        country: "",
+        state: "",
+        city: "",
+        address1: "",
+        address2: "",
+        zipcode: "",
+        extGalleryFilter: "",
+        hardwoodThickness: "",
+        hardwoodWidth: "",
+        hardwoodLength: "",
+        hardwoodType: "",
+        hardwoodStyle: "",
+        hardwoodFinish: "",
+        hardwoodSelected: ""
+      };
+
+    case PICK_THICKNESS:
+      console.log(`Thickness selected: ${action.payload}`);
+      return { ...state, hardwoodThickness: action.payload };
+
+    case PICK_WIDTH:
+      console.log(`Width selected: ${action.payload}`);
+      return { ...state, hardwoodWidth: action.payload };
+
+    case PICK_LENGTH:
+      console.log(`Length selected: ${action.payload}`);
+      return { ...state, hardwoodLength: action.payload };
+
+    case PICK_TYPE:
+      console.log(`Type selected: ${action.payload}`);
+      return { ...state, hardwoodType: action.payload };
+
+    case PICK_STYLE:
+      console.log(`Style selected reducer: ${action.payload}`);
+      return { ...state, hardwoodStyle: action.payload };
+
+    case PICK_FINISH:
+      console.log(`Finish selected: ${action.payload}`);
+      return { ...state, hardwoodFinish: action.payload };
+
+    case PICK_HARDWOOD:
+      console.log(`Hardwood selected: ${action.payload}`);
+      return { ...state, hardwoodSelected: action.payload };
 
     case PICK_SERVICE:
       return {
         ...state,
         serviceSelected: action.payload,
         imagesAdobeStock: [],
-        material: "Art Gallery",
+        artSource: "Art Gallery",
         imageUploaded: {},
         imageSelectedId: "",
         frameSelected: "",
@@ -86,10 +171,10 @@ export default (state = INIT_STATE, action) => {
         zipcode: ""
       };
 
-    case PICK_MATERIAL:
+    case PICK_ART_SOURCE:
       return {
         ...state,
-        material: action.payload,
+        artSource: action.payload,
         imageSelectedId: "",
         frameSelected: "",
         imageUploaded: {},
@@ -108,11 +193,9 @@ export default (state = INIT_STATE, action) => {
       return { ...state, quantity: action.payload };
 
     case SET_LOADER_TRUE:
-      console.log(`en el reducer loading ${action.payload}`);
       return { ...state, loading: action.payload };
 
     case PICK_IMAGE:
-      console.log(`en pick image reducer ${action.payload}`);
       return { ...state, imageSelectedId: action.payload };
 
     case PICK_FRAME:

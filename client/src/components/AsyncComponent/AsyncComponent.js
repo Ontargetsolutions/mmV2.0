@@ -62,7 +62,7 @@ const AsyncClientDashboardComponent = Loadable ({
 
 // Products Page
 const AsyncProductsComponent = Loadable({
-  loader: () => import("../../routes/Clients/quote"),
+  loader: () => import("../../routes/Clients/Quote/Products/Mosaics"),
   loading: () => <RctPageLoader />,
 });
 
@@ -103,6 +103,20 @@ const AsyncForgotPasswordComponent = Loadable({
 });
 
 
+// Services Page
+const AsyncIznikServicesComponent = Loadable({
+  loader: () => import("../../routes/Clients/Quote/Products/IznikTiles/index"),
+  loading: () => <RctPageLoader />,
+});
+
+// Services Page
+const AsyncHardwoodServicesComponent = Loadable({
+  loader: () => import("../../routes/Clients/Quote/Products/HardwoodFlooring"),
+  loading: () => <RctPageLoader />,
+});
+
+
+
 export {
   AsyncEcommerceDashboardComponent,
   AsyncSessionLoginComponent,
@@ -118,5 +132,7 @@ export {
   AsyncCheckoutComponent,
   AsyncShopComponent,
   AsyncCartComponent,
-  AsyncForgotPasswordComponent
+  AsyncForgotPasswordComponent,
+  AsyncIznikServicesComponent,
+  AsyncHardwoodServicesComponent
 };

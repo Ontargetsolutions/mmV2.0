@@ -82,7 +82,7 @@ class Hit extends Component {
         <div className="overlay-wrap overflow-hidden">
 
           <div className="overlay-wrap overflow-hidden">
-            <div className="text-center p-4">
+            <div className="text-center">
               <img src={hit.image} className="img-fluid" alt="product" />
             </div>
             <div className="overlay-content d-flex align-items-end">

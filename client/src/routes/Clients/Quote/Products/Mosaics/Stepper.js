@@ -8,24 +8,27 @@ import StepLabel from "@material-ui/core/StepLabel";
 import StepContent from "@material-ui/core/StepContent";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
+import SweetAlert from "react-bootstrap-sweetalert";
 
-import Material from "../components/Material";
-import Services from "../../Services/index";
-import Patterns from "../components/Search";
-import StockGallery from "../components/StockGallery";
-import UpladPic from "../components/UploadPicture";
-import GerneralQuestions from "../components/GeneralQuestions";
+import Material from "./Material";
+import Services from "../../../Services/index";
+import Patterns from "./Search";
+import StockGallery from "./StockGallery";
+import UpladPic from "./UploadPicture";
+import GerneralQuestions from "./GeneralQuestions";
 import Frames from "./Frames";
+import WallFloor from "./WallFloor";
 
-import WallFloor from './WallFloor';
-
-import { saveQuote } from "../../../../actions";
+import { saveQuote, pickProduct } from "../../../../../actions";
+// intl messages
+import IntlMessages from "../../../../../util/IntlMessages";
 
 import { NavLink } from "react-router-dom";
 
 class VerticalLinearStepper extends React.Component {
   state = {
-    activeStep: 0
+    activeStep: 0,
+    success: false
   };
 
   getSteps = productSelected => {
@@ -53,8 +56,7 @@ class VerticalLinearStepper extends React.Component {
       case 1:
         return <Material />;
       case 2: {
-        switch (this.props.material) {
-
+        switch (this.props.artSource) {
           case "Extensive Gallery":
             return <StockGallery />;
           case "Patterns":
@@ -81,7 +83,8 @@ class VerticalLinearStepper extends React.Component {
 
   handleNext = (isFinished, e) => {
     e.preventDefault();
-    if (isFinished) this.props.saveQuote({...this.props.quote, user: this.props.userData});
+    if (isFinished)
+      this.props.saveQuote({ ...this.props.quote, user: this.props.userData });
     this.setState({
       activeStep: this.state.activeStep + 1
     });
@@ -92,7 +95,21 @@ class VerticalLinearStepper extends React.Component {
       activeStep: this.state.activeStep - 1
     });
   };
-
+  /**
+   * On Confirm dialog
+   * @param {string} key
+   */
+  onConfirm(key) {
+    this.setState({ [key]: false });
+    window.location = "/app/client";
+  }
+  /**
+   * Open Alert
+   * @param {key} key
+   */
+  openAlert(key) {
+    this.setState({ [key]: true });
+  }
   handleReset = () => {
     this.setState({
       activeStep: 0
@@ -122,9 +139,13 @@ class VerticalLinearStepper extends React.Component {
       }
     }
   }
+
+  componentDidMount() {
+    this.props.pickProduct("Mosaics");
+  }
   render() {
     const steps = this.getSteps(this.props.serviceSelected);
-    const { activeStep } = this.state;
+    const { activeStep, success } = this.state;
 
     return (
       <div>
@@ -166,18 +187,29 @@ class VerticalLinearStepper extends React.Component {
         </Stepper>
         {activeStep === steps.length && (
           <Paper square elevation={0} className="pl-40">
+            <SweetAlert
+              success
+              show={success}
+              title="Your Order Is Successfully Placed !"
+              btnSize="sm"
+              onConfirm={() => {
+                this.onConfirm("success");
+              }}
+            />
             <p>
               All steps completed - you&quot;re finished, our agents will
               contact you soon.
             </p>
-            <NavLink to="/app/client">
-              <Button
-                variant="contained"
-                className="btn-success text-white mr-10 mb-10"
-              >
-                Go Home
-              </Button>
-            </NavLink>
+            {/* <NavLink to="/app/client"> */}
+            <Button
+              variant="contained"
+              color="primary"
+              className="text-white"
+              onClick={() => this.openAlert("success")}
+            >
+              <IntlMessages id="components.placeOrder" />
+            </Button>
+            {/* </NavLink> */}
           </Paper>
         )}
       </div>
@@ -188,7 +220,7 @@ class VerticalLinearStepper extends React.Component {
 // map state to props
 const mapStateToProps = ({ quote, authUser }) => {
   const {
-    material,
+    artSource,
     serviceSelected,
     imageSelectedId,
     frameSelected,
@@ -196,7 +228,7 @@ const mapStateToProps = ({ quote, authUser }) => {
   } = quote;
   const { userData } = authUser;
   return {
-    material,
+    artSource,
     serviceSelected,
     imageSelectedId,
     frameSelected,
@@ -206,4 +238,6 @@ const mapStateToProps = ({ quote, authUser }) => {
   };
 };
 
-export default connect(mapStateToProps, { saveQuote })(VerticalLinearStepper);
+export default connect(mapStateToProps, { saveQuote, pickProduct })(
+  VerticalLinearStepper
+);

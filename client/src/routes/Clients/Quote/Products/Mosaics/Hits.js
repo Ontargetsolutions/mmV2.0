@@ -3,18 +3,16 @@
  */
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import CircularProgress from "@material-ui/core/CircularProgress";
 
-import { pickImage, pickFrame } from "../../../../actions/QuoteActions";
+import { pickImage, pickFrame } from "../../../../../actions/QuoteActions";
 
 // Card Component
-import { RctCard } from "../../../../components/RctCard";
+import { RctCard } from "../../../../../components/RctCard";
 
 //Actions
 
 //Helper
-import { textTruncate } from "../../../../helpers/helpers";
+import { textTruncate } from "../../../../../helpers/helpers";
 
 class Hit extends Component {
   state = {

@@ -34,7 +34,7 @@ export default {
             menu_title: "sidebar.hardwoodFlooring"
          },
          {
-            path: "/app/custom/tiles",
+            path: "/app/custom/iznik",
             menu_icon: 'zmdi zmdi-view-quilt',
             menu_title: "sidebar.IznikPersian"
          }

@@ -2,7 +2,6 @@ import axios from "axios";
 
 export default {
   getImagesFromAdobe: (word) => {
-    console.log(`Frontend buscar adobe pic ${word}`);
     return axios.get(`/api/adobe/${word}`);
   },
 

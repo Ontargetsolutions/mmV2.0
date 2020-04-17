@@ -1,12 +1,11 @@
 import React from "react";
 import { CircularProgress } from "@material-ui/core";
-import { RctCard, RctCardContent } from "../../../../components/RctCard/index";
+import { RctCard, RctCardContent } from "../../../../../components/RctCard/index";
 
 const AdobeImage = ({ images, loading, pickImage, imageSelected }) => {
   if (loading) {
-    return <CircularProgress color="secondary"></CircularProgress>;
+    return <CircularProgress color="primary"></CircularProgress>;
   }
-  console.log(`images pasadas por porps al adobeImage component, ${loading}, ${imageSelected} `);
   return (
     <div className="row">
       {images.map((image, key) => (

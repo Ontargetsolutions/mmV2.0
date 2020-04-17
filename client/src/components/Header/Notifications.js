@@ -8,6 +8,10 @@ import Button from '@material-ui/core/Button';
 import { Badge } from 'reactstrap';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
+// npm install --save-dev @iconify/react @iconify/icons-zmdi
+import { Icon} from '@iconify/react';
+import notificationsActive from '@iconify/icons-zmdi/notifications-active';
+
 
 // api
 import api from '../../api';
@@ -42,8 +46,8 @@ class Notifications extends Component {
       <UncontrolledDropdown nav className="list-inline-item notification-dropdown">
         <DropdownToggle nav className="p-0">
           <Tooltip title="Notifications" placement="bottom">
-            <IconButton className="shake" aria-label="bell">
-              <i className="zmdi zmdi-notifications-active"></i>
+            <IconButton color='white' className="shake" aria-label="bell">
+			<Icon icon={notificationsActive} color="white" />
               <Badge color="danger" className="badge-xs badge-top-right rct-notify">2</Badge>
             </IconButton>
           </Tooltip>

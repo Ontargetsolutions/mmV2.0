@@ -8,13 +8,17 @@ import {
   getQuoteByIdFailure,
   getQuoteByIdSuccess,
   getImageFailure,
-  getImageSuccess
+  getImageSuccess,
+  generateInvoiceNumberSuccess,
+  generateInvoiceNumberFailure,
+  generateInvoiceNumber
 } from "../actions/QuoteActions";
 import {
   GET_ADOBE_STOCK_IMAGES,
   SAVE_QUOTE,
   GET_ORDERS_LIST,
-  GET_QUOTE_BY_ID
+  GET_QUOTE_BY_ID,
+  GENERATE_INVOICE_NUMBER
 } from "../actions/types";
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
 
@@ -45,7 +49,6 @@ const saveQuoteRequest = async data =>
     .then(quote => quote)
     .catch(error => error);
 
-
 const getMyOrdersListRequest = async data =>
   await quoteAPI
     .myQuotes(data)
@@ -57,6 +60,13 @@ const getOrderByIdRequest = async id =>
     .orderById(id)
     .then(order => order)
     .catch(error => error);
+
+const generateInvoiceNumberRequest = async order =>
+  await quoteAPI
+    .invoiceNumber(order)
+    .then(number => number)
+    .catch(error => error);
+
 
 /**
  * GET IMAGE FROM ADOBE BY WORD
@@ -111,6 +121,8 @@ function* getOrderByIdS(payload) {
           yield put(getImageSuccess(pic.data));
         }
         yield put(getQuoteByIdSuccess(order.data));
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        yield put(generateInvoiceNumber(order.data));
       } else {
         yield put(getQuoteByIdSuccess(order.data));
       }
@@ -121,10 +133,29 @@ function* getOrderByIdS(payload) {
 }
 
 /**
+ * generate Invoice number
+ */
+function* generateInvoiceNumberS(order) {
+  console.log(`orden que llega para generar invoice ${JSON.stringify(order)}`);
+  try {
+    const invoiceNumber = yield call(generateInvoiceNumberRequest, order);
+    if (invoiceNumber.message) {
+      yield put(generateInvoiceNumberFailure(invoiceNumber.message));
+    } else {
+      yield put(generateInvoiceNumberSuccess(invoiceNumber));
+    }
+  } catch (error) {
+    yield put(generateInvoiceNumberFailure(error));
+  }
+}
+
+/**
  * SAVE THE QUOTE
  */
 function* saveQuoteS(payload) {
-  console.log(` guardar quota en la saga payload ${JSON.stringify(payload.payload)}`);
+  console.log(
+    ` guardar quota en la saga payload ${JSON.stringify(payload.payload)}`
+  );
   const {
     material,
     imageUploaded,
@@ -153,7 +184,7 @@ function* saveQuoteS(payload) {
       ImagePath:
         material === "Upload a pic" ? imageData.data.id : imageSelectedId,
       FramePath: frameSelected,
-      ImageType:
+      ImageSource:
         material === "Upload a pic"
           ? "upload"
           : material === "Extensive Gallery"
@@ -169,7 +200,7 @@ function* saveQuoteS(payload) {
       Zip: zipcode,
       Status: "Ordered",
       UserId: user.id,
-      ImageId: imageData ? imageData.data.id: null,
+      ImageId: imageData ? imageData.data.id : null,
       Cost: 0,
       Product: serviceSelected
     });
@@ -212,6 +243,13 @@ export function* getOrderByIdWatcher() {
   yield takeEvery(GET_QUOTE_BY_ID, getOrderByIdS);
 }
 
+// /**
+//  * Generate Invoice Number
+//  */
+export function* generateInvoiceNumberWatcher() {
+  yield takeEvery(GENERATE_INVOICE_NUMBER, generateInvoiceNumberS);
+}
+
 /**
  * Quote Root Saga
  */
@@ -220,6 +258,7 @@ export default function* rootSaga() {
     fork(getImagesFomAdobeWatcher),
     fork(saveQuoteWatcher),
     fork(getMyOrdersListWatcher),
-    fork(getOrderByIdWatcher)
+    fork(getOrderByIdWatcher),
+    fork(generateInvoiceNumberWatcher)
   ]);
 }

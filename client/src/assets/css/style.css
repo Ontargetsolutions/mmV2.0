@@ -78,37 +78,15 @@
   #iconify { color: white; }
 
 
- @media (max-width: 765px) and (min-width: 320px) {
-  .buttons-wrapper {
-    position: absolute;
-    height: calc(25vh);
-    margin-top: 15%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 400;
-    top: 0;
-    pointer-events: none;
-    width: 100%;
-    }
-    .buttons-wrapper a {
-      pointer-events: auto;
-    }
-  
-    .mg-rg {
-      margin-right: 1rem;
-      margin-left: 1rem;
-      margin-top: 1rem;
-    }
-  
-    .buttonStyle{
-      background-color: rgb(20,40,72) !important;
+ @media (max-width: 1024px) and (min-width: 320px) {
+    .divPic{
+      background-color: gray!important;
       width: 200px !important;
-      height: 50px !important;
+      height: 200px !important;
       font-family: 'Playball', cursive !important;
-      font-size: 15px !important;
-      color: white !important;
+      border: solid 5px black;
+      margin: 10px;
     }
-   
 }
+
+

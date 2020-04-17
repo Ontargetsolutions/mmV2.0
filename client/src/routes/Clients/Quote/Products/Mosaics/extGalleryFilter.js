@@ -10,7 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import {setGalleryFilterCriteria } from '../../../../actions/QuoteActions';
+import {setGalleryFilterCriteria } from '../../../../../actions/QuoteActions';
 
 
 const listItems = [

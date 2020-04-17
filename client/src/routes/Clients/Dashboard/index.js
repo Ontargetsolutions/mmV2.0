@@ -17,15 +17,6 @@ class clientDashboard extends Component {
     return (
       <div>
         <Carousel />
-        <div className="buttons-wrapper">
-        <div className="row center">
-              <NavLink to="/app/quote">
-                <MatButton variant="contained" className="buttonStyle">
-                  Pick your design
-                </MatButton>
-              </NavLink>
-            </div>
-        </div>
       </div>
     );
   }

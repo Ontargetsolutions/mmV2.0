@@ -12,7 +12,9 @@ import {
    AsyncCheckoutComponent,
    AsyncShopComponent,
    AsyncCartComponent,
-   AsyncForgotPasswordComponent
+   AsyncForgotPasswordComponent,
+   AsyncIznikServicesComponent,
+   AsyncHardwoodServicesComponent
 
  } from "../components/AsyncComponent/AsyncComponent";
 
@@ -58,19 +60,19 @@ export default [
     component: AsyncProductsComponent,
   },
   {
-    path: 'custom/hardwood',
-    component: AsyncProductsComponent,
-  },
-  {
-    path: 'custom/tiles',
-    component: AsyncProductsComponent,
-  },
-  {
     path: 'cart',
     component: AsyncCartComponent,
   },
   {
     path: 'forgot-password',
     component: AsyncForgotPasswordComponent,
+  },
+  {
+    path: 'custom/iznik',
+    component: AsyncIznikServicesComponent,
+  }, 
+  {
+    path: 'custom/hardwood',
+    component: AsyncHardwoodServicesComponent,
   },
 ];
