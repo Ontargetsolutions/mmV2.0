@@ -5,9 +5,9 @@ import { connect } from "react-redux";
 import { Badge } from "reactstrap";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from '@material-ui/core/IconButton';
-// npm install --save-dev @iconify/react @iconify/icons-zmdi
-import { Icon, InlineIcon } from '@iconify/react';
-import infoOutline from '@iconify/icons-zmdi/info-outline';
+// // npm install --save-dev @iconify/react @iconify/icons-zmdi
+// import { Icon, InlineIcon } from '@iconify/react';
+// import infoOutline from '@iconify/icons-zmdi/info-outline';
 
 
 import "../../../../../assets/css/style.css";
@@ -41,7 +41,7 @@ class UploadPicture extends Component {
       <div className="dropzone-wrapper">
         <div className="row">
           <h1>Upload your file</h1>
-          <Tooltip
+          {/* <Tooltip
             placement="top"
             title="You can upload your own art/ picture here."
           >
@@ -49,7 +49,7 @@ class UploadPicture extends Component {
             <Icon icon={infoOutline} color="black" md-18 />
               <Badge color="info" className="badge-xs badge-top-right"></Badge>
             </IconButton>
-          </Tooltip>
+          </Tooltip> */}
         </div>
         <div className="row">
           <input type="file" onChange={e => this.uploadImage(e)} />
