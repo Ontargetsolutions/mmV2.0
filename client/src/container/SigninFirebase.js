@@ -13,7 +13,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import QueueAnim from 'rc-queue-anim';
 import {NotificationManager} from 'react-notifications';
 // components
-import {SessionSlider} from '../components/Widgets';
+
 
 // app config
 import AppConfig from '../constants/AppConfig';
@@ -31,14 +31,16 @@ import {Fab} from '@material-ui/core';
 class Signin extends Component {
   state = {
     email: 'demo@example.com',
-    password: 'test#123',
+    password: '123456',
   };
 
   /**
 	 * On User Login
 	 */
-  onUserLogin () {
+  onUserLogin (e) {
+    e.preventDefault();
     if (this.state.email !== '' && this.state.password !== '') {
+      console.log(`inside del userlogin button`)
       this.props.signinUserInFirebase (this.state, this.props.history);
     }else{
       NotificationManager.error ('You must fill all data required');
@@ -61,7 +63,7 @@ class Signin extends Component {
     const {email, password} = this.state;
     const {loading} = this.props;
     return (
-      <QueueAnim type="bottom" duration={2000}>
+      // <QueueAnim type="bottom" duration={2000}>
         <div className="rct-session-wrapper">
           {loading && <LinearProgress />}
           <AppBar position="static" className="session-header">
@@ -95,10 +97,10 @@ class Signin extends Component {
               </div>
             </Toolbar>
           </AppBar>
-          <div className="session-inner-wrapper">
+          <div className="session-inner-wrapper ">
             <div className="container">
-              <div className="row row-eq-height">
-                <div className="col-sm-7 col-md-7 col-lg-8">
+              <div className="d-flex justify-content-center">
+                {/* <div className="col-sm-7 col-md-7 col-lg-8"> */}
                   <div className="session-body text-center">
                     <div className="session-head mb-30">
                       <h2 className="font-weight-bold">
@@ -151,7 +153,7 @@ class Signin extends Component {
                           className="btn-block text-white w-100"
                           variant="contained"
                           size="large"
-                          onClick={() => this.onUserLogin ()}
+                          onClick={(e) => this.onUserLogin (e)}
                         >
                           Sign In
                         </Button>
@@ -176,28 +178,15 @@ class Signin extends Component {
                     >
                       <i className="zmdi zmdi-google" />
                     </Fab>
-                    <p className="text-muted">
-                      By signing up you agree to {AppConfig.brandName}
-                    </p>
-                    <p className="mb-0">
-                      <a
-                        target="_blank"
-                        href="#/terms-condition"
-                        className="text-muted"
-                      >
-                        Terms of Service
-                      </a>
-                    </p>
+                  
                   </div>
-                </div>
-                <div className="col-sm-5 col-md-5 col-lg-4">
-                  {/* <SessionSlider /> */}
-                </div>
+           
+        
               </div>
             </div>
           </div>
         </div>
-      </QueueAnim>
+      // </QueueAnim>
     );
   }
 }

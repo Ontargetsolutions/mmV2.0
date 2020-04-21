@@ -10,9 +10,6 @@ import {
   LOGOUT_USER,
   SIGNUP_USER,
   CHANGE_PASSWORD,
-  FETCH_COUNTRY,
-  FETCH_STATE,
-  FETCH_CITY,
   GET_USER
 } from "../actions/types";
 
@@ -29,12 +26,14 @@ import {
   getUserSuccess,
   showAuthMessage
 } from "../actions";
-import { stringify } from "querystring";
 
 import userAPI from "../api/UserAPI";
+import { pathToFileURL } from "url";
 
 const actionCodeSettings = {
-  url: "http://localhost:3000"
+  // url: "http://localhost:3000"s
+  url: "http://orders.montagemosaics.com/"
+  
   // handleCodeInApp: false
 };
 
@@ -107,7 +106,7 @@ const signInUserWithGoogleRequest = async () =>
  */
 const changeThePasswordRequest = async email =>
   await auth
-    .sendPasswordResetEmail(email)
+    .sendPasswordResetEmail(email, actionCodeSettings)
     .then(res => {
       console.log(`res de la llamada a la funcion que manda el email ${res}`);
     })
@@ -123,9 +122,9 @@ const deletingASignedFirebaseUser = async () => {
     .catch(error => error);
 };
 
-const sendEmailVerificationRequest = async email => {
+const sendEmailVerificationRequest = () => {
   let user = auth.currentUser;
-  await user
+  user
     .sendEmailVerification()
     .then(res => {
       console.log(
@@ -134,6 +133,7 @@ const sendEmailVerificationRequest = async email => {
     })
     .catch(error => error);
 };
+
 
 /**
  * Find User by Email
@@ -174,23 +174,38 @@ function* signInUserWithEmailPassword({ payload }) {
       email,
       password
     );
-    if (signInUser.message) {
-      yield put(signinUserFailure(signInUser.message));
-      localStorage.removeItem("user_id");
-      localStorage.removeItem("user_info");
-      localStorage.removeItem("user_user");
+
+    if (signInUser.user.emailVerified === true) {
+      if (signInUser.message) {
+        yield put(signinUserFailure(signInUser.message));
+        localStorage.removeItem("user_id");
+        localStorage.removeItem("user_info");
+      } else {
+        localStorage.setItem("user_id", signInUser.user.uid);
+        localStorage.setItem("user_info", signInUser.user.email);
+        const userMySql = yield call(findUserRequest, signInUser.user.email);
+        if (userMySql.message) {
+          console.log("%%%%%%%%%%%%%%%%%%%" + userMySql.message);
+        } else {
+          console.log(
+            `hello I am here before show the page ${JSON.stringify(userMySql)}`
+          );
+        }
+        yield put(
+          signinUserSuccess({
+            uid: signInUser.user.uid,
+            userAuthe: signInUser.user.email,
+            userData: userMySql.data
+          })
+        );
+        history.push("/");
+      }
     } else {
-      localStorage.setItem("user_id", signInUser.user.uid);
-      localStorage.setItem("user_info", signInUser.user.email);
-      const userMySql = yield call(getUserByEmail, signInUser.user.email);
       yield put(
-        signinUserSuccess({
-          uid: signInUser.user.uid,
-          userAuthe: signInUser.user.email
-          // user_user: userMySql.data
-        })
+        signinUserFailure(
+          `User not verified, please check your email inbox to verify your account`
+        )
       );
-      history.push("/");
     }
   } catch (error) {
     yield put(signinUserFailure(error));
@@ -201,12 +216,7 @@ function* signInUserWithEmailPassword({ payload }) {
  * GET USER BY EMAIL
  */
 function* getUserByEmail(payload) {
-  const email = payload.payload;
-  console.log(
-    `****************email en saga para obtener datos de usurios logeado ${JSON.stringify(
-      payload
-    )}`
-  );
+  const email = payload.paylod ? payload.paylod : payload;
   try {
     const user = yield call(findUserRequest, email);
     console.log(`user devuelto ${JSON.stringify(user)}`);
@@ -324,7 +334,7 @@ function* createUserWithEmailPassword({ payload }) {
       email,
       password
     );
-    console.log(`looq ue vira de firebase ${JSON.stringify(signUpUser)}`);
+    console.log(`loq ue vira de firebase ${JSON.stringify(signUpUser)}`);
     if (signUpUser.message) {
       yield put(signUpUserInFirebaseFailure(signUpUser.message));
     } else {
@@ -352,8 +362,7 @@ function* createUserWithEmailPassword({ payload }) {
       ////////////////////// here  ////////////////////////////////////////////////////////////////////////////////////
       if (signUpUser.user.emailVerified == false) {
         console.log("aquiiiiiiiiiiiiiiiiiiii");
-        const emailVerified = yield call(sendEmailVerificationRequest, email);
-        // auth.sendEmailVerification(email).then(() => {
+        const emailVerified = yield call(sendEmailVerificationRequest);
         console.log(
           `-----------------------email verification sent to user ${emailVerified}`
         );

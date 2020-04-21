@@ -15,10 +15,10 @@ import NavMenuItem from './NavMenuItem';
 import {onToggleMenu, getUser} from '../../actions';
 
 class SidebarContent extends Component {
-  componentDidMount () {
-    const email = this.props.userAuthe;
-    this.props.getUser (email);
-  }
+  // componentDidMount () {
+  //   const email = this.props.userAuthe;
+  //   this.props.getUser (email);
+  // }
 
   toggleMenu (menu, stateCategory) {
     let data = {

@@ -177,7 +177,7 @@ class Style extends Component {
                 <div className="row">
                   <Col sm={6} md={6}>
                     <img
-                      src="https://montagemosaics.com/hardwoodcollection/hwstylestype/solid-rustic-1(1).jpg"
+                      src="https://montagemosaics.com/hardwoodcollection/hwstylestype/solidselect-1.jpg"
                       alt="uplad-image"
                       className="divPic"
                     />

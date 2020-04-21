@@ -1,72 +1,82 @@
 /**
  * Sign Up With Firebase
  */
-import React, {Component} from 'react';
-import Button from '@material-ui/core/Button';
-import {connect} from 'react-redux';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import {Link} from 'react-router-dom';
-import {Form, FormGroup, Label, Input, Col} from 'reactstrap';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import QueueAnim from 'rc-queue-anim';
-import Switch from '@material-ui/core/Switch';
+import React, { Component } from "react";
+import Button from "@material-ui/core/Button";
+import { connect } from "react-redux";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import { Link } from "react-router-dom";
+import { Form, FormGroup, Label, Input, Col } from "reactstrap";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import QueueAnim from "rc-queue-anim";
+import Switch from "@material-ui/core/Switch";
 // components
-import {SessionSlider} from '../components/Widgets';
-import {NotificationManager} from 'react-notifications';
+import { SessionSlider } from "../components/Widgets";
+import { NotificationManager } from "react-notifications";
 
 // intl messages
-import IntlMessages from '../util/IntlMessages';
+import IntlMessages from "../util/IntlMessages";
 
 // app config
-import AppConfig from '../constants/AppConfig';
+import AppConfig from "../constants/AppConfig";
 
 // redux action
-import {signupUserInFirebase, fetchCountry, fetchState} from '../actions';
+import { signupUserInFirebase, fetchCountry, fetchState } from "../actions";
 
-const countriesStates= require('countrycitystatejson');
-
+const countriesStates = require("countrycitystatejson");
 
 class SignupFirebase extends Component {
   state = {
-    name: '',
-    email: '',
-    password: '',
-    phone: '',
-    address1: '',
-    address2: '',
-    city: '',
-    type: '',
-    companyName: '',
-    country: 'AD',
-    stateC: '',
-    zipcode: '',
+    name: "",
+    email: "",
+    password: "",
+    phone: "",
+    address1: "",
+    address2: "",
+    city: "",
+    type: "",
+    companyName: "",
+    country: "AD",
+    stateC: "",
+    zipcode: "",
     checkedCompany: false,
+    errorPassword: false,
+    errorEmail: false,
+    errorPhone: false
   };
-  
-  
+
   handleChangeCountry = event => {
-    this.setState ({country: event.target.value});
+    this.setState({ country: event.target.value });
   };
 
   handleChangeState = event => {
-    this.setState ({stateC: event.target.value});
+    this.setState({ stateC: event.target.value });
   };
 
   handleChange = name => (event, checked) => {
-    this.setState ({[name]: checked});
+    this.setState({ [name]: checked });
     if (this.state.checkedCompany) {
-      this.setState ({type: 'personal'});
+      this.setState({ type: "personal" });
     } else {
-      this.setState ({type: 'company'});
+      this.setState({ type: "company" });
     }
   };
 
-
+  validatePhone(phone) {
+    var validNumber = "0123456789.-";
+    for (let i = 0; i < phone.length; i++) {
+      if (validNumber.indexOf(phone.charAt(i)) == -1) {
+        this.setState({ errorPhone: true });
+        break;
+      }
+    }
+    this.setState({ errorPhone: false });
+  }
   /**
    * On User Signup
    */
-  onUserSignUp () {
+  onUserSignUp() {
     const {
       email,
       password,
@@ -79,46 +89,62 @@ class SignupFirebase extends Component {
       stateC,
       zipcode,
       companyName,
-      type,
+      type
     } = this.state;
+
+    this.validatePhone(phone);
+
     if (
-      email !== '' &&
-      password !== '' &&
-      name !== '' &&
-      phone !== '' &&
-      address1 !== '' &&
-      country !== '' &&
-      city !== '' &&
-      zipcode !== ''
+      email !== "" &&
+      password !== "" &&
+      name !== "" &&
+      phone !== "" &&
+      address1 !== "" &&
+      country !== "" &&
+      city !== "" &&
+      zipcode !== ""
     ) {
-      if (stateC !== '') {
-        console.log (`state ${JSON.stringify (this.state)}`);
-        this.props.signupUserInFirebase (
-          {
-            email,
-            password,
-            name,
-            phone,
-            address1,
-            address2,
-            city,
-            country,
-            stateC,
-            zipcode,
-            type,
-            companyName,
-          },
-          this.props.history
-        );
+      if (stateC !== "") {
+        console.log(`state ${JSON.stringify(this.state)}`);
+        if (password.length < 6) {
+          NotificationManager.error(
+            "Password length has to be at least 6 characteres"
+          );
+          this.setState({ errorPassword: true });
+        } else {
+          if (this.state.errorPhone) {
+            NotificationManager.error("Please enter a valid phone number");
+          } else {
+            this.setState({ errorPassword: false });
+            this.setState({ errorPhone: false });
+            this.props.signupUserInFirebase(
+              {
+                email,
+                password,
+                name,
+                phone,
+                address1,
+                address2,
+                city,
+                country,
+                stateC,
+                zipcode,
+                type,
+                companyName
+              },
+              this.props.history
+            );
+          }
+        }
       } else {
-        NotificationManager.error ('You must to choose an State');
+        NotificationManager.error("You must to choose an State");
       }
     } else {
-      NotificationManager.error ('You must fill all data required');
+      NotificationManager.error("You must fill all data required");
     }
   }
 
-  render () {
+  render() {
     const {
       name,
       email,
@@ -130,12 +156,12 @@ class SignupFirebase extends Component {
       companyName,
       country,
       state,
-      zipcode,
+      zipcode
     } = this.state;
-    const {loading} = this.props;
-    
-      const countires = countriesStates.getCountries();
-      const states = countriesStates.getStatesByShort(this.state.country);
+    const { loading } = this.props;
+
+    const countires = countriesStates.getCountries();
+    const states = countriesStates.getStatesByShort(this.state.country);
 
     return (
       <QueueAnim type="bottom" duration={2000}>
@@ -147,12 +173,12 @@ class SignupFirebase extends Component {
                 <div className="d-flex justify-content-between">
                   <div className="session-logo">
                     <Link to="/">
-                      <img
+                      {/* <img
                         src={AppConfig.appLogo}
                         alt="session-logo"
                         width="110"
                         height="35"
-                      />
+                      /> */}
                     </Link>
                   </div>
                   <div>
@@ -192,7 +218,8 @@ class SignupFirebase extends Component {
                             className="has-input input-lg"
                             placeholder="Your Name"
                             onChange={e =>
-                              this.setState ({name: e.target.value})}
+                              this.setState({ name: e.target.value })
+                            }
                           />
                         </Col>
                         <Col sm={4}>
@@ -205,8 +232,14 @@ class SignupFirebase extends Component {
                             className="has-input input-lg"
                             placeholder="Password"
                             onChange={e =>
-                              this.setState ({password: e.target.value})}
+                              this.setState({ password: e.target.value })
+                            }
                           />
+                          {this.state.errorPassword && (
+                            <p className="text-danger">
+                              * Password hast to have at least 6 characteres
+                            </p>
+                          )}
                         </Col>
                       </FormGroup>
 
@@ -221,7 +254,8 @@ class SignupFirebase extends Component {
                               className="has-input input-lg"
                               placeholder="Email Address"
                               onChange={e =>
-                                this.setState ({email: e.target.value})}
+                                this.setState({ email: e.target.value })
+                              }
                             />
                           </FormGroup>
                         </Col>
@@ -229,14 +263,20 @@ class SignupFirebase extends Component {
                           <FormGroup className="has-wrapper">
                             <Input
                               value={phone}
-                              type="text"
+                              type="phone"
                               name="user-phone"
                               id="phone"
                               className="has-input input-lg"
                               placeholder="Phone"
                               onChange={e =>
-                                this.setState ({phone: e.target.value})}
+                                this.setState({ phone: e.target.value })
+                              }
                             />
+                            {this.state.errorPassword && (
+                              <p className="text-danger">
+                                * Please eneter a valid phone number
+                              </p>
+                            )}
                           </FormGroup>
                         </Col>
                       </FormGroup>
@@ -249,13 +289,13 @@ class SignupFirebase extends Component {
                             </Label>
                             <Switch
                               checked={this.state.checkedCompany}
-                              onChange={this.handleChange ('checkedCompany')}
+                              onChange={this.handleChange("checkedCompany")}
                               aria-label="checkedCompany"
                             />
                           </FormGroup>
                         </Col>
                         <Col sm={6}>
-                          {this.state.checkedCompany &&
+                          {this.state.checkedCompany && (
                             <FormGroup className="has-wrapper">
                               <Input
                                 value={companyName}
@@ -265,9 +305,11 @@ class SignupFirebase extends Component {
                                 className="has-input input-lg"
                                 placeholder="Company Name"
                                 onChange={e =>
-                                  this.setState ({companyName: e.target.value})}
+                                  this.setState({ companyName: e.target.value })
+                                }
                               />
-                            </FormGroup>}
+                            </FormGroup>
+                          )}
                         </Col>
                       </FormGroup>
 
@@ -281,7 +323,8 @@ class SignupFirebase extends Component {
                             className="has-input input-lg"
                             placeholder="Address 1"
                             onChange={e =>
-                              this.setState ({address1: e.target.value})}
+                              this.setState({ address1: e.target.value })
+                            }
                           />
                         </Col>
                         <Col sm={4}>
@@ -293,7 +336,8 @@ class SignupFirebase extends Component {
                             className="has-input input-lg"
                             placeholder="Address 2"
                             onChange={e =>
-                              this.setState ({address2: e.target.value})}
+                              this.setState({ address2: e.target.value })
+                            }
                           />
                         </Col>
                       </FormGroup>
@@ -306,7 +350,7 @@ class SignupFirebase extends Component {
                             id="country"
                             onChange={this.handleChangeCountry}
                           >
-                            {countires.map ((count, index) => {
+                            {countires.map((count, index) => {
                               return (
                                 <option value={count.shortName} key={index}>
                                   {count.name}
@@ -315,7 +359,7 @@ class SignupFirebase extends Component {
                             })}
                           </Input>
                         </Col>
-                          <Col sm={4}> 
+                        <Col sm={4}>
                           <Input
                             className="mb-20"
                             type="select"
@@ -323,14 +367,14 @@ class SignupFirebase extends Component {
                             id="states"
                             onChange={this.handleChangeState}
                           >
-                            {states.map ((state, index) => {
+                            {states.map((state, index) => {
                               return (
                                 <option value={state} key={index}>
                                   {state}
                                 </option>
                               );
                             })}
-                          </Input> 
+                          </Input>
                         </Col>
                       </FormGroup>
                       <FormGroup row>
@@ -343,7 +387,8 @@ class SignupFirebase extends Component {
                             className="has-input input-lg"
                             placeholder="City"
                             onChange={e =>
-                              this.setState ({city: e.target.value})}
+                              this.setState({ city: e.target.value })
+                            }
                           />
                         </Col>
                         <Col sm={4}>
@@ -355,7 +400,8 @@ class SignupFirebase extends Component {
                             className="has-input input-lg"
                             placeholder="Zip code"
                             onChange={e =>
-                              this.setState ({zipcode: e.target.value})}
+                              this.setState({ zipcode: e.target.value })
+                            }
                           />
                         </Col>
                       </FormGroup>
@@ -364,7 +410,7 @@ class SignupFirebase extends Component {
                           className="btn-info text-white btn-block w-100"
                           variant="contained"
                           size="large"
-                          onClick={() => this.onUserSignUp ()}
+                          onClick={() => this.onUserSignUp()}
                         >
                           Sign Up
                         </Button>
@@ -393,11 +439,11 @@ class SignupFirebase extends Component {
 }
 
 // map state to props
-const mapStateToProps = ({authUser}) => {
-  const {loading} = authUser;
-  return {loading };
+const mapStateToProps = ({ authUser }) => {
+  const { loading } = authUser;
+  return { loading };
 };
 
-export default connect (mapStateToProps, {
-  signupUserInFirebase,
-}) (SignupFirebase);
+export default connect(mapStateToProps, {
+  signupUserInFirebase
+})(SignupFirebase);

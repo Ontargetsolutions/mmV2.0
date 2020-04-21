@@ -42,7 +42,7 @@ class ViewQuote extends Component {
     const { id } = this.props.location.quoteid;
     this.props.getQuoteById(id);
   }
-
+  reorder() {  }
   render() {
     console.log(
       `id de la imagen que viene de la tabla quotas ${JSON.stringify(
@@ -171,6 +171,9 @@ class ViewQuote extends Component {
                       variant="contained"
                       color="primary"
                       className="text-white"
+                      onClick={e => {
+                        this.reorder(e);
+                      }}
                     >
                       Reorder
                     </Button>

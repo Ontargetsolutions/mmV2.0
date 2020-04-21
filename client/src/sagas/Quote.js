@@ -67,7 +67,6 @@ const generateInvoiceNumberRequest = async order =>
     .then(number => number)
     .catch(error => error);
 
-
 /**
  * GET IMAGE FROM ADOBE BY WORD
  */
@@ -170,7 +169,15 @@ function* saveQuoteS(payload) {
     address1,
     address2,
     zipcode,
-    user
+    user,
+    productSelected,
+    hardwoodThickness,
+    hardwoodWidth,
+    hardwoodLength,
+    hardwoodType,
+    hardwoodStyle,
+    hardwoodFinish,
+    hardwoodSelected
   } = payload.payload;
   try {
     if (material === "Upload a pic") {
@@ -179,36 +186,104 @@ function* saveQuoteS(payload) {
         id: user.id
       });
     }
-    const quote = yield call(saveQuoteRequest, {
-      // Cost: "",
-      ImagePath:
-        material === "Upload a pic" ? imageData.data.id : imageSelectedId,
-      FramePath: frameSelected,
-      ImageSource:
-        material === "Upload a pic"
-          ? "upload"
-          : material === "Extensive Gallery"
-          ? "adobe"
-          : "company",
-      Size: size,
-      Quantity: quantity,
-      Address1: address1,
-      Address2: address2,
-      City: city,
-      Country: country,
-      State: state,
-      Zip: zipcode,
-      Status: "Ordered",
-      UserId: user.id,
-      ImageId: imageData ? imageData.data.id : null,
-      Cost: 0,
-      Product: serviceSelected
-    });
-    console.log(`quote en la saga ${JSON.stringify(quote)}`);
-    if (quote.message) {
-      yield put(saveQuoteFailure(quote.message));
-    } else {
-      yield put(saveQuoteSuccess(quote.data.files));
+    switch (productSelected) {
+      case "Mosaics":
+        const quoteMosaic = yield call(saveQuoteRequest, {
+          // Cost: "",
+          ImagePath:
+            material === "Upload a pic" ? imageData.data.id : imageSelectedId,
+          FramePath: frameSelected,
+          ImageSource:
+            material === "Upload a pic"
+              ? "upload"
+              : material === "Extensive Gallery"
+              ? "adobe"
+              : "company",
+          Size: size,
+          Quantity: quantity,
+          Address1: address1,
+          Address2: address2,
+          City: city,
+          Country: country,
+          State: state,
+          Zip: zipcode,
+          Status: "Ordered",
+          UserId: user.id,
+          ImageId: imageData ? imageData.data.id : null,
+          Cost: 0,
+          Service: serviceSelected,
+          Product: "Mosaics"
+        });
+        console.log(`quote en la saga ${JSON.stringify(quoteMosaic)}`);
+        if (quoteMosaic.message) {
+          yield put(saveQuoteFailure(quoteMosaic.message));
+        } else {
+          yield put(saveQuoteSuccess(quoteMosaic.data.files));
+        }
+        break;
+      case "HardwoodFlooring":
+        const quoteHardwood = yield call(saveQuoteRequest, {
+          ImagePath: imageSelectedId,
+          HardwoodType: hardwoodType,
+          HardwoodStyle: hardwoodStyle,
+          HardwoodSelected: hardwoodSelected,
+          HardwoodFinish: hardwoodFinish,
+          HardwoodThickness: hardwoodThickness,
+          HardwoodWidth:hardwoodWidth,
+          HardwoodLength: hardwoodLength,
+          Quantity: quantity,
+          Address1: address1,
+          Address2: address2,
+          City: city,
+          Country: country,
+          State: state,
+          Zip: zipcode,
+          Status: "Ordered",
+          UserId: user.id,
+          Cost: 0,
+          Product: "HardwoodFlooring"
+        });
+        console.log(`quote en la saga ${JSON.stringify(quoteHardwood)}`);
+        if (quoteHardwood.message) {
+          yield put(saveQuoteFailure(quoteHardwood.message));
+        } else {
+          yield put(saveQuoteSuccess(quoteHardwood.data.files));
+        }
+        break;
+      case "IznikTile":
+        const quoteIznik = yield call(saveQuoteRequest, {
+          // Cost: "",
+          ImagePath:
+            material === "Upload a pic" ? imageData.data.id : imageSelectedId,
+          FramePath: frameSelected,
+          ImageSource:
+            material === "Upload a pic"
+              ? "upload"
+              : "company",
+          Size: size,
+          Quantity: quantity,
+          Address1: address1,
+          Address2: address2,
+          City: city,
+          Country: country,
+          State: state,
+          Zip: zipcode,
+          Status: "Ordered",
+          UserId: user.id,
+          ImageId: imageData ? imageData.data.id : null,
+          Cost: 0,
+          Product: "IznikTile",
+          Service: serviceSelected
+        });
+        console.log(`quote en la saga ${JSON.stringify(quoteIznik)}`);
+        if (quoteIznik.message) {
+          yield put(saveQuoteFailure(quoteIznik.message));
+        } else {
+          yield put(saveQuoteSuccess(quoteIznik.data.files));
+        }
+        break;
+      default:
+        break;
     }
   } catch (error) {
     yield put(saveQuoteFailure(error));

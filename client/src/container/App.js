@@ -49,10 +49,6 @@ const InitialPath = ({component: Component, authUser, ...rest}) => (
 );
 
 class App extends Component {
-  componentDidMount () {
-    const email = this.props.userAuthe;
-    this.props.getUser (email);
-  }
 
   render () {
     const {location, match, user, userData} = this.props;

@@ -97,7 +97,7 @@ class CheckoutItem extends Component {
                <span className="font-weight-bold text-muted"><IntlMessages id="components.totalPrice" /></span>
                <span className="font-weight-bold">$ {this.getTotalPrice()}</span>
             </div>
-            <div className="d-flex justify-content-end align-items-center">
+            {/* <div className="d-flex justify-content-end align-items-center">
                {!this.isCartEmpty() ? (
                   <Button variant="contained" color="primary" className="text-white" onClick={() => this.openAlert('success')}>
                      <IntlMessages id="components.placeOrder" />
@@ -115,7 +115,7 @@ class CheckoutItem extends Component {
                title="Your Order Is Successfully Placed !"
                btnSize="sm"
                onConfirm={() => this.onConfirm('success')}
-            />
+            /> */}
          </div>
       )
    }

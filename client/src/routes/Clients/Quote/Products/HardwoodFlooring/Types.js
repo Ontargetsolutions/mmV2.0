@@ -345,7 +345,7 @@ class Type extends Component {
                   <div className="row">
                     <Col sm={6}>
                       <img
-                        src="https://montagemosaics.com/hardwoodcollection/hwstylestype/herringbone parketlentes(1).jpg"
+                        src="https://montagemosaics.com/hardwoodcollection/hwstylestype/chevron.jpg"
                         alt="uplad-image"
                         className="divPic"
                       />
