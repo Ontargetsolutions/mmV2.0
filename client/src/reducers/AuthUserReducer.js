@@ -25,6 +25,7 @@ const INIT_STATE = {
   user: localStorage.getItem("user_id"),
   loading: false,
   userAuthe: localStorage.getItem("user_info"),
+  userId: localStorage.getItem("umsqqidl"),
   userData: {}
 };
 
@@ -35,11 +36,18 @@ export default (state = INIT_STATE, action) => {
 
     case LOGIN_USER_SUCCESS:
       console.log(`user success login ${JSON.stringify(action.payload)}`);
-      return { ...state, loading: false, userData: action.payload.userData, user: action.payload.uid, userAuthe: action.payload.userAuthe};
+      return {
+        ...state,
+        loading: false,
+        userData: action.payload.userData,
+        user: action.payload.uid,
+        userAuthe: action.payload.userAuthe,
+        userId: action.payload.userId
+      };
 
     case LOGIN_USER_FAILURE:
       NotificationManager.error(action.payload);
-      return { ...state, loading: false};
+      return { ...state, loading: false };
 
     case LOGOUT_USER:
       return { ...state };
@@ -84,7 +92,7 @@ export default (state = INIT_STATE, action) => {
 
     case SIGNUP_USER_FAILURE:
       NotificationManager.error(action.payload);
-      return { ...state, loading: false};
+      return { ...state, loading: false };
 
     default:
       return { ...state };

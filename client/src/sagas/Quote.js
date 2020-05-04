@@ -11,14 +11,18 @@ import {
   getImageSuccess,
   generateInvoiceNumberSuccess,
   generateInvoiceNumberFailure,
-  generateInvoiceNumber
+  generateInvoiceNumber,
+  reorderFailure,
+  reorderSuccess
 } from "../actions/QuoteActions";
 import {
   GET_ADOBE_STOCK_IMAGES,
   SAVE_QUOTE,
   GET_ORDERS_LIST,
   GET_QUOTE_BY_ID,
-  GENERATE_INVOICE_NUMBER
+  GENERATE_INVOICE_NUMBER,
+  REORDER,
+  GET_ALL_QUOTES
 } from "../actions/types";
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
 
@@ -67,6 +71,12 @@ const generateInvoiceNumberRequest = async order =>
     .then(number => number)
     .catch(error => error);
 
+const getAllOrdersByProductRequest = async product =>
+  await quoteAPI
+    .getAllQuotesByProduct(product)
+    .then(number => number)
+    .catch(error => error);
+;
 /**
  * GET IMAGE FROM ADOBE BY WORD
  */
@@ -132,6 +142,23 @@ function* getOrderByIdS(payload) {
 }
 
 /**
+ * GET ORDER BY ID
+ */
+function* getAllOrdersByProductsS(payload) {
+  const product = payload.payload;
+  try {
+    const list = yield call(getAllOrdersByProductRequest, product);
+    if (list.message) {
+      yield put(getMyQuotesListFailure(list.message));
+    } else {
+      yield put(getMyQuotesListSuccess(list.data));
+    }
+  } catch (error) {
+    yield put(getMyQuotesListFailure(error));
+  }
+}
+
+/**
  * generate Invoice number
  */
 function* generateInvoiceNumberS(order) {
@@ -145,6 +172,24 @@ function* generateInvoiceNumberS(order) {
     }
   } catch (error) {
     yield put(generateInvoiceNumberFailure(error));
+  }
+}
+
+/**
+ * Reorder
+ */
+function* reorderS(payload) {
+  const { order } = payload.payload;
+  console.log(`order en reorder ${JSON.stringify(order)}`);
+  try {
+    const newOrder = yield call(saveQuoteRequest, order);
+    if (newOrder.message) {
+      yield put(reorderFailure(newOrder.message));
+    } else {
+      yield put(reorderSuccess(newOrder));
+    }
+  } catch (error) {
+    yield put(reorderFailure(error));
   }
 }
 
@@ -229,7 +274,7 @@ function* saveQuoteS(payload) {
           HardwoodSelected: hardwoodSelected,
           HardwoodFinish: hardwoodFinish,
           HardwoodThickness: hardwoodThickness,
-          HardwoodWidth:hardwoodWidth,
+          HardwoodWidth: hardwoodWidth,
           HardwoodLength: hardwoodLength,
           Quantity: quantity,
           Address1: address1,
@@ -256,10 +301,7 @@ function* saveQuoteS(payload) {
           ImagePath:
             material === "Upload a pic" ? imageData.data.id : imageSelectedId,
           FramePath: frameSelected,
-          ImageSource:
-            material === "Upload a pic"
-              ? "upload"
-              : "company",
+          ImageSource: material === "Upload a pic" ? "upload" : "company",
           Size: size,
           Quantity: quantity,
           Address1: address1,
@@ -325,6 +367,20 @@ export function* generateInvoiceNumberWatcher() {
   yield takeEvery(GENERATE_INVOICE_NUMBER, generateInvoiceNumberS);
 }
 
+// /**
+//  * Reorder
+//  */
+export function* reorderWatcher() {
+  yield takeEvery(REORDER, reorderS);
+}
+
+// /**
+//  * Get All Quotes By Products
+//  */
+export function* getAllOrdersByProductsWatcher() {
+  yield takeEvery(GET_ALL_QUOTES, getAllOrdersByProductsS);
+}
+
 /**
  * Quote Root Saga
  */
@@ -334,6 +390,8 @@ export default function* rootSaga() {
     fork(saveQuoteWatcher),
     fork(getMyOrdersListWatcher),
     fork(getOrderByIdWatcher),
-    fork(generateInvoiceNumberWatcher)
+    fork(generateInvoiceNumberWatcher),
+    fork(reorderWatcher),
+    fork(getAllOrdersByProductsWatcher)
   ]);
 }

@@ -35,7 +35,11 @@ import {
   PICK_TYPE,
   PICK_STYLE,
   PICK_FINISH,
-  PICK_HARDWOOD
+  PICK_HARDWOOD,
+  REORDER,
+  REORDER_SUCCESS,
+  REORDER_FAILURE,
+  GET_ALL_QUOTES
 } from "./types";
 
 /**
@@ -59,6 +63,30 @@ export const getAdobeImagesSuccess = imageList => ({
  */
 export const getAdobeImagesFailure = error => ({
   type: GET_ADOBE_STOCK_IMAGES_FAILURE,
+  payload: error
+});
+
+/**
+ * Redux Action get adobe stock images
+ */
+export const reorder = order => ({
+  type: REORDER,
+  payload: order
+});
+
+/**
+ * Redux Action get adobe stock images success
+ */
+export const reorderSuccess = () => ({
+  type:REORDER_SUCCESS,
+  // payload: imageList
+});
+
+/**
+ * Redux Action get adobe stock images failure
+ */
+export const reorderFailure = error => ({
+  type: REORDER_FAILURE,
   payload: error
 });
 
@@ -301,7 +329,14 @@ export const generateInvoiceNumberFailure = error => ({
   type: GENERATE_INVOICE_NUMBER_FAILURE,
   payload: error
 });
+
 export const generateInvoiceNumberSuccess = invoiceNumber => ({
   type: GENERATE_INVOICE_NUMBER_SUCCESS,
   payload: invoiceNumber
 });
+
+export const generAllQuotesByProducts = (product) => ({
+  type: GET_ALL_QUOTES,
+  payload: product
+});
+

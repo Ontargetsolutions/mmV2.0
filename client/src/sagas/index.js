@@ -10,6 +10,7 @@ import todoSagas from './Todo';
 import feedbacksSagas from './Feedbacks';
 import userSaga from './User';
 import quoteSaga from './Quote';
+import notificationSaga from './Notification';
 
 export default function* rootSaga(getState) {
     yield all([
@@ -18,6 +19,7 @@ export default function* rootSaga(getState) {
         todoSagas(),
         feedbacksSagas(), 
         userSaga(),
-        quoteSaga()
+        quoteSaga(),
+        notificationSaga()
     ]);
 }

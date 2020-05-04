@@ -29,10 +29,14 @@ class MyOrdersTable extends Component {
       : "";
     return rows;
   };
+  filterData = data =>{
+    let dataFilteredArray = data.filter(product => product.Product === "Mosaics");
+    return dataFilteredArray;
+  }
 
   render() {
-    let dataOrganized = this.formatUserList(this.props.myOrders);
-    console.log(`myorders: ${JSON.stringify(this.props.myOrders)}`);
+    let datafiltered = this.filterData(this.props.myOrders);
+    let dataOrganized = this.formatUserList(datafiltered);
 
     return (
       <ReactTable
@@ -42,11 +46,11 @@ class MyOrdersTable extends Component {
                 return {
                   id1: key,
                   id: prop[0],
-                  date: prop[17],
+                  date: prop[25],
                   size: prop[6],
-                  quantity: prop[8],
-                  product: prop[7],
-                  status: prop[15],
+                  quantity: prop[9],
+                  product: prop[8],
+                  status: prop[16],
                   cost: prop[1],
                   actions: (
                     <div className="actions-right">
@@ -122,7 +126,7 @@ class MyOrdersTable extends Component {
             }
           },
           {
-            Header: "Product",
+            Header: "Service",
             accessor: "product"
           },
           {

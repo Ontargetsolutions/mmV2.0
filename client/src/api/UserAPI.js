@@ -11,8 +11,9 @@ export default {
   },
   // Gets the user with the given email
   getUserByEmail: function(email) {
-    console.log(`api forntend user data ${email}`)
-    return axios.get("/api/users/email/" + email);
+    const emailToSearch = email.payload ? email.payload : email;
+    console.log(`api forntend user data ${JSON.stringify(emailToSearch)}`);
+    return axios.get("/api/users/email/" + emailToSearch);
   },
   // Update the user with the given id
   updateUser: function(id, userData) {
@@ -24,12 +25,13 @@ export default {
     return axios.post("/api/users", userData);
   },
   // Gets users by { ... }
-  getUsersWhere: function(userData) {
-    return axios.post("/api/users/where", userData);
+  getAllWorkers: function() {
+    console.log(`en el frontend api pa buscar los trabajadores`);
+    return axios.get("/api/users/getEmployees");
   },
   // get User With a specific project id
   getUserProject: function(userId, projectId) {
-    console.log("Api",userId, projectId)
+    console.log("Api", userId, projectId);
     return axios.get("/api/users/user/" + userId + "/project/" + projectId);
   }
 };

@@ -7,6 +7,11 @@ router
   .get(User.getAllUsers)
   .post(User.register);
 
+  router
+  .route("/getEmployees")
+  .get(User.getAllEmployees);
+
+
 // Matches with "/api/users/:id"
 router
   .route("/:id")
@@ -16,7 +21,5 @@ router
 // Matches with "/api/users/email/:email"
 router.route("/email/:email").get(User.getUserByEmail);
 
-// Matches with "/api/users/workers"
-router.route("/workers").get(User.getAllWorkers);
 
 module.exports = router;

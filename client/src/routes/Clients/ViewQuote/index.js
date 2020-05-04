@@ -16,17 +16,22 @@ import {
 import Button from "@material-ui/core/Button";
 import ImageLoader from "react-image-file";
 import { CircularProgress } from "@material-ui/core";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 import "../../../assets/css/style.css";
 
-import { getQuoteById } from "../../../actions/QuoteActions";
+import {
+  getQuoteById,
+  saveQuote,
+  reorder
+} from "../../../actions/QuoteActions";
 
 import upIma from "../../../assets/img/CC_Upload.jpg";
 
 class ViewQuote extends Component {
-  //   state = {
-  //     image: upIma
-  //   };
+  state = {
+    success: false
+  };
 
   //   uploadImage(e) {
   //     let imageFormObj = new FormData();
@@ -38,21 +43,116 @@ class ViewQuote extends Component {
   //     this.props.pickImage('imageUploaded');
 
   //   }
+
+  /**
+   * On Confirm dialog
+   * @param {string} key
+   */
+  onConfirm(key) {
+    this.setState({ [key]: false });
+    window.location = "/app/client";
+  }
+  /**
+   * Open Alert
+   * @param {key} key
+   */
+  openAlert(key) {
+    this.setState({ [key]: true });
+  }
+
   componentDidMount() {
     const { id } = this.props.location.quoteid;
     this.props.getQuoteById(id);
   }
-  reorder() {  }
+  reorder(e) {
+    let order = {};
+    e.preventDefault();
+    switch (this.props.actualQuote.Product) {
+      case "Mosaics":
+        order = {
+          ImagePath: this.props.actualQuote.ImagePath,
+          ImageId: this.props.actualQuote.ImageId,
+          Material: this.props.actualQuote.Material,
+          FramePath: this.props.actualQuote.FramePath,
+          ImageSource: this.props.actualQuote.ImageSource,
+          Size: this.props.actualQuote.Size,
+          Quantity: this.props.actualQuote.Quantity,
+          Address1: this.props.actualQuote.Address1,
+          Address2: this.props.actualQuote.Address2,
+          City: this.props.actualQuote.City,
+          Country: this.props.actualQuote.Country,
+          State: this.props.actualQuote.State,
+          Zip: this.props.actualQuote.Zip,
+          Service: this.props.actualQuote.Service,
+          Status: "Ordered",
+          UserId: this.props.userData.id,
+          Product: "Mosaics",
+          Cost: 0
+        };
+        this.props.reorder({ order });
+        break;
+      case "HardwoodFlooring":
+        order = {
+          ImagePath: this.props.actualQuote.ImageSelectedId,
+          HardwoodType: this.props.actualQuote.HardwoodType,
+          HardwoodStyle: this.props.actualQuote.HardwoodStyle,
+          HardwoodSelected: this.props.actualQuote.HardwoodSelected,
+          HardwoodFinish: this.props.actualQuote.HardwoodFinish,
+          HardwoodThickness: this.props.actualQuote.HardwoodThickness,
+          HardwoodWidth: this.props.actualQuote.HardwoodWidth,
+          HardwoodLength: this.props.actualQuote.HardwoodLength,
+          Quantity: this.props.actualQuote.Quantity,
+          Address1: this.props.actualQuote.Address1,
+          Address2: this.props.actualQuote.Address2,
+          City: this.props.actualQuote.City,
+          Country: this.props.actualQuote.Country,
+          State: this.props.actualQuote.State,
+          Zip: this.props.actualQuote.Zip,
+          Status: "Ordered",
+          UserId: this.props.userData.id,
+          Product: "HardwoodFlooring",
+          Cost: 0
+        };
+        this.props.reorder({ order, user: this.props.userData });
+        break;
+      case "IznikTile":
+        order = {
+          ImagePath: this.props.actualQuote.ImagePath,
+          ImageId: this.props.actualQuote.ImageId,
+          Material: this.props.actualQuote.Material,
+          FramePath: this.props.actualQuote.FramePath,
+          ImageSource: this.props.actualQuote.ImageSource,
+          Size: this.props.actualQuote.Size,
+          Quantity: this.props.actualQuote.Quantity,
+          Address1: this.props.actualQuote.Address1,
+          Address2: this.props.actualQuote.Address2,
+          City: this.props.actualQuote.City,
+          Country: this.props.actualQuote.Country,
+          State: this.props.actualQuote.State,
+          Zip: this.props.actualQuote.Zip,
+          Service: this.props.actualQuote.Service,
+          Status: "Ordered",
+          UserId: this.props.userData.id,
+          Product: "IznikTile",
+          Cost: 0
+        };
+        this.props.reorder({ order, user: this.props.userData });
+        break;
+      default:
+        break;
+    }
+  }
   render() {
     console.log(
       `id de la imagen que viene de la tabla quotas ${JSON.stringify(
         this.props.actualQuote
       )}`
     );
+    const { success } = this.state;
     return (
       <div className="cardsmasonry-wrapper">
         <Card>
-          {this.props.actualQuote.Product === "Custom-Framed Murals" && (
+          {this.props.actualQuote.Service === "Custom-Framed Murals" && (
             <div>
               <div className="row">
                 <Col sm={4}>
@@ -114,6 +214,10 @@ class ViewQuote extends Component {
                       variant="contained"
                       color="primary"
                       className="text-white"
+                      onClick={e => {
+                        this.reorder(e);
+                        this.openAlert("success");
+                      }}
                     >
                       Reorder
                     </Button>
@@ -122,7 +226,9 @@ class ViewQuote extends Component {
               </div>
             </div>
           )}
-          {this.props.actualQuote.Product !== "Custom-Framed Murals" && (
+          {((this.props.actualQuote.Service !== "Custom-Framed Murals" &&
+            this.props.actualQuote.Product === "Mosaics") ||
+            this.props.actualQuote.Product === "IznikTile") && (
             <div>
               <div className="row">
                 <Col sm={4}>
@@ -173,6 +279,65 @@ class ViewQuote extends Component {
                       className="text-white"
                       onClick={e => {
                         this.reorder(e);
+                        this.openAlert("success");
+                      }}
+                    >
+                      Reorder
+                    </Button>
+                  </CardBody>
+                </Col>
+              </div>
+            </div>
+          )}
+          {this.props.actualQuote.Product === "HardwoodFlooring" && (
+            <div>
+              <div className="row">
+                <Col sm={4}>
+                  <CardImg
+                    top
+                    width="25%"
+                    height="25%"
+                    src={this.props.actualQuote.HardwoodSelected}
+                    className="img-fluid"
+                    alt="Art"
+                  />
+                </Col>
+                <Col sm={6}>
+                  <CardBody>
+                    <div className="row">
+                      <h1>Details:</h1>
+                    </div>
+                    <div className="row">
+                      <h3>Quantity: </h3>
+                      <span>{`${this.props.actualQuote.Quantity}`}</span>
+                    </div>
+                    <div className="row">
+                      <h3>Thickness: </h3>
+                      <span>{this.props.actualQuote.HardwoodThickness} mm</span>
+                    </div>
+                    <div className="row">
+                      <h3>Width: </h3>
+                      <span>{this.props.actualQuote.HardwoodWidth} mm</span>
+                    </div>
+                    <div className="row">
+                      <h3>Length: </h3>
+                      <span>{this.props.actualQuote.HardwoodLength} mm</span>
+                    </div>
+                    <div className="row">
+                      <h3>Delivery address:</h3>
+                      <span>{`${this.props.actualQuote.Address1} ${this.props.actualQuote.Address2} ${this.props.actualQuote.City}, ${this.props.actualQuote.State} ${this.props.actualQuote.Zip}`}</span>
+                    </div>
+                    <div className="row">
+                      <h3>Price:</h3>${this.props.actualQuote.Cost}
+                    </div>
+
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      className="text-white"
+                      onClick={e => {
+                        this.reorder(e);
+                        this.openAlert("success");
                       }}
                     >
                       Reorder
@@ -183,14 +348,26 @@ class ViewQuote extends Component {
             </div>
           )}
         </Card>
+        <SweetAlert
+          success
+          show={success}
+          title="Your Order Is Successfully Placed !"
+          btnSize="sm"
+          onConfirm={() => {
+            this.onConfirm("success");
+          }}
+        />
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ quote }) => {
+const mapStateToProps = ({ quote, authUser }) => {
   const { actualQuote, actualImage } = quote;
-  return { quote, actualQuote, actualImage };
+  const { userData } = authUser;
+  return { quote, actualQuote, actualImage, userData };
 };
 
-export default connect(mapStateToProps, { getQuoteById })(ViewQuote);
+export default connect(mapStateToProps, { getQuoteById, saveQuote, reorder })(
+  ViewQuote
+);

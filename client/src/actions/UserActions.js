@@ -113,7 +113,7 @@ export const deteletUserFailure = error => ({
 /**
  * Redux Action add User
  */
-export const getWorkersList = () => ({
+export const getWorkersList = () => (console.log(`en la accion para buscar trabajadores`),{
   type: GET_WORKERS
 });
 

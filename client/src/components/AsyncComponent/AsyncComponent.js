@@ -50,7 +50,15 @@ const AsyncProfileComponent = Loadable ({
 
 // My quotes
 const AsyncMyQuotesComponent = Loadable ({
-  loader: () => import ('../../routes/Clients/MyQuotes'),
+  loader: () => import ('../../routes/Clients/MyQuotes/index'),
+  loading: () => <RctPageLoader />,
+});
+const AsyncMyQuotesHardwoodComponent = Loadable ({
+  loader: () => import ('../../routes/Clients/MyQuotes/index.1'),
+  loading: () => <RctPageLoader />,
+});
+const AsyncMyQuotesIznikComponent = Loadable ({
+  loader: () => import ('../../routes/Clients/MyQuotes/index.2'),
   loading: () => <RctPageLoader />,
 });
 
@@ -116,8 +124,65 @@ const AsyncHardwoodServicesComponent = Loadable({
 });
 
 
+// Services Page
+const AsyncViewAllNotificationsComponent = Loadable({
+  loader: () => import("../../routes/Clients/ViewAllNotifications"),
+  loading: () => <RctPageLoader />,
+});
+
+//Image
+const AsyncImagesComponent = Loadable({
+  loader: () => import("../../routes/Company/Images"),
+  loading: () => <RctPageLoader />,
+});
+//Frame
+const AsyncFramesComponent = Loadable({
+  loader: () => import("../../routes/Company/Frames"),
+  loading: () => <RctPageLoader />,
+});
+// User Report Page
+const AsyncUserReportComponent = Loadable({
+  loader: () => import("../../routes/Company/ClientsReport"),
+  loading: () => <RctPageLoader />,
+});
+// User Page
+const AsyncUserComponent = Loadable({
+  loader: () => import("../../routes/Company/users"),
+  loading: () => <RctPageLoader />,
+});
+// Users Management
+const AsyncUserManagementComponent = Loadable({
+  loader: () => import("../../routes/Company/Admin"),
+  loading: () => <RctPageLoader />,
+});
+
+
+// All quotes
+const AsyncQuotesMosaicsComponent = Loadable ({
+  loader: () => import ('../../routes/Company/Quotes/index'),
+  loading: () => <RctPageLoader />,
+});
+const AsyncQuotesHardwoodComponent = Loadable ({
+  loader: () => import ('../../routes/Company/Quotes/index.1'),
+  loading: () => <RctPageLoader />,
+});
+const AsyncQuotesIznikComponent = Loadable ({
+  loader: () => import ('../../routes/Company/Quotes/index.2'),
+  loading: () => <RctPageLoader />,
+});
+
+
+const AsyncViewAllQuoteComponent = Loadable({
+  loader: () => import("../../routes/Company/ViewQuote"),
+  loading: () => <RctPageLoader />,
+});
+
 
 export {
+  AsyncViewAllQuoteComponent,
+  AsyncQuotesMosaicsComponent,
+  AsyncQuotesHardwoodComponent,
+  AsyncQuotesIznikComponent,
   AsyncEcommerceDashboardComponent,
   AsyncSessionLoginComponent,
   AsyncSessionRegisterComponent,
@@ -134,5 +199,13 @@ export {
   AsyncCartComponent,
   AsyncForgotPasswordComponent,
   AsyncIznikServicesComponent,
-  AsyncHardwoodServicesComponent
+  AsyncHardwoodServicesComponent,
+  AsyncMyQuotesHardwoodComponent,
+  AsyncMyQuotesIznikComponent,
+  AsyncViewAllNotificationsComponent, 
+  AsyncUserReportComponent,
+  AsyncFramesComponent,
+  AsyncImagesComponent,
+  AsyncUserComponent,
+  AsyncUserManagementComponent
 };

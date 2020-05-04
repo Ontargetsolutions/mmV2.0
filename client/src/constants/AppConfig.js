@@ -2,7 +2,7 @@
  * App Config File
  */
 const AppConfig = {
-   appLogo: require('../assets/img/site-logo.png'),          // App Logo
+   appLogo: require('../assets/img/icons/MontageMosaicsSEAL3 - Copy.png'),          // App Logo
    brandName: 'Montage Mosaics',                             // Brand Name
    navCollapsed: false,                                      // Sidebar collapse
    darkMode: false,                                          // Dark Mode

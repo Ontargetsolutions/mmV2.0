@@ -1,7 +1,6 @@
 const db = require("../models");
-const request = require("request-promise");
-
- 
+var Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 // Defining methods for User Controllers
 module.exports = {
@@ -10,15 +9,15 @@ module.exports = {
       .then(data => res.send(data))
       .catch(err => res.status(422).json(err));
   },
-  getAllWorkers: (req, res) => {
+  getAllEmployees: (req, res) => {
     db.User.findAll({
       where: { Rol: { [Sequelize.Op.or]: ["Admin", "Seller"] }, Active: true }
     })
       .then(data => res.send(data))
       .catch(err => res.status(422).json(err));
   },
+
   getUserByEmail: (req, res) => {
-    console.log(`en backend pa buscar el usuario ${JSON.stringify(req.params)} `)
     db.User.findOne({ where: { Email: req.params.email } })
       .then(data => res.send(data))
       .catch(err => res.status(422).json(err));
@@ -28,13 +27,11 @@ module.exports = {
       .then(data => res.send(data))
       .catch(err => res.status(422).json(err));
   },
-
   register: (req, res) => {
     db.User.create(req.body)
       .then(response => res.send(response))
       .catch(err => res.status(422).json(err));
   },
-
   update: (req, res) => {
     db.User.findOne({ id: req.params.id })
       .then(data => {

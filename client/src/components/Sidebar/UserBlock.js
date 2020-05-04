@@ -26,7 +26,7 @@ class UserBlock extends Component {
 
   componentDidMount () {
     const email = this.props.userAuthe;
-    // this.props.getUser (email);
+    this.props.getUser (email);
   }
 
   /**

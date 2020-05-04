@@ -13,12 +13,16 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { withRouter } from "react-router-dom";
 
 // actions
-import { collapsedSidebarAction } from "../../actions";
+import {
+  collapsedSidebarAction,
+  getNotificationsNoRead,
+  getUser
+} from "../../actions";
 
 // components
 import SearchForm from "./SearchForm";
 import MobileSearchForm from "./MobileSearchForm";
-import Notifications from './Notifications';
+import Notifications from "./Notifications";
 import UserBlock from "../Sidebar/UserBlock";
 import Cart from "./Cart";
 
@@ -33,7 +37,14 @@ class Header extends Component {
     const val = !this.props.navCollapsed;
     this.props.collapsedSidebarAction(val);
   };
-
+  componentWillMount() {
+    const email = this.props.userAuthe;
+    this.props.getUser(email);
+    // this.props.getNotificationsNoRead(this.props.userData.id);
+  }
+  // componentDidMount() {
+  //   this.props.getNotificationsNoRead(this.props.userData.Id);
+  // }
   // open dashboard overlay
   openDashboardOverlay(e) {
     var el = document.getElementsByClassName("dashboard-overlay")[0];
@@ -76,7 +87,7 @@ class Header extends Component {
               <div className="site-logo">
                 <Link to="/" className="logo-mini">
                   <img
-                    src={require("../../assets/img/appLogo.png")}
+                    src={require("../../assets/img/icons/MontageMosaicsSEAL3 - Copy.png")}
                     className="mr-15"
                     alt="site logo"
                     width="35"
@@ -85,7 +96,7 @@ class Header extends Component {
                 </Link>
                 <Link to="/" className="logo-normal">
                   <img
-                    src={require("../../assets/img/appLogoText.png")}
+                    src={require("../../assets/img/icons/MontageMosaicsSEAL3 - Copy.png")}
                     className="img-fluid"
                     alt="site-logo"
                     width="67"
@@ -143,7 +154,6 @@ class Header extends Component {
                     }
                   />
                 </li> */}
-                
               </ul>
             )}
           </div>
@@ -159,10 +169,10 @@ class Header extends Component {
               </Tooltip>
             </li> */}
             <li className="list-inline-item d-inline-block">
-            <Cart />
+              {this.props.userData.Rol === "Client" && <Cart />}
             </li>
             <li className="list-inline-item d-inline-block">
-            <Notifications />
+              {this.props.userData.Rol === "Client" && <Notifications />}
             </li>
             <li className="list-inline-item d-inline-block">
               <UserBlock />
@@ -175,12 +185,17 @@ class Header extends Component {
 }
 
 // map state to props
-const mapStateToProps = ({ settings }) => {
-  return settings;
+const mapStateToProps = ({ settings, notifications, authUser }) => {
+  // return settings;
+  const { userData, userAuthe } = authUser;
+  const { NotificationNoReadList } = notifications;
+  return { NotificationNoReadList, userData, settings, userAuthe };
 };
 
 export default withRouter(
   connect(mapStateToProps, {
-    collapsedSidebarAction
+    collapsedSidebarAction,
+    getNotificationsNoRead,
+    getUser
   })(Header)
 );

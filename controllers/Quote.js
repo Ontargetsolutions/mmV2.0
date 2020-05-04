@@ -35,6 +35,13 @@ module.exports = {
       .then(data => res.json(data))
       .catch(err => res.status(422).json(err));
   },
+  getAllQuotesByProuct: (req, res) => {
+    console.log(`en el backend para obtener quota por productos ${JSON.stringify(req.params)}`);
+    db.Order.findAll({ where: { Product: req.params.product } })
+      .then(data => res.json(data))
+      .catch(err => res.status(422).json(err));
+  },
+  
 
   getQuotesByDate: (req, res) => {
     console.log(`en el backend para generar invoice number ${JSON.stringify(req.body)}`);

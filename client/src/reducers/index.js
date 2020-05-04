@@ -12,6 +12,8 @@ import feedbacksReducer from './FeedbacksReducer';
 import ecommerceReducer from './EcommerceReducer';
 import quoteReducer from './QuoteReducer';
 import imageReducer from './ImageReducer';
+import notificationsReducer from './NotificationReducer';
+import usersReducer from './UserReducer';
 
 const reducers = combineReducers({
    settings,
@@ -24,6 +26,8 @@ const reducers = combineReducers({
    ecommerce: ecommerceReducer,
    quote: quoteReducer,
    image: imageReducer,
+   notifications: notificationsReducer,
+   user: usersReducer,
 });
 
 export default reducers;

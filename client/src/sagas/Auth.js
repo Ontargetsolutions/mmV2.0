@@ -24,16 +24,18 @@ import {
   changePasswordFailure,
   getUserFailure,
   getUserSuccess,
-  showAuthMessage
+  showAuthMessage,
+  sendMessageToUser,
+  getNotificationsNoRead
 } from "../actions";
 
 import userAPI from "../api/UserAPI";
-import { pathToFileURL } from "url";
+import { NotificationManager } from "react-notifications";
 
 const actionCodeSettings = {
   // url: "http://localhost:3000"s
   url: "http://orders.montagemosaics.com/"
-  
+
   // handleCodeInApp: false
 };
 
@@ -108,7 +110,7 @@ const changeThePasswordRequest = async email =>
   await auth
     .sendPasswordResetEmail(email, actionCodeSettings)
     .then(res => {
-      console.log(`res de la llamada a la funcion que manda el email ${res}`);
+      NotificationManager.success("Email sent, check your inbox");
     })
     .catch(error => error);
 
@@ -133,7 +135,6 @@ const sendEmailVerificationRequest = () => {
     })
     .catch(error => error);
 };
-
 
 /**
  * Find User by Email
@@ -175,12 +176,12 @@ function* signInUserWithEmailPassword({ payload }) {
       password
     );
 
-    if (signInUser.user.emailVerified === true) {
-      if (signInUser.message) {
-        yield put(signinUserFailure(signInUser.message));
-        localStorage.removeItem("user_id");
-        localStorage.removeItem("user_info");
-      } else {
+    if (signInUser.message) {
+      yield put(signinUserFailure(signInUser.message));
+      localStorage.removeItem("user_id");
+      localStorage.removeItem("user_info");
+    } else {
+      if (signInUser.user.emailVerified === true) {
         localStorage.setItem("user_id", signInUser.user.uid);
         localStorage.setItem("user_info", signInUser.user.email);
         const userMySql = yield call(findUserRequest, signInUser.user.email);
@@ -190,22 +191,25 @@ function* signInUserWithEmailPassword({ payload }) {
           console.log(
             `hello I am here before show the page ${JSON.stringify(userMySql)}`
           );
+          localStorage.setItem("umsqqidl",userMySql.data.id);
         }
         yield put(
           signinUserSuccess({
             uid: signInUser.user.uid,
             userAuthe: signInUser.user.email,
-            userData: userMySql.data
+            userData: userMySql.data,
+            userId: userMySql.data.id
           })
         );
+        yield put (getNotificationsNoRead(userMySql.data.id));
         history.push("/");
+      } else {
+        yield put(
+          signinUserFailure(
+            `User not verified, please check your email inbox to verify your account`
+          )
+        );
       }
-    } else {
-      yield put(
-        signinUserFailure(
-          `User not verified, please check your email inbox to verify your account`
-        )
-      );
     }
   } catch (error) {
     yield put(signinUserFailure(error));
@@ -300,6 +304,8 @@ function* signOut() {
     localStorage.removeItem("user_id");
     localStorage.removeItem("user_user");
     localStorage.removeItem("user_info");
+    localStorage.removeItem("umsqqidl");
+   
     yield put(logoutUserFromFirebaseSuccess());
   } catch (error) {
     yield put(logoutUserFromFirebaseFailure());
@@ -353,7 +359,6 @@ function* createUserWithEmailPassword({ payload }) {
         type,
         companyName
       );
-      console.log(`loq ue vira de mysql ${JSON.stringify(userCreated)}`);
       console.log(
         `++++++++++++++++++++++++++++++email verification sent to user  ${JSON.stringify(
           signUpUser.user.emailVerified
@@ -366,23 +371,9 @@ function* createUserWithEmailPassword({ payload }) {
         console.log(
           `-----------------------email verification sent to user ${emailVerified}`
         );
-        // }
-        // );
-      }
-      ////////////////////// here  ////////////////////////////////////////////////////////////////////////////////////
 
-      // localStorage.setItem (
-      //   'user_info',
-      //   // JSON.stringify (userCreated.data.email)
-      //   userCreated.data.Email
-      // );
-      // localStorage.setItem ('user_id', signUpUser.user.uid);
-      // yield put (
-      //   signUpUserInFirebaseSuccess ({
-      //     uid: signUpUser.user.uid,
-      //     userAuthe: userCreated.data,
-      //   })
-      // );
+      }
+
 
       history.push("/signin");
       // }

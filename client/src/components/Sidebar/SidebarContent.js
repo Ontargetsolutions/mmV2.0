@@ -15,10 +15,10 @@ import NavMenuItem from './NavMenuItem';
 import {onToggleMenu, getUser} from '../../actions';
 
 class SidebarContent extends Component {
-  // componentDidMount () {
-  //   const email = this.props.userAuthe;
-  //   this.props.getUser (email);
-  // }
+  componentDidMount () {
+
+    this.props.getUser (this.props.userAuthe);
+  }
 
   toggleMenu (menu, stateCategory) {
     let data = {
@@ -29,8 +29,8 @@ class SidebarContent extends Component {
   }
 
   render () {
-    const {sidebarMenus} = this.props.sidebar;
     const {userAuthe, userData} = this.props;
+    const {sidebarMenus} = this.props.sidebar;
     return (
       <div className="rct-sidebar-nav">
         <nav className="navigation">

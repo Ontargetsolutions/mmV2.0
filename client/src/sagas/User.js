@@ -40,7 +40,7 @@ const getUserListRequest = async user =>
     .catch(error => error);
 
 const getWorkerListRequest = async user =>
-  await userAPI.getUsersWhere()
+  await userAPI.getAllWorkers()
     .then(workersList => workersList)
     .catch(error => error);
 
@@ -119,8 +119,10 @@ function* getUserListS() {
  * GET WORKERS LIST
  */
 function* getWorkersListS() {
+  console.log(`en la saga para buscar los ntrabajadores`)
   try {
     const workerList = yield call(getWorkerListRequest);
+    console.log(`lo que vira delosn trabajadores ${JSON.stringify(workerList)}`);
     if (workerList.message) {
       yield put(getWorkersListFailure(workerList.message));
     } else {
