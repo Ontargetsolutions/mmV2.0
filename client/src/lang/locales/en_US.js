@@ -796,7 +796,7 @@ export default {
   "sidebar.admin": "Admin",
   "components.searchImage": "Search",
   "sidebar.shopinstock": "Shop in Stock",
-  "sidebar.customProducts": "Custom your product",
+  "sidebar.customProduct": "Customize your product",
   "sidebar.MyData": "My info",
   "sidebar.mosaics": "Mosaics",
   "sidebar.hardwoodFlooring": "Hardwood-Flooring",

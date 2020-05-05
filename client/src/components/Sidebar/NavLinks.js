@@ -14,34 +14,42 @@ export default {
       path: "/app/shop",
       new_item: false,
       type_multi: null
-    },
-    {
-      menu_title: "sidebar.customProducts",
-      menu_icon: "zmdi zmdi-photo-size-select-large",
-      // path: '/app/custom',
-      new_item: false,
-      type_multi: null,
-      type_multi: null,
-      child_routes: [
-        {
-          path: "/app/custom/mosaics",
-          menu_icon: "zmdi zmdi-grid",
-          menu_title: "sidebar.mosaics"
-        },
-        {
-          path: "/app/custom/hardwood",
-          menu_icon: "zmdi zmdi-view-stream",
-          menu_title: "sidebar.hardwoodFlooring"
-        },
-        {
-          path: "/app/custom/iznik",
-          menu_icon: "zmdi zmdi-view-quilt",
-          menu_title: "sidebar.IznikPersian"
-        }
-      ]
     }
+    // {
+    //   menu_title: "sidebar.customProducts",
+    //   menu_icon: "zmdi zmdi-photo-size-select-large",
+    //   // path: '/app/custom',
+    //   new_item: false,
+    //   type_multi: null,
+    //   type_multi: null,
+    //   child_routes: [
+    //     {
+    //       path: "/app/custom/mosaics",
+    //       menu_icon: "zmdi zmdi-grid",
+    //       menu_title: "sidebar.mosaics"
+    //     },
+
+    //   ]
+    // },
   ],
   category2: [
+    {
+      path: "/app/custom/mosaics",
+      menu_icon: "zmdi zmdi-grid",
+      menu_title: "sidebar.mosaics"
+    },
+    {
+      path: "/app/custom/hardwood",
+      menu_icon: "zmdi zmdi-view-stream",
+      menu_title: "sidebar.hardwoodFlooring"
+    },
+    {
+      path: "/app/custom/iznik",
+      menu_icon: "zmdi zmdi-view-quilt",
+      menu_title: "sidebar.IznikPersian"
+    }
+  ],
+  category3: [
     {
       menu_title: "sidebar.profile",
       menu_icon: "zmdi zmdi-accounts",
@@ -76,7 +84,7 @@ export default {
       ]
     }
   ],
-  category3: [
+  category4: [
     {
       menu_title: "sidebar.dashboard",
       menu_icon: "zmdi zmdi-view-dashboard",
@@ -85,7 +93,7 @@ export default {
       type_multi: null
     }
   ],
-  category4: [
+  category5: [
     {
       menu_title: "sidebar.users",
       menu_icon: "zmdi zmdi-accounts",
@@ -94,7 +102,7 @@ export default {
       type_multi: null
     }
   ],
-  category5: [
+  category6: [
     {
       menu_title: "sidebar.orders",
       menu_icon: "zmdi zmdi-flower",
@@ -132,7 +140,7 @@ export default {
       type_multi: null
     }
   ],
-  category6: [
+  category7: [
     {
       menu_title: "sidebar.reports",
       menu_icon: "zmdi zmdi-book",
@@ -152,7 +160,7 @@ export default {
       ]
     }
   ],
-  category7: [
+  category8: [
     {
       menu_title: "sidebar.users",
       menu_icon: "zmdi zmdi-accounts",

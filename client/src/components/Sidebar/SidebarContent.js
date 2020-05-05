@@ -56,7 +56,7 @@ class SidebarContent extends Component {
                 className="rct-mainMenu p-0 m-0 list-unstyled"
                 subheader={
                   <ListSubheader className="side-title" component="li">
-                    <IntlMessages id="sidebar.MyData" />
+                    <IntlMessages id="sidebar.customProduct" />
                   </ListSubheader>
                 }
               >
@@ -65,6 +65,22 @@ class SidebarContent extends Component {
                     menu={menu}
                     key={key}
                     onToggleMenu={() => this.toggleMenu (menu, 'category2')}
+                  />
+                ))}
+              </List>
+              <List
+                className="rct-mainMenu p-0 m-0 list-unstyled"
+                subheader={
+                  <ListSubheader className="side-title" component="li">
+                    <IntlMessages id="sidebar.MyData" />
+                  </ListSubheader>
+                }
+              >
+                {sidebarMenus.category3.map ((menu, key) => (
+                  <NavMenuItem
+                    menu={menu}
+                    key={key}
+                    onToggleMenu={() => this.toggleMenu (menu, 'category3')}
                   />
                 ))}
               </List>
@@ -82,11 +98,11 @@ class SidebarContent extends Component {
                     </ListSubheader>
                   }
                 >
-                  {sidebarMenus.category3.map ((menu, key) => (
+                  {sidebarMenus.category4.map ((menu, key) => (
                     <NavMenuItem
                       menu={menu}
                       key={key}
-                      onToggleMenu={() => this.toggleMenu (menu, 'category3')}
+                      onToggleMenu={() => this.toggleMenu (menu, 'category4')}
                     />
                   ))}
                 </List>
@@ -98,11 +114,11 @@ class SidebarContent extends Component {
                     </ListSubheader>
                   }
                 >
-                  {sidebarMenus.category5.map ((menu, key) => (
+                  {sidebarMenus.category6.map ((menu, key) => (
                     <NavMenuItem
                       menu={menu}
                       key={key}
-                      onToggleMenu={() => this.toggleMenu (menu, 'category5')}
+                      onToggleMenu={() => this.toggleMenu (menu, 'category6')}
                     />
                   ))}
                 </List>
@@ -114,11 +130,11 @@ class SidebarContent extends Component {
                     </ListSubheader>
                   }
                 >
-                  {sidebarMenus.category6.map ((menu, key) => (
+                  {sidebarMenus.category7.map ((menu, key) => (
                     <NavMenuItem
                       menu={menu}
                       key={key}
-                      onToggleMenu={() => this.toggleMenu (menu, 'category6')}
+                      onToggleMenu={() => this.toggleMenu (menu, 'category7')}
                     />
                   ))}
                 </List>
@@ -133,11 +149,11 @@ class SidebarContent extends Component {
                 </ListSubheader>
               }
             >
-              {sidebarMenus.category4.map ((menu, key) => (
+              {sidebarMenus.category5.map ((menu, key) => (
                 <NavMenuItem
                   menu={menu}
                   key={key}
-                  onToggleMenu={() => this.toggleMenu (menu, 'category4')}
+                  onToggleMenu={() => this.toggleMenu (menu, 'category5')}
                 />
               ))}
             </List>}
