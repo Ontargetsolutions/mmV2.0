@@ -14,6 +14,7 @@ import Switch from "@material-ui/core/Switch";
 // components
 import { SessionSlider } from "../components/Widgets";
 import { NotificationManager } from "react-notifications";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 // intl messages
 import IntlMessages from "../util/IntlMessages";
@@ -43,7 +44,8 @@ class SignupFirebase extends Component {
     checkedCompany: false,
     errorPassword: false,
     errorEmail: false,
-    errorPhone: false
+    errorPhone: false,
+    success: false
   };
 
   handleChangeCountry = event => {
@@ -72,6 +74,21 @@ class SignupFirebase extends Component {
       }
     }
     this.setState({ errorPhone: false });
+  }
+  /**
+   * On Confirm dialog
+   * @param {string} key
+   */
+  onConfirm(key) {
+    this.setState({ [key]: false });
+    window.location = "/signin";
+  }
+  /**
+   * Open Alert
+   * @param {key} key
+   */
+  openAlert(key) {
+    this.setState({ [key]: true });
   }
   /**
    * On User Signup
@@ -410,7 +427,10 @@ class SignupFirebase extends Component {
                           className="btn-info text-white btn-block w-100"
                           variant="contained"
                           size="large"
-                          onClick={() => this.onUserSignUp()}
+                          onClick={() => {
+                            this.onUserSignUp();
+                            this.openAlert("success");
+                          }}
                         >
                           Sign Up
                         </Button>
@@ -419,11 +439,11 @@ class SignupFirebase extends Component {
                     <p className="text-muted">
                       By signing up you agree to {AppConfig.brandName}
                     </p>
-                    <p>
+                    {/* <p>
                       <Link to="/terms-condition" className="text-muted">
                         Terms of Service
                       </Link>
-                    </p>
+                    </p> */}
                   </div>
                 </div>
                 <div className="col-sm-2 col-md-2 col-lg-2">
@@ -433,6 +453,16 @@ class SignupFirebase extends Component {
             </div>
           </div>
         </div>
+
+        <SweetAlert
+          success
+          show={this.state.success}
+          title="Check your email to validate your account before to sign in!"
+          btnSize="sm"
+          onConfirm={() => {
+            this.onConfirm("success");
+          }}
+        />
       </QueueAnim>
     );
   }

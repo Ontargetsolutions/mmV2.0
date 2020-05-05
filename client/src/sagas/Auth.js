@@ -375,7 +375,7 @@ function* createUserWithEmailPassword({ payload }) {
       }
 
 
-      history.push("/signin");
+      // history.push("/signin");
       // }
     }
   } catch (error) {

@@ -8,6 +8,7 @@ const notification = require('./notification');
 
 
 
+
 router.use("/users", usersRoutes);
 router.use('/utils', utilRoutes);
 router.use("/quote", quote);

@@ -3,8 +3,8 @@ const User = require("../../controllers/User");
 
 // Matches with "/api/utils"
 // router
-//   .route("/country")
-//   .get(User.getCountryFromAPI);
+//   .route("/ups")
+//   .post(User.getCountryFromAPI);
 
 // router
 //   .route("/states/:country")
