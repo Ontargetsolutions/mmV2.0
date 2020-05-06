@@ -198,7 +198,7 @@ class VerticalLinearStepper extends React.Component {
             />
             <p>
               All steps completed - you&quot;re finished, our agents will
-              contact you soon.
+              contact you soon to finalize your order.
             </p>
             {/* <NavLink to="/app/client"> */}
             <Button

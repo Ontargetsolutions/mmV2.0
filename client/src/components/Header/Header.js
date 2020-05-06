@@ -3,7 +3,9 @@
  */
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
+import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { Link } from "react-router-dom";
@@ -13,18 +15,18 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { withRouter } from "react-router-dom";
 
 // actions
-import {
-  collapsedSidebarAction,
-  getNotificationsNoRead,
-  getUser
-} from "../../actions";
+import { collapsedSidebarAction } from "../../actions";
+
+// helpers
+import { getAppLayout } from "../../helpers/helpers";
 
 // components
-import SearchForm from "./SearchForm";
-import MobileSearchForm from "./MobileSearchForm";
 import Notifications from "./Notifications";
 import UserBlock from "../Sidebar/UserBlock";
 import Cart from "./Cart";
+
+// intl messages
+import IntlMessages from "../../util/IntlMessages";
 
 class Header extends Component {
   state = {
@@ -37,14 +39,7 @@ class Header extends Component {
     const val = !this.props.navCollapsed;
     this.props.collapsedSidebarAction(val);
   };
-  componentWillMount() {
-    const email = this.props.userAuthe;
-    this.props.getUser(email);
-    // this.props.getNotificationsNoRead(this.props.userData.id);
-  }
-  // componentDidMount() {
-  //   this.props.getNotificationsNoRead(this.props.userData.Id);
-  // }
+
   // open dashboard overlay
   openDashboardOverlay(e) {
     var el = document.getElementsByClassName("dashboard-overlay")[0];
@@ -78,31 +73,25 @@ class Header extends Component {
 
   render() {
     const { isMobileSearchFormVisible } = this.state;
-    const { horizontalMenu, agencyMenu } = this.props;
+    const { horizontalMenu, agencyMenu, location } = this.props;
     return (
       <AppBar position="static" className="rct-header">
         <Toolbar className="d-flex justify-content-between w-100 pl-0">
           <div className="d-flex align-items-center">
             {(horizontalMenu || agencyMenu) && (
               <div className="site-logo">
-                <Link to="/" className="logo-mini">
-                  <img
-                    src={require("../../assets/img/icons/MontageMosaicsSEAL3 - Copy.png")}
-                    className="mr-15"
-                    alt="site logo"
-                    width="35"
-                    height="35"
-                  />
-                </Link>
-                <Link to="/" className="logo-normal">
+                <a
+                  href="https://www.mmcustomproducts.com/"
+                  className="logo-normal"
+                >
                   <img
                     src={require("../../assets/img/icons/MontageMosaicsSEAL3 - Copy.png")}
                     className="img-fluid"
                     alt="site-logo"
-                    width="67"
-                    height="17"
+                    width="160"
+                    height="60"
                   />
-                </Link>
+                </a>
               </div>
             )}
             {!agencyMenu && (
@@ -133,69 +122,48 @@ class Header extends Component {
                         component={Link}
                         to="/"
                       >
-                        <i className="ti-layout-sidebar-left" />
+                        <i className="ti-layout-sidebar-left"></i>
                       </IconButton>
                     </Tooltip>
                   </li>
                 )}
-                {/* <li className="list-inline-item search-icon d-inline-block">
-                  <SearchForm />
-                  <IconButton
-                    mini="true"
-                    className="search-icon-btn"
-                    onClick={() => this.openMobileSearchForm()}
-                  >
-                    <i className="zmdi zmdi-search" />
-                  </IconButton>
-                  <MobileSearchForm
-                    isOpen={isMobileSearchFormVisible}
-                    onClose={() =>
-                      this.setState({ isMobileSearchFormVisible: false })
-                    }
-                  />
-                </li> */}
+             
+               
               </ul>
             )}
           </div>
           <ul className="navbar-right list-inline mb-0">
-            {/* <li className="list-inline-item">
+               <Notifications />
+            <Cart />
+
+            <li className="list-inline-item setting-icon">
+              <UserBlock />
+            </li>
+            <li className="list-inline-item">
               <Tooltip title="Full Screen" placement="bottom">
                 <IconButton
                   aria-label="settings"
-                  onClick={() => this.toggleScreenFull ()}
+                  onClick={() => this.toggleScreenFull()}
                 >
-                  <i className="zmdi zmdi-crop-free" />
+                  <i className="zmdi zmdi-crop-free"></i>
                 </IconButton>
               </Tooltip>
-            </li> */}
-            <li className="list-inline-item d-inline-block">
-              {this.props.userData.Rol === "Client" && <Cart />}
-            </li>
-            <li className="list-inline-item d-inline-block">
-              {this.props.userData.Rol === "Client" && <Notifications />}
-            </li>
-            <li className="list-inline-item d-inline-block">
-              <UserBlock />
             </li>
           </ul>
         </Toolbar>
+       
       </AppBar>
     );
   }
 }
 
 // map state to props
-const mapStateToProps = ({ settings, notifications, authUser }) => {
-  // return settings;
-  const { userData, userAuthe } = authUser;
-  const { NotificationNoReadList } = notifications;
-  return { NotificationNoReadList, userData, settings, userAuthe };
+const mapStateToProps = ({ settings }) => {
+  return settings;
 };
 
 export default withRouter(
   connect(mapStateToProps, {
-    collapsedSidebarAction,
-    getNotificationsNoRead,
-    getUser
+    collapsedSidebarAction
   })(Header)
 );

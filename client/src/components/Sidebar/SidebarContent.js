@@ -16,7 +16,6 @@ import {onToggleMenu, getUser} from '../../actions';
 
 class SidebarContent extends Component {
   componentDidMount () {
-
     this.props.getUser (this.props.userAuthe);
   }
 
@@ -89,7 +88,6 @@ class SidebarContent extends Component {
           {(userData.Rol === 'Seller' ||
             userData.Rol === 'Admin') &&
               <div>
-
                 <List
                   className="rct-mainMenu p-0 m-0 list-unstyled"
                   subheader={

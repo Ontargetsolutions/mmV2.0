@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 // component
 import OrdersStats from './Orders';

@@ -5,16 +5,16 @@ import React from 'react';
 import CountUp from 'react-countup';
 
 // chart config
-import ChartConfig from 'constants/chart-config';
+import ChartConfig from '../../constants/chart-config';
 
 //chart
-import TinyAreaChart from 'components/Charts/TinyAreaChart';
+
 
 // collapsible card
-import RctCollapsibleCard from 'components/RctCollapsibleCard/RctCollapsibleCard';
+import RctCollapsibleCard from '../../components/RctCollapsibleCard/RctCollapsibleCard';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 const Users = () => (
     <RctCollapsibleCard
@@ -29,17 +29,7 @@ const Users = () => (
             <span className="align-self-center d-flex arrow-icon"><i className="ti-arrow-up"></i></span>
         </div>
         <div className="mb-10">
-            <TinyAreaChart
-                label="Users"
-                chartdata={[800, 480, 430, 550, 530, 650, 380, 434, 568, 610, 700, 630]}
-                labels={["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]}
-                backgroundColor={ChartConfig.color.warning}
-                borderColor={ChartConfig.color.warning}
-                lineTension={0}
-                height={110}
-                gradient
-                hideDots
-            />
+            
         </div>
         <div className="d-flex justify-content-between p-20">
             <div className="totle-status">

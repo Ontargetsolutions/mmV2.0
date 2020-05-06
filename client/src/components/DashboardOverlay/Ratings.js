@@ -11,10 +11,10 @@ import StarRatingComponent from 'react-star-rating-component';
 import { RctCard, RctCardContent, RctCardFooter } from '../RctCard';
 
 // intl messages
-import IntlMessages from 'util/IntlMessages';
+import IntlMessages from '../../util/IntlMessages';
 
 // app config
-import AppConfig from 'constants/AppConfig';
+import AppConfig from '../../constants/AppConfig';
 
 class RatingsStats extends Component {
 

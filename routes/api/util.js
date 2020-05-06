@@ -1,10 +1,10 @@
 const router = require("express").Router();
-const User = require("../../controllers/User");
+const Util = require("../../controllers/Util");
 
 // Matches with "/api/utils"
-// router
-//   .route("/ups")
-//   .post(User.getCountryFromAPI);
+router
+  .route("/ups")
+  .post(Util.upsDeliveryFee);
 
 // router
 //   .route("/states/:country")
