@@ -149,13 +149,13 @@ class BillingForm extends Component {
                      />
                   </Col>
                </FormGroup>
-               <FormGroup row className="mb-0">
+               {/* <FormGroup row className="mb-0">
                   <Col sm={12}>
                      <Label className="ml-4">
                         <Input type="checkbox" /><IntlMessages id="components.ShippingAddressText" />
                      </Label>
                   </Col>
-               </FormGroup>
+               </FormGroup> */}
                <FormText color="danger">All fields marked with an asterisk (*) are required</FormText>
             </Form>
             <div className="d-flex justify-content-end">

@@ -39,7 +39,10 @@ import {
   REORDER,
   REORDER_SUCCESS,
   REORDER_FAILURE,
-  GET_ALL_QUOTES
+  GET_ALL_QUOTES,
+  GET_DELIVERY_FEE_FAILURE,
+  GET_DELIVERY_FEE_SUCCESS,
+  GET_DELIVERY_FEE
 } from "./types";
 
 /**
@@ -340,3 +343,18 @@ export const generAllQuotesByProducts = (product) => ({
   payload: product
 });
 
+
+export const getDeliveryFee = data => ({
+  type: GET_DELIVERY_FEE,
+  payload: data
+});
+
+export const getDeliveryFeeFailure = error => ({
+  type: GET_DELIVERY_FEE_FAILURE,
+  payload: error
+});
+  
+export const getDeliveryFeeSuccess = fee => ({
+  type: GET_DELIVERY_FEE_SUCCESS,
+  payload: fee
+});

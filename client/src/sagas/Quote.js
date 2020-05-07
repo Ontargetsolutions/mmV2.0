@@ -13,7 +13,9 @@ import {
   generateInvoiceNumberFailure,
   generateInvoiceNumber,
   reorderFailure,
-  reorderSuccess
+  reorderSuccess,
+  getDeliveryFeeFailure,
+  getDeliveryFeeSuccess
 } from "../actions/QuoteActions";
 import {
   GET_ADOBE_STOCK_IMAGES,
@@ -22,7 +24,8 @@ import {
   GET_QUOTE_BY_ID,
   GENERATE_INVOICE_NUMBER,
   REORDER,
-  GET_ALL_QUOTES
+  GET_ALL_QUOTES,
+  GET_DELIVERY_FEE
 } from "../actions/types";
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
 
@@ -77,6 +80,14 @@ const getAllOrdersByProductRequest = async product =>
     .then(number => number)
     .catch(error => error);
 ;
+const getDeliveryFeeRequest = async data =>
+  await utilAPI
+    .getDeliveryFee(data)
+    .then(fee => fee)
+    .catch(error => error);
+;
+
+
 /**
  * GET IMAGE FROM ADOBE BY WORD
  */
@@ -190,6 +201,22 @@ function* reorderS(payload) {
     }
   } catch (error) {
     yield put(reorderFailure(error));
+  }
+}
+
+function* getDeliveryFeeS(payload) {
+  const data = payload.payload;
+  console.log(`data en delivery fee ${JSON.stringify(data)}`);
+  try {
+    const newFee = yield call(getDeliveryFeeRequest, data);
+    console.log(`lo que vira de buscar delivery fee ${JSON.stringify(newFee)}`);
+    if (newFee.message) {
+      yield put(getDeliveryFeeFailure(newFee.message));
+    } else {
+      yield put(getDeliveryFeeSuccess(newFee.data.RateResponse.RatedShipment.RatedPackage.TotalCharges.MonetaryValue));
+    }
+  } catch (error) {
+    yield put(getDeliveryFeeFailure(error));
   }
 }
 
@@ -381,6 +408,11 @@ export function* getAllOrdersByProductsWatcher() {
   yield takeEvery(GET_ALL_QUOTES, getAllOrdersByProductsS);
 }
 
+export function* getDeliveryFeeWatcher() {
+  yield takeEvery(GET_DELIVERY_FEE, getDeliveryFeeS);
+}
+
+
 /**
  * Quote Root Saga
  */
@@ -392,6 +424,7 @@ export default function* rootSaga() {
     fork(getOrderByIdWatcher),
     fork(generateInvoiceNumberWatcher),
     fork(reorderWatcher),
-    fork(getAllOrdersByProductsWatcher)
+    fork(getAllOrdersByProductsWatcher),
+    fork(getDeliveryFeeWatcher)
   ]);
 }

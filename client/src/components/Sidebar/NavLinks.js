@@ -8,29 +8,13 @@ export default {
       new_item: false,
       type_multi: null
     },
-    // {
-    //   menu_title: "sidebar.shopinstock",
-    //   menu_icon: "zmdi zmdi-shopping-cart-plus",
-    //   path: "/app/shop",
-    //   new_item: false,
-    //   type_multi: null
-    // }
-    // {
-    //   menu_title: "sidebar.customProducts",
-    //   menu_icon: "zmdi zmdi-photo-size-select-large",
-    //   // path: '/app/custom',
-    //   new_item: false,
-    //   type_multi: null,
-    //   type_multi: null,
-    //   child_routes: [
-    //     {
-    //       path: "/app/custom/mosaics",
-    //       menu_icon: "zmdi zmdi-grid",
-    //       menu_title: "sidebar.mosaics"
-    //     },
-
-    //   ]
-    // },
+    {
+      menu_title: "sidebar.shopinstock",
+      menu_icon: "zmdi zmdi-shopping-cart-plus",
+      path: "/app/shop",
+      new_item: false,
+      type_multi: null
+    }
   ],
   category2: [
     {
@@ -61,7 +45,6 @@ export default {
     {
       menu_title: "sidebar.myOrders",
       menu_icon: "zmdi zmdi-flower",
-      // path: '/app/custom',
       new_item: false,
       type_multi: null,
       type_multi: null,

@@ -11,6 +11,9 @@ import { Form, FormGroup, Label, Input, Col } from "reactstrap";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import QueueAnim from "rc-queue-anim";
 import Switch from "@material-ui/core/Switch";
+import { Grid } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 // components
 import { SessionSlider } from "../components/Widgets";
 import { NotificationManager } from "react-notifications";
@@ -48,12 +51,12 @@ class SignupFirebase extends Component {
     success: false
   };
 
-  handleChangeCountry = event => {
-    this.setState({ country: event.target.value });
+  handleChangeCountry = (event, newValue) => {
+    this.setState({ country: newValue.shortName });
   };
 
-  handleChangeState = event => {
-    this.setState({ stateC: event.target.value });
+  handleChangeState = (event, newValue) => {
+    this.setState({ stateC: newValue });
   };
 
   handleChange = name => (event, checked) => {
@@ -134,6 +137,7 @@ class SignupFirebase extends Component {
           } else {
             this.setState({ errorPassword: false });
             this.setState({ errorPhone: false });
+            this.openAlert("success");
             this.props.signupUserInFirebase(
               {
                 email,
@@ -190,12 +194,12 @@ class SignupFirebase extends Component {
                 <div className="d-flex justify-content-between">
                   <div className="session-logo">
                     <Link to="/">
-                      {/* <img
+                      <img
                         src={AppConfig.appLogo}
                         alt="session-logo"
                         width="110"
                         height="35"
-                      /> */}
+                      />
                     </Link>
                   </div>
                   <div>
@@ -217,238 +221,213 @@ class SignupFirebase extends Component {
           </AppBar>
           <div className="session-inner-wrapper">
             <div className="container">
-              <div className="row row-eq-height">
-                <div className="col-sm-10 col-md-10 col-lg-10">
-                  <div className="session-body text-center">
-                    <div className="session-head mb-15">
-                      <h2>Get started with {AppConfig.brandName}</h2>
-                    </div>
-                    <Form>
-                      <FormGroup row>
-                        <Col sm={8}>
-                          {/* <FormGroup className="has-wrapper"> */}
-                          <Input
-                            type="text"
-                            value={name}
-                            name="user-name"
-                            id="user-name"
-                            className="has-input input-lg"
-                            placeholder="Your Name"
-                            onChange={e =>
-                              this.setState({ name: e.target.value })
-                            }
-                          />
-                        </Col>
-                        <Col sm={4}>
-                          {/* <FormGroup className="has-wrapper"> */}
-                          <Input
-                            value={password}
-                            type="Password"
-                            name="user-pwd"
-                            id="pwd"
-                            className="has-input input-lg"
-                            placeholder="Password"
-                            onChange={e =>
-                              this.setState({ password: e.target.value })
-                            }
-                          />
-                          {this.state.errorPassword && (
-                            <p className="text-danger">
-                              * Password hast to have at least 6 characteres
-                            </p>
-                          )}
-                        </Col>
-                      </FormGroup>
-
-                      <FormGroup row>
-                        <Col sm={8}>
-                          <FormGroup className="has-wrapper">
-                            <Input
-                              type="mail"
-                              value={email}
-                              name="user-mail"
-                              id="user-mail"
-                              className="has-input input-lg"
-                              placeholder="Email Address"
-                              onChange={e =>
-                                this.setState({ email: e.target.value })
-                              }
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col sm={4}>
-                          <FormGroup className="has-wrapper">
-                            <Input
-                              value={phone}
-                              type="phone"
-                              name="user-phone"
-                              id="phone"
-                              className="has-input input-lg"
-                              placeholder="Phone"
-                              onChange={e =>
-                                this.setState({ phone: e.target.value })
-                              }
-                            />
-                            {this.state.errorPassword && (
-                              <p className="text-danger">
-                                * Please eneter a valid phone number
-                              </p>
-                            )}
-                          </FormGroup>
-                        </Col>
-                      </FormGroup>
-
-                      <FormGroup row>
-                        <Col sm={6}>
-                          <FormGroup className="has-wrapper">
-                            <Label for="account">
-                              <IntlMessages id="components.Company account" />
-                            </Label>
-                            <Switch
-                              checked={this.state.checkedCompany}
-                              onChange={this.handleChange("checkedCompany")}
-                              aria-label="checkedCompany"
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col sm={6}>
-                          {this.state.checkedCompany && (
-                            <FormGroup className="has-wrapper">
-                              <Input
-                                value={companyName}
-                                type="text"
-                                name="user-company"
-                                id="companyName"
-                                className="has-input input-lg"
-                                placeholder="Company Name"
-                                onChange={e =>
-                                  this.setState({ companyName: e.target.value })
-                                }
-                              />
-                            </FormGroup>
-                          )}
-                        </Col>
-                      </FormGroup>
-
-                      <FormGroup row>
-                        <Col sm={8}>
-                          <Input
-                            value={address1}
-                            type="text"
-                            name="user-address1"
-                            id="address1"
-                            className="has-input input-lg"
-                            placeholder="Address 1"
-                            onChange={e =>
-                              this.setState({ address1: e.target.value })
-                            }
-                          />
-                        </Col>
-                        <Col sm={4}>
-                          <Input
-                            value={address2}
-                            type="text"
-                            name="user-address2"
-                            id="address2"
-                            className="has-input input-lg"
-                            placeholder="Address 2"
-                            onChange={e =>
-                              this.setState({ address2: e.target.value })
-                            }
-                          />
-                        </Col>
-                      </FormGroup>
-                      <FormGroup row>
-                        <Col sm={8}>
-                          <Input
-                            className="mb-20"
-                            type="select"
-                            bsSize="lg"
-                            id="country"
-                            onChange={this.handleChangeCountry}
-                          >
-                            {countires.map((count, index) => {
-                              return (
-                                <option value={count.shortName} key={index}>
-                                  {count.name}
-                                </option>
-                              );
-                            })}
-                          </Input>
-                        </Col>
-                        <Col sm={4}>
-                          <Input
-                            className="mb-20"
-                            type="select"
-                            bsSize="lg"
-                            id="states"
-                            onChange={this.handleChangeState}
-                          >
-                            {states.map((state, index) => {
-                              return (
-                                <option value={state} key={index}>
-                                  {state}
-                                </option>
-                              );
-                            })}
-                          </Input>
-                        </Col>
-                      </FormGroup>
-                      <FormGroup row>
-                        <Col sm={8}>
-                          <Input
-                            value={city}
-                            type="text"
-                            name="user-city"
-                            id="city"
-                            className="has-input input-lg"
-                            placeholder="City"
-                            onChange={e =>
-                              this.setState({ city: e.target.value })
-                            }
-                          />
-                        </Col>
-                        <Col sm={4}>
-                          <Input
-                            value={zipcode}
-                            type="text"
-                            name="user-zipcode"
-                            id="zipcode"
-                            className="has-input input-lg"
-                            placeholder="Zip code"
-                            onChange={e =>
-                              this.setState({ zipcode: e.target.value })
-                            }
-                          />
-                        </Col>
-                      </FormGroup>
-                      <FormGroup className="mb-15">
-                        <Button
-                          className="btn-info text-white btn-block w-100"
-                          variant="contained"
-                          size="large"
-                          onClick={() => {
-                            this.onUserSignUp();
-                            this.openAlert("success");
-                          }}
-                        >
-                          Sign Up
-                        </Button>
-                      </FormGroup>
-                    </Form>
-                    <p className="text-muted">
-                      By signing up you agree to {AppConfig.brandName}
-                    </p>
-                    {/* <p>
-                      <Link to="/terms-condition" className="text-muted">
-                        Terms of Service
-                      </Link>
-                    </p> */}
-                  </div>
+              <div className="session-body text-center">
+                <div className="session-head mb-15">
+                  <h2>{AppConfig.brandName} Online Store</h2>
                 </div>
-                <div className="col-sm-2 col-md-2 col-lg-2">
-                  {/* <SessionSlider /> */}
-                </div>
+                <Form>
+                  <Grid container spacing={2}>
+                    <Grid item xs={8}>
+                      <TextField
+                        name="name"
+                        id="name"
+                        label="Name"
+                        variant="outlined"
+                        fullWidth
+                        value={name}
+                        onChange={e => this.setState({ name: e.target.value })}
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <TextField
+                        id="password"
+                        label="Password"
+                        placeholder="Notification content"
+                        variant="outlined"
+                        type="Password"
+                        placeholder="Password"
+                        value={password}
+                        fullWidth
+                        onChange={e =>
+                          this.setState({ password: e.target.value })
+                        }
+                      />
+                      {this.state.errorPassword && (
+                        <p className="text-danger">
+                          * Password hast to have at least 6 characteres
+                        </p>
+                      )}
+                    </Grid>
+                    <Grid item xs={8}>
+                      <TextField
+                        name="email"
+                        id="email"
+                        label="Email Address"
+                        variant="outlined"
+                        fullWidth
+                        value={email}
+                        onChange={e => this.setState({ email: e.target.value })}
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <TextField
+                        name="phone"
+                        id="phone"
+                        label="Phone Number"
+                        variant="outlined"
+                        fullWidth
+                        value={phone}
+                        onChange={e => this.setState({ phone: e.target.value })}
+                      />
+                      {this.state.errorPassword && (
+                        <p className="text-danger">
+                          * Please eneter a valid phone number
+                        </p>
+                      )}
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Label for="account">
+                        <IntlMessages id="components.Company account" />
+                      </Label>
+                      <Switch
+                        checked={this.state.checkedCompany}
+                        onChange={this.handleChange("checkedCompany")}
+                        aria-label="checkedCompany"
+                      />
+                    </Grid>
+                    <Grid item xs={8}>
+                      {this.state.checkedCompany && (
+                        <TextField
+                          name="companyName"
+                          id="com[panyName"
+                          type="text"
+                          label="Company Name"
+                          variant="outlined"
+                          fullWidth
+                          value={companyName}
+                          onChange={e =>
+                            this.setState({ companyName: e.target.value })
+                          }
+                        />
+                      )}
+                    </Grid>
+                    <Grid item xs={8}>
+                      <TextField
+                        name="Address1"
+                        id="address1"
+                        type="text"
+                        label="Address 1"
+                        variant="outlined"
+                        fullWidth
+                        value={address1}
+                        onChange={e =>
+                          this.setState({ address1: e.target.value })
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <TextField
+                        name="Address12"
+                        id="address2"
+                        type="text"
+                        label="Address 2"
+                        variant="outlined"
+                        fullWidth
+                        value={address1}
+                        onChange={e =>
+                          this.setState({ address2: e.target.value })
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={8}>
+                      <Autocomplete
+                        options={countires}
+                        getOptionLabel={option =>
+                          option && option.name
+                            ? option.name
+                            : option
+                            ? option
+                            : ""
+                        }
+                        autoComplete
+                        autoSelect
+                        disableClearable
+                        includeInputInList
+                        onChange={this.handleChangeCountry}
+                        renderInput={params => (
+                          <TextField
+                            {...params}
+                            label="Country"
+                            variant="outlined"
+                            fullWidth
+                          />
+                        )}
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Autocomplete
+                        options={states}
+                        getOptionLabel={option => option}
+                        autoComplete
+                        autoSelect
+                        disableClearable
+                        includeInputInList
+                        onChange={this.handleChangeState}
+                        renderInput={params => (
+                          <TextField
+                            {...params}
+                            label="State"
+                            variant="outlined"
+                            fullWidth
+                          />
+                        )}
+                      />
+                    </Grid>
+                    <Grid item xs={8}>
+                      <TextField
+                        name="City"
+                        id="city"
+                        type="text"
+                        label="City"
+                        variant="outlined"
+                        fullWidth
+                        value={city}
+                        onChange={e => this.setState({ city: e.target.value })}
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <TextField
+                        name="Zipcode"
+                        id="zipcode"
+                        type="text"
+                        label="Zip Code"
+                        variant="outlined"
+                        fullWidth
+                        value={zipcode}
+                        onChange={e =>
+                          this.setState({ zipcode: e.target.value })
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Button
+                         color="primary"
+                         className="btn-block text-white w-50"
+                        variant="contained"
+                        size="medium"
+                        onClick={() => {
+                          this.onUserSignUp();
+                          
+                        }}
+                      >
+                        Sign Up
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Form>
+                <p className="text-muted">
+                  By signing up you agree to {AppConfig.brandName}
+                </p>
               </div>
             </div>
           </div>

@@ -809,5 +809,6 @@ export default {
   "components.clearSelection": "Clear",
   "button.clear": "Read",
   "components.NotificationHeader": "Header",
-  "components.NotificationText": "Notification"
+  "components.NotificationText": "Notification",
+  'components.estimatedDelivery': 'Estimated Delivery'
 };

@@ -106,7 +106,7 @@ class Signin extends Component {
                       <h2 className="font-weight-bold">
                         Get started with {AppConfig.brandName}
                       </h2>
-                      <p className="mb-0">Most powerful ReactJS admin panel</p>
+                
                     </div>
                     <Form>
                       <FormGroup className="has-wrapper">

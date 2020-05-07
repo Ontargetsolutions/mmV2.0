@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export default {
+  //Get images from adobe stock
   getImagesFromAdobe: (word) => {
     return axios.get(`/api/adobe/${word}`);
   },
@@ -13,5 +14,10 @@ export default {
   // Save the quote
   getPictureById: id => {
     return axios.get(`/api/image/getImage/${id}`);
+  },
+
+  //Get estimated delivery fee from ups api
+  getDeliveryFee: data => {
+    return axios.post(`/api/utils/ups`, data);
   }
 };

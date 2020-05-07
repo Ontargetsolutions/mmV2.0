@@ -9,7 +9,7 @@ module.exports = {
         req.body
       )}`
     );
-    const bodyRequest = req.body;
+    const bodyRequest = req.body.RateRequest;
 
     const options = {
       method: "POST",
@@ -23,7 +23,7 @@ module.exports = {
       },
       uri: "https://wwwcie.ups.com/ship/v1/rating/Rate",
       body: {
-        some: bodyRequest
+        RateRequest: bodyRequest
       },
       json: true // Automatically stringifies the body to JSON
     };

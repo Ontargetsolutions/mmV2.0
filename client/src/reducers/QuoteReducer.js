@@ -27,7 +27,9 @@ import {
   PICK_TYPE,
   PICK_STYLE,
   PICK_FINISH,
-  PICK_HARDWOOD
+  PICK_HARDWOOD,
+  GET_DELIVERY_FEE_FAILURE,
+  GET_DELIVERY_FEE_SUCCESS
 } from "../actions/types";
 
 import { NotificationManager } from "react-notifications";
@@ -61,7 +63,8 @@ const INIT_STATE = {
   hardwoodType: "",
   hardwoodStyle: "",
   hardwoodFinish: "",
-  hardwoodSelected: ""
+  hardwoodSelected: "",
+  deliveryFee:0
 };
 
 export default (state = INIT_STATE, action) => {
@@ -121,7 +124,8 @@ export default (state = INIT_STATE, action) => {
         hardwoodType: "",
         hardwoodStyle: "",
         hardwoodFinish: "",
-        hardwoodSelected: ""
+        hardwoodSelected: "",
+        
       };
 
     case PICK_THICKNESS:
@@ -207,6 +211,13 @@ export default (state = INIT_STATE, action) => {
 
     case GET_ORDERS_LIST_SUCCESS:
       return { ...state, myOrders: action.payload };
+
+      case GET_DELIVERY_FEE_FAILURE:
+          NotificationManager.error(action.payload);
+          return { ...state };
+    
+        case GET_DELIVERY_FEE_SUCCESS:
+          return { ...state, deliveryFee: action.payload };
 
     case GET_IMAGE_SUCCESS:
       return { ...state, actualImage: action.payload };
