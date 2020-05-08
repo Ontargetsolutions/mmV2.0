@@ -810,5 +810,6 @@ export default {
   "button.clear": "Read",
   "components.NotificationHeader": "Header",
   "components.NotificationText": "Notification",
-  'components.estimatedDelivery': 'Estimated Delivery'
+  'components.estimatedDelivery': 'Estimated Delivery',
+  'components.submitQuote':'Submit'
 };

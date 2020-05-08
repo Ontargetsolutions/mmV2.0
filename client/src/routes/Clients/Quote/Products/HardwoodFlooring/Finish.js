@@ -42,9 +42,9 @@ export default class Shop extends Component {
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
                 <div className="d-sm-flex justify-content-between w-100">
-                  <Panel className="mx-10 mb-20 mb-sm-0" header="Category">
+                  <Panel className="mx-10 mb-20 mb-sm-0" header="Finish">
                     <div className="app-selectbox-sm">
-                      <MenuSelect attribute="category" limit={10} />
+                      <MenuSelect attribute="finish" limit={10} />
                     </div>
                   </Panel>
                 </div>

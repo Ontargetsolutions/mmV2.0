@@ -207,7 +207,7 @@ class VerticalLinearStepper extends React.Component {
               className="text-white"
               onClick={() => this.openAlert("success")}
             >
-              <IntlMessages id="components.placeOrder" />
+              <IntlMessages id="components.submitQuote" />
             </Button>
             {/* </NavLink> */}
           </Paper>

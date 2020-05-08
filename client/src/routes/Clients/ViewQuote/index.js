@@ -17,6 +17,8 @@ import Button from "@material-ui/core/Button";
 import ImageLoader from "react-image-file";
 import { CircularProgress } from "@material-ui/core";
 import SweetAlert from "react-bootstrap-sweetalert";
+// import BlobToBase64 from "blob-to-base64";
+// import base64Img from 'base64-img-img';
 
 import "../../../assets/css/style.css";
 
@@ -30,7 +32,8 @@ import upIma from "../../../assets/img/CC_Upload.jpg";
 
 class ViewQuote extends Component {
   state = {
-    success: false
+    success: false,
+    blobUrl:''
   };
 
   //   uploadImage(e) {
@@ -63,6 +66,8 @@ class ViewQuote extends Component {
   componentDidMount() {
     const { id } = this.props.location.quoteid;
     this.props.getQuoteById(id);
+    const blobUrl1 = URL.createObjectURL(this.props.actualImage.Data.data);
+    this.setState({blobUrl: blobUrl1});
   }
   reorder(e) {
     let order = {};
@@ -142,6 +147,16 @@ class ViewQuote extends Component {
         break;
     }
   }
+
+  // getPicture(data) {
+  //   BlobToBase64(data, function(error, base64) {
+  //     if (!error) {
+  //       return base64;
+  //     }
+  //   });
+  // }
+
+
   render() {
     console.log(
       `id de la imagen que viene de la tabla quotas ${JSON.stringify(
@@ -159,10 +174,7 @@ class ViewQuote extends Component {
                   <h1>Art:</h1>
                   {this.props.actualQuote.ImageType === "upload" &&
                     (this.props.actualImage.Data ? (
-                      <ImageLoader
-                        file={this.props.actualImage.Data.data}
-                        alt="some text"
-                      />
+                      <ImageLoader file={this.state.blobUrl} alt="some text" />
                     ) : (
                       <CircularProgress color="secondary"></CircularProgress>
                     ))}
