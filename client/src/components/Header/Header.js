@@ -127,15 +127,16 @@ class Header extends Component {
                     </Tooltip>
                   </li>
                 )}
-             
-               
               </ul>
             )}
           </div>
           <ul className="navbar-right list-inline mb-0">
-               <Notifications />
-            <Cart />
-
+            <li className="list-inline-item setting-icon">
+              <Notifications />
+            </li>
+            <li className="list-inline-item setting-icon">
+              <Cart />
+            </li>
             <li className="list-inline-item setting-icon">
               <UserBlock />
             </li>
@@ -151,7 +152,6 @@ class Header extends Component {
             </li>
           </ul>
         </Toolbar>
-       
       </AppBar>
     );
   }
