@@ -52,19 +52,9 @@ const getPersonByIdRequest = async id =>
 
 
 /**
- * Delete User
- */
-// const deleteUserRequest = async id =>
-//   await API.deleteUsers(id)
-//     .then(authUser => authUser)
-//     .catch(error => error);
-
-
-/**
  * UPDATE USER
  */
 function* updateUserS(payload) {
-  console.log(`usuario a ser modificado ${JSON.stringify(payload.payload)}`)
   const user = payload.payload;
   try {
     const userUpdated = yield call(updateUserRequest,user.Id, user);

@@ -316,9 +316,6 @@ function* signOut() {
  * Create User In Firebase
  */
 function* createUserWithEmailPassword({ payload }) {
-  console.log(
-    `payload de user que llega a la saga grande ${JSON.stringify(payload)}`
-  );
   const {
     email,
     password,
@@ -340,7 +337,7 @@ function* createUserWithEmailPassword({ payload }) {
       email,
       password
     );
-    console.log(`loq ue vira de firebase ${JSON.stringify(signUpUser)}`);
+
     if (signUpUser.message) {
       yield put(signUpUserInFirebaseFailure(signUpUser.message));
     } else {
@@ -359,24 +356,9 @@ function* createUserWithEmailPassword({ payload }) {
         type,
         companyName
       );
-      console.log(
-        `++++++++++++++++++++++++++++++email verification sent to user  ${JSON.stringify(
-          signUpUser.user.emailVerified
-        )}`
-      );
-      ////////////////////// here  ////////////////////////////////////////////////////////////////////////////////////
       if (signUpUser.user.emailVerified == false) {
-        console.log("aquiiiiiiiiiiiiiiiiiiii");
         const emailVerified = yield call(sendEmailVerificationRequest);
-        console.log(
-          `-----------------------email verification sent to user ${emailVerified}`
-        );
-
       }
-
-
-      // history.push("/signin");
-      // }
     }
   } catch (error) {
     yield put(signUpUserInFirebaseFailure(error));
