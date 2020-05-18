@@ -14,90 +14,17 @@ import IntlMessages from "../../../../util/IntlMessages";
 
 import { getDeliveryFee } from "../../../../actions";
 
+
+
 class CheckoutItem extends Component {
   state = {
     success: false
   };
 
   componentDidMount() {
+    
     if (this.props.cart.length !== 0) {
-      this.props.getDeliveryFee({
-        RateRequest: {
-          Request: {
-            SubVersion: "1703",
-            TransactionReference: {
-              CustomerContext: " "
-            }
-          },
-          Shipment: {
-            ShipmentRatingOptions: {
-              UserLevelDiscountIndicator: "TRUE"
-            },
-            Shipper: {
-              Name: "Darryl Forgenie",
-              ShipperNumber: "E38Y78",
-              Address: {
-                AddressLine: "14825 St.Marys Ln Ste 250",
-                City: "Houston",
-                StateProvinceCode: "TX",
-                PostalCode: "77079",
-                CountryCode: "US"
-              }
-            },
-            ShipTo: {
-              Name: this.props.userData.Name,
-              Address: {
-                AddressLine: this.props.userData.Address1,
-                City: this.props.userData.City,
-                StateProvinceCode: "TX",
-                PostalCode: this.props.userData.Zip,
-                CountryCode: this.props.userData.Country
-              }
-            },
-            ShipFrom: {
-              Name: "Darryl Forgenie",
-              Address: {
-                AddressLine: "14825 St.Marys Ln Ste 250",
-                City: "Houston",
-                StateProvinceCode: "TX",
-                PostalCode: "77079",
-                CountryCode: "US"
-              }
-            },
-            Service: {
-              Code: "03",
-              Description: "Standard"
-            },
-            ShipmentTotalWeight: {
-              UnitOfMeasurement: {
-                Code: "LBS",
-                Description: "Pounds"
-              },
-              Weight: "10"
-            },
-            Package: {
-              PackagingType: {
-                Code: "02",
-                Description: "Package"
-              },
-              Dimensions: {
-                UnitOfMeasurement: {
-                  Code: "IN"
-                },
-                Length: "10",
-                Width: "7",
-                Height: "5"
-              },
-              PackageWeight: {
-                UnitOfMeasurement: {
-                  Code: "LBS"
-                },
-                Weight: "7"
-              }
-            }
-          }
-        }
-      });
+      this.props.getDeliveryFee({user: this.props.userData, cart: this.props.cart});
     }
   }
 
@@ -140,7 +67,7 @@ class CheckoutItem extends Component {
 
   render() {
     const { cart } = this.props;
-    console.log(`lo que viene dentro del carro `, cart);
+   
     console.log(`delivery fee en el reducer `, this.props.deliveryFee);
     console.log(`userData`, this.props.userData);
     const { success } = this.state;

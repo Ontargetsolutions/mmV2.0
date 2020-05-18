@@ -35,6 +35,7 @@ class Hit extends Component {
 
   //Add Item to cart
   onPressAddToCart (cartItem, e) {
+    console.log()
     const Item = {
       objectID: cartItem.objectID,
       artGalleryId: cartItem.artGalleryId,
@@ -42,7 +43,13 @@ class Hit extends Component {
       image: cartItem.image,
       price: this.props.userData.AccountType === 'company'? parseFloat(cartItem.wholesalePrice): parseFloat(cartItem.retailPrice),
       material: cartItem.material,
-      dimentions: cartItem.dimentions
+      dimentions: cartItem.dimentions,
+      weigth: cartItem.weigth,
+      height: cartItem.height,
+      width: cartItem.width,
+      length: cartItem.length
+
+
     }
     this.setState ({loading: true});
     setTimeout (() => {

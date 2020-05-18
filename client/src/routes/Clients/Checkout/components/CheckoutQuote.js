@@ -9,6 +9,8 @@ import { Scrollbars } from "react-custom-scrollbars";
 import SweetAlert from "react-bootstrap-sweetalert";
 import Button from "@material-ui/core/Button";
 import { getQuoteById } from "../../../../actions/QuoteActions";
+import ImageLoader from "react-image-file";
+import { CircularProgress } from "@material-ui/core";
 
 // intl messages
 import IntlMessages from "../../../../util/IntlMessages";
@@ -64,15 +66,16 @@ class CheckoutItem extends Component {
     return total * 0.0825;
   };
 
-  calcSuma = (total, taxes) => {
-    return total + taxes;
+  calcSuma = (total, taxes, delivery) => {
+    return total + taxes + delivery;
   };
   render() {
     const { cart } = this.props;
     const { success } = this.state;
     const { cost, quantity } = this.props.data ? this.props.data : 0;
-    const { taxes, TotalPrice, shipping } = this.props.data ? this.props.data : 0;
-
+    const { taxes, TotalPrice, shipping } = this.props.data
+      ? this.props.data
+      : 0;
 
     let taxes1 = this.calcTaxes(
       this.props.actualQuote.Quantity,
@@ -82,8 +85,13 @@ class CheckoutItem extends Component {
       this.props.actualQuote.Quantity,
       this.props.actualQuote.Cost
     );
-    let suma1 = this.calcSuma(total1, taxes1);
-
+    let suma1 = this.calcSuma(
+      total1,
+      taxes1,
+      this.props.actualQuote.DeliveryFee
+    );
+    console.log(`actualquote`, this.props.actualQuote);
+    console.log(`actualImage`, JSON.stringify(this.props.actualImage.data));
     return (
       <div className="checkout-item-wrap p-4">
         <div className="border-bottom d-flex justify-content-between align-items-center p-3">
@@ -109,13 +117,35 @@ class CheckoutItem extends Component {
             <li className="d-flex justify-content-between p-3">
               <div className="media overflow-hidden w-75">
                 <div className="mr-15">
-                  <img
-                    src={this.props.actualQuote.ImagePath}
-                    alt="products"
-                    className="media-object"
-                    width="63"
-                    height="63"
-                  />
+                  {/* {this.props.actualQuote.ImageSource === "upload" && (
+                    <img
+                      src={this.props.actualImage}
+                      alt="uploaded_pic"
+                      style={{ height: "50%", width: "60%" }}
+                    />
+                  )} */}
+                  {this.props.actualQuote.ImageSource === "upload" &&
+                    (this.props.actualImage ? (
+                      <img
+                        src={this.props.actualImage}
+                        alt="uploaded_pic"
+                        style={{ height: "50%", width: "60%" }}
+                      />
+                    ) : (
+                      <CircularProgress color="secondary"></CircularProgress>
+                    ))}
+                  {this.props.actualQuote.ImageSource !== "upload" &&
+                    (this.props.actualQuote ? (
+                      <img
+                        src={this.props.actualQuote.ImagePath}
+                        alt="products"
+                        className="media-object"
+                        width="63"
+                        height="63"
+                      />
+                    ) : (
+                      <CircularProgress color="secondary"></CircularProgress>
+                    ))}
                 </div>
                 <div className="media-body text-truncate">
                   {/* <span className="fs-14 d-block text-truncate">c</span> */}
@@ -150,24 +180,20 @@ class CheckoutItem extends Component {
             <IntlMessages id="components.EstimatedShipping" />
           </span>
           <span className="font-weight-bold">
-            $ 11
+            $ {this.props.actualQuote.DeliveryFee}
           </span>
         </div>
         <div className=" d-flex justify-content-between align-items-center py-4">
           <span className=" text-muted">
             <IntlMessages id="components.EstimatedTaxes" />
           </span>
-          <span className="font-weight-bold">
-            $ {taxes1}
-          </span>
+          <span className="font-weight-bold">$ {taxes1}</span>
         </div>
         <div className="border-top d-flex justify-content-between align-items-center py-4">
           <span className="font-weight-bold text-muted">
             <IntlMessages id="components.totalPrice" />
           </span>
-          <span className="font-weight-bold">
-            $ { suma1}
-          </span>
+          <span className="font-weight-bold">$ {suma1}</span>
         </div>
 
         <SweetAlert
@@ -183,9 +209,9 @@ class CheckoutItem extends Component {
 }
 
 const mapStateToProps = ({ quote, authUser, settings }) => {
-  const { myOrders, actualQuote } = quote;
+  const { myOrders, actualQuote, actualImage } = quote;
   const { userData } = authUser;
-  return { myOrders, userData, actualQuote, settings };
+  return { myOrders, userData, actualQuote, settings, actualImage };
 };
 
 export default connect(mapStateToProps, { getQuoteById })(CheckoutItem);

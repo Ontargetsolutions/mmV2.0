@@ -3,15 +3,17 @@ var stream = require("stream");
 
 // Defining methods for User Controllers
 module.exports = {
-  uploadFile: (req, res) => {    
-    const Name = new Date().toISOString().replace(/:/g, "-") + req.file.originalname;
+  uploadFile: (req, res) => {
+    // console.log(`en el backend pa guardar la pic ${JSON.stringify(req.file)}`);
+    const Name =
+      new Date().toISOString().replace(/:/g, "-") + req.file.originalname;
     db.Image.create({
       Name: Name,
       Data: req.file.buffer,
       UserId: req.params.id
-    }).then((data) => {
+    }).then(data => {
       res.send(data);
-    })
+    });
   },
 
   downloadFile: (req, res) => {
@@ -26,15 +28,14 @@ module.exports = {
     });
   },
 
-  findFile: (req, res) =>{
-    db.Image.findOne({ where: { id: req.params.id } })
-    .then(data => res.send(data))
-    .catch(err => res.status(422).json(err));
+  getPictureById: (req, res) => {
+    console.log(`en el backend pa encontrar la imagen`);
+    db.Image.findOne({ where: { id: req.params.id }, raw: true })
+      .then(pic => {
+
+        res.send(pic);
+      })
   }
 };
 
-// exports.listAllFiles = (req, res) => {
-// 	File.findAll({attributes: ['id', 'name']}).then(files => {
-// 	  res.json(files);
-// 	});
-// }
+

@@ -29,7 +29,8 @@ import {
   PICK_FINISH,
   PICK_HARDWOOD,
   GET_DELIVERY_FEE_FAILURE,
-  GET_DELIVERY_FEE_SUCCESS
+  GET_DELIVERY_FEE_SUCCESS,
+  PICK_PAYMENT_METHOD
 } from "../actions/types";
 
 import { NotificationManager } from "react-notifications";
@@ -64,7 +65,7 @@ const INIT_STATE = {
   hardwoodStyle: "",
   hardwoodFinish: "",
   hardwoodSelected: "",
-  deliveryFee:0
+  deliveryFee: 0
 };
 
 export default (state = INIT_STATE, action) => {
@@ -101,7 +102,9 @@ export default (state = INIT_STATE, action) => {
       return { ...state };
 
     case PICK_PRODUCT:
-      console.log(`Product selected: ${action.payload}, ${JSON.stringify(state)}`);
+      console.log(
+        `Product selected: ${action.payload}, ${JSON.stringify(state)}`
+      );
       return {
         ...state,
         productSelected: action.payload,
@@ -125,7 +128,7 @@ export default (state = INIT_STATE, action) => {
         hardwoodStyle: "",
         hardwoodFinish: "",
         hardwoodSelected: "",
-        
+        paymentMethod: ""
       };
 
     case PICK_THICKNESS:
@@ -139,6 +142,10 @@ export default (state = INIT_STATE, action) => {
     case PICK_LENGTH:
       console.log(`Length selected: ${action.payload}`);
       return { ...state, hardwoodLength: action.payload };
+
+    case PICK_PAYMENT_METHOD:
+      console.log(`Payment selected: ${action.payload}`);
+      return { ...state, paymentMethod: action.payload };
 
     case PICK_TYPE:
       console.log(`Type selected: ${action.payload}`);
@@ -212,12 +219,12 @@ export default (state = INIT_STATE, action) => {
     case GET_ORDERS_LIST_SUCCESS:
       return { ...state, myOrders: action.payload };
 
-      case GET_DELIVERY_FEE_FAILURE:
-          NotificationManager.error(action.payload);
-          return { ...state };
-    
-        case GET_DELIVERY_FEE_SUCCESS:
-          return { ...state, deliveryFee: action.payload };
+    case GET_DELIVERY_FEE_FAILURE:
+      NotificationManager.error(action.payload);
+      return { ...state };
+
+    case GET_DELIVERY_FEE_SUCCESS:
+      return { ...state, deliveryFee: action.payload };
 
     case GET_IMAGE_SUCCESS:
       return { ...state, actualImage: action.payload };

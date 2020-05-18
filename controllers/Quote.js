@@ -1,6 +1,6 @@
 const db = require("../models");
-var moment = require('moment');
-var Sequelize = require('sequelize');
+var moment = require("moment");
+var Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
 // Defining methods for User Controllers
@@ -36,45 +36,36 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   getAllQuotesByProuct: (req, res) => {
-    console.log(`en el backend para obtener quota por productos ${JSON.stringify(req.params)}`);
+    console.log(
+      `en el backend para obtener quota por productos ${JSON.stringify(
+        req.params
+      )}`
+    );
     db.Order.findAll({ where: { Product: req.params.product } })
       .then(data => res.json(data))
       .catch(err => res.status(422).json(err));
   },
-  
 
-  getQuotesByDate: (req, res) => {
-    console.log(`en el backend para generar invoice number ${JSON.stringify(req.body)}`);
-  // const dateOrder =  moment(req.body.createdAt).format("YYYY-MM-DD");
-  // console.log(dateOrder);
-    // const Op = Sequelize.Op;
-    // const startTime = dateOrder.setHours(0, 0, 0, 0);
-    // const endTime = dateOrder.setHours(23,59,59,59);
-    // var myDate = new Date(req.body.createdAt);
-    var myDate =  moment(req.body.createdAt,"YYYY-MM-DD").format("YYYY-MM-DD");
-    console.log(myDate);
-    // console.log(startTime);
-    // console.log(endTime);
-    // console.log(startTime);
-    // const NOW = new Date();
-    db.Order.findAll({
-      // where: { 
-      //   where: sequelize.where(sequelize.fn('date', sequelize.col('createdAt')), '=', dateOrder)
-      // }
-    //   where: {"createdAt": {
-    //     $lt: new Date(dateOrder),
-    //     $gt: new Date(new Date(dateOrder) - 24 * 60 * 60 * 1000)
-    // } }, 
-    where: {
-      createdAt: {
-        // [Op.between]: [new Date(Date(startTime)), new Date(Date(endTime))],
-        $gt: myDate,
-      }
-      // createdAt: {$and:[{$gte:'2020-04-01 00:00:00'},{$lt:'2020-04-01 23:59:59'}]}
-  }
-    })
-      .then(data => res.send(data))
-      // res.send('here')
+  getNoCompletedQuotesByProuct: (req, res) => {
+    console.log(
+      `en el backend para obtener quota por productos ${JSON.stringify(
+        req.params
+      )}`
+    );
+    db.Order.findAll({ where: { Product: req.params.product, Status: {[Op.ne]: "Completed"} } })
+      .then(data => res.json(data))
+      .catch(err => res.status(422).json(err));
+  },
+
+  getQuotesByDate: (req, res) => {getNoCompletedQuotesByProuct
+    const newstr = req.body.InvoiceNumber.replace(/-|:|\.|\s/g,"");
+    db.Order.findOne({ where: { id: req.params.id } })
+      .then(data => {
+        data
+          .update({InvoiceNumber: newstr} )
+          .then(dbModel => res.send(dbModel))
+          .catch(err => res.status(422).json(err));
+      })
       .catch(err => res.status(422).json(err));
   }
 };

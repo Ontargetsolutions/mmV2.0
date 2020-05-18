@@ -37,6 +37,6 @@ router
 // .post(upload.single("image"), Image.create);
 
 router.route("/getImage/:id")
-.get(Image.findFile);
+.get(Image.getPictureById);
 
 module.exports = router;

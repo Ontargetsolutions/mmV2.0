@@ -7,15 +7,15 @@ export default {
   },
   // Save the quote
   saveQuote: quote => {
-    console.log(`lo que llega api frontend reorder ${JSON.stringify(quote)}`)
+    console.log(`lo que llega api frontend guardar ${JSON.stringify(quote)}`)
     return axios.post(`/api/quote`, quote);
   },
   orderById: Id =>{
     return axios.get(`/api/quote/${Id}`);
   },
   invoiceNumber: order =>{
-    console.log(`en la api frontend para gerenar invoice orden ${JSON.stringify(order)}`);
-    return axios.get(`/api/quote/invoiceNumber`, order);
+    console.log(`en la api frontend para gerenar invoice orden ${JSON.stringify(order.payload)}`);
+    return axios.put(`/api/quote/invoiceNumber/${order.id}`, order.payload.createdAt);
   },
   getAllQuotesByProduct: product => {
     console.log(`en la api frontend para gerenar invoice orden ${JSON.stringify(product)}`);

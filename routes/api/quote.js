@@ -16,6 +16,8 @@ router.route("/client/:clientId").get(Quote.getMyOrders);
 
 router.route("/getAllQuotes/:product").get(Quote.getAllQuotesByProuct);
 
-router.route("/invoiceNumber").post(Quote.getQuotesByDate);
+router.route("/getNoCompleatedQuotes/:product").get(Quote.getNoCompletedQuotesByProuct);
+
+router.route("/invoiceNumber/:id").put(Quote.getQuotesByDate);
 
 module.exports = router;

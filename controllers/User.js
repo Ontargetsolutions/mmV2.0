@@ -1,6 +1,7 @@
 const db = require("../models");
 var Sequelize = require("sequelize");
 const Op = Sequelize.Op;
+const countryAPI = require("countrystatesjs");
 
 // Defining methods for User Controllers
 module.exports = {
@@ -28,6 +29,15 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   register: (req, res) => {
+    console.log(
+      `objecto que viene de transformar el stado encocidgo`,
+      stateCode
+    );
+    const stateCode = countryAPI.state(country, stateC);
+    console.log(
+      `objecto que viene de transformar el stado encocidgo`,
+      stateCode
+    );
     db.User.create(req.body)
       .then(response => res.send(response))
       .catch(err => res.status(422).json(err));

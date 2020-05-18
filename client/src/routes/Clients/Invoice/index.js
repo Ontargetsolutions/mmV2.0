@@ -31,8 +31,8 @@ class Invoice extends Component {
     return total * 0.0825;
   };
 
-  calcSuma = (total, taxes) => {
-    return total + taxes;
+  calcSuma = (total, taxes, delivery) => {
+    return total + taxes+ delivery;
   };
 
   render() {
@@ -49,7 +49,7 @@ class Invoice extends Component {
       this.props.actualQuote.Quantity,
       this.props.actualQuote.Cost
     );
-    let suma = this.calcSuma(total, taxes);
+    let suma = this.calcSuma(total, taxes, this.props.actualQuote.DeliveryFee);
 
     let date = new Date()
       .toString()
@@ -68,11 +68,6 @@ class Invoice extends Component {
             <RctCard>
               <div className="invoice-head text-right">
                 <ul className="list-inline">
-                  {/* <li>
-                    <a href="#" onclick="printJS('docs/printjs.pdf')">
-                      <i className="mr-10 ti-email"></i> Email
-                    </a>
-                  </li> */}
                   <li>
                     <a
                       href="#"
@@ -106,8 +101,8 @@ class Invoice extends Component {
                     </div>
                   </div>
                   <div className="invoice-address text-right">
-                    <span>Invoice: #9048392</span>
-                    <span>Date {date} </span>
+                  <span>Invoice: {this.props.actualQuote.InvoiceNumber}</span>
+                    <span>Date: {date} </span>
                   </div>
                 </div>
                 <div className="d-flex justify-content-between mb-30 add-full-card">
@@ -174,7 +169,7 @@ class Invoice extends Component {
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                         <td className="fw-bold">Estimated Shipping</td>
-                        <td>$0.00</td>
+                        <td>${this.props.actualQuote.DeliveryFee}</td>
                       </tr>
                       <tr>
                         <td>&nbsp;</td>
@@ -222,7 +217,7 @@ class Invoice extends Component {
                             data: {
                               taxes: taxes,
                               TotalPrice: suma,
-                              shipping: 0
+                              shipping: this.props.actualQuote.DeliveryFee
                             },
                             source: {
                               source: "invoice"

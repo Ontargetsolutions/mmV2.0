@@ -3,24 +3,24 @@ const db = require("../models");
 // Defining methods for Notification Controllers
 module.exports = {
   getAllNotificationsById: (req, res) => {
-    console.log(
-      `en backend pa buscar todas las notificaciones ${JSON.stringify(
-        req.params
-      )} `
-    );
+    // console.log(
+    //   `en backend pa buscar todas las notificaciones ${JSON.stringify(
+    //     req.params
+    //   )} `
+    // );
     db.Notification.findAll({ where: { UserId: req.params.id} })
       .then(data => res.send(data))
       .catch(err => res.status(422).json(err));
   },
   getNotificationNoRead: (req, res) => {
-    console.log(
-      `en backend pa buscar las notificaciones sin leer ${JSON.stringify(
-        req.params
-      )} `
-    );
+    // console.log(
+    //   `en backend pa buscar las notificaciones sin leer ${JSON.stringify(
+    //     req.params
+    //   )} `
+    // );
     db.Notification.findAll({ where: { Read: false, UserId: req.params.id } })
       .then(data => {
-        console.log(`resultado de las notificaciones ${JSON.stringify(data)} `);
+        // console.log(`resultado de las notificaciones ${JSON.stringify(data)} `);
         res.send(data);
       })
       .catch(err => res.status(422).json(err));
@@ -33,11 +33,11 @@ module.exports = {
   },
 
   update: (req, res) => {
-    console.log(
-      `+++++++++++++++en backend pa update la notificacion a leida ${JSON.stringify(
-        req.params
-      )} `
-    );
+    // console.log(
+    //   `+++++++++++++++en backend pa update la notificacion a leida ${JSON.stringify(
+    //     req.params
+    //   )} `
+    // );
     db.Notification.findOne({ where: { id: req.params.id } })
       .then(data => {
         data

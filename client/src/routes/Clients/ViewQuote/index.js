@@ -2,17 +2,8 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Form, FormGroup, Label, Input, Col } from "reactstrap";
-import {
-  Card,
-  CardImg,
-  CardTitle,
-  CardText,
-  CardColumns,
-  CardSubtitle,
-  CardBody,
-  CardImgOverlay
-} from "reactstrap";
+import { Col } from "reactstrap";
+import { Card, CardImg, CardBody, CardImgOverlay } from "reactstrap";
 import Button from "@material-ui/core/Button";
 import ImageLoader from "react-image-file";
 import { CircularProgress } from "@material-ui/core";
@@ -33,19 +24,8 @@ import upIma from "../../../assets/img/CC_Upload.jpg";
 class ViewQuote extends Component {
   state = {
     success: false,
-    blobUrl:''
+    blobUrl: ""
   };
-
-  //   uploadImage(e) {
-  //     let imageFormObj = new FormData();
-  //     imageFormObj.append("userImage", e.target.files[0]);
-  //     this.setState({ image: URL.createObjectURL(e.target.files[0]) });
-  //     // api.uploadPic(imageFormObj);
-
-  //     this.props.saveImageUpload(imageFormObj);
-  //     this.props.pickImage('imageUploaded');
-
-  //   }
 
   /**
    * On Confirm dialog
@@ -66,8 +46,6 @@ class ViewQuote extends Component {
   componentDidMount() {
     const { id } = this.props.location.quoteid;
     this.props.getQuoteById(id);
-    const blobUrl1 = URL.createObjectURL(this.props.actualImage.Data.data);
-    this.setState({blobUrl: blobUrl1});
   }
   reorder(e) {
     let order = {};
@@ -156,13 +134,26 @@ class ViewQuote extends Component {
   //   });
   // }
 
-
   render() {
     console.log(
-      `id de la imagen que viene de la tabla quotas ${JSON.stringify(
+      `quota que viene de la tabla quotas ${JSON.stringify(
         this.props.actualQuote
       )}`
     );
+    console.log(
+      `id de la imagen que viene de la tabla quotas  ${JSON.stringify(
+        this.props.actualImage
+      )}`
+    );
+
+    const blobUrl1 =
+      this.props.actualImage.Data && this.props.actualImage.Data.data
+        ? this.props.actualImage.Data.data
+        : "";
+    // this.props.actualImage.Data.data !== undefined
+
+    // const blobUrl1 = URL.createObjectURL(this.props.actualImage.Data.data);
+
     const { success } = this.state;
     return (
       <div className="cardsmasonry-wrapper">
@@ -172,21 +163,22 @@ class ViewQuote extends Component {
               <div className="row">
                 <Col sm={4}>
                   <h1>Art:</h1>
-                  {this.props.actualQuote.ImageType === "upload" &&
-                    (this.props.actualImage.Data ? (
-                      <ImageLoader file={this.state.blobUrl} alt="some text" />
+                  {this.props.actualQuote.ImageSource === "upload" &&
+                    (this.props.actualImage ? (
+              
+                      <img src={this.props.actualImage} alt="uploaded_pic"  style={{height: "90%", width: "100%"}}/>
                     ) : (
                       <CircularProgress color="secondary"></CircularProgress>
                     ))}
-                  {this.props.actualQuote.ImageType !== "upload" && (
+                  {this.props.actualQuote.ImageSource !== "upload" && (
                     <CardImg
-                      top
-                      width="25%"
-                      height="25%"
-                      src={this.props.actualQuote.ImagePath}
-                      className="img-fluid"
-                      alt="Art"
-                    />
+                    top
+                    width="25%"
+                    height="25%"
+                    src={this.props.actualQuote.ImagePath}
+                    className="img-fluid"
+                    alt="Art"
+                  />
                   )}
                 </Col>
                 <Col sm={4}>
@@ -246,10 +238,7 @@ class ViewQuote extends Component {
                 <Col sm={4}>
                   {this.props.actualQuote.ImageType === "upload" &&
                     (this.props.actualImage.Data ? (
-                      <ImageLoader
-                        file={this.props.actualImage.Data.data}
-                        alt="some text"
-                      />
+                      <img src={this.props.actualImage} alt="uploaded_pic" />
                     ) : (
                       <CircularProgress color="secondary"></CircularProgress>
                     ))}
@@ -363,7 +352,7 @@ class ViewQuote extends Component {
         <SweetAlert
           success
           show={success}
-          title="Your Order Is Successfully Placed !"
+          title="Your request was successfully submitted. Our team will contact you shortly."
           btnSize="sm"
           onConfirm={() => {
             this.onConfirm("success");

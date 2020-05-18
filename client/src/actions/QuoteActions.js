@@ -42,7 +42,11 @@ import {
   GET_ALL_QUOTES,
   GET_DELIVERY_FEE_FAILURE,
   GET_DELIVERY_FEE_SUCCESS,
-  GET_DELIVERY_FEE
+  GET_DELIVERY_FEE,
+  GET_ALL_QUOTES_NO_COMPLETED,
+  GET_ALL_QUOTES_NO_COMPLETED_FAILURE,
+  GET_ALL_QUOTES_NO_COMPLETED_SUCCESS,
+  PICK_PAYMENT_METHOD
 } from "./types";
 
 /**
@@ -133,6 +137,11 @@ export const pickLength = lenght => ({
   payload: lenght
 });
 
+
+export const pickPaymentMethod = method => ({
+  type: PICK_PAYMENT_METHOD,
+  payload: method
+});
 /**
  * Redux Action to pick the hardwood type
  */
@@ -357,4 +366,20 @@ export const getDeliveryFeeFailure = error => ({
 export const getDeliveryFeeSuccess = fee => ({
   type: GET_DELIVERY_FEE_SUCCESS,
   payload: fee
+});
+
+
+export const getAllNoCompletedQuotes = data => ({
+  type: GET_ALL_QUOTES_NO_COMPLETED,
+  payload: data
+});
+
+export const getAllNoCompletedQuotesFailure = error => ({
+  type: GET_ALL_QUOTES_NO_COMPLETED_FAILURE,
+  payload: error
+});
+  
+export const getAllNoCompletedQuotesSuccess = list => ({
+  type: GET_ALL_QUOTES_NO_COMPLETED_SUCCESS,
+  payload: list
 });

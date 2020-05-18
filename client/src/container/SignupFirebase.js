@@ -18,6 +18,8 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import { SessionSlider } from "../components/Widgets";
 import { NotificationManager } from "react-notifications";
 import SweetAlert from "react-bootstrap-sweetalert";
+// import Bulkify from 'bulkify';
+// const bundle = browserify({entries: [...]}).transform(Bulkify, {global: true});
 
 // intl messages
 import IntlMessages from "../util/IntlMessages";
@@ -26,9 +28,10 @@ import IntlMessages from "../util/IntlMessages";
 import AppConfig from "../constants/AppConfig";
 
 // redux action
-import { signupUserInFirebase, fetchCountry, fetchState } from "../actions";
+import { signupUserInFirebase,  } from "../actions";
 
 const countriesStates = require("countrycitystatejson");
+
 
 class SignupFirebase extends Component {
   state = {
@@ -113,6 +116,7 @@ class SignupFirebase extends Component {
     } = this.state;
 
     this.validatePhone(phone);
+
 
     if (
       email !== "" &&
@@ -333,7 +337,7 @@ class SignupFirebase extends Component {
                         label="Address 2"
                         variant="outlined"
                         fullWidth
-                        value={address1}
+                        value={address2}
                         onChange={e =>
                           this.setState({ address2: e.target.value })
                         }

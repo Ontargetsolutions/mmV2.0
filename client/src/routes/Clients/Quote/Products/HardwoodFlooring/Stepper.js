@@ -196,7 +196,7 @@ class VerticalLinearStepper extends React.Component {
             <SweetAlert
               success
               show={success}
-              title="Your Order Is Successfully Placed !"
+              title="Your request was successfully submitted. Our team will contact you shortly."
               btnSize="sm"
               onConfirm={() => {
                 this.onConfirm("success");

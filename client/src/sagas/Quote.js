@@ -126,6 +126,7 @@ function* getMyOrdersListS(payload) {
  * GET ORDER BY ID
  */
 function* getOrderByIdS(payload) {
+  console.log(`en la saga para buscar orden por id`);
   const id = payload.payload;
   try {
     const order = yield call(getOrderByIdRequest, id);
@@ -134,15 +135,18 @@ function* getOrderByIdS(payload) {
     } else {
       if (order.data.ImageId !== null) {
         const pic = yield call(getImageRequest, order.data.ImageId);
-        console.log(`imagen que viene de la bd ${JSON.stringify(pic)}`);
         if (pic.message) {
-          yield put(getImageFailure(pic.message));
-        } else {
-          yield put(getImageSuccess(pic.data));
+            yield put(getImageFailure(pic.message));
+          } else {
+            let imageURL = 
+            "data:image/png;base64," +
+            new Buffer(pic.data.Data.data, "binary").toString("base64");
+            // console.log(`imagen que viene de la bd`,imageURL);
+          yield put(getImageSuccess(imageURL));
         }
         yield put(getQuoteByIdSuccess(order.data));
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
-        yield put(generateInvoiceNumber(order.data));
+        // yield put(generateInvoiceNumber(order.data));
       } else {
         yield put(getQuoteByIdSuccess(order.data));
       }
@@ -228,7 +232,7 @@ function* saveQuoteS(payload) {
     ` guardar quota en la saga payload ${JSON.stringify(payload.payload)}`
   );
   const {
-    material,
+    artSource,
     imageUploaded,
     imageSelectedId,
     serviceSelected,
@@ -252,23 +256,24 @@ function* saveQuoteS(payload) {
     hardwoodSelected
   } = payload.payload;
   try {
-    if (material === "Upload a pic") {
+    if (artSource === "Upload a pic") {
       var imageData = yield call(uploadImageRequest, {
         imageUploaded,
         id: user.id
       });
+      console.log( `lo que vira de guardar la imagen`, imageData)
     }
     switch (productSelected) {
       case "Mosaics":
         const quoteMosaic = yield call(saveQuoteRequest, {
           // Cost: "",
           ImagePath:
-            material === "Upload a pic" ? imageData.data.id : imageSelectedId,
+            artSource === "Upload a pic" ? imageData.data.id : imageSelectedId,
           FramePath: frameSelected,
           ImageSource:
-            material === "Upload a pic"
+            artSource === "Upload a pic"
               ? "upload"
-              : material === "Extensive Gallery"
+              : artSource === "Extensive Gallery"
               ? "adobe"
               : "company",
           Size: size,
@@ -326,9 +331,9 @@ function* saveQuoteS(payload) {
         const quoteIznik = yield call(saveQuoteRequest, {
           // Cost: "",
           ImagePath:
-            material === "Upload a pic" ? imageData.data.id : imageSelectedId,
+            artSource === "Upload a pic" ? imageData.data.id : imageSelectedId,
           FramePath: frameSelected,
-          ImageSource: material === "Upload a pic" ? "upload" : "company",
+          ImageSource: artSource === "Upload a pic" ? "upload" : "company",
           Size: size,
           Quantity: quantity,
           Address1: address1,

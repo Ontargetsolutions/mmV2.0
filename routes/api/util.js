@@ -6,6 +6,10 @@ router
   .route("/ups")
   .post(Util.upsDeliveryFee);
 
+  router
+  .route("/alertEmail")
+  .post(Util.alertEmails);
+
 // router
 //   .route("/states/:country")
 //   .get(User.getStateFromAPI);

@@ -2,12 +2,13 @@ import axios from "axios";
 
 export default {
   //Get images from adobe stock
-  getImagesFromAdobe: (word) => {
+  getImagesFromAdobe: word => {
     return axios.get(`/api/adobe/${word}`);
   },
 
   // Save the quote
   uploadPic: data => {
+    console.log(`en la api frontend para guardar una upload pic`);
     return axios.post(`/api/image/upload/${data.id}`, data.imageUploaded);
   },
 
