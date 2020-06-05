@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 import Moment from "react-moment";
 
 // redux action
-import { getMyQuotesList } from "../../../actions/QuoteActions";
+import { getMyQuotesList, quoteToView} from "../../../actions/QuoteActions";
 
 class MyOrdersTable extends Component {
   componentDidMount() {
@@ -69,13 +69,14 @@ class MyOrdersTable extends Component {
                         }}
                       >
                         <Tooltip title="View order" placement="bottom">
-                          <IconButton color="primary" aria-label="View">
+                          <IconButton color="primary" aria-label="View" onClick={()=>this.props.quoteToView({quoteId: prop[0]})}>
                             <i className="zmdi zmdi-eye" />
                           </IconButton>
                         </Tooltip>
                       </NavLink>
                       {this.props.myOrders[key].Status === "Quotation sent" && (
                         <div>
+                          {/* {this.props.quoteToView({quoteId: prop[0], sourse: "invoice"})} */}
                           <NavLink
                             to={{
                               pathname: "/app/invoice",
@@ -88,7 +89,7 @@ class MyOrdersTable extends Component {
                             }}
                           >
                             <Tooltip title="Invoice" placement="bottom">
-                              <IconButton color="primary" aria-label="Invoice">
+                              <IconButton color="primary" aria-label="Invoice" onClick={()=>this.props.quoteToView({quoteId: prop[0], source: "invoice"})}>
                                 <i className="zmdi zmdi-receipt" />
                               </IconButton>
                             </Tooltip>
@@ -96,20 +97,20 @@ class MyOrdersTable extends Component {
                           <NavLink
                             to={{
                               pathname: "/app/checkout",
-                              quoteid: {
-                                id: prop[0]
-                              },
-                              source: {
-                                source: "checkout"
-                              },
-                              data:{
-                                quantity: prop[8],
-                                cost: prop[1]
-                              }
+                              // quoteid: {
+                              //   id: prop[0]
+                              // },
+                              // source: {
+                              //   source: "checkout"
+                              // },
+                              // data:{
+                              //   quantity: prop[8],
+                              //   cost: prop[1]
+                              // }
                             }}
                           >
                             <Tooltip title="Checkout" placement="bottom">
-                              <IconButton color="primary" aria-label="Checkout">
+                              <IconButton color="primary" aria-label="Checkout" onClick={()=>this.props.quoteToView({quoteId: prop[0], source: "checkout"})}>
                                 <i className="zmdi zmdi-card" />
                               </IconButton>
                             </Tooltip>
@@ -191,5 +192,5 @@ const mapStateToProps = ({ quote, authUser }) => {
 };
 
 export default connect(mapStateToProps, {
-  getMyQuotesList
+  getMyQuotesList, quoteToView
 })(MyOrdersTable);

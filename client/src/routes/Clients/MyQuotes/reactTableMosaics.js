@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 import Moment from "react-moment";
 
 // redux action
-import { getMyQuotesList } from "../../../actions/QuoteActions";
+import { getMyQuotesList, quoteToView } from "../../../actions/QuoteActions";
 
 class MyOrdersTable extends Component {
   componentDidMount() {
@@ -56,14 +56,14 @@ class MyOrdersTable extends Component {
                     <div className="actions-right">
                       <NavLink
                         to={{
-                          pathname: "/app/viewQuote",
-                          quoteid: {
-                            id: prop[0]
-                          }
+                          pathname: "/app/viewQuote"
+                          // quoteid: {
+                          //   id: prop[0]
+                          
                         }}
                       >
                         <Tooltip title="View order" placement="bottom">
-                          <IconButton color="primary" aria-label="View">
+                          <IconButton color="primary" aria-label="View"  onClick={()=>this.props.quoteToView({quoteId: prop[0]})}>
                             <i className="zmdi zmdi-eye" />
                           </IconButton>
                         </Tooltip>
@@ -73,16 +73,16 @@ class MyOrdersTable extends Component {
                           <NavLink
                             to={{
                               pathname: "/app/invoice",
-                              quoteid: {
-                                id: prop[0]
-                              },
-                              sourse: {
-                                source: "invoice"
-                              }
+                              // quoteid: {
+                              //   id: prop[0]
+                              // },
+                              // sourse: {
+                              //   source: "invoice"
+                              // }
                             }}
-                          >
+                            >
                             <Tooltip title="Invoice" placement="bottom">
-                              <IconButton color="primary" aria-label="Invoice">
+                              <IconButton color="primary" aria-label="Invoice" onClick={()=>this.props.quoteToView({quoteId: prop[0], source: "invoice"})}>
                                 <i className="zmdi zmdi-receipt" />
                               </IconButton>
                             </Tooltip>
@@ -90,20 +90,20 @@ class MyOrdersTable extends Component {
                           <NavLink
                             to={{
                               pathname: "/app/checkout",
-                              quoteid: {
-                                id: prop[0]
-                              },
-                              source: {
-                                source: "checkout"
-                              },
-                              data:{
-                                quantity: prop[8],
-                                cost: prop[1]
-                              }
+                              // quoteid: {
+                              //   id: prop[0]
+                              // },
+                              // source: {
+                              //   source: "checkout"
+                              // },
+                              // data:{
+                              //   quantity: prop[8],
+                              //   cost: prop[1]
+                              // }
                             }}
                           >
                             <Tooltip title="Checkout" placement="bottom">
-                              <IconButton color="primary" aria-label="Checkout">
+                              <IconButton color="primary" aria-label="Checkout" onClick={()=>this.props.quoteToView({quoteId: prop[0], source: "checkout"})}>
                                 <i className="zmdi zmdi-card" />
                               </IconButton>
                             </Tooltip>
@@ -169,5 +169,5 @@ const mapStateToProps = ({ quote, authUser }) => {
 };
 
 export default connect(mapStateToProps, {
-  getMyQuotesList
+  getMyQuotesList, quoteToView
 })(MyOrdersTable);

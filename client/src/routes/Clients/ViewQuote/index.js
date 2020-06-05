@@ -44,8 +44,7 @@ class ViewQuote extends Component {
   }
 
   componentDidMount() {
-    const { id } = this.props.location.quoteid;
-    this.props.getQuoteById(id);
+    this.props.getQuoteById(this.props.quoteToView.quoteId);
   }
   reorder(e) {
     let order = {};
@@ -141,8 +140,8 @@ class ViewQuote extends Component {
       )}`
     );
     console.log(
-      `id de la imagen que viene de la tabla quotas  ${JSON.stringify(
-        this.props.actualImage
+      `quote to view que viene del reducer ${JSON.stringify(
+        this.props.quoteToView
       )}`
     );
 
@@ -364,9 +363,9 @@ class ViewQuote extends Component {
 }
 
 const mapStateToProps = ({ quote, authUser }) => {
-  const { actualQuote, actualImage } = quote;
+  const { actualQuote, actualImage, quoteToView } = quote;
   const { userData } = authUser;
-  return { quote, actualQuote, actualImage, userData };
+  return { quote, actualQuote, actualImage, userData, quoteToView };
 };
 
 export default connect(mapStateToProps, { getQuoteById, saveQuote, reorder })(

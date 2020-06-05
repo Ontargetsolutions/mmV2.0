@@ -8,13 +8,13 @@ export default {
       new_item: false,
       type_multi: null
     },
-    // {
-    //   menu_title: "sidebar.shopinstock",
-    //   menu_icon: "zmdi zmdi-shopping-cart-plus",
-    //   path: "/app/shop",
-    //   new_item: false,
-    //   type_multi: null
-    // }
+    {
+      menu_title: "sidebar.shopinstock",
+      menu_icon: "zmdi zmdi-shopping-cart-plus",
+      path: "/app/shop",
+      new_item: false,
+      type_multi: null
+    }
   ],
   category2: [
     {

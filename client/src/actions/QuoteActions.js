@@ -46,7 +46,16 @@ import {
   GET_ALL_QUOTES_NO_COMPLETED,
   GET_ALL_QUOTES_NO_COMPLETED_FAILURE,
   GET_ALL_QUOTES_NO_COMPLETED_SUCCESS,
-  PICK_PAYMENT_METHOD
+  PICK_PAYMENT_METHOD,
+  QUOTE_TO_VIEW,
+  QUOTE_MONEY_DATA,
+  PAYMENT,
+  PAYMENT_FAILURE,
+  PAYMENT_SUCCESS,
+  BILLING_INFO,
+  BILLING_INFO_FAILURE,
+  BILLING_INFO_SUCCESS,
+  SAVE_CART_PRICING
 } from "./types";
 
 /**
@@ -79,6 +88,16 @@ export const getAdobeImagesFailure = error => ({
 export const reorder = order => ({
   type: REORDER,
   payload: order
+});
+
+export const quoteToView = data => ({
+  type: QUOTE_TO_VIEW,
+  payload: data
+});
+
+export const getquoteMoneyData = data => ({
+  type: QUOTE_MONEY_DATA,
+  payload: data
 });
 
 /**
@@ -368,6 +387,40 @@ export const getDeliveryFeeSuccess = fee => ({
   payload: fee
 });
 
+export const payment = data => ({
+  type: PAYMENT,
+  payload: data
+});
+
+export const paymentFailure = error => ({
+  type: PAYMENT_FAILURE,
+  payload: error
+});
+  
+export const paymentSuccess = pay => ({
+  type: PAYMENT_SUCCESS,
+  payload: pay
+});
+
+export const saveBillingInfo = data => ({
+  type: BILLING_INFO,
+  payload: data
+});
+
+export const saveCartPricing = data => ({
+  type: SAVE_CART_PRICING,
+  payload: data
+});
+
+export const saveBillingInfoFailure = error => ({
+  type: BILLING_INFO_FAILURE,
+  payload: error
+});
+  
+export const saveBillingInfoSuccess = data => ({
+  type: BILLING_INFO_SUCCESS,
+  payload: data
+});
 
 export const getAllNoCompletedQuotes = data => ({
   type: GET_ALL_QUOTES_NO_COMPLETED,

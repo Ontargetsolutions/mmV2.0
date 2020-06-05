@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/Ontargetsolutions/mmV2.0#readme",
   "dependencies": {
+    "authorizenet": "^1.0.7",
     "aws-sdk": "^2.645.0",
     "concurrently": "^4.1.2",
     "countrystatesjs": "0.0.12",

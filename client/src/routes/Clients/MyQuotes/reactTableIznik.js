@@ -65,7 +65,7 @@ class MyOrdersTable extends Component {
                         }}
                       >
                         <Tooltip title="View order" placement="bottom">
-                          <IconButton color="primary" aria-label="View">
+                          <IconButton color="primary" aria-label="View" onClick={()=>this.props.quoteToView({quoteId: prop[0]})}>
                             <i className="zmdi zmdi-eye" />
                           </IconButton>
                         </Tooltip>
@@ -84,7 +84,7 @@ class MyOrdersTable extends Component {
                             }}
                           >
                             <Tooltip title="Invoice" placement="bottom">
-                              <IconButton color="primary" aria-label="Invoice">
+                              <IconButton color="primary" aria-label="Invoice" onClick={()=>this.props.quoteToView({quoteId: prop[0], source: "invoice"})}>
                                 <i className="zmdi zmdi-receipt" />
                               </IconButton>
                             </Tooltip>

@@ -20,5 +20,10 @@ export default {
   //Get estimated delivery fee from ups api
   getDeliveryFee: data => {
     return axios.post(`/api/utils/ups`, data);
+  },
+
+  //charge the credit card
+  payment: data =>{
+    return axios. post(`/api/utils/payment`, data)
   }
 };

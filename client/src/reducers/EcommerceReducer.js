@@ -20,7 +20,9 @@ const INIT_STATE = {
     weigth: "",
     height: "",
     width: "",
-    length: ""
+    length: "",
+    pay: false,
+    orderPlaced: false
   }
 };
 

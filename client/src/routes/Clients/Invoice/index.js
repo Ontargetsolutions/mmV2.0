@@ -1,61 +1,59 @@
 /**
  * Invoice
  */
-import React, { Component } from "react";
-import Button from "@material-ui/core/Button";
-import { connect } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import React, {Component} from 'react';
+import Button from '@material-ui/core/Button';
+import {connect} from 'react-redux';
+import {Link, NavLink} from 'react-router-dom';
 
 // intl messages
-import IntlMessages from "../../../util/IntlMessages";
+import IntlMessages from '../../../util/IntlMessages';
 
 // rct card
-import { RctCard } from "../../../components/RctCard/index";
+import {RctCard} from '../../../components/RctCard/index';
 
-import { getQuoteById } from "../../../actions/QuoteActions";
-import Moment from "react-moment";
-import "moment-timezone";
+import {getQuoteById, getquoteMoneyData} from '../../../actions/QuoteActions';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 class Invoice extends Component {
-  componentDidMount() {
-    const { id } = this.props.location.quoteid;
-    this.props.getQuoteById(id);
+  componentDidMount () {
+    // const { id } = this.props.location.quoteid;
+    // this.props.getQuoteById(id);
+
+    this.props.getQuoteById (this.props.quoteToView.quoteId);
   }
 
   calcTotal = (quantity, price) => {
-    return parseFloat(quantity) * parseFloat(price);
+    return parseFloat (quantity) * parseFloat (price);
   };
 
   calcTaxes = (quantity, price) => {
-    let total = parseFloat(quantity) * parseFloat(price);
+    let total = parseFloat (quantity) * parseFloat (price);
     return total * 0.0825;
   };
 
   calcSuma = (total, taxes, delivery) => {
-    return total + taxes+ delivery;
+    return total + taxes + delivery;
   };
 
-  render() {
-    console.log(
-      `id que viene de la tabla ${JSON.stringify(this.props.location.quoteid)}`
+  render () {
+    console.log (
+      `id que viene de la tabla ${JSON.stringify (this.props.location.quoteid)}`
     );
-    console.log(`quote info ${JSON.stringify(this.props.actualQuote)}`);
+    console.log (`quote info ${JSON.stringify (this.props.actualQuote)}`);
 
-    let taxes = this.calcTaxes(
+    let taxes = this.calcTaxes (
       this.props.actualQuote.Quantity,
       this.props.actualQuote.Cost
     );
-    let total = this.calcTotal(
+    let total = this.calcTotal (
       this.props.actualQuote.Quantity,
       this.props.actualQuote.Cost
     );
-    let suma = this.calcSuma(total, taxes, this.props.actualQuote.DeliveryFee);
+    let suma = this.calcSuma (total, taxes, this.props.actualQuote.DeliveryFee);
 
-    let date = new Date()
-      .toString()
-      .split(" ")
-      .splice(1, 3)
-      .join(" ");
+    let date = new Date ().toString ().split (' ').splice (1, 3).join (' ');
 
     return (
       <div className="invoice-wrapper">
@@ -71,9 +69,9 @@ class Invoice extends Component {
                   <li>
                     <a
                       href="#"
-                      onClick={e => (e.preventDefault(), window.print())}
+                      onClick={e => (e.preventDefault (), window.print ())}
                     >
-                      <i className="mr-10 ti-printer"></i> Print
+                      <i className="mr-10 ti-printer" /> Print
                     </a>
                   </li>
                 </ul>
@@ -83,7 +81,7 @@ class Invoice extends Component {
                   <div className="sender-address">
                     <div className="invoice-logo mb-30">
                       <img
-                        src={require("../../../assets/img/logo.png")}
+                        src={require ('../../../assets/img/logo.png')}
                         alt="session-logo"
                         className="img-fluid"
                         width="140"
@@ -101,7 +99,7 @@ class Invoice extends Component {
                     </div>
                   </div>
                   <div className="invoice-address text-right">
-                  <span>Invoice: {this.props.actualQuote.InvoiceNumber}</span>
+                    <span>Invoice: {this.props.actualQuote.InvoiceNumber}</span>
                     <span>Date: {date} </span>
                   </div>
                 </div>
@@ -133,7 +131,7 @@ class Invoice extends Component {
                 </div>
                 <div className="order-status mb-30">
                   <span>
-                    Order Date:{" "}
+                    Order Date:{' '}
                     <Moment format="YYYY/MM/DD">
                       {this.props.actualQuote.createdAt}
                     </Moment>
@@ -199,36 +197,42 @@ class Invoice extends Component {
                     <h2 className="invoice-title">USD {suma}</h2>
                     <div className="row">
                       <div className="col-sm-6">
-                        <Button
-                          // variant="contained"
-                          className="btn-info text-white btn-icon"
-                        >
-                          <i className="ti-save mr-10"></i>{" "}
+                        <Button // variant="contained"
+                        className="btn-info text-white btn-icon">
+                          <i className="ti-save mr-10" />{' '}
                           <IntlMessages id="components.Save" />
                         </Button>
                       </div>
                       <div className="col-sm-6">
                         <NavLink
                           to={{
-                            pathname: "/app/checkout",
-                            quoteid: {
-                              id: this.props.actualQuote.id
-                            },
-                            data: {
-                              taxes: taxes,
-                              TotalPrice: suma,
-                              shipping: this.props.actualQuote.DeliveryFee
-                            },
-                            source: {
-                              source: "invoice"
-                            }
+                            pathname: '/app/checkout',
+                            // quoteid: {
+                            //   id: this.props.actualQuote.id,
+                            // },
+                            // data: {
+                            //   taxes: taxes,
+                            //   TotalPrice: suma,
+                            //   shipping: this.props.actualQuote.DeliveryFee,
+                            // },
+                            // source: {
+                            //   source: 'invoice',
+                            // },
                           }}
                         >
                           <Button
                             variant="contained"
                             className="btn-success text-white btn-icon"
+                            onClick={() =>
+                              this.props.getquoteMoneyData ({
+                                quoteId: this.props.actualQuote.id,
+                                source: 'invoice',
+                                taxes: taxes,
+                                TotalPrice: suma,
+                                shipping: this.props.actualQuote.DeliveryFee,
+                              })}
                           >
-                            <i className="ti-wallet mr-10"></i>{" "}
+                            <i className="ti-wallet mr-10" />{' '}
                             <IntlMessages id="components.payNow" />
                           </Button>
                         </NavLink>
@@ -246,10 +250,10 @@ class Invoice extends Component {
 }
 
 // map state to props
-const mapStateToProps = ({ quote, authUser }) => {
-  const { myOrders, actualQuote } = quote;
-  const { userData } = authUser;
-  return { myOrders, userData, actualQuote };
+const mapStateToProps = ({quote, authUser}) => {
+  const {myOrders, actualQuote, quoteToView} = quote;
+  const {userData} = authUser;
+  return {myOrders, userData, actualQuote, quoteToView};
 };
 
-export default connect(mapStateToProps, { getQuoteById })(Invoice);
+export default connect (mapStateToProps, {getQuoteById, getquoteMoneyData}) (Invoice);

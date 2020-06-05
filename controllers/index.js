@@ -4,6 +4,7 @@ const adobe = require("./Adobe");
 const quote = require("./Quote");
 const notification = require("./Notification");
 const util = require('./Util');
+const payment = require('./Payment')
 
 module.exports = {
   user: user,
@@ -11,5 +12,6 @@ module.exports = {
   adobe: adobe,
   quote: quote,
   notification: notification,
-  util: util
+  util: util,
+  payment: payment
 };

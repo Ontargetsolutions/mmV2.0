@@ -5,6 +5,8 @@ const countryAPI = require("countrystatesjs");
 // Defining methods for User Controllers
 module.exports = {
   upsDeliveryFee: (req, res) => {
+
+    let totalDelivery = 0;
     console.log(
       `en el backend lo que llega pa buscar delivery fee ${JSON.stringify(
         req.body

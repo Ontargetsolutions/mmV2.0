@@ -3,11 +3,14 @@
  */
 
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import Cards from 'react-credit-cards';
 import { Form, FormGroup, Input, Label } from 'reactstrap';
 import Button from '@material-ui/core/Button';
 import MaskedInput from 'react-text-mask'
 import { NotificationManager } from 'react-notifications';
+
+import { payment } from "../../../../actions/QuoteActions";
 
 // intl messages
 import IntlMessages from '../../../../util/IntlMessages';
@@ -33,6 +36,7 @@ class PaymentInfo extends Component {
    };
 
    handleInputChange = ({ target }) => {
+      console.log(this.state)
       const { name, number, expiry, cvc } = this.state;
       if (name !== '' && number !== '' && expiry !== '' && cvc !== '') {
          this.setState({ formValid: true });
@@ -60,6 +64,7 @@ class PaymentInfo extends Component {
     * on confirm payment
     */
    confirmPayment() {
+      this.props.payment({cardInfo: this.state, billingInfo: this.props.billingInfo});
       const { formValid } = this.state;
       if (formValid) {
          NotificationManager.success('Payment Confirmed!')
@@ -142,4 +147,11 @@ class PaymentInfo extends Component {
       )
    }
 }
-export default PaymentInfo;
+
+const mapStateToProps = ({ quote, authUser, settings }) => {
+   const { myOrders, actualQuote, actualImage, quoteMoneyData, billingInfo } = quote;
+   const { userData } = authUser;
+   return { myOrders, userData, actualQuote, settings, actualImage, quoteMoneyData, billingInfo};
+ };
+ 
+ export default connect(mapStateToProps, { payment })(PaymentInfo);

@@ -29,8 +29,9 @@ class CheckoutItem extends Component {
   }
 
   componentDidMount() {
-    const { id } = this.props.quoteid;
-    this.props.getQuoteById(id);
+    // console.log(`component didmount quotemoneydata`, this.props.quoteMoneyData);
+    const idQ  = this.props.quoteMoneyData.quoteId;
+    this.props.getQuoteById(idQ);
   }
   /**
    * Open Alert
@@ -72,10 +73,10 @@ class CheckoutItem extends Component {
   render() {
     const { cart } = this.props;
     const { success } = this.state;
-    const { cost, quantity } = this.props.data ? this.props.data : 0;
-    const { taxes, TotalPrice, shipping } = this.props.data
-      ? this.props.data
-      : 0;
+    // const { cost, quantity } = this.props.data ? this.props.data : 0;
+    // const { taxes, TotalPrice, shipping } = this.props.data
+    //   ? this.props.data
+    //   : 0;
 
     let taxes1 = this.calcTaxes(
       this.props.actualQuote.Quantity,
@@ -91,7 +92,9 @@ class CheckoutItem extends Component {
       this.props.actualQuote.DeliveryFee
     );
     console.log(`actualquote`, this.props.actualQuote);
-    console.log(`actualImage`, JSON.stringify(this.props.actualImage.data));
+    // console.log(`actualImage`, JSON.stringify(this.props.actualImage.data));
+
+    console.log(`billing info in payment`, this.props.billingInfo);
     return (
       <div className="checkout-item-wrap p-4">
         <div className="border-bottom d-flex justify-content-between align-items-center p-3">
@@ -208,10 +211,9 @@ class CheckoutItem extends Component {
   }
 }
 
-const mapStateToProps = ({ quote, authUser, settings }) => {
-  const { myOrders, actualQuote, actualImage } = quote;
-  const { userData } = authUser;
-  return { myOrders, userData, actualQuote, settings, actualImage };
+const mapStateToProps = ({ quote}) => {
+  const { billingInfo } = quote;
+  return { billingInfo};
 };
 
 export default connect(mapStateToProps, { getQuoteById })(CheckoutItem);

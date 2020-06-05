@@ -2,11 +2,14 @@
  * Checkout Page
  */
 import React, { Component } from "react";
+import {connect} from 'react-redux';
 
 //Components
 import CheckoutForm from "./components/CheckoutForm";
 import CheckoutItem from "./components/CheckoutItem";
 import CheckoutQuote from "./components/CheckoutQuote";
+
+import {getQuoteById, getquoteMoneyData} from '../../../actions/QuoteActions';
 
 // Card Component
 import { RctCard, RctCardContent } from "../../../components/RctCard";
@@ -14,7 +17,9 @@ import { RctCard, RctCardContent } from "../../../components/RctCard";
 class Checkout extends Component {
   render() {
     const { match } = this.props;
-    const  source  = this.props.location.source ? this.props.location.source: "cart";
+    console.log(`money data en el reducer`, this.props.quoteMoneyData);
+    const  source  = this.props.quoteMoneyData.source ? this.props.quoteMoneyData.source : "cart";
+    console.log(`source`, source);
     return (
       <div className="checkout-wrap">
         <RctCard customClasses="overflow-hidden">
@@ -22,16 +27,16 @@ class Checkout extends Component {
             <div className="row no-gutters">
               <div className="col-lg-8 col-md-6 col-sm-12">
                 <CheckoutForm />
-              </div>
+              </div>                 
               <div className="col-lg-4 col-md-6 col-sm-12">
-                {source.source === "invoice" && (
+                {source=== "invoice" && (
                   <CheckoutQuote
-                    quoteid={this.props.location.quoteid}
-                    data={this.props.location.data}
+                    quoteid={this.props.quoteMoneyData.quoteId}
+                    data={this.props.quoteMoneyData}
                   />
                 )}
-                {source.source === "checkout" && (
-                  <CheckoutQuote quoteid={this.props.location.quoteid}  data={this.props.location.data}/>
+                {source === "checkout" && (
+                  <CheckoutQuote quoteid={this.props.quoteMoneyData.quoteId}  data={this.props.quoteMoneyData}/>
                 )}
                 {source === 'cart' && (
                   <CheckoutItem />
@@ -44,4 +49,13 @@ class Checkout extends Component {
     );
   }
 }
-export default Checkout;
+
+
+// map state to props
+const mapStateToProps = ({quote, authUser}) => {
+  const {myOrders, actualQuote, quoteToView, quoteMoneyData} = quote;
+  const {userData} = authUser;
+  return {myOrders, userData, actualQuote, quoteToView, quoteMoneyData};
+};
+
+export default connect (mapStateToProps, {getQuoteById, getquoteMoneyData}) (Checkout);

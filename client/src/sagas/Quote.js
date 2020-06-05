@@ -15,7 +15,11 @@ import {
   reorderFailure,
   reorderSuccess,
   getDeliveryFeeFailure,
-  getDeliveryFeeSuccess
+  getDeliveryFeeSuccess,
+  paymentFailure,
+  paymentSuccess,
+  saveBillingInfoFailure,
+  saveBillingInfoSuccess
 } from "../actions/QuoteActions";
 import {
   GET_ADOBE_STOCK_IMAGES,
@@ -25,7 +29,9 @@ import {
   GENERATE_INVOICE_NUMBER,
   REORDER,
   GET_ALL_QUOTES,
-  GET_DELIVERY_FEE
+  GET_DELIVERY_FEE,
+  PAYMENT,
+  BILLING_INFO
 } from "../actions/types";
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
 
@@ -80,13 +86,26 @@ const getAllOrdersByProductRequest = async product =>
     .then(number => number)
     .catch(error => error);
 ;
+
 const getDeliveryFeeRequest = async data =>
   await utilAPI
     .getDeliveryFee(data)
     .then(fee => fee)
     .catch(error => error);
-;
 
+const paymentRequest = async data =>
+  await utilAPI
+    .payment(data)
+    .then(pay => pay)
+    .catch(error => error);
+
+
+// const billingInfoRequest = async data =>
+//   await utilAPI
+//     .payment(data)
+//     .then(pay => pay)
+//     .catch(error => error);
+  
 
 /**
  * GET IMAGE FROM ADOBE BY WORD
@@ -208,6 +227,9 @@ function* reorderS(payload) {
   }
 }
 
+/**
+ * Delivery fee
+ */
 function* getDeliveryFeeS(payload) {
   const data = payload.payload;
   console.log(`data en delivery fee ${JSON.stringify(data)}`);
@@ -223,6 +245,44 @@ function* getDeliveryFeeS(payload) {
     yield put(getDeliveryFeeFailure(error));
   }
 }
+
+
+/**
+ * Payment
+ */
+function* paymentS(payload) {
+  const data = payload.payload;
+  console.log(`data en payment ${JSON.stringify(data)}`);
+  try {
+    const pay = yield call(paymentRequest, data);
+    console.log(`lo que vira del pago ${JSON.stringify(pay)}`);
+    if (pay.message) {
+      yield put(paymentFailure(pay.message));
+    } else {
+      yield put(paymentSuccess(pay));
+    }
+  } catch (error) {
+    yield put(paymentFailure(error));
+  }
+}
+
+// function* saveBillingInfoS(payload) {
+//   const data = payload.payload;
+//   console.log(`data en billing info ${JSON.stringify(data)}`);
+//   try {
+//     const data = yield call(billingInfoRequest, data);
+//     console.log(`lo que vira del pago ${JSON.stringify(data)}`);
+//     if (data.message) {
+//       yield put(saveBillingInfoFailure(data.message));
+//     } else {
+//       yield put(saveBillingInfoSuccess(data));
+//     }
+//   } catch (error) {
+//     yield put(saveBillingInfoFailure(error));
+//   }
+// }
+
+
 
 /**
  * SAVE THE QUOTE
@@ -413,11 +473,27 @@ export function* getAllOrdersByProductsWatcher() {
   yield takeEvery(GET_ALL_QUOTES, getAllOrdersByProductsS);
 }
 
+
+// /**
+//  * Get ups delivery fee
+//  */
 export function* getDeliveryFeeWatcher() {
   yield takeEvery(GET_DELIVERY_FEE, getDeliveryFeeS);
 }
 
+// /**
+//  * Get payment
+//  */
+export function* paymentWatcher() {
+  yield takeEvery(PAYMENT, paymentS);
+}
 
+// // /**
+// //  * Save the billing info in the reducer
+// //  */
+// export function* saveBillingInfoWatcher() {
+//   yield takeEvery(BILLING_INFO, saveBillingInfoS);
+// }
 /**
  * Quote Root Saga
  */
@@ -430,6 +506,8 @@ export default function* rootSaga() {
     fork(generateInvoiceNumberWatcher),
     fork(reorderWatcher),
     fork(getAllOrdersByProductsWatcher),
-    fork(getDeliveryFeeWatcher)
+    fork(getDeliveryFeeWatcher),
+    fork(paymentWatcher)
+    // fork(saveBillingInfoWatcher)
   ]);
 }
