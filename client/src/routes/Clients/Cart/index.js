@@ -12,7 +12,8 @@ import { Link, NavLink } from "react-router-dom";
 import { RctCard, RctCardContent } from "../../../components/RctCard";
 
 //Actions
-import { deleteItemFromCart, onChangeProductQuantity } from "../../../actions";
+import { deleteItemFromCart, onChangeProductQuantity, quoteToView
+ } from "../../../actions";
 
 // intl messages
 import IntlMessages from "../../../util/IntlMessages";
@@ -145,9 +146,10 @@ class Carts extends Component {
                         size="large"
                         color="primary"
                         className="text-white"
+                        onClick ={() =>this.props.quoteToView({source: 'cart'})}
                         component={Link}
                         to="/app/checkout"
-                        source='cart'
+                
                       >
                         <IntlMessages id="components.checkout" />
                       </Button>
@@ -170,5 +172,6 @@ const mapStateToProps = ({ ecommerce }) => {
 
 export default connect(mapStateToProps, {
   deleteItemFromCart,
-  onChangeProductQuantity
+  onChangeProductQuantity,
+  quoteToView
 })(Carts);

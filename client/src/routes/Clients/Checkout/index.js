@@ -18,8 +18,10 @@ class Checkout extends Component {
   render() {
     const { match } = this.props;
     console.log(`money data en el reducer`, this.props.quoteMoneyData);
-    const  source  = this.props.quoteMoneyData.source ? this.props.quoteMoneyData.source : "cart";
+    const  source  = this.props.quoteToView.source ? this.props.quoteToView.source : "cart";
     console.log(`source`, source);
+    console.log(`=========>>>>>>>>>>>>quote to view`, this.props.quoteToView);
+    console.log(`heloooooooouuuuu`);
     return (
       <div className="checkout-wrap">
         <RctCard customClasses="overflow-hidden">
@@ -38,7 +40,7 @@ class Checkout extends Component {
                 {source === "checkout" && (
                   <CheckoutQuote quoteid={this.props.quoteMoneyData.quoteId}  data={this.props.quoteMoneyData}/>
                 )}
-                {source === 'cart' && (
+                {(source !== 'checkout' && source !== 'invoice') && (
                   <CheckoutItem />
                 )}
               </div>

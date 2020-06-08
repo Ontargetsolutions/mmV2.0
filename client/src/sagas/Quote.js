@@ -239,7 +239,7 @@ function* getDeliveryFeeS(payload) {
     if (newFee.message) {
       yield put(getDeliveryFeeFailure(newFee.message));
     } else {
-      yield put(getDeliveryFeeSuccess(newFee.data.RateResponse.RatedShipment.RatedPackage.TotalCharges.MonetaryValue));
+      yield put(getDeliveryFeeSuccess(newFee));
     }
   } catch (error) {
     yield put(getDeliveryFeeFailure(error));

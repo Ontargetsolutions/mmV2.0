@@ -55,7 +55,8 @@ import {
   BILLING_INFO,
   BILLING_INFO_FAILURE,
   BILLING_INFO_SUCCESS,
-  SAVE_CART_PRICING
+  SAVE_CART_PRICING,
+  ORDER_PLACED
 } from "./types";
 
 /**
@@ -385,6 +386,11 @@ export const getDeliveryFeeFailure = error => ({
 export const getDeliveryFeeSuccess = fee => ({
   type: GET_DELIVERY_FEE_SUCCESS,
   payload: fee
+});
+
+export const orderPaced = value => ({
+  type: ORDER_PLACED,
+  payload: value
 });
 
 export const payment = data => ({

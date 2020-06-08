@@ -12,7 +12,7 @@ import Button from '@material-ui/core/Button';
 // intl messages
 import IntlMessages from '../../../../util/IntlMessages';
 
-import {getDeliveryFee, saveCartPricing} from '../../../../actions';
+import {getDeliveryFee, saveCartPricing, orderPaced} from '../../../../actions';
 
 class CheckoutItem extends Component {
   state = {
@@ -84,6 +84,7 @@ class CheckoutItem extends Component {
     console.log (`billing info in payment`, this.props.billingInfo);
     console.log (`delivery fee en el reducer `, this.props.deliveryFee);
     console.log (`userData`, this.props.userData);
+    console.log(`heloooooooouuuuu`);
     const {success} = this.state;
 
     let taxes1 = this.calcTaxes ();
@@ -186,6 +187,7 @@ class CheckoutItem extends Component {
                     client: this.props.userData,
                     items: this.props.cart
                   });
+                  this.props.orderPaced(true);
                 }}
               >
                 <IntlMessages id="components.placeOrder" />
@@ -219,6 +221,6 @@ const mapStateToProps = ({ecommerce, settings, quote, authUser}) => {
   return {cart, settings, deliveryFee, userData, billingInfo};
 };
 
-export default connect (mapStateToProps, {getDeliveryFee, saveCartPricing}) (
+export default connect (mapStateToProps, {getDeliveryFee, saveCartPricing, orderPaced}) (
   CheckoutItem
 );

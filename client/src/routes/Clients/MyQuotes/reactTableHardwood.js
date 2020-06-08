@@ -96,17 +96,7 @@ class MyOrdersTable extends Component {
                           </NavLink>
                           <NavLink
                             to={{
-                              pathname: "/app/checkout",
-                              // quoteid: {
-                              //   id: prop[0]
-                              // },
-                              // source: {
-                              //   source: "checkout"
-                              // },
-                              // data:{
-                              //   quantity: prop[8],
-                              //   cost: prop[1]
-                              // }
+                              pathname: "/app/checkout"
                             }}
                           >
                             <Tooltip title="Checkout" placement="bottom">

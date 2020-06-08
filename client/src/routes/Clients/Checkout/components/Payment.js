@@ -64,9 +64,9 @@ class PaymentInfo extends Component {
     * on confirm payment
     */
    confirmPayment() {
-      this.props.payment({cardInfo: this.state, billingInfo: this.props.billingInfo});
       const { formValid } = this.state;
       if (formValid) {
+         this.props.payment({cardInfo: this.state, billingInfo: this.props.billingInfo});
          NotificationManager.success('Payment Confirmed!')
       }
    }

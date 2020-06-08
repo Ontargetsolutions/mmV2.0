@@ -30,7 +30,7 @@ class CheckoutItem extends Component {
 
   componentDidMount() {
     // console.log(`component didmount quotemoneydata`, this.props.quoteMoneyData);
-    const idQ  = this.props.quoteMoneyData.quoteId;
+    const idQ  = this.props.quoteToView.quoteId;
     this.props.getQuoteById(idQ);
   }
   /**
@@ -92,6 +92,7 @@ class CheckoutItem extends Component {
       this.props.actualQuote.DeliveryFee
     );
     console.log(`actualquote`, this.props.actualQuote);
+    
     // console.log(`actualImage`, JSON.stringify(this.props.actualImage.data));
 
     console.log(`billing info in payment`, this.props.billingInfo);
@@ -198,22 +199,14 @@ class CheckoutItem extends Component {
           </span>
           <span className="font-weight-bold">$ {suma1}</span>
         </div>
-
-        <SweetAlert
-          success
-          show={success}
-          title="Your Order Is Successfully Placed !"
-          btnSize="sm"
-          onConfirm={() => this.onConfirm("success")}
-        />
       </div>
     );
   }
 }
 
 const mapStateToProps = ({ quote}) => {
-  const { billingInfo } = quote;
-  return { billingInfo};
+  const { billingInfo, quoteToView, actualQuote } = quote;
+  return { billingInfo, quoteToView, actualQuote};
 };
 
 export default connect(mapStateToProps, { getQuoteById })(CheckoutItem);

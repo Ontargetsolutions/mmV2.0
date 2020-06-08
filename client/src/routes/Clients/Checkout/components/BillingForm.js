@@ -2,47 +2,47 @@
  * Billing Form Component
  */
 
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {Form, FormGroup, Input, Label, Col, FormText} from 'reactstrap';
-import Button from '@material-ui/core/Button';
-import {saveBillingInfo} from '../../../../actions/QuoteActions';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Form, FormGroup, Input, Label, Col, FormText } from "reactstrap";
+import Button from "@material-ui/core/Button";
+import { saveBillingInfo } from "../../../../actions/QuoteActions";
 
 // intl messages
-import IntlMessages from '../../../../util/IntlMessages';
+import IntlMessages from "../../../../util/IntlMessages";
 
 class BillingForm extends Component {
   state = {
     billingInformation: {
-      firstName: '',
-      lastName: '',
-      emailId: '',
-      mobileNumber: '',
-      addressLine1: '',
-      addressLine2: '',
-      country: '',
-      zipCode: '',
-      state: '',
-    },
+      firstName: "",
+      lastName: "",
+      emailId: "",
+      mobileNumber: "",
+      addressLine1: "",
+      addressLine2: "",
+      country: "",
+      zipCode: "",
+      state: ""
+    }
   };
 
   /**
-	 * On Change Billing Information
-	 */
-  onChangeBillingInformation (key, value) {
-    this.setState ({
+   * On Change Billing Information
+   */
+  onChangeBillingInformation(key, value) {
+    this.setState({
       billingInformation: {
         ...this.state.billingInformation,
-        [key]: value,
-      },
+        [key]: value
+      }
     });
   }
 
   /**
-	 * Function To Check Either The Form Is Valid Or Not
-	 * Return Boolean
-	 */
-  isFormValid () {
+   * Function To Check Either The Form Is Valid Or Not
+   * Return Boolean
+   */
+  isFormValid() {
     const {
       firstName,
       emailId,
@@ -50,16 +50,17 @@ class BillingForm extends Component {
       addressLine1,
       zipCode,
       country,
-      state,
+      state
     } = this.state.billingInformation;
     if (
-      firstName !== '' &&
-      emailId !== '' &&
-      addressLine1 !== '' &&
-      mobileNumber !== '' &&
-      zipCode !== '' &&
-      country !== '' &&
-      state !== ''
+      firstName !== "" &&
+      emailId !== "" &&
+      addressLine1 !== "" &&
+      mobileNumber !== "" &&
+      zipCode !== "" &&
+      country !== "" &&
+      state !== "" &&
+      this.props.orderPlaced === true
     ) {
       return true;
     } else {
@@ -67,7 +68,7 @@ class BillingForm extends Component {
     }
   }
 
-  render () {
+  render() {
     return (
       <div className="billing-form-warp py-4">
         <Form>
@@ -83,7 +84,8 @@ class BillingForm extends Component {
                 id="firstName"
                 className="mb-4 mb-sm-0"
                 onChange={e =>
-                  this.onChangeBillingInformation ('firstName', e.target.value)}
+                  this.onChangeBillingInformation("firstName", e.target.value)
+                }
               />
             </Col>
             <Col sm={6}>
@@ -95,7 +97,8 @@ class BillingForm extends Component {
                 name="last name"
                 id="lastName"
                 onChange={e =>
-                  this.onChangeBillingInformation ('lastName', e.target.value)}
+                  this.onChangeBillingInformation("lastName", e.target.value)
+                }
               />
             </Col>
           </FormGroup>
@@ -111,7 +114,8 @@ class BillingForm extends Component {
                 id="emailId"
                 className="mb-4 mb-sm-0"
                 onChange={e =>
-                  this.onChangeBillingInformation ('emailId', e.target.value)}
+                  this.onChangeBillingInformation("emailId", e.target.value)
+                }
               />
             </Col>
             <Col sm={6}>
@@ -124,18 +128,18 @@ class BillingForm extends Component {
                 name="number"
                 id="contactNumber"
                 onChange={e =>
-                  this.onChangeBillingInformation (
-                    'mobileNumber',
+                  this.onChangeBillingInformation(
+                    "mobileNumber",
                     e.target.value
-                  )}
+                  )
+                }
               />
             </Col>
           </FormGroup>
           <FormGroup row>
             <Col sm={12}>
               <Label for="address1">
-                <IntlMessages id="components.address" />
-                1
+                <IntlMessages id="components.address" />1
                 <span className="text-danger">*</span>
               </Label>
               <Input
@@ -143,10 +147,11 @@ class BillingForm extends Component {
                 name="address"
                 id="address1"
                 onChange={e =>
-                  this.onChangeBillingInformation (
-                    'addressLine1',
+                  this.onChangeBillingInformation(
+                    "addressLine1",
                     e.target.value
-                  )}
+                  )
+                }
               />
             </Col>
           </FormGroup>
@@ -160,10 +165,11 @@ class BillingForm extends Component {
                 name="address"
                 id="address2"
                 onChange={e =>
-                  this.onChangeBillingInformation (
-                    'addressLine2',
+                  this.onChangeBillingInformation(
+                    "addressLine2",
                     e.target.value
-                  )}
+                  )
+                }
               />
             </Col>
           </FormGroup>
@@ -179,7 +185,8 @@ class BillingForm extends Component {
                 id="countryName"
                 className="mb-4 mb-sm-0"
                 onChange={e =>
-                  this.onChangeBillingInformation ('country', e.target.value)}
+                  this.onChangeBillingInformation("country", e.target.value)
+                }
               />
             </Col>
             <Col sm={4}>
@@ -193,7 +200,8 @@ class BillingForm extends Component {
                 id="stateName"
                 className="mb-4 mb-sm-0"
                 onChange={e =>
-                  this.onChangeBillingInformation ('state', e.target.value)}
+                  this.onChangeBillingInformation("state", e.target.value)
+                }
               />
             </Col>
             <Col sm={4}>
@@ -206,7 +214,8 @@ class BillingForm extends Component {
                 name="zip"
                 id="zip"
                 onChange={e =>
-                  this.onChangeBillingInformation ('zipCode', e.target.value)}
+                  this.onChangeBillingInformation("zipCode", e.target.value)
+                }
               />
             </Col>
           </FormGroup>
@@ -223,10 +232,10 @@ class BillingForm extends Component {
         </Form>
         <div className="d-flex justify-content-end">
           <Button
-            disabled={!this.isFormValid ()}
+            disabled={!this.isFormValid()}
             onClick={() => {
-              this.props.saveBillingInfo (this.state.billingInformation);
-              this.props.onComplete ();
+              this.props.saveBillingInfo(this.state.billingInformation);
+              this.props.onComplete();
             }}
             color="primary"
             variant="contained"
@@ -239,9 +248,9 @@ class BillingForm extends Component {
   }
 }
 
-const mapStateToProps = ({quote, authUser, settings}) => {
-  const {myOrders, actualQuote, actualImage, quoteMoneyData} = quote;
-  const {userData} = authUser;
+const mapStateToProps = ({ quote, authUser, settings }) => {
+  const { myOrders, actualQuote, actualImage, quoteMoneyData, orderPlaced } = quote;
+  const { userData } = authUser;
   return {
     myOrders,
     userData,
@@ -249,7 +258,8 @@ const mapStateToProps = ({quote, authUser, settings}) => {
     settings,
     actualImage,
     quoteMoneyData,
+    orderPlaced
   };
 };
 
-export default connect (mapStateToProps, {saveBillingInfo}) (BillingForm);
+export default connect(mapStateToProps, { saveBillingInfo })(BillingForm);

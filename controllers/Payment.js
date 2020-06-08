@@ -9,13 +9,13 @@ const request = require ('request-promise');
 module.exports = {
   chargeCreditCard: (req, res) => {
     console.log (
-      `en el backend lo que llega pa buscar delivery fee ${JSON.stringify (req.body)}`
+      `en el backend lo que llega pa cobrar ${JSON.stringify (req.body)}`
     );
 
     const createTransactionRequest = {
       merchantAuthentication: {
-        name: '797UHHte9',
-        transactionKey: '9m4buNeGD69n634h',
+        name: process.env.AUTHORIZE_NET_NAME,
+        transactionKey: process.env.AUTHORIZE_NET_TRANSACTIONKEY ,
       },
 
       transactionRequest: {
