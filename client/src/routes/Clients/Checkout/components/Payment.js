@@ -63,10 +63,11 @@ class PaymentInfo extends Component {
    /**
     * on confirm payment
     */
-   confirmPayment() {
+   confirmPayment(e) {
+      e.preventDefault();
       const { formValid } = this.state;
       if (formValid) {
-         this.props.payment({cardInfo: this.state, billingInfo: this.props.billingInfo});
+         this.props.payment({cardInfo: this.state, billingInfo: this.props.billingInfo, cartPricing: this.props.cartMoneyData});
          NotificationManager.success('Payment Confirmed!')
       }
    }
@@ -140,7 +141,7 @@ class PaymentInfo extends Component {
                   <Button onClick={this.props.onChangeInfo} color="secondary" className="text-white" variant="contained">
                      <IntlMessages id="button.back" />
                   </Button>
-                  <Button disabled={!formValid} color="primary" variant="contained" onClick={() => this.confirmPayment()}><IntlMessages id="components.confirmPayment" /></Button>
+                  <Button disabled={!formValid} color="primary" variant="contained" onClick={(e) => this.confirmPayment(e)}><IntlMessages id="components.confirmPayment" /></Button>
                </div>
             </div>
          </div>
@@ -149,9 +150,9 @@ class PaymentInfo extends Component {
 }
 
 const mapStateToProps = ({ quote, authUser, settings }) => {
-   const { myOrders, actualQuote, actualImage, quoteMoneyData, billingInfo } = quote;
+   const { myOrders, actualQuote, actualImage, quoteMoneyData, billingInfo, cartMoneyData } = quote;
    const { userData } = authUser;
-   return { myOrders, userData, actualQuote, settings, actualImage, quoteMoneyData, billingInfo};
+   return { myOrders, userData, actualQuote, settings, actualImage, quoteMoneyData, billingInfo, cartMoneyData};
  };
  
  export default connect(mapStateToProps, { payment })(PaymentInfo);

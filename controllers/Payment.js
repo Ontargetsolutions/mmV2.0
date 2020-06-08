@@ -12,31 +12,37 @@ module.exports = {
       `en el backend lo que llega pa cobrar ${JSON.stringify (req.body)}`
     );
 
+
+    console.log (
+      `en el backend lo que llega pa cobrar ${JSON.stringify (req.body.cartPricing.totalPrice)}`
+    );
+
+
     const createTransactionRequest = {
       merchantAuthentication: {
-        name: process.env.AUTHORIZE_NET_NAME,
-        transactionKey: process.env.AUTHORIZE_NET_TRANSACTIONKEY ,
+        name: '797UHHte9',
+        transactionKey: '9m4buNeGD69n634h',
       },
 
       transactionRequest: {
         transactionType: 'authCaptureTransaction',
-        amount: '5',
+        amount: req.body.cartPricing.totalPrice,
         payment: {
           creditCard: {
-            cardNumber: '5424000000000015',
-            expirationDate: '2020-12',
-            cardCode: '999',
+            cardNumber: req.body.cardInfo.number,
+            expirationDate: req.body.cardInfo.expiry,
+            cardCode: req.body.cardInfo.cvc,
           },
         },
         billTo: {
-          firstName: 'Ellen',
-          lastName: 'Johnson',
-          company: 'Souveniropolis',
-          address: '14 Main Street',
+          firstName: req.body.billingInfo.firstName,
+          lastName: req.body.billingInfo.lastName,
+          company: '',
+          address: req.body.billingInfo.addressLine1 + req.body.billingInfo.addressLine2,
           city: 'Pecan Springs',
-          state: 'TX',
-          zip: '44628',
-          country: 'USA',
+          state: req.body.billingInfo.state,
+          zip: req.body.billingInfo.zipCode,
+          country: req.body.billingInfo.country,
         },
         shipTo: {
           firstName: 'China',
@@ -67,7 +73,10 @@ module.exports = {
     };
 
     request (options)
-      .then (data => res.send (data))
+      .then (data => 
+        // res.send (data)
+        console.log(data)
+        )
       .catch (err => res.status (422).json (err));
   },
 };
