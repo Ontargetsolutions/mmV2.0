@@ -56,7 +56,8 @@ import {
   BILLING_INFO_FAILURE,
   BILLING_INFO_SUCCESS,
   SAVE_CART_PRICING,
-  ORDER_PLACED
+  ORDER_PLACED,
+  SAVE_SHIPPING_ADDRESS_CART
 } from "./types";
 
 /**
@@ -395,6 +396,11 @@ export const orderPaced = value => ({
 
 export const payment = data => ({
   type: PAYMENT,
+  payload: data
+});
+
+export const saveShipingAddress = data => ({
+  type: SAVE_SHIPPING_ADDRESS_CART,
   payload: data
 });
 

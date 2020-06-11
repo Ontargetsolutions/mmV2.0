@@ -37,7 +37,8 @@ import {
   PAYMENT_FAILURE,
   BILLING_INFO,
   SAVE_CART_PRICING,
-  ORDER_PLACED
+  ORDER_PLACED,
+  SAVE_SHIPPING_ADDRESS_CART
 } from "../actions/types";
 
 import { NotificationManager } from "react-notifications";
@@ -78,7 +79,8 @@ const INIT_STATE = {
   cartMoneyData: {},
   paymentMessage: "",
   billingInfo: {},
-  orderPlaced: false
+  orderPlaced: false,
+  shippingAdreessCart: {}
 };
 
 export default (state = INIT_STATE, action) => {
@@ -95,6 +97,7 @@ export default (state = INIT_STATE, action) => {
       };
 
     case PAYMENT_SUCCESS:
+      console.log(`message from payment`, action.payload);
       return {
         ...state,
         paymentMessage: action.payload
@@ -113,6 +116,13 @@ export default (state = INIT_STATE, action) => {
         ...state,
         cartMoneyData: action.payload
       };
+
+      case SAVE_SHIPPING_ADDRESS_CART:
+        console.log(`cart SHIPPING ADDRESS en el reducer`, action.payload);
+        return {
+          ...state,
+          shippingAdreessCart: action.payload
+        };
 
     case PAYMENT_FAILURE:
       return {

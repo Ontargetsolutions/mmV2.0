@@ -811,5 +811,7 @@ export default {
   "components.NotificationHeader": "Header",
   "components.NotificationText": "Notification",
   'components.estimatedDelivery': 'Estimated Delivery',
-  'components.submitQuote':'Submit'
+  'components.submitQuote':'Submit',
+  'components.shipAddress': 'Ship To',
+  'components.city':'City'
 };

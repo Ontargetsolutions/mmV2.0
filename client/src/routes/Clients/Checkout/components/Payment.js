@@ -10,6 +10,8 @@ import Button from '@material-ui/core/Button';
 import MaskedInput from 'react-text-mask'
 import { NotificationManager } from 'react-notifications';
 
+import {Link} from 'react-router-dom';
+
 import { payment } from "../../../../actions/QuoteActions";
 
 // intl messages
@@ -67,9 +69,10 @@ class PaymentInfo extends Component {
       e.preventDefault();
       const { formValid } = this.state;
       if (formValid) {
-         this.props.payment({cardInfo: this.state, billingInfo: this.props.billingInfo, cartPricing: this.props.cartMoneyData});
+         this.props.payment({cardInfo: this.state, billingInfo: this.props.billingInfo, cartPricing: this.props.cartMoneyData, shipTo: this.props.shippingAdreessCart});
          NotificationManager.success('Payment Confirmed!')
       }
+      console.log(`payment message......`,this.props.paymentMessage);
    }
 
    render() {
@@ -138,7 +141,8 @@ class PaymentInfo extends Component {
                   </FormGroup>
                </Form>
                <div className="d-flex justify-content-between">
-                  <Button onClick={this.props.onChangeInfo} color="secondary" className="text-white" variant="contained">
+                  <Button onClick={this.props.onChangeInfo} color="secondary" className="text-white" variant="contained" component={Link}
+                to="/app/shop">
                      <IntlMessages id="button.back" />
                   </Button>
                   <Button disabled={!formValid} color="primary" variant="contained" onClick={(e) => this.confirmPayment(e)}><IntlMessages id="components.confirmPayment" /></Button>
@@ -150,9 +154,9 @@ class PaymentInfo extends Component {
 }
 
 const mapStateToProps = ({ quote, authUser, settings }) => {
-   const { myOrders, actualQuote, actualImage, quoteMoneyData, billingInfo, cartMoneyData } = quote;
+   const { myOrders, actualQuote, actualImage, quoteMoneyData, billingInfo, cartMoneyData, shippingAdreessCart, paymentMessage } = quote;
    const { userData } = authUser;
-   return { myOrders, userData, actualQuote, settings, actualImage, quoteMoneyData, billingInfo, cartMoneyData};
+   return { myOrders, userData, actualQuote, settings, actualImage, quoteMoneyData, billingInfo, cartMoneyData, shippingAdreessCart, paymentMessage};
  };
  
  export default connect(mapStateToProps, { payment })(PaymentInfo);

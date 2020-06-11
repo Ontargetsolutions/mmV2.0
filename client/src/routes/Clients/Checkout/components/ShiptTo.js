@@ -6,14 +6,14 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Form, FormGroup, Input, Label, Col, FormText} from 'reactstrap';
 import Button from '@material-ui/core/Button';
-import {saveBillingInfo} from '../../../../actions/QuoteActions';
+import {saveShipingAddress} from '../../../../actions/QuoteActions';
 
 // intl messages
 import IntlMessages from '../../../../util/IntlMessages';
 
-class BillingForm extends Component {
+class shippingForm extends Component {
   state = {
-    billingInformation: {
+    shippingInformation: {
       firstName: '',
       lastName: '',
       emailId: '',
@@ -23,17 +23,17 @@ class BillingForm extends Component {
       country: '',
       zipCode: '',
       state: '',
-      city:''
+      city: '',
     },
   };
 
   /**
-   * On Change Billing Information
+   * On Change shipping Information
    */
-  onChangeBillingInformation (key, value) {
+  onChangeshippingInformation (key, value) {
     this.setState ({
-      billingInformation: {
-        ...this.state.billingInformation,
+      shippingInformation: {
+        ...this.state.shippingInformation,
         [key]: value,
       },
     });
@@ -44,6 +44,7 @@ class BillingForm extends Component {
    * Return Boolean
    */
   isFormValid () {
+    console.log(this.state);
     const {
       firstName,
       emailId,
@@ -52,8 +53,8 @@ class BillingForm extends Component {
       zipCode,
       country,
       state,
-      city,
-    } = this.state.billingInformation;
+      city
+    } = this.state.shippingInformation;
     if (
       firstName !== '' &&
       emailId !== '' &&
@@ -73,7 +74,7 @@ class BillingForm extends Component {
 
   render () {
     return (
-      <div className="billing-form-warp py-4">
+      <div className="shipping-form-warp py-4">
         <Form>
           <FormGroup row>
             <Col sm={6}>
@@ -87,7 +88,7 @@ class BillingForm extends Component {
                 id="firstName"
                 className="mb-4 mb-sm-0"
                 onChange={e =>
-                  this.onChangeBillingInformation ('firstName', e.target.value)}
+                  this.onChangeshippingInformation ('firstName', e.target.value)}
               />
             </Col>
             <Col sm={6}>
@@ -99,7 +100,7 @@ class BillingForm extends Component {
                 name="last name"
                 id="lastName"
                 onChange={e =>
-                  this.onChangeBillingInformation ('lastName', e.target.value)}
+                  this.onChangeshippingInformation ('lastName', e.target.value)}
               />
             </Col>
           </FormGroup>
@@ -115,7 +116,7 @@ class BillingForm extends Component {
                 id="emailId"
                 className="mb-4 mb-sm-0"
                 onChange={e =>
-                  this.onChangeBillingInformation ('emailId', e.target.value)}
+                  this.onChangeshippingInformation ('emailId', e.target.value)}
               />
             </Col>
             <Col sm={6}>
@@ -128,7 +129,7 @@ class BillingForm extends Component {
                 name="number"
                 id="contactNumber"
                 onChange={e =>
-                  this.onChangeBillingInformation (
+                  this.onChangeshippingInformation (
                     'mobileNumber',
                     e.target.value
                   )}
@@ -146,7 +147,7 @@ class BillingForm extends Component {
                 name="address"
                 id="address1"
                 onChange={e =>
-                  this.onChangeBillingInformation (
+                  this.onChangeshippingInformation (
                     'addressLine1',
                     e.target.value
                   )}
@@ -163,7 +164,7 @@ class BillingForm extends Component {
                 name="address"
                 id="address2"
                 onChange={e =>
-                  this.onChangeBillingInformation (
+                  this.onChangeshippingInformation (
                     'addressLine2',
                     e.target.value
                   )}
@@ -180,10 +181,11 @@ class BillingForm extends Component {
                 id="cityName"
                 className="mb-4 mb-sm-0"
                 onChange={e =>
-                  this.onChangeBillingInformation ('city', e.target.value)}
+                  this.onChangeshippingInformation ('city', e.target.value)}
               />
             </Col>
           </FormGroup>
+
           <FormGroup row>
             <Col sm={4}>
               <Label for="countryName">
@@ -196,7 +198,7 @@ class BillingForm extends Component {
                 id="countryName"
                 className="mb-4 mb-sm-0"
                 onChange={e =>
-                  this.onChangeBillingInformation ('country', e.target.value)}
+                  this.onChangeshippingInformation ('country', e.target.value)}
               />
             </Col>
             <Col sm={4}>
@@ -210,7 +212,7 @@ class BillingForm extends Component {
                 id="stateName"
                 className="mb-4 mb-sm-0"
                 onChange={e =>
-                  this.onChangeBillingInformation ('state', e.target.value)}
+                  this.onChangeshippingInformation ('state', e.target.value)}
               />
             </Col>
             <Col sm={4}>
@@ -223,7 +225,7 @@ class BillingForm extends Component {
                 name="zip"
                 id="zip"
                 onChange={e =>
-                  this.onChangeBillingInformation ('zipCode', e.target.value)}
+                  this.onChangeshippingInformation ('zipCode', e.target.value)}
               />
             </Col>
           </FormGroup>
@@ -242,7 +244,7 @@ class BillingForm extends Component {
           <Button
             disabled={!this.isFormValid ()}
             onClick={() => {
-              this.props.saveBillingInfo (this.state.billingInformation);
+              this.props.saveShipingAddress (this.state.shippingInformation);
               this.props.onComplete ();
             }}
             color="primary"
@@ -276,4 +278,4 @@ const mapStateToProps = ({quote, authUser, settings}) => {
   };
 };
 
-export default connect (mapStateToProps, {saveBillingInfo}) (BillingForm);
+export default connect (mapStateToProps, {saveShipingAddress}) (shippingForm);
