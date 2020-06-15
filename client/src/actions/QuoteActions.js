@@ -106,7 +106,7 @@ export const getquoteMoneyData = data => ({
  * Redux Action get adobe stock images success
  */
 export const reorderSuccess = () => ({
-  type:REORDER_SUCCESS,
+  type: REORDER_SUCCESS
   // payload: imageList
 });
 
@@ -158,7 +158,6 @@ export const pickLength = lenght => ({
   payload: lenght
 });
 
-
 export const pickPaymentMethod = method => ({
   type: PICK_PAYMENT_METHOD,
   payload: method
@@ -166,10 +165,13 @@ export const pickPaymentMethod = method => ({
 /**
  * Redux Action to pick the hardwood type
  */
-export const pickType = htype => (console.log(`picking the type ${htype}`),{
-  type: PICK_TYPE,
-  payload: htype
-});
+export const pickType = htype => (
+  console.log(`picking the type ${htype}`),
+  {
+    type: PICK_TYPE,
+    payload: htype
+  }
+);
 
 /**
  * Redux Action to pick the hardwood style
@@ -188,7 +190,7 @@ export const pickFinish = finish => ({
 });
 
 /**
- * Redux Action to pick the hardwood 
+ * Redux Action to pick the hardwood
  */
 export const pickHardwood = hardwood => ({
   type: PICK_HARDWOOD,
@@ -368,11 +370,10 @@ export const generateInvoiceNumberSuccess = invoiceNumber => ({
   payload: invoiceNumber
 });
 
-export const generAllQuotesByProducts = (product) => ({
+export const generAllQuotesByProducts = product => ({
   type: GET_ALL_QUOTES,
   payload: product
 });
-
 
 export const getDeliveryFee = data => ({
   type: GET_DELIVERY_FEE,
@@ -383,7 +384,7 @@ export const getDeliveryFeeFailure = error => ({
   type: GET_DELIVERY_FEE_FAILURE,
   payload: error
 });
-  
+
 export const getDeliveryFeeSuccess = fee => ({
   type: GET_DELIVERY_FEE_SUCCESS,
   payload: fee
@@ -394,9 +395,9 @@ export const orderPaced = value => ({
   payload: value
 });
 
-export const payment = data => ({
+export const payment = (data, history) => ({
   type: PAYMENT,
-  payload: data
+  payload: { data, history }
 });
 
 export const saveShipingAddress = data => ({
@@ -408,7 +409,7 @@ export const paymentFailure = error => ({
   type: PAYMENT_FAILURE,
   payload: error
 });
-  
+
 export const paymentSuccess = pay => ({
   type: PAYMENT_SUCCESS,
   payload: pay
@@ -428,7 +429,7 @@ export const saveBillingInfoFailure = error => ({
   type: BILLING_INFO_FAILURE,
   payload: error
 });
-  
+
 export const saveBillingInfoSuccess = data => ({
   type: BILLING_INFO_SUCCESS,
   payload: data
@@ -443,7 +444,7 @@ export const getAllNoCompletedQuotesFailure = error => ({
   type: GET_ALL_QUOTES_NO_COMPLETED_FAILURE,
   payload: error
 });
-  
+
 export const getAllNoCompletedQuotesSuccess = list => ({
   type: GET_ALL_QUOTES_NO_COMPLETED_SUCCESS,
   payload: list

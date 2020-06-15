@@ -251,7 +251,9 @@ function* getDeliveryFeeS(payload) {
  * Payment
  */
 function* paymentS(payload) {
-  const data = payload.payload;
+  console.log(`payload`, payload);
+  // const data = payload.data;
+  const { history, data } = payload.payload;
   console.log(`data en payment ${JSON.stringify(data)}`);
   try {
     const pay = yield call(paymentRequest, data);
@@ -259,7 +261,8 @@ function* paymentS(payload) {
     if (pay.message) {
       yield put(paymentFailure(pay.message));
     } else {
-      yield put(paymentSuccess(pay));
+      yield put(paymentSuccess(pay.data));
+      history.push("/app/payed");
     }
   } catch (error) {
     yield put(paymentFailure(error));

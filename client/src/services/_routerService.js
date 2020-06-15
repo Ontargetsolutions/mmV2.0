@@ -25,13 +25,18 @@ import {
   AsyncQuotesMosaicsComponent,
   AsyncQuotesHardwoodComponent,
   AsyncQuotesIznikComponent,
-  AsyncViewAllQuoteComponent
+  AsyncViewAllQuoteComponent,
+  AsyncSuccessfulPaymentComponent
 } from "../components/AsyncComponent/AsyncComponent";
 
 export default [
   {
     path: "dashboard",
     component: Dashboard
+  },
+  {
+    path: "payed",
+    component: AsyncSuccessfulPaymentComponent
   },
   {
     path: "profile",
