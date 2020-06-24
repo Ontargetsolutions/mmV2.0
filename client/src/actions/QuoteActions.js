@@ -29,6 +29,7 @@ import {
   GENERATE_INVOICE_NUMBER_SUCCESS,
   PICK_PRODUCT,
   PICK_ART_SOURCE,
+  SHOP_DONE_EMAIL_FAILURE,
   PICK_THICKNESS,
   PICK_WIDTH,
   PICK_LENGTH,
@@ -57,7 +58,10 @@ import {
   BILLING_INFO_SUCCESS,
   SAVE_CART_PRICING,
   ORDER_PLACED,
-  SAVE_SHIPPING_ADDRESS_CART
+  SAVE_SHIPPING_ADDRESS_CART,
+  SHOP_DONE_EMAIL,
+  SHOP_DONE_EMAIL_SUCCESS,
+  OPEN_DIALOG_FOR_PAYMENT_ERROR
 } from "./types";
 
 /**
@@ -398,6 +402,29 @@ export const orderPaced = value => ({
 export const payment = (data, history) => ({
   type: PAYMENT,
   payload: { data, history }
+});
+
+export const sendEmailWithPaymentConfirmation = (data) => 
+(
+  // console.log(`5555555555555555555555555555555  en la accion`),
+{
+  type: SHOP_DONE_EMAIL,
+  payload: data
+});
+
+export const manageErrorDialog = value => ({
+  type: OPEN_DIALOG_FOR_PAYMENT_ERROR,
+  payload: value
+});
+
+export const sendEmailWithPaymentConfirmationSuccess = (data) => ({
+  type: SHOP_DONE_EMAIL_SUCCESS,
+  payload: data
+});
+
+export const sendEmailWithPaymentConfirmationFailure = (error) => ({
+  type: SHOP_DONE_EMAIL_FAILURE,
+  payload: error
 });
 
 export const saveShipingAddress = data => ({

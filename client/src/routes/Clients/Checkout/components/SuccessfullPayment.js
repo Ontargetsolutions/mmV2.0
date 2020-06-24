@@ -2,36 +2,71 @@
  * Payment Component
  */
 
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import Cards from "react-credit-cards";
-import { Form, FormGroup, Input, Label } from "reactstrap";
-import Button from "@material-ui/core/Button";
-import MaskedInput from "react-text-mask";
-import { NotificationManager } from "react-notifications";
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import Cards from 'react-credit-cards';
+import {Form, FormGroup, Input, Label} from 'reactstrap';
+import Button from '@material-ui/core/Button';
+import MaskedInput from 'react-text-mask';
+import {NotificationManager} from 'react-notifications';
+import * as emailjs from 'emailjs-com';
 
-import { payment } from "../../../../actions/QuoteActions";
+import {
+  sendEmailWithPaymentConfirmation,
+  cleanTheCart,
+} from '../../../../actions';
 // Card Component
-import { RctCard, RctCardContent } from "../../../../components/RctCard";
+import {RctCard, RctCardContent} from '../../../../components/RctCard';
 // intl messages
-import IntlMessages from "../../../../util/IntlMessages";
+import IntlMessages from '../../../../util/IntlMessages';
 
 class SuccessfulPayment extends Component {
-  render() {
-    console.log(`the cart in the successful payment`, this.props.cart);
+  componentDidMount () {
+    if (
+      this.props.paymentMessage.transactionResponse &&
+      this.props.paymentMessage.transactionResponse.responseCode === '1'
+    ) {
+      this.props.sendEmailWithPaymentConfirmation ({
+        paymentInfo: this.props.cartMoneyData,
+        userInfo: this.props.userData,
+        shippingInfo: this.props.shippingAdreessCart,
+        itemsBought: this.props.cart,
+      });
+ 
+    }
+  }
+
+  componentWillUnmount () {
+    this.props.cleanTheCart ();
+  }
+
+  render () {
+    // console.log (`the cart in the successful payment`, this.props.cart);
+    // console.log (
+    //   `the cartMoneyData in the successful payment`,
+    //   this.props.cartMoneyData
+    // );
+
+    // console.log (
+    //   `the shippingAdreessCart in the successful payment`,
+    //   this.props.shippingAdreessCart
+    // );
+
     return (
       <div className="invoice-wrapper">
         <div className="row">
           <div className="col-sm-12 col-md-12 col-xl-10 mx-auto">
-            {this.props.paymentMessage.transactionResponse.responseCode ===
-              "1" && (
+            {this.props.paymentMessage.transactionResponse &&
+              this.props.paymentMessage.transactionResponse.responseCode ===
+                '1' &&
               <RctCard>
+
                 <div className="invoice-head text-right">
                   <ul className="list-inline">
                     <li>
                       <a
                         href="#"
-                        onClick={e => (e.preventDefault(), window.print())}
+                        onClick={e => (e.preventDefault (), window.print ())}
                       >
                         <i className="mr-10 ti-printer" /> Print
                       </a>
@@ -43,7 +78,7 @@ class SuccessfulPayment extends Component {
                     <div className="sender-address">
                       <div className="invoice-logo mb-30">
                         <img
-                          src={require("../../../../assets/img/logo.png")}
+                          src={require ('../../../../assets/img/logo.png')}
                           alt="session-logo"
                           className="img-fluid"
                           width="140"
@@ -79,35 +114,36 @@ class SuccessfulPayment extends Component {
                     </div>
                     <div className="add-card">
                       <h4 className="mb-15">Ship To</h4>
-                      <span className="name">{this.props.userData.Name}</span>
-                      <span>{this.props.shippingAdreessCart.Address1}</span>
-                      <span>{this.props.shippingAdreessCart.Address2}</span>
-                      <span>
-                        {this.props.shippingAdreessCart.City}{" "}
-                        {this.props.shippingAdreessCart.Zip}
+                      <span className="name">
+                        {this.props.shippingAdreessCart.firstName +
+                          ' ' +
+                          this.props.shippingAdreessCart.lastName}
                       </span>
-                      <span>{this.props.shippingAdreessCart.Country}</span>
-                      <span>{this.props.shippingAdreessCart.Phone}</span>
-                      <span>{this.props.shippingAdreessCart.Email}</span>
+                      <span>{this.props.shippingAdreessCart.addressLine1}</span>
+                      <span>{this.props.shippingAdreessCart.addressLine2}</span>
+                      <span>
+                        {this.props.shippingAdreessCart.city}{' '}
+                        {this.props.shippingAdreessCart.zipCode}
+                      </span>
+                      <span>{this.props.shippingAdreessCart.country}</span>
+                      <span>{this.props.shippingAdreessCart.mobileNumber}</span>
+                      <span>{this.props.shippingAdreessCart.emailId}</span>
                     </div>
                   </div>
                   <div className="order-status mb-30">
                     <span>
-                      Transaction Status:{" "}
-                      {this.props.paymentMessage.messages.message.text}
+                      Transaction Status:{' '}
+                      {this.props.paymentMessage.messages.message[0].text}
                     </span>
                     <span>
-                      {
-                        this.props.paymentMessage.transactionResponse.messages
-                          .description
-                      }
-                    </span>
-                    <span>
-                      Transaction Id:{" "}
                       {
                         this.props.paymentMessage.transactionResponse
-                          .networkTransId
+                          .messages[0].description
                       }
+                    </span>
+                    <span>
+                      Transaction Id:{' '}
+                      {this.props.paymentMessage.transactionResponse.transId}
                     </span>
                   </div>
                   <div className="table-responsive mb-40">
@@ -121,55 +157,83 @@ class SuccessfulPayment extends Component {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>{this.props.actualQuote.Quantity}</td>
-                          <td>{this.props.actualQuote.Product}</td>
-                          <td>${this.props.actualQuote.Cost}</td>
-                          {/* <td>${total}</td> */}
-                        </tr>
-
-                        <tr>
+                        {this.props.cart.map ((item, key) => (
+                          <tr key={key}>
+                            <td>{item.productQuantity}</td>
+                            <td>{item.name}</td>
+                            <td>${item.totalPrice}</td>
+                            <td>${item.totalPrice * item.productQuantity}</td>
+                          </tr>
+                        ))}
+                        {/* <tr>
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
                           <td className="fw-bold">Subtotal</td>
-                          {/* <td>${total}</td> */}
-                        </tr>
+                          <td>${total}</td>
+                        </tr> */}
                         <tr>
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
                           <td className="fw-bold">Estimated Shipping</td>
-                          <td>${this.props.actualQuote.DeliveryFee}</td>
+                          <td>${this.props.cartMoneyData.deliveryFee}</td>
                         </tr>
                         <tr>
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
                           <td className="fw-bold">Estimated Taxes</td>
-                          {/* <td>${taxes}</td> */}
+                          <td>${this.props.cartMoneyData.taxes}</td>
                         </tr>
                         <tr>
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
                           <td className="fw-bold">Total</td>
-                          {/* <td>${suma}</td> */}
+                          <td>${this.props.cartMoneyData.totalPrice}</td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
-                  <div className="note-wrapper row">
-                    <div className="invoice-note col-sm-12 col-md-8"></div>
-                    <div className="totle-amount col-sm-12 col-md-4 text-right">
-                      {/* <h2 className="invoice-title">USD {suma}</h2> */}
-                    </div>
-                  </div>
                 </div>
-              </RctCard>
-            )}
-            {this.props.paymentMessage.messages.resultCode ===
-              "Error" && (
+              </RctCard>}
+            {/* {((this.props.paymentMessage.messages &&
+              this.props.paymentMessage.messages.resultCode === 'Error') ||
+              (this.props.paymentMessage.transactionResponse.errors &&
+                this.props.paymentMessage.transactionResponse.errors[0]
+                  .errorText !== '')) &&
               <RctCard>
-                <p>No paso</p>
-              </RctCard>
-            )}
+                <div
+                  style={{marginTop: '5%'}}
+                  className="col-sm-12 col-md-12"
+                  alignItems="center"
+                  justify="center"
+                >
+                  <div
+                    className="card-image card-content text-center"
+                    style={{marginTop: '10%'}}
+                  >
+                    <img
+                      src={require ('../../../../assets/img/error-icon-15.png')}
+                      alt="about card"
+                      className="img-fluid mt-5"
+                      width="200"
+                      height="150"
+                    />
+                  </div>
+                  <div className="card-content text-center p-30">
+                    <div className="section-title mb-40">
+                      <h3>
+                        {this.props.paymentMessage &&
+                          this.props.paymentMessage.transactionResponse
+                            .errors[0].errorText}
+                      </h3>
+                    </div>
+                    <p className="card-content text-center p-30">
+                      Please review submitted information. Payment also can be made via phone 713-364-6216.
+
+                    </p>
+                  </div>
+
+                </div>
+              </RctCard>} */}
           </div>
         </div>
       </div>
@@ -177,11 +241,26 @@ class SuccessfulPayment extends Component {
   }
 }
 
-const mapStateToProps = ({ quote, authUser, settings, ecommerce }) => {
-  const { paymentMessage, shippingAdreessCart, actualQuote } = quote;
-  const { cart } = ecommerce;
-  const { userData } = authUser;
-  return { paymentMessage, shippingAdreessCart, actualQuote, cart, userData };
+const mapStateToProps = ({quote, authUser, settings, ecommerce}) => {
+  const {
+    paymentMessage,
+    shippingAdreessCart,
+    actualQuote,
+    cartMoneyData,
+  } = quote;
+  const {cart} = ecommerce;
+  const {userData} = authUser;
+  return {
+    paymentMessage,
+    shippingAdreessCart,
+    actualQuote,
+    cart,
+    userData,
+    cartMoneyData,
+  };
 };
 
-export default connect(mapStateToProps, {})(SuccessfulPayment);
+export default connect (mapStateToProps, {
+  sendEmailWithPaymentConfirmation,
+  cleanTheCart,
+}) (SuccessfulPayment);

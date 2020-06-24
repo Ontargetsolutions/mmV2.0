@@ -1,7 +1,8 @@
 import {
    ON_DELETE_ITEM_FROM_CART,
    ON_QUANTITY_CHANGE,
-   ON_ADD_ITEM_TO_CART
+   ON_ADD_ITEM_TO_CART,
+   CLEAN_THE_CART
 } from './types';
 
 export const deleteItemFromCart = (item) => ({
@@ -17,4 +18,8 @@ export const onChangeProductQuantity = (quantity, cartItem) => ({
 export const onAddItemToCart = (hitItem) => ({
    type: ON_ADD_ITEM_TO_CART,
    payload: hitItem
+})
+
+export const cleanTheCart = () => ({
+   type: CLEAN_THE_CART,
 })

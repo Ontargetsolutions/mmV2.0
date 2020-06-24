@@ -1,52 +1,53 @@
 import {
   ON_DELETE_ITEM_FROM_CART,
   ON_QUANTITY_CHANGE,
-  ON_ADD_ITEM_TO_CART
-} from "../actions/types";
-import update from "react-addons-update";
+  ON_ADD_ITEM_TO_CART,
+  CLEAN_THE_CART,
+} from '../actions/types';
+import update from 'react-addons-update';
 
 const INIT_STATE = {
   cart: [],
   newCartItem: {
-    objectID: "",
-    name: "",
-    image: "",
+    objectID: '',
+    name: '',
+    image: '',
     price: null,
-    material: "",
-    dimentions: "",
+    material: '',
+    dimentions: '',
     productQuantity: null,
     totalPrice: null,
-    dimentions: "",
-    weigth: "",
-    height: "",
-    width: "",
-    length: "",
+    dimentions: '',
+    weigth: '',
+    height: '',
+    width: '',
+    length: '',
     pay: false,
-    orderPlaced: false
-  }
+    orderPlaced: false,
+  },
 };
 
 export default (state = INIT_STATE, action) => {
   switch (action.type) {
     case ON_DELETE_ITEM_FROM_CART:
-      let index = state.cart.indexOf(action.payload);
-      return update(state, {
+      let index = state.cart.indexOf (action.payload);
+      return update (state, {
         cart: {
-          $splice: [[index, 1]]
-        }
+          $splice: [[index, 1]],
+        },
       });
 
     case ON_QUANTITY_CHANGE:
-      let cartItemIndex = state.cart.indexOf(action.payload.cartItem);
-      return update(state, {
+      let cartItemIndex = state.cart.indexOf (action.payload.cartItem);
+      return update (state, {
         cart: {
           [cartItemIndex]: {
-            productQuantity: { $set: action.payload.quantity },
+            productQuantity: {$set: action.payload.quantity},
             totalPrice: {
-              $set: action.payload.cartItem.price * action.payload.quantity
-            }
-          }
-        }
+              $set: action.payload.cartItem.price * action.payload.quantity,
+            },
+          },
+        },
       });
 
     case ON_ADD_ITEM_TO_CART:
@@ -62,15 +63,21 @@ export default (state = INIT_STATE, action) => {
         weigth: action.payload.weigth,
         height: action.payload.height,
         width: action.payload.width,
-        length: action.payload.length
+        length: action.payload.length,
       };
-      return update(state, {
+      return update (state, {
         cart: {
-          $push: [newCartItem]
-        }
+          $push: [newCartItem],
+        },
       });
 
+    case CLEAN_THE_CART:
+      return {
+        ...state,
+        cart: [],
+      };
+
     default:
-      return { ...state };
+      return {...state};
   }
 };

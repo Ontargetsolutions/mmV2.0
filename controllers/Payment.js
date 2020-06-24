@@ -13,8 +13,16 @@ module.exports = {
 
     const createTransactionRequest = {
       merchantAuthentication: {
-        name: '797UHHte9',
-        transactionKey: '9m4buNeGD69n634h',
+        //testing credentials
+        // name: '797UHHte9',
+        // transactionKey: '9m4buNeGD69n634h',
+
+        //production credentials
+        // name: '5en3UEL43F26',
+        // transactionKey: '5kX9Mn34my36Hs86',
+
+        name: process.env.AUTHORIZE_API_LOGIN_ID,
+        transactionKey: process.env.AUTHORIZE_TRANSACTION_KEY,
       },
 
       transactionRequest: {
@@ -59,7 +67,12 @@ module.exports = {
 
     const options = {
       method: 'POST',
+      //testing uri
       uri: 'https://apitest.authorize.net/xml/v1/request.api',
+
+      //production uri
+      // uri: 'https://api.authorize.net/xml/v1/request.api',
+      
       body: {
         createTransactionRequest: createTransactionRequest,
       },

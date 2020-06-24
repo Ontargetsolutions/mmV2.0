@@ -19,8 +19,11 @@ import {
   paymentFailure,
   paymentSuccess,
   saveBillingInfoFailure,
-  saveBillingInfoSuccess
-} from "../actions/QuoteActions";
+  saveBillingInfoSuccess,
+  sendEmailWithPaymentConfirmationSuccess,
+  sendEmailWithPaymentConfirmationFailure,
+  manageErrorDialog,
+} from '../actions/QuoteActions';
 import {
   GET_ADOBE_STOCK_IMAGES,
   SAVE_QUOTE,
@@ -31,268 +34,260 @@ import {
   GET_ALL_QUOTES,
   GET_DELIVERY_FEE,
   PAYMENT,
-  BILLING_INFO
-} from "../actions/types";
-import { all, call, fork, put, takeEvery } from "redux-saga/effects";
+  BILLING_INFO,
+  SHOP_DONE_EMAIL,
+} from '../actions/types';
+import {all, call, fork, put, takeEvery} from 'redux-saga/effects';
 
-import quoteAPI from "../api/QuoteAPI";
-import utilAPI from "../api/UtilAPI";
+import quoteAPI from '../api/QuoteAPI';
+import utilAPI from '../api/UtilAPI';
 
 const getImagesFomAdobeRequest = async parameter =>
   await utilAPI
-    .getImagesFromAdobe(parameter)
-    .then(imageList => imageList)
-    .catch(error => error);
+    .getImagesFromAdobe (parameter)
+    .then (imageList => imageList)
+    .catch (error => error);
 
 const uploadImageRequest = async data =>
-  await utilAPI
-    .uploadPic(data)
-    .then(info => info)
-    .catch(error => error);
+  await utilAPI.uploadPic (data).then (info => info).catch (error => error);
 
 const getImageRequest = async id =>
-  await utilAPI
-    .getPictureById(id)
-    .then(info => info)
-    .catch(error => error);
+  await utilAPI.getPictureById (id).then (info => info).catch (error => error);
 
 const saveQuoteRequest = async data =>
-  await quoteAPI
-    .saveQuote(data)
-    .then(quote => quote)
-    .catch(error => error);
+  await quoteAPI.saveQuote (data).then (quote => quote).catch (error => error);
 
 const getMyOrdersListRequest = async data =>
-  await quoteAPI
-    .myQuotes(data)
-    .then(list => list)
-    .catch(error => error);
+  await quoteAPI.myQuotes (data).then (list => list).catch (error => error);
 
 const getOrderByIdRequest = async id =>
-  await quoteAPI
-    .orderById(id)
-    .then(order => order)
-    .catch(error => error);
+  await quoteAPI.orderById (id).then (order => order).catch (error => error);
 
 const generateInvoiceNumberRequest = async order =>
   await quoteAPI
-    .invoiceNumber(order)
-    .then(number => number)
-    .catch(error => error);
+    .invoiceNumber (order)
+    .then (number => number)
+    .catch (error => error);
 
 const getAllOrdersByProductRequest = async product =>
   await quoteAPI
-    .getAllQuotesByProduct(product)
-    .then(number => number)
-    .catch(error => error);
-;
+    .getAllQuotesByProduct (product)
+    .then (number => number)
+    .catch (error => error);
 
 const getDeliveryFeeRequest = async data =>
-  await utilAPI
-    .getDeliveryFee(data)
-    .then(fee => fee)
-    .catch(error => error);
+  await utilAPI.getDeliveryFee (data).then (fee => fee).catch (error => error);
 
 const paymentRequest = async data =>
-  await utilAPI
-    .payment(data)
-    .then(pay => pay)
-    .catch(error => error);
+  await utilAPI.payment (data).then (pay => pay).catch (error => error);
 
-
-// const billingInfoRequest = async data =>
-//   await utilAPI
-//     .payment(data)
-//     .then(pay => pay)
-//     .catch(error => error);
-  
+const sendEmailShopDoneRequest = async parameter => {
+  console.log (
+    `aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii`
+  );
+  return await utilAPI
+    .sendEmailWhenShopIsDone (parameter)
+    .then (imageList => imageList)
+    .catch (error => error);
+};
 
 /**
  * GET IMAGE FROM ADOBE BY WORD
  */
-function* getImagesFomAdobeS(payload) {
+function* getImagesFomAdobeS (payload) {
   const parameter = payload.payload;
   try {
-    const images = yield call(getImagesFomAdobeRequest, parameter);
+    const images = yield call (getImagesFomAdobeRequest, parameter);
     if (images.message) {
-      yield put(getAdobeImagesFailure(images.message));
+      yield put (getAdobeImagesFailure (images.message));
     } else {
-      yield put(getAdobeImagesSuccess(images.data.files));
+      yield put (getAdobeImagesSuccess (images.data.files));
     }
   } catch (error) {
-    yield put(getAdobeImagesFailure(error));
+    yield put (getAdobeImagesFailure (error));
   }
 }
 
 /**
  * GET IMAGE FROM ADOBE BY WORD
  */
-function* getMyOrdersListS(payload) {
+function* getMyOrdersListS (payload) {
   const parameter = payload.payload;
   try {
-    const list = yield call(getMyOrdersListRequest, parameter);
+    const list = yield call (getMyOrdersListRequest, parameter);
     if (list.message) {
-      yield put(getMyQuotesListFailure(list.message));
+      yield put (getMyQuotesListFailure (list.message));
     } else {
-      yield put(getMyQuotesListSuccess(list.data));
+      yield put (getMyQuotesListSuccess (list.data));
     }
   } catch (error) {
-    yield put(getMyQuotesListFailure(error));
+    yield put (getMyQuotesListFailure (error));
   }
 }
 
 /**
  * GET ORDER BY ID
  */
-function* getOrderByIdS(payload) {
-  console.log(`en la saga para buscar orden por id`);
+function* getOrderByIdS (payload) {
+  console.log (`en la saga para buscar orden por id`);
   const id = payload.payload;
   try {
-    const order = yield call(getOrderByIdRequest, id);
+    const order = yield call (getOrderByIdRequest, id);
     if (order.message) {
-      yield put(getQuoteByIdFailure(order.message));
+      yield put (getQuoteByIdFailure (order.message));
     } else {
       if (order.data.ImageId !== null) {
-        const pic = yield call(getImageRequest, order.data.ImageId);
+        const pic = yield call (getImageRequest, order.data.ImageId);
         if (pic.message) {
-            yield put(getImageFailure(pic.message));
-          } else {
-            let imageURL = 
-            "data:image/png;base64," +
-            new Buffer(pic.data.Data.data, "binary").toString("base64");
-            // console.log(`imagen que viene de la bd`,imageURL);
-          yield put(getImageSuccess(imageURL));
+          yield put (getImageFailure (pic.message));
+        } else {
+          let imageURL =
+            'data:image/png;base64,' +
+            new Buffer (pic.data.Data.data, 'binary').toString ('base64');
+          // console.log(`imagen que viene de la bd`,imageURL);
+          yield put (getImageSuccess (imageURL));
         }
-        yield put(getQuoteByIdSuccess(order.data));
+        yield put (getQuoteByIdSuccess (order.data));
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
         // yield put(generateInvoiceNumber(order.data));
       } else {
-        yield put(getQuoteByIdSuccess(order.data));
+        yield put (getQuoteByIdSuccess (order.data));
       }
     }
   } catch (error) {
-    yield put(getQuoteByIdFailure(error));
+    yield put (getQuoteByIdFailure (error));
   }
 }
 
 /**
  * GET ORDER BY ID
  */
-function* getAllOrdersByProductsS(payload) {
+function* getAllOrdersByProductsS (payload) {
   const product = payload.payload;
   try {
-    const list = yield call(getAllOrdersByProductRequest, product);
+    const list = yield call (getAllOrdersByProductRequest, product);
     if (list.message) {
-      yield put(getMyQuotesListFailure(list.message));
+      yield put (getMyQuotesListFailure (list.message));
     } else {
-      yield put(getMyQuotesListSuccess(list.data));
+      yield put (getMyQuotesListSuccess (list.data));
     }
   } catch (error) {
-    yield put(getMyQuotesListFailure(error));
+    yield put (getMyQuotesListFailure (error));
   }
 }
 
 /**
  * generate Invoice number
  */
-function* generateInvoiceNumberS(order) {
-  console.log(`orden que llega para generar invoice ${JSON.stringify(order)}`);
+function* generateInvoiceNumberS (order) {
+  console.log (
+    `orden que llega para generar invoice ${JSON.stringify (order)}`
+  );
   try {
-    const invoiceNumber = yield call(generateInvoiceNumberRequest, order);
+    const invoiceNumber = yield call (generateInvoiceNumberRequest, order);
     if (invoiceNumber.message) {
-      yield put(generateInvoiceNumberFailure(invoiceNumber.message));
+      yield put (generateInvoiceNumberFailure (invoiceNumber.message));
     } else {
-      yield put(generateInvoiceNumberSuccess(invoiceNumber));
+      yield put (generateInvoiceNumberSuccess (invoiceNumber));
     }
   } catch (error) {
-    yield put(generateInvoiceNumberFailure(error));
+    yield put (generateInvoiceNumberFailure (error));
   }
 }
 
 /**
  * Reorder
  */
-function* reorderS(payload) {
-  const { order } = payload.payload;
-  console.log(`order en reorder ${JSON.stringify(order)}`);
+function* reorderS (payload) {
+  const {order} = payload.payload;
+  console.log (`order en reorder ${JSON.stringify (order)}`);
   try {
-    const newOrder = yield call(saveQuoteRequest, order);
+    const newOrder = yield call (saveQuoteRequest, order);
     if (newOrder.message) {
-      yield put(reorderFailure(newOrder.message));
+      yield put (reorderFailure (newOrder.message));
     } else {
-      yield put(reorderSuccess(newOrder));
+      yield put (reorderSuccess (newOrder));
     }
   } catch (error) {
-    yield put(reorderFailure(error));
+    yield put (reorderFailure (error));
   }
 }
 
 /**
  * Delivery fee
  */
-function* getDeliveryFeeS(payload) {
+function* getDeliveryFeeS (payload) {
   const data = payload.payload;
-  console.log(`data en delivery fee ${JSON.stringify(data)}`);
+  console.log (`data en delivery fee ${JSON.stringify (data)}`);
   try {
-    const newFee = yield call(getDeliveryFeeRequest, data);
-    console.log(`lo que vira de buscar delivery fee ${JSON.stringify(newFee)}`);
+    const newFee = yield call (getDeliveryFeeRequest, data);
+    console.log (
+      `lo que vira de buscar delivery fee ${JSON.stringify (newFee)}`
+    );
     if (newFee.message) {
-      yield put(getDeliveryFeeFailure(newFee.message));
+      yield put (getDeliveryFeeFailure (newFee.message));
     } else {
-      yield put(getDeliveryFeeSuccess(parseFloat(newFee.data)));
+      yield put (getDeliveryFeeSuccess (parseFloat (newFee.data)));
     }
   } catch (error) {
-    yield put(getDeliveryFeeFailure(error));
+    yield put (getDeliveryFeeFailure (error));
   }
 }
-
 
 /**
  * Payment
  */
-function* paymentS(payload) {
-  console.log(`payload`, payload);
+function* paymentS (payload) {
+  console.log (`payload`, payload);
   // const data = payload.data;
-  const { history, data } = payload.payload;
-  console.log(`data en payment ${JSON.stringify(data)}`);
+  const {history, data} = payload.payload;
+  console.log (`data en payment ${JSON.stringify (data)}`);
   try {
-    const pay = yield call(paymentRequest, data);
-    console.log(`lo que vira del pago ${JSON.stringify(pay)}`);
+    const pay = yield call (paymentRequest, data);
+    console.log (`lo que vira del pago ${JSON.stringify (pay)}`);
     if (pay.message) {
-      yield put(paymentFailure(pay.message));
+      yield put (paymentFailure (pay.message));
     } else {
-      yield put(paymentSuccess(pay.data));
-      history.push("/app/payed");
+      if (
+        (pay.data.messages && pay.data.messages.resultCode === 'Error') ||
+        (pay.data.transactionResponse.errors &&
+          pay.data.transactionResponse.errors[0].errorText !== '')
+      ) {
+        console.log ('here in sagde pago no paso');
+        yield put (manageErrorDialog (true));
+      } else {
+        yield put (paymentSuccess (pay.data));
+        history.push ('/app/payed');
+      }
     }
   } catch (error) {
-    yield put(paymentFailure(error));
+    yield put (paymentFailure (error));
   }
 }
 
-// function* saveBillingInfoS(payload) {
-//   const data = payload.payload;
-//   console.log(`data en billing info ${JSON.stringify(data)}`);
-//   try {
-//     const data = yield call(billingInfoRequest, data);
-//     console.log(`lo que vira del pago ${JSON.stringify(data)}`);
-//     if (data.message) {
-//       yield put(saveBillingInfoFailure(data.message));
-//     } else {
-//       yield put(saveBillingInfoSuccess(data));
-//     }
-//   } catch (error) {
-//     yield put(saveBillingInfoFailure(error));
-//   }
-// }
-
-
+function* sendEmailShopDoneS (payload) {
+  console.log (`payload en send email ${JSON.stringify (payload)}`);
+  const data = payload.payload;
+  console.log (`data en send email ${JSON.stringify (data)}`);
+  try {
+    const info = yield call (sendEmailShopDoneRequest, data);
+    console.log (`lo que vira de enviar el email${JSON.stringify (info)}`);
+    if (data.message) {
+      yield put (sendEmailWithPaymentConfirmationFailure (info.message));
+    } else {
+      yield put (sendEmailWithPaymentConfirmationSuccess (info));
+    }
+  } catch (error) {
+    yield put (sendEmailWithPaymentConfirmationFailure (error));
+  }
+}
 
 /**
  * SAVE THE QUOTE
  */
-function* saveQuoteS(payload) {
-  console.log(
-    ` guardar quota en la saga payload ${JSON.stringify(payload.payload)}`
+function* saveQuoteS (payload) {
+  console.log (
+    ` guardar quota en la saga payload ${JSON.stringify (payload.payload)}`
   );
   const {
     artSource,
@@ -316,29 +311,27 @@ function* saveQuoteS(payload) {
     hardwoodType,
     hardwoodStyle,
     hardwoodFinish,
-    hardwoodSelected
+    hardwoodSelected,
   } = payload.payload;
   try {
-    if (artSource === "Upload a pic") {
-      var imageData = yield call(uploadImageRequest, {
+    if (artSource === 'Upload a pic') {
+      var imageData = yield call (uploadImageRequest, {
         imageUploaded,
-        id: user.id
+        id: user.id,
       });
-      console.log( `lo que vira de guardar la imagen`, imageData)
+      console.log (`lo que vira de guardar la imagen`, imageData);
     }
     switch (productSelected) {
-      case "Mosaics":
-        const quoteMosaic = yield call(saveQuoteRequest, {
+      case 'Mosaics':
+        const quoteMosaic = yield call (saveQuoteRequest, {
           // Cost: "",
-          ImagePath:
-            artSource === "Upload a pic" ? imageData.data.id : imageSelectedId,
+          ImagePath: artSource === 'Upload a pic'
+            ? imageData.data.id
+            : imageSelectedId,
           FramePath: frameSelected,
-          ImageSource:
-            artSource === "Upload a pic"
-              ? "upload"
-              : artSource === "Extensive Gallery"
-              ? "adobe"
-              : "company",
+          ImageSource: artSource === 'Upload a pic'
+            ? 'upload'
+            : artSource === 'Extensive Gallery' ? 'adobe' : 'company',
           Size: size,
           Quantity: quantity,
           Address1: address1,
@@ -347,22 +340,22 @@ function* saveQuoteS(payload) {
           Country: country,
           State: state,
           Zip: zipcode,
-          Status: "Ordered",
+          Status: 'Ordered',
           UserId: user.id,
           ImageId: imageData ? imageData.data.id : null,
           Cost: 0,
           Service: serviceSelected,
-          Product: "Mosaics"
+          Product: 'Mosaics',
         });
-        console.log(`quote en la saga ${JSON.stringify(quoteMosaic)}`);
+        console.log (`quote en la saga ${JSON.stringify (quoteMosaic)}`);
         if (quoteMosaic.message) {
-          yield put(saveQuoteFailure(quoteMosaic.message));
+          yield put (saveQuoteFailure (quoteMosaic.message));
         } else {
-          yield put(saveQuoteSuccess(quoteMosaic.data.files));
+          yield put (saveQuoteSuccess (quoteMosaic.data.files));
         }
         break;
-      case "HardwoodFlooring":
-        const quoteHardwood = yield call(saveQuoteRequest, {
+      case 'HardwoodFlooring':
+        const quoteHardwood = yield call (saveQuoteRequest, {
           ImagePath: imageSelectedId,
           HardwoodType: hardwoodType,
           HardwoodStyle: hardwoodStyle,
@@ -378,25 +371,26 @@ function* saveQuoteS(payload) {
           Country: country,
           State: state,
           Zip: zipcode,
-          Status: "Ordered",
+          Status: 'Ordered',
           UserId: user.id,
           Cost: 0,
-          Product: "HardwoodFlooring"
+          Product: 'HardwoodFlooring',
         });
-        console.log(`quote en la saga ${JSON.stringify(quoteHardwood)}`);
+        console.log (`quote en la saga ${JSON.stringify (quoteHardwood)}`);
         if (quoteHardwood.message) {
-          yield put(saveQuoteFailure(quoteHardwood.message));
+          yield put (saveQuoteFailure (quoteHardwood.message));
         } else {
-          yield put(saveQuoteSuccess(quoteHardwood.data.files));
+          yield put (saveQuoteSuccess (quoteHardwood.data.files));
         }
         break;
-      case "IznikTile":
-        const quoteIznik = yield call(saveQuoteRequest, {
+      case 'IznikTile':
+        const quoteIznik = yield call (saveQuoteRequest, {
           // Cost: "",
-          ImagePath:
-            artSource === "Upload a pic" ? imageData.data.id : imageSelectedId,
+          ImagePath: artSource === 'Upload a pic'
+            ? imageData.data.id
+            : imageSelectedId,
           FramePath: frameSelected,
-          ImageSource: artSource === "Upload a pic" ? "upload" : "company",
+          ImageSource: artSource === 'Upload a pic' ? 'upload' : 'company',
           Size: size,
           Quantity: quantity,
           Address1: address1,
@@ -405,90 +399,96 @@ function* saveQuoteS(payload) {
           Country: country,
           State: state,
           Zip: zipcode,
-          Status: "Ordered",
+          Status: 'Ordered',
           UserId: user.id,
           ImageId: imageData ? imageData.data.id : null,
           Cost: 0,
-          Product: "IznikTile",
-          Service: serviceSelected
+          Product: 'IznikTile',
+          Service: serviceSelected,
         });
-        console.log(`quote en la saga ${JSON.stringify(quoteIznik)}`);
+        console.log (`quote en la saga ${JSON.stringify (quoteIznik)}`);
         if (quoteIznik.message) {
-          yield put(saveQuoteFailure(quoteIznik.message));
+          yield put (saveQuoteFailure (quoteIznik.message));
         } else {
-          yield put(saveQuoteSuccess(quoteIznik.data.files));
+          yield put (saveQuoteSuccess (quoteIznik.data.files));
         }
         break;
       default:
         break;
     }
   } catch (error) {
-    yield put(saveQuoteFailure(error));
+    yield put (saveQuoteFailure (error));
   }
 }
 
 /**
  * Get images from adobe stock
  */
-export function* getImagesFomAdobeWatcher() {
-  yield takeEvery(GET_ADOBE_STOCK_IMAGES, getImagesFomAdobeS);
+export function* getImagesFomAdobeWatcher () {
+  yield takeEvery (GET_ADOBE_STOCK_IMAGES, getImagesFomAdobeS);
 }
 
 // /**
 //  * Save the quote in the database
 //  */
-export function* saveQuoteWatcher() {
-  yield takeEvery(SAVE_QUOTE, saveQuoteS);
+export function* saveQuoteWatcher () {
+  yield takeEvery (SAVE_QUOTE, saveQuoteS);
 }
 
 // /**
 //  * Get list of all ordersby client
 //  */
-export function* getMyOrdersListWatcher() {
-  yield takeEvery(GET_ORDERS_LIST, getMyOrdersListS);
+export function* getMyOrdersListWatcher () {
+  yield takeEvery (GET_ORDERS_LIST, getMyOrdersListS);
 }
 
 // /**
 //  * Get order by Id
 //  */
-export function* getOrderByIdWatcher() {
-  yield takeEvery(GET_QUOTE_BY_ID, getOrderByIdS);
+export function* getOrderByIdWatcher () {
+  yield takeEvery (GET_QUOTE_BY_ID, getOrderByIdS);
 }
 
 // /**
 //  * Generate Invoice Number
 //  */
-export function* generateInvoiceNumberWatcher() {
-  yield takeEvery(GENERATE_INVOICE_NUMBER, generateInvoiceNumberS);
+export function* generateInvoiceNumberWatcher () {
+  yield takeEvery (GENERATE_INVOICE_NUMBER, generateInvoiceNumberS);
 }
 
 // /**
 //  * Reorder
 //  */
-export function* reorderWatcher() {
-  yield takeEvery(REORDER, reorderS);
+export function* reorderWatcher () {
+  yield takeEvery (REORDER, reorderS);
 }
 
 // /**
 //  * Get All Quotes By Products
 //  */
-export function* getAllOrdersByProductsWatcher() {
-  yield takeEvery(GET_ALL_QUOTES, getAllOrdersByProductsS);
+export function* getAllOrdersByProductsWatcher () {
+  yield takeEvery (GET_ALL_QUOTES, getAllOrdersByProductsS);
 }
-
 
 // /**
 //  * Get ups delivery fee
 //  */
-export function* getDeliveryFeeWatcher() {
-  yield takeEvery(GET_DELIVERY_FEE, getDeliveryFeeS);
+export function* getDeliveryFeeWatcher () {
+  yield takeEvery (GET_DELIVERY_FEE, getDeliveryFeeS);
 }
 
 // /**
 //  * Get payment
 //  */
-export function* paymentWatcher() {
-  yield takeEvery(PAYMENT, paymentS);
+export function* paymentWatcher () {
+  yield takeEvery (PAYMENT, paymentS);
+}
+
+// /**
+//  * Get payment
+//  */
+export function* sendEmailShopDoneWatcher () {
+  yield takeEvery (SHOP_DONE_EMAIL, sendEmailShopDoneS);
 }
 
 // // /**
@@ -500,17 +500,18 @@ export function* paymentWatcher() {
 /**
  * Quote Root Saga
  */
-export default function* rootSaga() {
-  yield all([
-    fork(getImagesFomAdobeWatcher),
-    fork(saveQuoteWatcher),
-    fork(getMyOrdersListWatcher),
-    fork(getOrderByIdWatcher),
-    fork(generateInvoiceNumberWatcher),
-    fork(reorderWatcher),
-    fork(getAllOrdersByProductsWatcher),
-    fork(getDeliveryFeeWatcher),
-    fork(paymentWatcher)
+export default function* rootSaga () {
+  yield all ([
+    fork (getImagesFomAdobeWatcher),
+    fork (saveQuoteWatcher),
+    fork (getMyOrdersListWatcher),
+    fork (getOrderByIdWatcher),
+    fork (generateInvoiceNumberWatcher),
+    fork (reorderWatcher),
+    fork (getAllOrdersByProductsWatcher),
+    fork (getDeliveryFeeWatcher),
+    fork (paymentWatcher),
+    fork (sendEmailShopDoneWatcher),
     // fork(saveBillingInfoWatcher)
   ]);
 }

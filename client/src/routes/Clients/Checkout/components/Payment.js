@@ -2,61 +2,77 @@
  * Payment Component
  */
 
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import Cards from "react-credit-cards";
-import { Form, FormGroup, Input, Label } from "reactstrap";
-import Button from "@material-ui/core/Button";
-import MaskedInput from "react-text-mask";
-import { NotificationManager } from "react-notifications";
+import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
+import Cards from 'react-credit-cards';
+import {Form, FormGroup, Input, Label} from 'reactstrap';
+import Button from '@material-ui/core/Button';
+import MaskedInput from 'react-text-mask';
+import {NotificationManager} from 'react-notifications';
 
-import { Link } from "react-router-dom";
+import {Link} from 'react-router-dom';
 
-import { payment } from "../../../../actions/QuoteActions";
+import {payment} from '../../../../actions/QuoteActions';
 
 // intl messages
-import IntlMessages from "../../../../util/IntlMessages";
+import IntlMessages from '../../../../util/IntlMessages';
 
 class PaymentInfo extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super (props);
 
     this.state = {
-      number: "",
-      name: "",
-      expiry: "",
-      cvc: "",
-      focused: "",
-      formValid: false
+      number: '',
+      name: '',
+      expiry: '',
+      cvc: '',
+      focused: '',
+      formValid: false,
     };
   }
 
-  handleInputFocus = ({ target }) => {
-    this.setState({
-      focused: target.name
+  handleInputFocus = ({target}) => {
+    this.setState ({
+      focused: target.name,
     });
   };
 
-  handleInputChange = ({ target }) => {
-    console.log(this.state);
-    const { name, number, expiry, cvc } = this.state;
-    if (name !== "" && number !== "" && expiry !== "" && cvc !== "") {
-      this.setState({ formValid: true });
+  // cvcValidation = () => {
+  //   let firstNumberOfCard = parseInt(this.state.number.charAt (0));
+  //   let cvcLength = this.state.cvc.length;
+  //   console.log (`tamaÑo de la tarjeta`, this.state.number.length);
+  //   console.log (`primer numero de la tarjeta`, firstNumberOfCard);
+  //   console.log (`cvc number`, cvcLength);
+
+  //   if ((firstNumberOfCard == 3) & (this.state.number.length === 15)) {
+  //     console.log(`se cumplieron las dos`);
+  //     return 4;
+  //   }
+  //   else {
+  //     console.log(`no se cumplieron las dos`);
+  //     return 3;
+  //   };
+  // };
+
+  handleInputChange = ({target}) => {
+    const {name, number, expiry, cvc} = this.state;
+    if (name !== '' && number !== '' && expiry !== '' && cvc !== '') {
+      this.setState ({formValid: true});
     } else {
-      this.setState({ formValid: false });
+      this.setState ({formValid: false});
     }
-    if (target.name === "number") {
-      this.setState({
-        [target.name]: target.value.replace(/ /g, "")
+    if (target.name === 'number') {
+      this.setState ({
+        [target.name]: target.value.replace (/ /g, ''),
       });
-    } else if (target.name === "expiry") {
-      this.setState({
-        [target.name]: target.value.replace(/ |\//g, "")
+    } else if (target.name === 'expiry') {
+      this.setState ({
+        [target.name]: target.value.replace (/ |\//g, ''),
       });
     } else {
-      this.setState({
-        [target.name]: target.value
+      this.setState ({
+        [target.name]: target.value,
       });
     }
   };
@@ -64,23 +80,26 @@ class PaymentInfo extends Component {
   /**
    * on confirm payment
    */
-  confirmPayment(e) {
-    e.preventDefault();
-    const { formValid } = this.state;
+  confirmPayment (e) {
+    e.preventDefault ();
+    const {formValid} = this.state;
     if (formValid) {
-      this.props.payment({
-        cardInfo: this.state,
-        billingInfo: this.props.billingInfo,
-        cartPricing: this.props.cartMoneyData,
-        shipTo: this.props.shippingAdreessCart
-      }, this.props.history);
+      this.props.payment (
+        {
+          cardInfo: this.state,
+          billingInfo: this.props.billingInfo,
+          cartPricing: this.props.cartMoneyData,
+          shipTo: this.props.shippingAdreessCart,
+        },
+        this.props.history
+      );
       // NotificationManager.success("Payment Confirmed!");
     }
-
+    console.log(`payment message in confirm payment`,this.props.paymentMessage);
   }
 
-  render() {
-    const { name, number, expiry, cvc, focused, formValid } = this.state;
+  render () {
+    const {name, number, expiry, cvc, focused, formValid} = this.state;
     return (
       <div className="payment-wrap">
         <div className="p-30 mb-30">
@@ -111,21 +130,21 @@ class PaymentInfo extends Component {
                   /\d/,
                   /\d/,
                   /\d/,
-                  " ",
+                  ' ',
                   /\d/,
                   /\d/,
                   /\d/,
                   /\d/,
-                  " ",
+                  ' ',
                   /\d/,
                   /\d/,
                   /\d/,
                   /\d/,
-                  " ",
+                  ' ',
                   /\d/,
                   /\d/,
                   /\d/,
-                  /\d/
+                  /\d/,
                 ]}
               />
             </FormGroup>
@@ -139,10 +158,10 @@ class PaymentInfo extends Component {
                   name="expiry"
                   className="form-control"
                   id="expiryDate"
-                  placeholder="MM/YY"
+                  placeholder="MM/YYYY"
                   onKeyUp={this.handleInputChange}
                   onFocus={this.handleInputFocus}
-                  mask={[/\d/, /\d/, "/", /\d/, /\d/, /\d/, /\d/]}
+                  mask={[/\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
                 />
               </FormGroup>
               <FormGroup className="w-50 ml-10">
@@ -187,7 +206,7 @@ class PaymentInfo extends Component {
               disabled={!formValid}
               color="primary"
               variant="contained"
-              onClick={e => this.confirmPayment(e)}
+              onClick={e => this.confirmPayment (e)}
             >
               <IntlMessages id="components.confirmPayment" />
             </Button>
@@ -198,7 +217,7 @@ class PaymentInfo extends Component {
   }
 }
 
-const mapStateToProps = ({ quote, authUser, settings }) => {
+const mapStateToProps = ({quote, authUser, settings}) => {
   const {
     myOrders,
     actualQuote,
@@ -207,9 +226,9 @@ const mapStateToProps = ({ quote, authUser, settings }) => {
     billingInfo,
     cartMoneyData,
     shippingAdreessCart,
-    paymentMessage
+    paymentMessage,
   } = quote;
-  const { userData } = authUser;
+  const {userData} = authUser;
   return {
     myOrders,
     userData,
@@ -220,8 +239,8 @@ const mapStateToProps = ({ quote, authUser, settings }) => {
     billingInfo,
     cartMoneyData,
     shippingAdreessCart,
-    paymentMessage
+    paymentMessage,
   };
 };
 
-export default  withRouter (connect(mapStateToProps, { payment })(PaymentInfo));
+export default withRouter (connect (mapStateToProps, {payment}) (PaymentInfo));

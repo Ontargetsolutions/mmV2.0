@@ -34,7 +34,7 @@ import { NotificationManager } from "react-notifications";
 
 const actionCodeSettings = {
   // url: "http://localhost:3000"s
-  url: "http://orders.montagemosaics.com/"
+  url: "www.mmonlinestores.com"
 
   // handleCodeInApp: false
 };
@@ -127,7 +127,7 @@ const deletingASignedFirebaseUser = async () => {
 const sendEmailVerificationRequest = () => {
   let user = auth.currentUser;
   user
-    .sendEmailVerification()
+    .sendEmailVerification({url: "https://www.mmonlinestores.com/signin"})
     .then(res => {
       console.log(
         `res de la llamada a la funcion que manda el email verification ${res}`
@@ -135,6 +135,9 @@ const sendEmailVerificationRequest = () => {
     })
     .catch(error => error);
 };
+
+
+
 
 /**
  * Find User by Email
