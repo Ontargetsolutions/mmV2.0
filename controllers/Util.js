@@ -1,8 +1,7 @@
 const db = require ('../models');
 const request = require ('request-promise');
 const countryAPI = require ('countrystatesjs');
-const nodemailer = require('nodemailer');
-
+const nodemailer = require ('nodemailer');
 
 // Defining methods for User Controllers
 module.exports = {
@@ -119,7 +118,6 @@ module.exports = {
 
         estDelFee = await request (options)
           .then (data => {
-
             deliveryFee = parseFloat (
               data.RateResponse.RatedShipment.RatedPackage.TotalCharges
                 .MonetaryValue
@@ -133,18 +131,20 @@ module.exports = {
         `%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%`,
         JSON.stringify (estDelFee)
       );
-       res.json (estDelFee);
+      res.json (estDelFee);
     } catch (error) {
       console.log (`Error`, error);
     }
   },
 
   sendEmailWhenShopDone: (req, res) => {
-
-    console.log(`esto es lo que llega para mandar el email al backend`, req.body);
+    console.log (
+      `esto es lo que llega para mandar el email al backend`,
+      req.body
+    );
 
     let orderOnline = {
-      ItemInfo : req.body.itemsBought,
+      ItemInfo: req.body.itemsBought,
       //  {
       //   objectID: req.body.itemsBought.objectID,
       //   name: req.body.itemsBought.name,
@@ -159,7 +159,7 @@ module.exports = {
       //   width: req.body.itemsBought.width,
       //   length: req.body.itemsBought.length
       // },
-      UserInfo : {
+      UserInfo: {
         Name: req.body.userInfo.Name,
         Phone: req.body.userInfo.Phone,
         AccountType: req.body.userInfo.AccountType,
@@ -170,9 +170,9 @@ module.exports = {
         City: req.body.userInfo.City,
         Country: req.body.userInfo.Country,
         State: req.body.userInfo.State,
-        Zip: req.body.userInfo.Zip
+        Zip: req.body.userInfo.Zip,
       },
-      ShippingInfo :  {
+      ShippingInfo: {
         firstName: req.body.shippingInfo.firstName,
         lastName: req.body.shippingInfo.lastName,
         emailId: req.body.shippingInfo.emailId,
@@ -182,38 +182,38 @@ module.exports = {
         country: req.body.shippingInfo.country,
         zipCode: req.body.shippingInfo.zipCode,
         state: req.body.shippingInfo.state,
-        city: req.body.shippingInfo.city
+        city: req.body.shippingInfo.city,
       },
-      PaymentInfo : {
+      PaymentInfo: {
         deliveryFee: req.body.paymentInfo.deliveryFee,
         taxes: req.body.paymentInfo.taxes,
-        totalPrice: req.body.paymentInfo.totalPrice
-      }
-    }
+        totalPrice: req.body.paymentInfo.totalPrice,
+      },
+    };
 
-    let transporter = nodemailer.createTransport({
+    let transporter = nodemailer.createTransport ({
       host: 'smtp.ipower.com',
       port: 465,
       auth: {
         user: 'noreply@montagemosaics.com',
-        pass: 'N0Reply1234*'
-      }
+        pass: 'N0Reply1234*',
+      },
     });
-    
+
     let mailOptions = {
       from: 'noreply@montagemosaics.com',
       to: 'irina.machado@ontargetech.com',
       // to: 'designstudio@montagemosaics.com',
       subject: 'Order details',
-      text: JSON.stringify(orderOnline)
+      text: JSON.stringify (orderOnline),
     };
-    
-    transporter.sendMail(mailOptions, function(error, info){
+
+    transporter.sendMail (mailOptions, function (error, info) {
       if (error) {
-        console.log(error);
+        console.log (error);
       } else {
-        console.log('Email sent: ' + info.response);
-        res.send(info.response);
+        console.log ('Email sent: ' + info.response);
+        res.send (info.response);
       }
     });
   },

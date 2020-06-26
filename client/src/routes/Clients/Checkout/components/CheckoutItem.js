@@ -93,10 +93,10 @@ class CheckoutItem extends Component {
 
   render () {
     const {cart} = this.props;
-    console.log (`billing info in payment`, this.props.billingInfo);
-    console.log (`delivery fee en el reducer `, this.props.deliveryFee);
-    console.log (`userData`, this.props.userData);
-    console.log (`heloooooooouuuuu`);
+    // console.log (`billing info in payment`, this.props.billingInfo);
+    // console.log (`delivery fee en el reducer `, this.props.deliveryFee);
+    // console.log (`userData`, this.props.userData);
+    // console.log (`heloooooooouuuuu`);
     const {success} = this.state;
 
     let taxes1 = this.calcTaxes ();

@@ -44,7 +44,7 @@ class shippingForm extends Component {
    * Return Boolean
    */
   isFormValid () {
-    console.log(this.state);
+    // console.log(this.state);
     const {
       firstName,
       emailId,

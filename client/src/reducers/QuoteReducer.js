@@ -105,25 +105,25 @@ export default (state = INIT_STATE, action) => {
       };
 
     case ORDER_PLACED:
-      console.log (`order placed en el reducer`, action.payload);
+      // console.log (`order placed en el reducer`, action.payload);
       return {
         ...state,
         orderPlaced: action.payload,
       };
 
     case OPEN_DIALOG_FOR_PAYMENT_ERROR:
-      console.log(`en el reducer para activar el dialog`, action.payload);
+      // console.log(`en el reducer para activar el dialog`, action.payload);
       return {...state, errorPaymentDialog: action.payload};
 
     case SAVE_CART_PRICING:
-      console.log (`cart pricing en el reducer`, action.payload);
+      // console.log (`cart pricing en el reducer`, action.payload);
       return {
         ...state,
         cartMoneyData: action.payload,
       };
 
     case SAVE_SHIPPING_ADDRESS_CART:
-      console.log (`cart SHIPPING ADDRESS en el reducer`, action.payload);
+      // console.log (`cart SHIPPING ADDRESS en el reducer`, action.payload);
       return {
         ...state,
         shippingAdreessCart: action.payload,
@@ -136,7 +136,7 @@ export default (state = INIT_STATE, action) => {
       };
 
     case BILLING_INFO:
-      console.log (`billing info en el reducer`, action.payload);
+      // console.log (`billing info en el reducer`, action.payload);
       return {
         ...state,
         billingInfo: action.payload,

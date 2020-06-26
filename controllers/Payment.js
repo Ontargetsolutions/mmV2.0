@@ -72,7 +72,7 @@ module.exports = {
 
       //production uri
       // uri: 'https://api.authorize.net/xml/v1/request.api',
-      
+
       body: {
         createTransactionRequest: createTransactionRequest,
       },
@@ -80,8 +80,8 @@ module.exports = {
     };
 
     request (options)
-      .then (data =>
-        res.send (data)
+      .then (
+        data => res.send (data)
         // console.log (data)
       )
       .catch (err => res.status (422).json (err));

@@ -9,23 +9,26 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import IntlMessages from '../../../util/IntlMessages';
+import IntlMessages from '../../../../util/IntlMessages';
 import {Grid} from '@material-ui/core';
 import {NotificationManager} from 'react-notifications';
 import Typography from '@material-ui/core/Typography';
 
-import {manageErrorDialog} from '../../../actions';
+import {manageErrorDialog} from '../../../../actions';
 
 class FormDialog extends Component {
+
   handleClickOpen = () => {
     this.props.manageErrorDialog (true);
   };
 
   handleClose = () => {
     this.props.manageErrorDialog (false);
+    console.log(`cambiar el errorDialogto false`);
   };
 
   render () {
+    console.log (`errormessage`, this.props.paymentMessage);
     return (
       <div>
         <Dialog
@@ -36,11 +39,11 @@ class FormDialog extends Component {
           <DialogTitle id="form-dialog-title">Payment Error</DialogTitle>
           <DialogContent dividers>
 
-            <Typography gutterBottom>
+            {/* <Typography gutterBottom>
               Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
               scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
               auctor fringilla.
-            </Typography>
+            </Typography> */}
             <div
               className="card-image card-content text-center"
               style={{marginTop: '10%'}}
@@ -56,9 +59,10 @@ class FormDialog extends Component {
             <div className="card-content text-center p-30">
               <div className="section-title mb-40">
                 <h3>
-                  {this.props.paymentMessage &&
-                    this.props.paymentMessage.transactionResponse.errors[0]
-                      .errorText}
+                  {
+                   this.props.paymentMessage.transactionResponse ? this.props.paymentMessage.transactionResponse.errors[0]
+                      .errorText: ''
+                  }
                 </h3>
               </div>
               <p className="card-content text-center p-30">
@@ -80,8 +84,8 @@ class FormDialog extends Component {
 // map state to props
 const mapStateToProps = ({quote}) => {
   // return settings;
-  const {errorPaymentDialog} = quote;
-  return {errorPaymentDialog};
+  const {errorPaymentDialog, paymentMessage} = quote;
+  return {errorPaymentDialog, paymentMessage};
 };
 
 export default withRouter (

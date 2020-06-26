@@ -32,7 +32,6 @@ class SuccessfulPayment extends Component {
         shippingInfo: this.props.shippingAdreessCart,
         itemsBought: this.props.cart,
       });
- 
     }
   }
 
@@ -56,184 +55,142 @@ class SuccessfulPayment extends Component {
       <div className="invoice-wrapper">
         <div className="row">
           <div className="col-sm-12 col-md-12 col-xl-10 mx-auto">
-            {this.props.paymentMessage.transactionResponse &&
-              this.props.paymentMessage.transactionResponse.responseCode ===
-                '1' &&
-              <RctCard>
 
-                <div className="invoice-head text-right">
-                  <ul className="list-inline">
-                    <li>
-                      <a
-                        href="#"
-                        onClick={e => (e.preventDefault (), window.print ())}
-                      >
-                        <i className="mr-10 ti-printer" /> Print
-                      </a>
-                    </li>
-                  </ul>
+            <RctCard>
+
+              <div className="invoice-head text-right">
+                <ul className="list-inline">
+                  <li>
+                    <a
+                      href="#"
+                      onClick={e => (e.preventDefault (), window.print ())}
+                    >
+                      <i className="mr-10 ti-printer" /> Print
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div className="p-50">
+                <div className="d-flex justify-content-between mb-50">
+                  <div className="sender-address">
+                    <div className="invoice-logo mb-30">
+                      <img
+                        src={require ('../../../../assets/img/logo.png')}
+                        alt="session-logo"
+                        className="img-fluid"
+                        width="140"
+                        height="37"
+                      />
+                    </div>
+                    <div className="address">
+                      <span>14825 St. Marys Ln. Ste. 250</span>
+                      <span>Houston TX, 77074</span>
+                      <span>United States</span>
+                    </div>
+                    <div className="address">
+                      <span>Telephone: 800-692-7753</span>
+                      <span>Fax: 800-692-7753</span>
+                    </div>
+                  </div>
+                  <div className="invoice-address text-right">
+                    {/* <span>Date: {date} </span> */}
+                  </div>
                 </div>
-                <div className="p-50">
-                  <div className="d-flex justify-content-between mb-50">
-                    <div className="sender-address">
-                      <div className="invoice-logo mb-30">
-                        <img
-                          src={require ('../../../../assets/img/logo.png')}
-                          alt="session-logo"
-                          className="img-fluid"
-                          width="140"
-                          height="37"
-                        />
-                      </div>
-                      <div className="address">
-                        <span>14825 St. Marys Ln. Ste. 250</span>
-                        <span>Houston TX, 77074</span>
-                        <span>United States</span>
-                      </div>
-                      <div className="address">
-                        <span>Telephone: 800-692-7753</span>
-                        <span>Fax: 800-692-7753</span>
-                      </div>
-                    </div>
-                    <div className="invoice-address text-right">
-                      {/* <span>Date: {date} </span> */}
-                    </div>
-                  </div>
-                  <div className="d-flex justify-content-between mb-30 add-full-card">
-                    <div className="add-card">
-                      <h4 className="mb-15">To</h4>
-                      <span className="name">{this.props.userData.Name}</span>
-                      <span>{this.props.userData.Address1}</span>
-                      <span>{this.props.userData.Address2}</span>
-                      <span>
-                        {this.props.userData.City} {this.props.userData.Zip}
-                      </span>
-                      <span>{this.props.userData.Country}</span>
-                      <span>{this.props.userData.Phone}</span>
-                      <span>{this.props.userData.Email}</span>
-                    </div>
-                    <div className="add-card">
-                      <h4 className="mb-15">Ship To</h4>
-                      <span className="name">
-                        {this.props.shippingAdreessCart.firstName +
-                          ' ' +
-                          this.props.shippingAdreessCart.lastName}
-                      </span>
-                      <span>{this.props.shippingAdreessCart.addressLine1}</span>
-                      <span>{this.props.shippingAdreessCart.addressLine2}</span>
-                      <span>
-                        {this.props.shippingAdreessCart.city}{' '}
-                        {this.props.shippingAdreessCart.zipCode}
-                      </span>
-                      <span>{this.props.shippingAdreessCart.country}</span>
-                      <span>{this.props.shippingAdreessCart.mobileNumber}</span>
-                      <span>{this.props.shippingAdreessCart.emailId}</span>
-                    </div>
-                  </div>
-                  <div className="order-status mb-30">
+                <div className="d-flex justify-content-between mb-30 add-full-card">
+                  <div className="add-card">
+                    <h4 className="mb-15">To</h4>
+                    <span className="name">{this.props.userData.Name}</span>
+                    <span>{this.props.userData.Address1}</span>
+                    <span>{this.props.userData.Address2}</span>
                     <span>
-                      Transaction Status:{' '}
-                      {this.props.paymentMessage.messages.message[0].text}
+                      {this.props.userData.City} {this.props.userData.Zip}
                     </span>
-                    <span>
-                      {
-                        this.props.paymentMessage.transactionResponse
-                          .messages[0].description
-                      }
-                    </span>
-                    <span>
-                      Transaction Id:{' '}
-                      {this.props.paymentMessage.transactionResponse.transId}
-                    </span>
+                    <span>{this.props.userData.Country}</span>
+                    <span>{this.props.userData.Phone}</span>
+                    <span>{this.props.userData.Email}</span>
                   </div>
-                  <div className="table-responsive mb-40">
-                    <table className="table table-borderless">
-                      <thead>
-                        <tr>
-                          <th>Qty</th>
-                          <th>Product</th>
-                          <th>Unit Price</th>
-                          <th>Total</th>
+                  <div className="add-card">
+                    <h4 className="mb-15">Ship To</h4>
+                    <span className="name">
+                      {this.props.shippingAdreessCart.firstName +
+                        ' ' +
+                        this.props.shippingAdreessCart.lastName}
+                    </span>
+                    <span>{this.props.shippingAdreessCart.addressLine1}</span>
+                    <span>{this.props.shippingAdreessCart.addressLine2}</span>
+                    <span>
+                      {this.props.shippingAdreessCart.city}{' '}
+                      {this.props.shippingAdreessCart.zipCode}
+                    </span>
+                    <span>{this.props.shippingAdreessCart.country}</span>
+                    <span>{this.props.shippingAdreessCart.mobileNumber}</span>
+                    <span>{this.props.shippingAdreessCart.emailId}</span>
+                  </div>
+                </div>
+                <div className="order-status mb-30">
+                  <span>
+                    Transaction Status:{' '}
+                    {this.props.paymentMessage.messages.message[0].text}
+                  </span>
+                  <span>
+                    {
+                      this.props.paymentMessage.transactionResponse.messages[0]
+                        .description
+                    }
+                  </span>
+                  <span>
+                    Transaction Id:{' '}
+                    {this.props.paymentMessage.transactionResponse.transId}
+                  </span>
+                </div>
+                <div className="table-responsive mb-40">
+                  <table className="table table-borderless">
+                    <thead>
+                      <tr>
+                        <th>Qty</th>
+                        <th>Product</th>
+                        <th>Unit Price</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {this.props.cart.map ((item, key) => (
+                        <tr key={key}>
+                          <td>{item.productQuantity}</td>
+                          <td>{item.name}</td>
+                          <td>${item.totalPrice}</td>
+                          <td>${item.totalPrice * item.productQuantity}</td>
                         </tr>
-                      </thead>
-                      <tbody>
-                        {this.props.cart.map ((item, key) => (
-                          <tr key={key}>
-                            <td>{item.productQuantity}</td>
-                            <td>{item.name}</td>
-                            <td>${item.totalPrice}</td>
-                            <td>${item.totalPrice * item.productQuantity}</td>
-                          </tr>
-                        ))}
-                        {/* <tr>
+                      ))}
+                      {/* <tr>
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
                           <td className="fw-bold">Subtotal</td>
                           <td>${total}</td>
                         </tr> */}
-                        <tr>
-                          <td>&nbsp;</td>
-                          <td>&nbsp;</td>
-                          <td className="fw-bold">Estimated Shipping</td>
-                          <td>${this.props.cartMoneyData.deliveryFee}</td>
-                        </tr>
-                        <tr>
-                          <td>&nbsp;</td>
-                          <td>&nbsp;</td>
-                          <td className="fw-bold">Estimated Taxes</td>
-                          <td>${this.props.cartMoneyData.taxes}</td>
-                        </tr>
-                        <tr>
-                          <td>&nbsp;</td>
-                          <td>&nbsp;</td>
-                          <td className="fw-bold">Total</td>
-                          <td>${this.props.cartMoneyData.totalPrice}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                      <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td className="fw-bold">Estimated Shipping</td>
+                        <td>${this.props.cartMoneyData.deliveryFee}</td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td className="fw-bold">Estimated Taxes</td>
+                        <td>${this.props.cartMoneyData.taxes}</td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td className="fw-bold">Total</td>
+                        <td>${this.props.cartMoneyData.totalPrice}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-              </RctCard>}
-            {/* {((this.props.paymentMessage.messages &&
-              this.props.paymentMessage.messages.resultCode === 'Error') ||
-              (this.props.paymentMessage.transactionResponse.errors &&
-                this.props.paymentMessage.transactionResponse.errors[0]
-                  .errorText !== '')) &&
-              <RctCard>
-                <div
-                  style={{marginTop: '5%'}}
-                  className="col-sm-12 col-md-12"
-                  alignItems="center"
-                  justify="center"
-                >
-                  <div
-                    className="card-image card-content text-center"
-                    style={{marginTop: '10%'}}
-                  >
-                    <img
-                      src={require ('../../../../assets/img/error-icon-15.png')}
-                      alt="about card"
-                      className="img-fluid mt-5"
-                      width="200"
-                      height="150"
-                    />
-                  </div>
-                  <div className="card-content text-center p-30">
-                    <div className="section-title mb-40">
-                      <h3>
-                        {this.props.paymentMessage &&
-                          this.props.paymentMessage.transactionResponse
-                            .errors[0].errorText}
-                      </h3>
-                    </div>
-                    <p className="card-content text-center p-30">
-                      Please review submitted information. Payment also can be made via phone 713-364-6216.
-
-                    </p>
-                  </div>
-
-                </div>
-              </RctCard>} */}
+              </div>
+            </RctCard>
           </div>
         </div>
       </div>

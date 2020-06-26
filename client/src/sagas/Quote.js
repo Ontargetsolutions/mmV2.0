@@ -241,23 +241,27 @@ function* paymentS (payload) {
   console.log (`payload`, payload);
   // const data = payload.data;
   const {history, data} = payload.payload;
-  console.log (`data en payment ${JSON.stringify (data)}`);
+  // console.log (`data en payment ${JSON.stringify (data)}`);
   try {
     const pay = yield call (paymentRequest, data);
     console.log (`lo que vira del pago ${JSON.stringify (pay)}`);
+    console.log (`el resultado del codigo ${JSON.stringify (pay.data.transactionResponse.responseCode)}`);
     if (pay.message) {
+      console.log(`entro a error`);
       yield put (paymentFailure (pay.message));
     } else {
-      if (
-        (pay.data.messages && pay.data.messages.resultCode === 'Error') ||
-        (pay.data.transactionResponse.errors &&
-          pay.data.transactionResponse.errors[0].errorText !== '')
+      // yield put (paymentSuccess (pay.data));
+      if (pay.data.transactionResponse.responseCode == '1'
       ) {
-        console.log ('here in sagde pago no paso');
-        yield put (manageErrorDialog (true));
-      } else {
-        yield put (paymentSuccess (pay.data));
+      yield put (paymentSuccess (pay.data));
+
+        console.log(`entro a 1`);
         history.push ('/app/payed');
+      } else {
+      yield put (paymentSuccess (pay.data));
+
+        console.log(`entro a 2`);
+        yield put (manageErrorDialog (true));
       }
     }
   } catch (error) {
