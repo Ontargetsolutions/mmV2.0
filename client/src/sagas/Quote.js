@@ -23,6 +23,7 @@ import {
   sendEmailWithPaymentConfirmationSuccess,
   sendEmailWithPaymentConfirmationFailure,
   manageErrorDialog,
+  manageInvoiceDialog,
 } from '../actions/QuoteActions';
 import {
   GET_ADOBE_STOCK_IMAGES,
@@ -240,29 +241,34 @@ function* getDeliveryFeeS (payload) {
 function* paymentS (payload) {
   console.log (`payload`, payload);
   // const data = payload.data;
-  const {history, data} = payload.payload;
+  const {data} = payload.payload;
   // console.log (`data en payment ${JSON.stringify (data)}`);
   try {
     const pay = yield call (paymentRequest, data);
     console.log (`lo que vira del pago ${JSON.stringify (pay)}`);
-    console.log (`el resultado del codigo ${JSON.stringify (pay.data.transactionResponse.responseCode)}`);
+    console.log (
+      `el resultado del codigo ${JSON.stringify (pay.data.transactionResponse.responseCode)}`
+    );
     if (pay.message) {
-      console.log(`entro a error`);
+      console.log (`entro a error`);
       yield put (paymentFailure (pay.message));
     } else {
       // yield put (paymentSuccess (pay.data));
-      if (pay.data.transactionResponse.responseCode == '1'
-      ) {
-      yield put (paymentSuccess (pay.data));
-
-        console.log(`entro a 1`);
-        history.push ('/app/payed');
-      } else {
-      yield put (paymentSuccess (pay.data));
-
-        console.log(`entro a 2`);
+      if (pay.data.transactionResponse.responseCode === '1') {
+        console.log (`entro a 1`);
+        yield put (paymentSuccess (pay.data));
+        yield put (manageInvoiceDialog (true));
+      }
+       else {
+        console.log (`entro a 2`);
+        yield put (paymentSuccess (pay.data));
         yield put (manageErrorDialog (true));
       }
+      // if (pay.data.transactionResponse.errors && pay.data.transactionResponse.errors.length !== 0) {
+      //   yield put (paymentSuccess (pay.data));
+      //   console.log(`entro a 2`);
+      //   yield put (manageErrorDialog (true));
+      // }
     }
   } catch (error) {
     yield put (paymentFailure (error));

@@ -6,7 +6,10 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Form, FormGroup, Input, Label, Col, FormText} from 'reactstrap';
 import Button from '@material-ui/core/Button';
-import {saveShipingAddress} from '../../../../actions/QuoteActions';
+import {
+  saveShipingAddress,
+  getDeliveryFee,
+} from '../../../../actions/QuoteActions';
 
 // intl messages
 import IntlMessages from '../../../../util/IntlMessages';
@@ -53,7 +56,7 @@ class shippingForm extends Component {
       zipCode,
       country,
       state,
-      city
+      city,
     } = this.state.shippingInformation;
     if (
       firstName !== '' &&
@@ -73,6 +76,20 @@ class shippingForm extends Component {
   }
 
   render () {
+    let newShippingTo = {
+      Name: this.state.shippingInformation.firstName +
+        ' ' +
+        this.state.shippingInformation.lastName,
+      Phone: this.state.shippingInformation.mobileNumber,
+      Company: '',
+      Email: this.state.shippingInformation.emailId,
+      Address1: this.state.shippingInformation.addressLine1,
+      Address2: this.state.shippingInformation.addressLine2,
+      City: this.state.shippingInformation.city,
+      Country: this.state.shippingInformation.country,
+      State: this.state.shippingInformation.state,
+      Zip: this.state.shippingInformation.zipCode,
+    };
     return (
       <div className="shipping-form-warp py-4">
         <Form>
@@ -88,7 +105,10 @@ class shippingForm extends Component {
                 id="firstName"
                 className="mb-4 mb-sm-0"
                 onChange={e =>
-                  this.onChangeshippingInformation ('firstName', e.target.value)}
+                  this.onChangeshippingInformation (
+                    'firstName',
+                    e.target.value
+                  )}
               />
             </Col>
             <Col sm={6}>
@@ -244,7 +264,7 @@ class shippingForm extends Component {
           <Button
             disabled={!this.isFormValid ()}
             onClick={() => {
-              this.props.saveShipingAddress (this.state.shippingInformation);
+              this.props.saveShipingAddress (newShippingTo);
               this.props.onComplete ();
             }}
             color="primary"
@@ -258,7 +278,7 @@ class shippingForm extends Component {
   }
 }
 
-const mapStateToProps = ({quote, authUser, settings}) => {
+const mapStateToProps = ({ecommerce, quote, authUser, settings}) => {
   const {
     myOrders,
     actualQuote,
@@ -266,6 +286,7 @@ const mapStateToProps = ({quote, authUser, settings}) => {
     quoteMoneyData,
     orderPlaced,
   } = quote;
+  const {cart} = ecommerce;
   const {userData} = authUser;
   return {
     myOrders,
@@ -275,7 +296,10 @@ const mapStateToProps = ({quote, authUser, settings}) => {
     actualImage,
     quoteMoneyData,
     orderPlaced,
+    cart,
   };
 };
 
-export default connect (mapStateToProps, {saveShipingAddress}) (shippingForm);
+export default connect (mapStateToProps, {saveShipingAddress, getDeliveryFee}) (
+  shippingForm
+);

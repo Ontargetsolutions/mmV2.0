@@ -171,10 +171,10 @@ const AsyncQuotesIznikComponent = Loadable ({
   loading: () => <RctPageLoader />,
 });
 
-const AsyncSuccessfulPaymentComponent = Loadable ({
-  loader: () => import ('../../routes/Clients/Checkout/components/SuccessfullPayment'),
-  loading: () => <RctPageLoader />,
-});
+// const AsyncSuccessfulPaymentComponent = Loadable ({
+//   loader: () => import ('../../routes/Clients/Checkout/components/SuccessfullPayment'),
+//   loading: () => <RctPageLoader />,
+// });
 const AsyncViewAllQuoteComponent = Loadable({
   loader: () => import("../../routes/Company/ViewQuote"),
   loading: () => <RctPageLoader />,
@@ -182,7 +182,7 @@ const AsyncViewAllQuoteComponent = Loadable({
 
 
 export {
-  AsyncSuccessfulPaymentComponent,
+  // AsyncSuccessfulPaymentComponent,
   AsyncViewAllQuoteComponent,
   AsyncQuotesMosaicsComponent,
   AsyncQuotesHardwoodComponent,

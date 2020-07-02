@@ -29,19 +29,28 @@ const Filters = ({props}) => {
 
       <RctCard className="categories">
         <RctCardContent>
+          <Panel header="Collection">
+            <RefinementList attribute="collection" searchable limit={5} />
+          </Panel>
+        </RctCardContent>
+      </RctCard>
+
+      <RctCard className="categories">
+        <RctCardContent>
+          <Panel header="Material">
+            <RefinementList attribute="material" searchable limit={5} />
+          </Panel>
+        </RctCardContent>
+      </RctCard>
+
+      <RctCard className="categories">
+        <RctCardContent>
           <Panel header="Dimentions">
             <RefinementList
               attribute="dimentions"
               // searchable
               limit={10}
             />
-          </Panel>
-        </RctCardContent>
-      </RctCard>
-      <RctCard className="categories">
-        <RctCardContent>
-          <Panel header="Material">
-            <RefinementList attribute="material" searchable limit={5} />
           </Panel>
         </RctCardContent>
       </RctCard>

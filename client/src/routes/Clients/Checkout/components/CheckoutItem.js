@@ -59,16 +59,16 @@ class CheckoutItem extends Component {
     return total;
   }
 
-    //Get Total Price
-    getTotalPriceBeforeTaxes () {
-      const {cart} = this.props;
-      let totalPrice = 0;
-      let total = 0;
-      for (const item of cart) {
-        totalPrice += item.totalPrice;
-      }  
-      return totalPrice;
+  //Get Total Price
+  getTotalPriceBeforeTaxes () {
+    const {cart} = this.props;
+    let totalPrice = 0;
+    let total = 0;
+    for (const item of cart) {
+      totalPrice += item.totalPrice;
     }
+    return totalPrice;
+  }
 
   getTotalPriceAfterTaxes () {
     let totalPrice = this.getTotalPrice ();

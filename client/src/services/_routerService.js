@@ -26,7 +26,7 @@ import {
   AsyncQuotesHardwoodComponent,
   AsyncQuotesIznikComponent,
   AsyncViewAllQuoteComponent,
-  AsyncSuccessfulPaymentComponent
+  // AsyncSuccessfulPaymentComponent
 } from "../components/AsyncComponent/AsyncComponent";
 
 export default [
@@ -34,10 +34,10 @@ export default [
     path: "dashboard",
     component: Dashboard
   },
-  {
-    path: "payed",
-    component: AsyncSuccessfulPaymentComponent
-  },
+  // {
+  //   path: "payed",
+  //   component: AsyncSuccessfulPaymentComponent
+  // },
   {
     path: "profile",
     component: AsyncProfileComponent

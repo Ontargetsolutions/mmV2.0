@@ -6,7 +6,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Form, FormGroup, Input, Label, Col, FormText} from 'reactstrap';
 import Button from '@material-ui/core/Button';
-import {saveBillingInfo} from '../../../../actions/QuoteActions';
+import {saveBillingInfo, getDeliveryFee} from '../../../../actions/QuoteActions';
 
 // intl messages
 import IntlMessages from '../../../../util/IntlMessages';
@@ -243,6 +243,7 @@ class BillingForm extends Component {
             disabled={!this.isFormValid ()}
             onClick={() => {
               this.props.saveBillingInfo (this.state.billingInformation);
+              this.props.getDeliveryFee({user: this.props.shippingAdreessCart, cart: this.props.cart});
               this.props.onComplete ();
             }}
             color="primary"
@@ -256,14 +257,16 @@ class BillingForm extends Component {
   }
 }
 
-const mapStateToProps = ({quote, authUser, settings}) => {
+const mapStateToProps = ({ecommerce, quote, authUser, settings}) => {
   const {
     myOrders,
     actualQuote,
     actualImage,
     quoteMoneyData,
     orderPlaced,
+    shippingAdreessCart
   } = quote;
+  const {cart} = ecommerce;
   const {userData} = authUser;
   return {
     myOrders,
@@ -273,7 +276,9 @@ const mapStateToProps = ({quote, authUser, settings}) => {
     actualImage,
     quoteMoneyData,
     orderPlaced,
+    cart,
+    shippingAdreessCart
   };
 };
 
-export default connect (mapStateToProps, {saveBillingInfo}) (BillingForm);
+export default connect (mapStateToProps, {saveBillingInfo, getDeliveryFee}) (BillingForm);

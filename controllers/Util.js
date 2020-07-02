@@ -2,6 +2,7 @@ const db = require ('../models');
 const request = require ('request-promise');
 const countryAPI = require ('countrystatesjs');
 const nodemailer = require ('nodemailer');
+const lookup = require('country-code-lookup')
 
 // Defining methods for User Controllers
 module.exports = {
@@ -12,11 +13,22 @@ module.exports = {
       `en el backend lo que llega pa buscar delivery fee ${JSON.stringify (req.body)}`
     );
 
+
+    if (req.body.Country) {
+      let countryCode = lookup.byCountry(req.body.Country);
+      console.log(`---------------------`+ countryCode);
+    }
+
+    let country = req.body.user.Country ? req.body.user.Country : req.body.Country;
+    let stateS = req.body.user.State ? req.body.user.State: req.body.State;
+
     const stateCode = countryAPI.state (
+      // country,
+      // stateS
       req.body.user.Country,
       req.body.user.State
     );
-    // console.log(`lo que devuelve el codigo del estado`, stateCode);
+    console.log(`lo que devuelve el codigo del estado`, stateCode);
 
     let estDelFee = 0;
     let upsRes;
@@ -123,14 +135,12 @@ module.exports = {
                 .MonetaryValue
             );
             totalDelivery += deliveryFee;
+            console.log(`%%%%%%%%%%%%%`, totalDelivery )
             return totalDelivery;
           })
           .catch (err => res.status (422).json (err));
       }
-      console.log (
-        `%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%`,
-        JSON.stringify (estDelFee)
-      );
+      // console.log(`%%%%%%%%%%%%%`, estDelFee )
       res.json (estDelFee);
     } catch (error) {
       console.log (`Error`, error);

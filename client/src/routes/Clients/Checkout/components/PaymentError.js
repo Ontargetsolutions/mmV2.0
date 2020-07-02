@@ -60,7 +60,7 @@ class FormDialog extends Component {
               <div className="section-title mb-40">
                 <h3>
                   {
-                   this.props.paymentMessage.transactionResponse ? this.props.paymentMessage.transactionResponse.errors[0]
+                   (this.props.paymentMessage.transactionResponse && this.props.paymentMessage.transactionResponse.errors) ? this.props.paymentMessage.transactionResponse.errors[0]
                       .errorText: ''
                   }
                 </h3>

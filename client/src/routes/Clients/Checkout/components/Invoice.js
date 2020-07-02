@@ -1,63 +1,61 @@
-/**
- * Payment Component
- */
-
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import Cards from 'react-credit-cards';
-import {Form, FormGroup, Input, Label} from 'reactstrap';
+import {withRouter} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import MaskedInput from 'react-text-mask';
+import TextField from '@material-ui/core/TextField';
+import {FormGroup, Input, Label} from 'reactstrap';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import IntlMessages from '../../../../util/IntlMessages';
+import {Grid} from '@material-ui/core';
 import {NotificationManager} from 'react-notifications';
-import * as emailjs from 'emailjs-com';
+import Typography from '@material-ui/core/Typography';
+import {RctCard, RctCardContent} from '../../../../components/RctCard';
+import {NavLink} from 'react-router-dom';
 
 import {
+  manageInvoiceDialog,
   sendEmailWithPaymentConfirmation,
   cleanTheCart,
 } from '../../../../actions';
-// Card Component
-import {RctCard, RctCardContent} from '../../../../components/RctCard';
-// intl messages
-import IntlMessages from '../../../../util/IntlMessages';
 
-class SuccessfulPayment extends Component {
+class FormDialog extends Component {
   componentDidMount () {
-    if (
-      this.props.paymentMessage.transactionResponse &&
-      this.props.paymentMessage.transactionResponse.responseCode === '1'
-    ) {
-      this.props.sendEmailWithPaymentConfirmation ({
-        paymentInfo: this.props.cartMoneyData,
-        userInfo: this.props.userData,
-        shippingInfo: this.props.shippingAdreessCart,
-        itemsBought: this.props.cart,
-      });
-    }
+    this.props.sendEmailWithPaymentConfirmation ({
+      paymentInfo: this.props.cartMoneyData,
+      userInfo: this.props.userData,
+      shippingInfo: this.props.shippingAdreessCart,
+      itemsBought: this.props.cart,
+    });
   }
 
   componentWillUnmount () {
     this.props.cleanTheCart ();
   }
+  handleClickOpen = () => {
+    this.props.manageInvoiceDialog (true);
+  };
+
+  handleClose = () => {
+    this.props.manageInvoiceDialog (false);
+  };
 
   render () {
-    // console.log (`the cart in the successful payment`, this.props.cart);
-    // console.log (
-    //   `the cartMoneyData in the successful payment`,
-    //   this.props.cartMoneyData
-    // );
-
-    // console.log (
-    //   `the shippingAdreessCart in the successful payment`,
-    //   this.props.shippingAdreessCart
-    // );
-
+    console.log (`errormessage`, this.props.paymentMessage);
     return (
-      <div className="invoice-wrapper">
-        <div className="row">
-          <div className="col-sm-12 col-md-12 col-xl-10 mx-auto">
+      <div>
+        <Dialog
+          open={this.props.invoiceDialog}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Invoice</DialogTitle>
+          <DialogContent dividers>
 
             <RctCard>
-
               <div className="invoice-head text-right">
                 <ul className="list-inline">
                   <li>
@@ -88,8 +86,8 @@ class SuccessfulPayment extends Component {
                       <span>United States</span>
                     </div>
                     <div className="address">
-                      <span>Telephone: 800-692-7753</span>
-                      <span>Fax: 800-692-7753</span>
+                      <span>Telephone: 713-364-6216</span>
+                      <span>Fax: 832-383-7050</span>
                     </div>
                   </div>
                   <div className="invoice-address text-right">
@@ -130,17 +128,24 @@ class SuccessfulPayment extends Component {
                 <div className="order-status mb-30">
                   <span>
                     Transaction Status:{' '}
-                    {this.props.paymentMessage.messages.message[0].text}
+                    {this.props.paymentMessage &&
+                      this.props.paymentMessage.messages
+                      ? this.props.paymentMessage.messages.message[0].text
+                      : ''}
                   </span>
                   <span>
-                    {
-                      this.props.paymentMessage.transactionResponse.messages[0]
-                        .description
-                    }
+                    {this.props.paymentMessage &&
+                      this.props.paymentMessage.messages
+                      ? this.props.paymentMessage.transactionResponse
+                          .messages[0].description
+                      : ''}
                   </span>
                   <span>
                     Transaction Id:{' '}
-                    {this.props.paymentMessage.transactionResponse.transId}
+                    {this.props.paymentMessage &&
+                      this.props.paymentMessage.transactionResponse
+                      ? this.props.paymentMessage.transactionResponse.transId
+                      : ''}
                   </span>
                 </div>
                 <div className="table-responsive mb-40">
@@ -162,12 +167,6 @@ class SuccessfulPayment extends Component {
                           <td>${item.totalPrice * item.productQuantity}</td>
                         </tr>
                       ))}
-                      {/* <tr>
-                          <td>&nbsp;</td>
-                          <td>&nbsp;</td>
-                          <td className="fw-bold">Subtotal</td>
-                          <td>${total}</td>
-                        </tr> */}
                       <tr>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
@@ -191,19 +190,29 @@ class SuccessfulPayment extends Component {
                 </div>
               </div>
             </RctCard>
-          </div>
-        </div>
+          </DialogContent>
+          <DialogActions>
+            <NavLink to="/app/client">
+              {' '}
+              <Button onClick={this.handleClose} className="btn-danger">
+                Close
+              </Button>
+            </NavLink>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }
 }
 
+// map state to props
 const mapStateToProps = ({quote, authUser, settings, ecommerce}) => {
   const {
     paymentMessage,
     shippingAdreessCart,
     actualQuote,
     cartMoneyData,
+    invoiceDialog,
   } = quote;
   const {cart} = ecommerce;
   const {userData} = authUser;
@@ -214,10 +223,14 @@ const mapStateToProps = ({quote, authUser, settings, ecommerce}) => {
     cart,
     userData,
     cartMoneyData,
+    invoiceDialog,
   };
 };
 
-export default connect (mapStateToProps, {
-  sendEmailWithPaymentConfirmation,
-  cleanTheCart,
-}) (SuccessfulPayment);
+export default withRouter (
+  connect (mapStateToProps, {
+    sendEmailWithPaymentConfirmation,
+    cleanTheCart,
+    manageInvoiceDialog,
+  }) (FormDialog)
+);

@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import MaskedInput from 'react-text-mask';
 import {NotificationManager} from 'react-notifications';
 import ErrorDialog from './PaymentError';
+import InvoiceDialog from './Invoice';
 
 import {Link} from 'react-router-dom';
 
@@ -82,7 +83,15 @@ class PaymentInfo extends Component {
    * on confirm payment
    */
   confirmPayment (e) {
-    console.log(`here again en el boton del pago`);
+    console.log (`here again en el boton del pago`);
+    console.log (
+      `errorPaymetnDialog`,
+      this.props.errorPaymentDialog
+    );
+    console.log (
+      `invoiceDialog`,
+      this.props.invoiceDialog
+    );
     e.preventDefault ();
     const {formValid} = this.state;
     if (formValid) {
@@ -92,8 +101,9 @@ class PaymentInfo extends Component {
           billingInfo: this.props.billingInfo,
           cartPricing: this.props.cartMoneyData,
           shipTo: this.props.shippingAdreessCart,
-        },
-        this.props.history
+        }
+        // ,
+        // this.props.history
       );
       // NotificationManager.success("Payment Confirmed!");
     }
@@ -101,10 +111,11 @@ class PaymentInfo extends Component {
 
   render () {
     const {name, number, expiry, cvc, focused, formValid} = this.state;
-    console.log(`here again en el boton del pago`, this.props.errorPaymentDialog);
+
     return (
       <Fragment>
-        <ErrorDialog />
+        {this.props.errorPaymentDialog && <ErrorDialog />}
+        {this.props.invoiceDialog && <InvoiceDialog />}
         <div className="payment-wrap">
           <div className="p-30 mb-30">
             <Cards
@@ -232,7 +243,8 @@ const mapStateToProps = ({quote, authUser, settings}) => {
     cartMoneyData,
     shippingAdreessCart,
     paymentMessage,
-    errorPaymentDialog
+    errorPaymentDialog,
+    invoiceDialog,
   } = quote;
   const {userData} = authUser;
   return {
@@ -246,7 +258,8 @@ const mapStateToProps = ({quote, authUser, settings}) => {
     cartMoneyData,
     shippingAdreessCart,
     paymentMessage,
-    errorPaymentDialog
+    errorPaymentDialog,
+    invoiceDialog,
   };
 };
 

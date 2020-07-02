@@ -61,7 +61,8 @@ import {
   SAVE_SHIPPING_ADDRESS_CART,
   SHOP_DONE_EMAIL,
   SHOP_DONE_EMAIL_SUCCESS,
-  OPEN_DIALOG_FOR_PAYMENT_ERROR
+  OPEN_DIALOG_FOR_PAYMENT_ERROR,
+  OPEN_DIALOG_FOR_INVOICE
 } from "./types";
 
 /**
@@ -414,6 +415,11 @@ export const sendEmailWithPaymentConfirmation = (data) =>
 
 export const manageErrorDialog = value => ({
   type: OPEN_DIALOG_FOR_PAYMENT_ERROR,
+  payload: value
+});
+
+export const manageInvoiceDialog = value => ({
+  type: OPEN_DIALOG_FOR_INVOICE,
   payload: value
 });
 

@@ -119,8 +119,8 @@ class Hit extends Component {
         <div className="product-info border-top p-3">
           <div className="d-flex justify-content-between">
             {this.props.userData.AccountType === 'company'
-              ? <h2 className="text-danger">Price: ${hit.wholesalePrice}</h2>
-              : <h2 className="text-danger">Price: ${hit.retailPrice}</h2>}
+              ? <h2 className="text-primary">Price: ${hit.wholesalePrice}</h2>
+              : <h2 className="text-primary">Price: ${hit.retailPrice}</h2>}
           </div>
           {/* <div className="d-flex justify-content-between">
             <h2 className="text-dark">Name: {hit.name}</h2>

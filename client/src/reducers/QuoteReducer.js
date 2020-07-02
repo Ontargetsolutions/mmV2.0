@@ -40,6 +40,7 @@ import {
   ORDER_PLACED,
   SAVE_SHIPPING_ADDRESS_CART,
   OPEN_DIALOG_FOR_PAYMENT_ERROR,
+  OPEN_DIALOG_FOR_INVOICE,
 } from '../actions/types';
 
 import {NotificationManager} from 'react-notifications';
@@ -83,6 +84,7 @@ const INIT_STATE = {
   orderPlaced: false,
   shippingAdreessCart: {},
   errorPaymentDialog: false,
+  invoiceDialog: false,
 };
 
 export default (state = INIT_STATE, action) => {
@@ -112,8 +114,12 @@ export default (state = INIT_STATE, action) => {
       };
 
     case OPEN_DIALOG_FOR_PAYMENT_ERROR:
-      // console.log(`en el reducer para activar el dialog`, action.payload);
+
       return {...state, errorPaymentDialog: action.payload};
+
+    case OPEN_DIALOG_FOR_INVOICE:
+
+      return {...state, invoiceDialog: action.payload};
 
     case SAVE_CART_PRICING:
       // console.log (`cart pricing en el reducer`, action.payload);
@@ -295,6 +301,7 @@ export default (state = INIT_STATE, action) => {
       return {...state};
 
     case GET_DELIVERY_FEE_SUCCESS:
+      NotificationManager.success (`buscó el delivery fee de nuevo`);
       return {...state, deliveryFee: action.payload};
 
     case GET_IMAGE_SUCCESS:
