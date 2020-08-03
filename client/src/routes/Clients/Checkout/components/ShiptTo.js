@@ -28,6 +28,7 @@ class shippingForm extends Component {
       state: '',
       city: '',
     },
+    checked: false
   };
 
   /**
@@ -41,6 +42,9 @@ class shippingForm extends Component {
       },
     });
   }
+
+
+
 
   /**
    * Function To Check Either The Form Is Valid Or Not
@@ -135,6 +139,7 @@ class shippingForm extends Component {
                 name="mail"
                 id="emailId"
                 className="mb-4 mb-sm-0"
+                disable = {this.state.active}
                 onChange={e =>
                   this.onChangeshippingInformation ('emailId', e.target.value)}
               />
@@ -249,13 +254,13 @@ class shippingForm extends Component {
               />
             </Col>
           </FormGroup>
-          {/* <FormGroup row className="mb-0">
+          <FormGroup row className="mb-0">
                   <Col sm={12}>
                      <Label className="ml-4">
                         <Input type="checkbox" /><IntlMessages id="components.ShippingAddressText" />
                      </Label>
                   </Col>
-               </FormGroup> */}
+               </FormGroup>
           <FormText color="danger">
             All fields marked with an asterisk (*) are required
           </FormText>
@@ -265,7 +270,14 @@ class shippingForm extends Component {
             disabled={!this.isFormValid ()}
             onClick={() => {
               this.props.saveShipingAddress (newShippingTo);
-              this.props.onComplete ();
+              this.props.getDeliveryFee ({
+                user: newShippingTo,
+                cart: this.props.cart,
+                source: 'differentAdress',
+              });
+              if (this.props.shippingAddressOk === true) {
+                this.props.onComplete ();
+              }
             }}
             color="primary"
             variant="contained"
@@ -285,6 +297,7 @@ const mapStateToProps = ({ecommerce, quote, authUser, settings}) => {
     actualImage,
     quoteMoneyData,
     orderPlaced,
+    shippingAddressOk
   } = quote;
   const {cart} = ecommerce;
   const {userData} = authUser;
@@ -297,6 +310,7 @@ const mapStateToProps = ({ecommerce, quote, authUser, settings}) => {
     quoteMoneyData,
     orderPlaced,
     cart,
+    shippingAddressOk
   };
 };
 

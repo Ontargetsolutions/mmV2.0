@@ -62,15 +62,16 @@ import {
   SHOP_DONE_EMAIL,
   SHOP_DONE_EMAIL_SUCCESS,
   OPEN_DIALOG_FOR_PAYMENT_ERROR,
-  OPEN_DIALOG_FOR_INVOICE
-} from "./types";
+  OPEN_DIALOG_FOR_INVOICE,
+  VALIDATE_SHIPPING_ADDRESS,
+} from './types';
 
 /**
  * Redux Action get adobe stock images
  */
 export const getAdobeImages = word => ({
   type: GET_ADOBE_STOCK_IMAGES,
-  payload: word
+  payload: word,
 });
 
 /**
@@ -78,7 +79,7 @@ export const getAdobeImages = word => ({
  */
 export const getAdobeImagesSuccess = imageList => ({
   type: GET_ADOBE_STOCK_IMAGES_SUCCESS,
-  payload: imageList
+  payload: imageList,
 });
 
 /**
@@ -86,7 +87,7 @@ export const getAdobeImagesSuccess = imageList => ({
  */
 export const getAdobeImagesFailure = error => ({
   type: GET_ADOBE_STOCK_IMAGES_FAILURE,
-  payload: error
+  payload: error,
 });
 
 /**
@@ -94,24 +95,24 @@ export const getAdobeImagesFailure = error => ({
  */
 export const reorder = order => ({
   type: REORDER,
-  payload: order
+  payload: order,
 });
 
 export const quoteToView = data => ({
   type: QUOTE_TO_VIEW,
-  payload: data
+  payload: data,
 });
 
 export const getquoteMoneyData = data => ({
   type: QUOTE_MONEY_DATA,
-  payload: data
+  payload: data,
 });
 
 /**
  * Redux Action get adobe stock images success
  */
 export const reorderSuccess = () => ({
-  type: REORDER_SUCCESS
+  type: REORDER_SUCCESS,
   // payload: imageList
 });
 
@@ -120,7 +121,7 @@ export const reorderSuccess = () => ({
  */
 export const reorderFailure = error => ({
   type: REORDER_FAILURE,
-  payload: error
+  payload: error,
 });
 
 /**
@@ -128,7 +129,7 @@ export const reorderFailure = error => ({
  */
 export const pickService = service => ({
   type: PICK_SERVICE,
-  payload: service
+  payload: service,
 });
 
 /**
@@ -136,7 +137,7 @@ export const pickService = service => ({
  */
 export const pickProduct = product => ({
   type: PICK_PRODUCT,
-  payload: product
+  payload: product,
 });
 
 /**
@@ -144,7 +145,7 @@ export const pickProduct = product => ({
  */
 export const pickThickness = thickness => ({
   type: PICK_THICKNESS,
-  payload: thickness
+  payload: thickness,
 });
 
 /**
@@ -152,7 +153,7 @@ export const pickThickness = thickness => ({
  */
 export const pickWidth = width => ({
   type: PICK_WIDTH,
-  payload: width
+  payload: width,
 });
 
 /**
@@ -160,30 +161,28 @@ export const pickWidth = width => ({
  */
 export const pickLength = lenght => ({
   type: PICK_LENGTH,
-  payload: lenght
+  payload: lenght,
 });
 
 export const pickPaymentMethod = method => ({
   type: PICK_PAYMENT_METHOD,
-  payload: method
+  payload: method,
 });
 /**
  * Redux Action to pick the hardwood type
  */
-export const pickType = htype => (
-  console.log(`picking the type ${htype}`),
-  {
+export const pickType = htype =>
+  (console.log (`picking the type ${htype}`), {
     type: PICK_TYPE,
-    payload: htype
-  }
-);
+    payload: htype,
+  });
 
 /**
  * Redux Action to pick the hardwood style
  */
 export const pickStyle = style => ({
   type: PICK_STYLE,
-  payload: style
+  payload: style,
 });
 
 /**
@@ -191,7 +190,7 @@ export const pickStyle = style => ({
  */
 export const pickFinish = finish => ({
   type: PICK_FINISH,
-  payload: finish
+  payload: finish,
 });
 
 /**
@@ -199,7 +198,7 @@ export const pickFinish = finish => ({
  */
 export const pickHardwood = hardwood => ({
   type: PICK_HARDWOOD,
-  payload: hardwood
+  payload: hardwood,
 });
 
 /**
@@ -207,14 +206,14 @@ export const pickHardwood = hardwood => ({
  */
 export const pickArtSource = artSource => ({
   type: PICK_ART_SOURCE,
-  payload: artSource
+  payload: artSource,
 });
 /**
  * Redux Action to pick the dimentions of the art
  */
 export const pickDimentions = size => ({
   type: PICK_DIMENTIONS,
-  payload: size
+  payload: size,
 });
 
 /**
@@ -222,7 +221,7 @@ export const pickDimentions = size => ({
  */
 export const saveImageUpload = data => ({
   type: SAVE_IMAGE_UPLOADED,
-  payload: data
+  payload: data,
 });
 
 /**
@@ -230,7 +229,7 @@ export const saveImageUpload = data => ({
  */
 export const pickImage = id => ({
   type: PICK_IMAGE,
-  payload: id
+  payload: id,
 });
 
 /**
@@ -238,7 +237,7 @@ export const pickImage = id => ({
  */
 export const pickFrame = id => ({
   type: PICK_FRAME,
-  payload: id
+  payload: id,
 });
 
 /**
@@ -246,7 +245,7 @@ export const pickFrame = id => ({
  */
 export const selectDeliveryAddress = address => ({
   type: SELECT_ADDRESS,
-  payload: address
+  payload: address,
 });
 
 /**
@@ -254,7 +253,7 @@ export const selectDeliveryAddress = address => ({
  */
 export const pickQuantity = quantity => ({
   type: PICK_QUANTITY,
-  payload: quantity
+  payload: quantity,
 });
 
 /**
@@ -262,7 +261,7 @@ export const pickQuantity = quantity => ({
  */
 export const saveQuote = quote => ({
   type: SAVE_QUOTE,
-  payload: quote
+  payload: quote,
 });
 
 /**
@@ -270,7 +269,7 @@ export const saveQuote = quote => ({
  */
 export const saveQuoteSuccess = quote => ({
   type: SAVE_QUOTE_SUCCESS,
-  payload: quote
+  payload: quote,
 });
 
 /**
@@ -278,12 +277,12 @@ export const saveQuoteSuccess = quote => ({
  */
 export const getImage = data => ({
   type: GET_IMAGE,
-  payload: data
+  payload: data,
 });
 
 export const setGalleryFilterCriteria = criteria => ({
   type: GET_GALLERY_FILTER_CRITERIA,
-  payload: criteria
+  payload: criteria,
 });
 
 /**
@@ -291,12 +290,12 @@ export const setGalleryFilterCriteria = criteria => ({
  */
 export const getImageSuccess = data => ({
   type: GET_IMAGE_SUCCESS,
-  payload: data
+  payload: data,
 });
 
 export const setLoader = loading => ({
   type: SET_LOADER_TRUE,
-  payload: loading
+  payload: loading,
 });
 
 /**
@@ -304,7 +303,7 @@ export const setLoader = loading => ({
  */
 export const getImageFailure = err => ({
   type: GET_IMAGE_FAILURE,
-  payload: err
+  payload: err,
 });
 
 /**
@@ -312,7 +311,7 @@ export const getImageFailure = err => ({
  */
 export const saveQuoteFailure = error => ({
   type: SAVE_QUOTE_FAILURE,
-  payload: error
+  payload: error,
 });
 
 /**
@@ -320,7 +319,7 @@ export const saveQuoteFailure = error => ({
  */
 export const getMyQuotesList = id => ({
   type: GET_ORDERS_LIST,
-  payload: id
+  payload: id,
 });
 
 /**
@@ -328,7 +327,7 @@ export const getMyQuotesList = id => ({
  */
 export const getMyQuotesListSuccess = list => ({
   type: GET_ORDERS_LIST_SUCCESS,
-  payload: list
+  payload: list,
 });
 
 /**
@@ -336,12 +335,12 @@ export const getMyQuotesListSuccess = list => ({
  */
 export const getMyQuotesListFailure = error => ({
   type: GET_ORDERS_LIST_FAILURE,
-  payload: error
+  payload: error,
 });
 
 export const getQuoteById = id => ({
   type: GET_QUOTE_BY_ID,
-  payload: id
+  payload: id,
 });
 
 /**
@@ -349,7 +348,7 @@ export const getQuoteById = id => ({
  */
 export const getQuoteByIdSuccess = quote => ({
   type: GET_QUOTE_BY_ID_SUCCESS,
-  payload: quote
+  payload: quote,
 });
 
 /**
@@ -357,128 +356,130 @@ export const getQuoteByIdSuccess = quote => ({
  */
 export const getQuoteByIdFailure = error => ({
   type: GET_QUOTE_BY_ID_FAILURE,
-  payload: error
+  payload: error,
 });
 
 export const generateInvoiceNumber = order => ({
   type: GENERATE_INVOICE_NUMBER,
-  payload: order
+  payload: order,
 });
 
 export const generateInvoiceNumberFailure = error => ({
   type: GENERATE_INVOICE_NUMBER_FAILURE,
-  payload: error
+  payload: error,
 });
 
 export const generateInvoiceNumberSuccess = invoiceNumber => ({
   type: GENERATE_INVOICE_NUMBER_SUCCESS,
-  payload: invoiceNumber
+  payload: invoiceNumber,
 });
 
 export const generAllQuotesByProducts = product => ({
   type: GET_ALL_QUOTES,
-  payload: product
+  payload: product,
 });
 
 export const getDeliveryFee = data => ({
   type: GET_DELIVERY_FEE,
-  payload: data
+  payload: data,
 });
 
 export const getDeliveryFeeFailure = error => ({
   type: GET_DELIVERY_FEE_FAILURE,
-  payload: error
+  payload: error,
 });
 
 export const getDeliveryFeeSuccess = fee => ({
   type: GET_DELIVERY_FEE_SUCCESS,
-  payload: fee
+  payload: fee,
 });
 
 export const orderPaced = value => ({
   type: ORDER_PLACED,
-  payload: value
+  payload: value,
 });
 
 export const payment = (data, history) => ({
   type: PAYMENT,
-  payload: { data, history }
+  payload: {data, history},
 });
 
-export const sendEmailWithPaymentConfirmation = (data) => 
-(
-  // console.log(`5555555555555555555555555555555  en la accion`),
-{
+export const sendEmailWithPaymentConfirmation = data => // console.log(`5555555555555555555555555555555  en la accion`),
+({
   type: SHOP_DONE_EMAIL,
-  payload: data
+  payload: data,
 });
 
 export const manageErrorDialog = value => ({
   type: OPEN_DIALOG_FOR_PAYMENT_ERROR,
-  payload: value
+  payload: value,
 });
 
 export const manageInvoiceDialog = value => ({
   type: OPEN_DIALOG_FOR_INVOICE,
-  payload: value
+  payload: value,
 });
 
-export const sendEmailWithPaymentConfirmationSuccess = (data) => ({
+export const shippingAddressOk = () => ({
+  type: VALIDATE_SHIPPING_ADDRESS,
+});
+
+export const sendEmailWithPaymentConfirmationSuccess = data => ({
   type: SHOP_DONE_EMAIL_SUCCESS,
-  payload: data
+  payload: data,
 });
 
-export const sendEmailWithPaymentConfirmationFailure = (error) => ({
+export const sendEmailWithPaymentConfirmationFailure = error => ({
   type: SHOP_DONE_EMAIL_FAILURE,
-  payload: error
+  payload: error,
 });
 
 export const saveShipingAddress = data => ({
   type: SAVE_SHIPPING_ADDRESS_CART,
-  payload: data
+  payload: data,
 });
 
 export const paymentFailure = error => ({
   type: PAYMENT_FAILURE,
-  payload: error
+  payload: error,
 });
 
 export const paymentSuccess = pay => ({
   type: PAYMENT_SUCCESS,
-  payload: pay
+  payload: pay,
 });
 
 export const saveBillingInfo = data => ({
   type: BILLING_INFO,
-  payload: data
+  payload: data,
 });
 
 export const saveCartPricing = data => ({
   type: SAVE_CART_PRICING,
-  payload: data
+  payload: data,
 });
 
 export const saveBillingInfoFailure = error => ({
   type: BILLING_INFO_FAILURE,
-  payload: error
+  payload: error,
 });
 
 export const saveBillingInfoSuccess = data => ({
   type: BILLING_INFO_SUCCESS,
-  payload: data
+  payload: data,
 });
 
 export const getAllNoCompletedQuotes = data => ({
   type: GET_ALL_QUOTES_NO_COMPLETED,
-  payload: data
+  payload: data,
 });
 
 export const getAllNoCompletedQuotesFailure = error => ({
   type: GET_ALL_QUOTES_NO_COMPLETED_FAILURE,
-  payload: error
+  payload: error,
 });
 
 export const getAllNoCompletedQuotesSuccess = list => ({
   type: GET_ALL_QUOTES_NO_COMPLETED_SUCCESS,
-  payload: list
+  payload: list,
 });

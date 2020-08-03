@@ -29,6 +29,9 @@ export default {
     console.log(`en el frontend api pa buscar los trabajadores`);
     return axios.get("/api/users/getEmployees");
   },
+  getWorkerById: function(id) {
+    return axios.get("/api/users/getEmployeesById" + id);
+  },
   // get User With a specific project id
   getUserProject: function(userId, projectId) {
     console.log("Api", userId, projectId);

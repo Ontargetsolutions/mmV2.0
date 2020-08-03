@@ -728,7 +728,7 @@ export default {
   "components.payment": "Payment",
   "components.billingAddress": "Billing Address",
   "components.ShippingAddressText":
-    "Shipping address is the same as billing address.",
+    "Shipping address is the same as account address.",
   "components.CartEmptyText": "Your Shopping Cart Is Empty!",
   "components.NoItemFound": "No Item Found",
   "components.goToShop": "Go To Shop",

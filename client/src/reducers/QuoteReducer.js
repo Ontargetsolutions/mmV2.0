@@ -41,6 +41,7 @@ import {
   SAVE_SHIPPING_ADDRESS_CART,
   OPEN_DIALOG_FOR_PAYMENT_ERROR,
   OPEN_DIALOG_FOR_INVOICE,
+  VALIDATE_SHIPPING_ADDRESS,
 } from '../actions/types';
 
 import {NotificationManager} from 'react-notifications';
@@ -85,6 +86,7 @@ const INIT_STATE = {
   shippingAdreessCart: {},
   errorPaymentDialog: false,
   invoiceDialog: false,
+  shippingAddressOk: false,
 };
 
 export default (state = INIT_STATE, action) => {
@@ -114,11 +116,9 @@ export default (state = INIT_STATE, action) => {
       };
 
     case OPEN_DIALOG_FOR_PAYMENT_ERROR:
-
       return {...state, errorPaymentDialog: action.payload};
 
     case OPEN_DIALOG_FOR_INVOICE:
-
       return {...state, invoiceDialog: action.payload};
 
     case SAVE_CART_PRICING:
@@ -214,6 +214,7 @@ export default (state = INIT_STATE, action) => {
         hardwoodFinish: '',
         hardwoodSelected: '',
         paymentMethod: '',
+        shippingAddressOk: false
       };
 
     case PICK_THICKNESS:
@@ -276,6 +277,10 @@ export default (state = INIT_STATE, action) => {
 
     case SAVE_IMAGE_UPLOADED:
       return {...state, imageUploaded: action.payload};
+
+    case VALIDATE_SHIPPING_ADDRESS:
+      console.log(`cambio la direccion y esta bien`)
+      return {...state, shippingAddressOk: true};
 
     case PICK_QUANTITY:
       return {...state, quantity: action.payload};

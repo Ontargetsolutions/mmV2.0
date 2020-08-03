@@ -13,10 +13,13 @@ module.exports = {
       `en el backend lo que llega pa buscar delivery fee ${JSON.stringify (req.body)}`
     );
 
+    let newCountryCode;
 
-    if (req.body.Country) {
-      let countryCode = lookup.byCountry(req.body.Country);
-      console.log(`---------------------`+ countryCode);
+    if (req.body.source === "differentAdress") {
+      let countryCode = lookup.byCountry(req.body.user.Country);
+      console.log(`---------------------`+ JSON.stringify(countryCode));
+       newCountryCode = countryCode.iso2;
+      console.log(`code........`, newCountryCode);
     }
 
     let country = req.body.user.Country ? req.body.user.Country : req.body.Country;
@@ -64,7 +67,7 @@ module.exports = {
                 City: req.body.user.City,
                 StateProvinceCode: stateCode.abbreviation,
                 PostalCode: req.body.user.Zip,
-                CountryCode: req.body.user.Country,
+                CountryCode: req.body.source === "cart"? req.body.user.Country: newCountryCode,
               },
             },
             ShipFrom: {
@@ -138,7 +141,7 @@ module.exports = {
             console.log(`%%%%%%%%%%%%%`, totalDelivery )
             return totalDelivery;
           })
-          .catch (err => res.status (422).json (err));
+          .catch (err => res.send (err));
       }
       // console.log(`%%%%%%%%%%%%%`, estDelFee )
       res.json (estDelFee);

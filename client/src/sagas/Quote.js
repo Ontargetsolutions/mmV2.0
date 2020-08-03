@@ -24,6 +24,7 @@ import {
   sendEmailWithPaymentConfirmationFailure,
   manageErrorDialog,
   manageInvoiceDialog,
+  shippingAddressOk,
 } from '../actions/QuoteActions';
 import {
   GET_ADOBE_STOCK_IMAGES,
@@ -39,6 +40,8 @@ import {
   SHOP_DONE_EMAIL,
 } from '../actions/types';
 import {all, call, fork, put, takeEvery} from 'redux-saga/effects';
+
+import {NotificationManager} from 'react-notifications';
 
 import quoteAPI from '../api/QuoteAPI';
 import utilAPI from '../api/UtilAPI';
@@ -220,6 +223,7 @@ function* reorderS (payload) {
 function* getDeliveryFeeS (payload) {
   const data = payload.payload;
   console.log (`data en delivery fee ${JSON.stringify (data)}`);
+
   try {
     const newFee = yield call (getDeliveryFeeRequest, data);
     console.log (
@@ -228,7 +232,19 @@ function* getDeliveryFeeS (payload) {
     if (newFee.message) {
       yield put (getDeliveryFeeFailure (newFee.message));
     } else {
-      yield put (getDeliveryFeeSuccess (parseFloat (newFee.data)));
+      if (
+        newFee.data.error &&
+        newFee.data.error.response.errors[0].message !== ''
+      ) {
+        NotificationManager.error (
+          newFee.data.error.response.errors[0].message
+        );
+      } else {
+        yield put (getDeliveryFeeSuccess (parseFloat (newFee.data)));
+        if (data.source === 'differentAdress') {
+          yield put (shippingAddressOk ());
+        }
+      }
     }
   } catch (error) {
     yield put (getDeliveryFeeFailure (error));
@@ -258,8 +274,7 @@ function* paymentS (payload) {
         console.log (`entro a 1`);
         yield put (paymentSuccess (pay.data));
         yield put (manageInvoiceDialog (true));
-      }
-       else {
+      } else {
         console.log (`entro a 2`);
         yield put (paymentSuccess (pay.data));
         yield put (manageErrorDialog (true));

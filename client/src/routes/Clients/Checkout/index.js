@@ -17,11 +17,9 @@ import { RctCard, RctCardContent } from "../../../components/RctCard";
 class Checkout extends Component {
   render() {
     const { match } = this.props;
-    console.log(`money data en el reducer`, this.props.quoteMoneyData);
+   
     const  source  = this.props.quoteToView.source ? this.props.quoteToView.source : "cart";
-    console.log(`source`, source);
-    console.log(`=========>>>>>>>>>>>>quote to view`, this.props.quoteToView);
-    console.log(`heloooooooouuuuu`);
+
     return (
       <div className="checkout-wrap">
         <RctCard customClasses="overflow-hidden">

@@ -243,7 +243,7 @@ class BillingForm extends Component {
             disabled={!this.isFormValid ()}
             onClick={() => {
               this.props.saveBillingInfo (this.state.billingInformation);
-              this.props.getDeliveryFee({user: this.props.shippingAdreessCart, cart: this.props.cart});
+              // this.props.getDeliveryFee({user: this.props.shippingAdreessCart, cart: this.props.cart, source: "differentAdress"});
               this.props.onComplete ();
             }}
             color="primary"

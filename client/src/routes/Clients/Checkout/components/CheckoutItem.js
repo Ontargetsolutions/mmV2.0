@@ -25,6 +25,7 @@ class CheckoutItem extends Component {
       this.props.getDeliveryFee ({
         user: this.props.userData,
         cart: this.props.cart,
+        source: 'cart'
       });
     }
   }

@@ -11,6 +11,10 @@ router
   .route("/getEmployees")
   .get(User.getAllEmployees);
 
+  router
+  .route("/getEmployeesById")
+  .get(User.getAllEmployeesById);
+
 
 // Matches with "/api/users/:id"
 router

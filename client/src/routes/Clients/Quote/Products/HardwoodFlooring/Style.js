@@ -167,7 +167,7 @@ class Style extends Component {
                   <FormControlLabel
                     value="Rustical"
                     control={<Radio />}
-                    label="Rustical"
+                    label="Rustic"
                   />
                 </RadioGroup>
               </FormControl>
@@ -277,7 +277,7 @@ class Style extends Component {
                   <FormControlLabel
                     value="Rustical"
                     control={<Radio />}
-                    label="Rustical"
+                    label="Rustic"
                   />
                 </RadioGroup>
               </FormControl>

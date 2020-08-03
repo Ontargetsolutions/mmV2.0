@@ -17,6 +17,11 @@ import {
   GET_USER_BY_ID,
   GET_USER_BY_ID_SUCCESS,
   GET_USER_BY_ID_FAILURE,
+  VIEW_USER_DIALOG,
+  EDIT_USER_DIALOG,
+  GET_WORKER_BY_ID,
+  GET_WORKER_BY_ID_SUCCESS,
+  GET_WORKER_BY_ID_FAILURE,
 } from "./types";
 
 /**
@@ -61,6 +66,17 @@ export const getUserListSuccess = userList => ({
 export const getUserListFailure = error => ({
   type: GET_USERS_FAILURE,
   payload: error,
+});
+
+export const manageViewUserDialog = (value) => ({
+  type: VIEW_USER_DIALOG,
+  payload: value,
+});
+
+
+export const manageEditUserDialog = (value) => ({
+  type: EDIT_USER_DIALOG,
+  payload: value,
 });
 
 /**
@@ -132,6 +148,28 @@ export const getWorkersListFailure = error => ({
   type: GET_WORKERS_FAILURE,
   payload: error,
 });
+
+export const getWorkersById = (id) => (console.log(`en la accion para buscar trabajadores por Id`),{
+  type: GET_WORKER_BY_ID,
+  payload: id
+});
+
+/**
+ * Redux Action add User success
+ */
+export const getWorkersByIdSuccess = worker => ({
+  type: GET_WORKER_BY_ID_SUCCESS,
+  payload: worker,
+});
+
+/**
+ * Redux Action add User failure
+ */
+export const getWorkersByIdFailure = error => ({
+  type: GET_WORKER_BY_ID_FAILURE,
+  payload: error,
+});
+
 
 /**
  * Redux Action add User

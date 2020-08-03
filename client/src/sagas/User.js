@@ -1,10 +1,10 @@
 /**
  * Auth Sagas
  */
-import { all, call, fork, put, takeEvery } from "redux-saga/effects";
-import { USER_UPDATE } from "../actions/types";
-import { updateUserFailure, updateUserSuccess } from "../actions";
-import { NotificationManager } from "react-notifications";
+import {all, call, fork, put, takeEvery} from 'redux-saga/effects';
+import {USER_UPDATE, GET_WORKER_BY_ID} from '../actions/types';
+import {updateUserFailure, updateUserSuccess} from '../actions';
+import {NotificationManager} from 'react-notifications';
 
 import {
   GET_USERS,
@@ -12,7 +12,7 @@ import {
   DELETE_USER,
   GET_WORKERS,
   GET_USER_BY_ID,
-} from "../actions/types";
+} from '../actions/types';
 import {
   getUserListFailure,
   getUserListSuccess,
@@ -24,48 +24,51 @@ import {
   getWorkersList,
   getPersonByIdFailure,
   getPersonByIdSuccess,
-} from "../actions/UserActions";
+  getWorkersByIdFailure,
+  getWorkersByIdSuccess,
+} from '../actions/UserActions';
 
-
-import userAPI from "../api/UserAPI";
+import userAPI from '../api/UserAPI';
 
 const updateUserRequest = async (id, user) =>
-  await userAPI.updateUser(id, user)
-    .then(authUser => authUser)
-    .catch(error => error);
+  await userAPI
+    .updateUser (id, user)
+    .then (authUser => authUser)
+    .catch (error => error);
 
 const getUserListRequest = async user =>
-  await userAPI.getUsers()
-    .then(usersList => usersList)
-    .catch(error => error);
+  await userAPI
+    .getUsers ()
+    .then (usersList => usersList)
+    .catch (error => error);
 
 const getWorkerListRequest = async user =>
-  await userAPI.getAllWorkers()
-    .then(workersList => workersList)
-    .catch(error => error);
+  await userAPI
+    .getAllWorkers ()
+    .then (workersList => workersList)
+    .catch (error => error);
 
 const getPersonByIdRequest = async id =>
-  await userAPI.getUser(id)
-    .then(person => person)
-    .catch(error => error);
+  await userAPI.getUser (id).then (person => person).catch (error => error);
 
-
+const getWorkerByIdRequest = async id =>
+  await userAPI.getUser (id).then (person => person).catch (error => error);
 
 /**
  * UPDATE USER
  */
-function* updateUserS(payload) {
+function* updateUserS (payload) {
   const user = payload.payload;
   try {
-    const userUpdated = yield call(updateUserRequest,user.Id, user);
-    console.log(`user updated ${JSON.stringify(userUpdated)}`)
+    const userUpdated = yield call (updateUserRequest, user.Id, user);
+    console.log (`user updated ${JSON.stringify (userUpdated)}`);
     if (userUpdated.message) {
-      yield put(updateUserFailure(userUpdated.message));
+      yield put (updateUserFailure (userUpdated.message));
     } else {
-      yield put(updateUserSuccess(userUpdated.data));
+      yield put (updateUserSuccess (userUpdated.data));
     }
   } catch (error) {
-    yield put(updateUserFailure(error));
+    yield put (updateUserFailure (error));
   }
 }
 
@@ -92,37 +95,38 @@ function* updateUserS(payload) {
 /**
  * GET USER LIST
  */
-function* getUserListS() {
+function* getUserListS () {
   try {
-    const userList = yield call(getUserListRequest);
+    const userList = yield call (getUserListRequest);
     if (userList.message) {
-      yield put(getUserListFailure(userList.message));
+      yield put (getUserListFailure (userList.message));
     } else {
-      yield put(getUserListSuccess(userList.data));
+      yield put (getUserListSuccess (userList.data));
     }
   } catch (error) {
-    yield put(getUserListFailure(error));
+    yield put (getUserListFailure (error));
   }
 }
 
 /**
  * GET WORKERS LIST
  */
-function* getWorkersListS() {
-  console.log(`en la saga para buscar los ntrabajadores`)
+function* getWorkersListS () {
+  console.log (`en la saga para buscar los ntrabajadores`);
   try {
-    const workerList = yield call(getWorkerListRequest);
-    console.log(`lo que vira delosn trabajadores ${JSON.stringify(workerList)}`);
+    const workerList = yield call (getWorkerListRequest);
+    console.log (
+      `lo que vira delosn trabajadores ${JSON.stringify (workerList)}`
+    );
     if (workerList.message) {
-      yield put(getWorkersListFailure(workerList.message));
+      yield put (getWorkersListFailure (workerList.message));
     } else {
-      yield put(getWorkersListSuccess(workerList.data));
+      yield put (getWorkersListSuccess (workerList.data));
     }
   } catch (error) {
-    yield put(getWorkersListFailure(error));
+    yield put (getWorkersListFailure (error));
   }
 }
-
 
 /**
  * GET USER BY ID
@@ -141,26 +145,51 @@ function* getUserByIdS (payload) {
   }
 }
 
+/**
+ * GET WORKER BY ID
+ */
+function* getWorkerByIdS (payload) {
+  console.log(`7777777777777777`,payload)
+  const id = payload.payload;
+  try {
+    const worker = yield call (getWorkerByIdRequest, id);
+    console.log(`resultado de buscar el trabajador`, worker);
+    if (worker.message) {
+      yield put (getWorkersByIdFailure (worker.message));
+    } else {
+      yield put (getWorkersByIdSuccess (worker.data));
+    }
+  } catch (error) {
+    yield put (getWorkersByIdFailure (error));
+  }
+}
 
 /**
  * GET USER
  */
-export function* updateUserWatcher() {
-  yield takeEvery(USER_UPDATE, updateUserS);
+export function* updateUserWatcher () {
+  yield takeEvery (USER_UPDATE, updateUserS);
 }
 
 /**
  * GET USERS LIST
  */
-export function* getUserListWatcher() {
-  yield takeEvery(GET_USERS, getUserListS);
+export function* getUserListWatcher () {
+  yield takeEvery (GET_USERS, getUserListS);
 }
 
 /**
  * GET WORKERS LIST
  */
-export function* getWorkersListWatcher() {
-  yield takeEvery(GET_WORKERS, getWorkersListS);
+export function* getWorkersListWatcher () {
+  yield takeEvery (GET_WORKERS, getWorkersListS);
+}
+
+/**
+ * GET WORKER BY ID
+ */
+export function* getWorkerByIdWatcher () {
+  yield takeEvery (GET_WORKER_BY_ID, getWorkerByIdS);
 }
 
 /**
@@ -179,21 +208,21 @@ export function* getWorkersListWatcher() {
 /**
  * DELETE User
  */
-export function* getPersonByIdWatcher() {
-  yield takeEvery(GET_USER_BY_ID, getUserByIdS);
+export function* getPersonByIdWatcher () {
+  yield takeEvery (GET_USER_BY_ID, getUserByIdS);
 }
 
 /**
  * Auth Root Saga
  */
-export default function* rootSaga() {
-  yield all([
-    fork(updateUserWatcher),
-    fork(getUserListWatcher),
+export default function* rootSaga () {
+  yield all ([
+    fork (updateUserWatcher),
+    fork (getUserListWatcher),
     // fork(createUsertWatcher),
     // fork(deleteUsertWatcher),
-    fork(getWorkersListWatcher),  
-    fork(getPersonByIdWatcher),
-
+    fork (getWorkersListWatcher),
+    fork (getPersonByIdWatcher),
+    fork (getWorkerByIdWatcher),
   ]);
 }
