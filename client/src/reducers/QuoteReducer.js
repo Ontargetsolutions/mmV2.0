@@ -306,7 +306,6 @@ export default (state = INIT_STATE, action) => {
       return {...state};
 
     case GET_DELIVERY_FEE_SUCCESS:
-      NotificationManager.success (`buscó el delivery fee de nuevo`);
       return {...state, deliveryFee: action.payload};
 
     case GET_IMAGE_SUCCESS:
