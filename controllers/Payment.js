@@ -68,10 +68,10 @@ module.exports = {
     const options = {
       method: 'POST',
       //testing uri
-      uri: 'https://apitest.authorize.net/xml/v1/request.api',
+      // uri: 'https://apitest.authorize.net/xml/v1/request.api',
 
       //production uri
-      // uri: 'https://api.authorize.net/xml/v1/request.api',
+      uri: 'https://api.authorize.net/xml/v1/request.api',
 
       body: {
         createTransactionRequest: createTransactionRequest,
