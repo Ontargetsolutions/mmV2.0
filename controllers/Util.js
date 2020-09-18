@@ -230,4 +230,69 @@ module.exports = {
       }
     });
   },
+
+
+  sendEmailWhenOrderWasPlaced: (req, res) => {
+    console.log (
+      `esto es lo que llega para mandar el email al backend`,
+      req.body
+    );
+
+    let orderOnline = {
+      ItemInfo: req.body.itemsBought,
+      //  {
+      //   objectID: req.body.itemsBought.objectID,
+      //   name: req.body.itemsBought.name,
+      //   image: req.body.itemsBought.image,
+      //   price: req.body.itemsBought.price,
+      //   material: req.body.itemsBought.material,
+      //   dimentions:req.body.itemsBought.dimentions,
+      //   productQuantity: req.body.itemsBought.productQuantity,
+      //   totalPrice: req.body.itemsBought.totalPrice,
+      //   weigth: req.body.itemsBought.weigth,
+      //   height: req.body.itemsBought.height,
+      //   width: req.body.itemsBought.width,
+      //   length: req.body.itemsBought.length
+      // },
+      UserInfo: {
+        Name: req.body.userInfo.Name,
+        Phone: req.body.userInfo.Phone,
+        AccountType: req.body.userInfo.AccountType,
+        Company: req.body.userInfo.Company,
+        Email: req.body.userInfo.Email,
+        Address1: req.body.userInfo.Address1,
+        Address2: req.body.userInfo.Address2,
+        City: req.body.userInfo.City,
+        Country: req.body.userInfo.Country,
+        State: req.body.userInfo.State,
+        Zip: req.body.userInfo.Zip,
+      }
+    };
+
+    let transporter = nodemailer.createTransport ({
+      host: 'smtp.ipower.com',
+      port: 465,
+      auth: {
+        user: 'noreply@montagemosaics.com',
+        pass: 'N0Reply1234*',
+      },
+    });
+
+    let mailOptions = {
+      from: 'noreply@montagemosaics.com',
+      to: 'irina.machado@ontargetech.com',
+      // to: 'designstudio@montagemosaics.com',
+      subject: 'Order details',
+      text: JSON.stringify (orderOnline),
+    };
+
+    transporter.sendMail (mailOptions, function (error, info) {
+      if (error) {
+        console.log (error);
+      } else {
+        console.log ('Email sent: ' + info.response);
+        res.send (info.response);
+      }
+    });
+  },
 };

@@ -17,5 +17,8 @@ router
   .route("/sendEmail")
   .post(Util.sendEmailWhenShopDone);
 
-  
+  router
+  .route("/sendEmailQuote")
+  .post(Util.sendEmailWhenOrderWasPlaced);
+
 module.exports = router;

@@ -52,6 +52,7 @@ class UserForm extends React.Component {
 
     this.props.closing();
   };
+  
   render() {
     const { name, email, phone, role, activateAccount } = this.state;
 

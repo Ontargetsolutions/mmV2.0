@@ -25,6 +25,8 @@ import {
   manageErrorDialog,
   manageInvoiceDialog,
   shippingAddressOk,
+  sendEmailForQuotePostedFailure,
+  sendEmailForQuotePostedSuccess
 } from '../actions/QuoteActions';
 import {
   GET_ADOBE_STOCK_IMAGES,
@@ -38,6 +40,7 @@ import {
   PAYMENT,
   BILLING_INFO,
   SHOP_DONE_EMAIL,
+  QUOTE_DONE_EMAIL,
 } from '../actions/types';
 import {all, call, fork, put, takeEvery} from 'redux-saga/effects';
 
@@ -91,6 +94,16 @@ const sendEmailShopDoneRequest = async parameter => {
   );
   return await utilAPI
     .sendEmailWhenShopIsDone (parameter)
+    .then (imageList => imageList)
+    .catch (error => error);
+};
+
+const sendEmailQuoteDoneRequest = async parameter => {
+  console.log (
+    `aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii`
+  );
+  return await utilAPI
+    .sendEmailWhenOrderIsPlaced(parameter)
     .then (imageList => imageList)
     .catch (error => error);
 };
@@ -307,6 +320,23 @@ function* sendEmailShopDoneS (payload) {
   }
 }
 
+function* sendEmailQuoteDoneS (payload) {
+  console.log (`payload en send email ${JSON.stringify (payload)}`);
+  const data = payload.payload;
+  console.log (`data en send email ${JSON.stringify (data)}`);
+  try {
+    const info = yield call (sendEmailQuoteDoneRequest, data);
+    console.log (`lo que vira de enviar el email${JSON.stringify (info)}`);
+    if (data.message) {
+      yield put (sendEmailForQuotePostedFailure (info.message));
+    } else {
+      yield put (sendEmailForQuotePostedSuccess (info));
+    }
+  } catch (error) {
+    yield put (sendEmailForQuotePostedFailure (error));
+  }
+}
+
 /**
  * SAVE THE QUOTE
  */
@@ -516,6 +546,10 @@ export function* sendEmailShopDoneWatcher () {
   yield takeEvery (SHOP_DONE_EMAIL, sendEmailShopDoneS);
 }
 
+export function* sendEmailOrderPlacedWatcher () {
+  yield takeEvery (QUOTE_DONE_EMAIL, sendEmailQuoteDoneS);
+}
+
 // // /**
 // //  * Save the billing info in the reducer
 // //  */
@@ -537,6 +571,7 @@ export default function* rootSaga () {
     fork (getDeliveryFeeWatcher),
     fork (paymentWatcher),
     fork (sendEmailShopDoneWatcher),
+    fork (sendEmailOrderPlacedWatcher),
     // fork(saveBillingInfoWatcher)
   ]);
 }

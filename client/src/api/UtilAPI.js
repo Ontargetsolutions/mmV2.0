@@ -26,8 +26,14 @@ export default {
     return axios.post (`/api/utils/payment`, data);
   },
 
-  //send email
+  //send email for purchase
   sendEmailWhenShopIsDone: data => {
     return axios.post (`/api/utils/sendEmail`, data);
   },
+
+  //send email for quote
+  sendEmailWhenOrderIsPlaced: data => {
+    return axios.post (`/api/utils/sendEmailQuote`, data);
+  },
+  
 };

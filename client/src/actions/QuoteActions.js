@@ -64,6 +64,8 @@ import {
   OPEN_DIALOG_FOR_PAYMENT_ERROR,
   OPEN_DIALOG_FOR_INVOICE,
   VALIDATE_SHIPPING_ADDRESS,
+  QUOTE_DONE_EMAIL_SUCCESS,
+  QUOTE_DONE_EMAIL_FAILURE,
 } from './types';
 
 /**
@@ -404,8 +406,9 @@ export const payment = (data, history) => ({
   payload: {data, history},
 });
 
-export const sendEmailWithPaymentConfirmation = data => // console.log(`5555555555555555555555555555555  en la accion`),
-({
+export const sendEmailWithPaymentConfirmation = (
+  data // console.log(`5555555555555555555555555555555  en la accion`),
+) => ({
   type: SHOP_DONE_EMAIL,
   payload: data,
 });
@@ -431,6 +434,16 @@ export const sendEmailWithPaymentConfirmationSuccess = data => ({
 
 export const sendEmailWithPaymentConfirmationFailure = error => ({
   type: SHOP_DONE_EMAIL_FAILURE,
+  payload: error,
+});
+
+export const sendEmailForQuotePostedSuccess = data => ({
+  type: QUOTE_DONE_EMAIL_SUCCESS,
+  payload: data,
+});
+
+export const sendEmailForQuotePostedFailure = error => ({
+  type: QUOTE_DONE_EMAIL_FAILURE,
   payload: error,
 });
 
