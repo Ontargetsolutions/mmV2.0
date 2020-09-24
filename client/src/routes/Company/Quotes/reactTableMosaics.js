@@ -125,12 +125,10 @@ class MyOrdersTable extends Component {
                         <IconButton
                           color="primary"
                           aria-label="Edit"
-                       
                         >
                           <i className="zmdi zmdi-edit" />
                         </IconButton>
 
-                        
                         <IconButton
                           color="primary"
                           aria-label="Edit"

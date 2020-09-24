@@ -26,7 +26,7 @@ import {
   manageInvoiceDialog,
   shippingAddressOk,
   sendEmailForQuotePostedFailure,
-  sendEmailForQuotePostedSuccess
+  sendEmailForQuotePostedSuccess,
 } from '../actions/QuoteActions';
 import {
   GET_ADOBE_STOCK_IMAGES,
@@ -103,7 +103,7 @@ const sendEmailQuoteDoneRequest = async parameter => {
     `aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii`
   );
   return await utilAPI
-    .sendEmailWhenOrderIsPlaced(parameter)
+    .sendEmailWhenOrderIsPlaced (parameter)
     .then (imageList => imageList)
     .catch (error => error);
 };
@@ -407,6 +407,29 @@ function* saveQuoteS (payload) {
           yield put (saveQuoteFailure (quoteMosaic.message));
         } else {
           yield put (saveQuoteSuccess (quoteMosaic.data.files));
+          const emailInfo = yield call (sendEmailQuoteDoneRequest, {
+            OrderInfo: {
+              ImagePath: artSource === 'Upload a pic'
+                ? imageData.data.id
+                : imageSelectedId,
+              FramePath: frameSelected,
+              ImageSource: artSource === 'Upload a pic'
+                ? 'upload'
+                : artSource === 'Extensive Gallery' ? 'adobe' : 'company',
+              Size: size,
+              Quantity: quantity,
+              Address1: address1,
+              Address2: address2,
+              City: city,
+              Country: country,
+              State: state,
+              Zip: zipcode,
+              ImageId: imageData ? imageData.data.id : null,
+              Service: serviceSelected,
+              Product: 'Mosaics',
+            },
+            userInfo: user,
+          });
         }
         break;
       case 'HardwoodFlooring':
@@ -436,6 +459,30 @@ function* saveQuoteS (payload) {
           yield put (saveQuoteFailure (quoteHardwood.message));
         } else {
           yield put (saveQuoteSuccess (quoteHardwood.data.files));
+          const emailInfo = yield call (sendEmailQuoteDoneRequest, {
+            OrderInfo: {
+              ImagePath: imageSelectedId,
+              HardwoodType: hardwoodType,
+              HardwoodStyle: hardwoodStyle,
+              HardwoodSelected: hardwoodSelected,
+              HardwoodFinish: hardwoodFinish,
+              HardwoodThickness: hardwoodThickness,
+              HardwoodWidth: hardwoodWidth,
+              HardwoodLength: hardwoodLength,
+              Quantity: quantity,
+              Address1: address1,
+              Address2: address2,
+              City: city,
+              Country: country,
+              State: state,
+              Zip: zipcode,
+              Status: 'Ordered',
+              UserId: user.id,
+              Cost: 0,
+              Product: 'HardwoodFlooring',
+            },
+            userInfo: user,
+          });
         }
         break;
       case 'IznikTile':
@@ -466,6 +513,30 @@ function* saveQuoteS (payload) {
           yield put (saveQuoteFailure (quoteIznik.message));
         } else {
           yield put (saveQuoteSuccess (quoteIznik.data.files));
+          const emailInfo = yield call (sendEmailQuoteDoneRequest, {
+            OrderInfo: {
+              ImagePath: artSource === 'Upload a pic'
+                ? imageData.data.id
+                : imageSelectedId,
+              FramePath: frameSelected,
+              ImageSource: artSource === 'Upload a pic' ? 'upload' : 'company',
+              Size: size,
+              Quantity: quantity,
+              Address1: address1,
+              Address2: address2,
+              City: city,
+              Country: country,
+              State: state,
+              Zip: zipcode,
+              Status: 'Ordered',
+              UserId: user.id,
+              ImageId: imageData ? imageData.data.id : null,
+              Cost: 0,
+              Product: 'IznikTile',
+              Service: serviceSelected,
+            },
+            userInfo: user,
+          });
         }
         break;
       default:

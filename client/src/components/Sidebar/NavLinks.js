@@ -108,20 +108,20 @@ export default {
         }
       ]
     },
-    {
-      menu_title: "sidebar.images",
-      menu_icon: "zmdi zmdi-image",
-      path: "/app/images",
-      new_item: false,
-      type_multi: null
-    },
-    {
-      menu_title: "sidebar.frames",
-      menu_icon: "zmdi zmdi-square-o",
-      path: "/app/frames",
-      new_item: false,
-      type_multi: null
-    }
+    // {
+    //   menu_title: "sidebar.images",
+    //   menu_icon: "zmdi zmdi-image",
+    //   path: "/app/images",
+    //   new_item: false,
+    //   type_multi: null
+    // },
+    // {
+    //   menu_title: "sidebar.frames",
+    //   menu_icon: "zmdi zmdi-square-o",
+    //   path: "/app/frames",
+    //   new_item: false,
+    //   type_multi: null
+    // }
   ],
   category7: [
     {

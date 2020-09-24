@@ -1,5 +1,4 @@
 const db = require("../models");
-var moment = require("moment");
 var Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 

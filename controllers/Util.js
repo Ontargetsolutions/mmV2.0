@@ -2,7 +2,7 @@ const db = require ('../models');
 const request = require ('request-promise');
 const countryAPI = require ('countrystatesjs');
 const nodemailer = require ('nodemailer');
-const lookup = require('country-code-lookup')
+const lookup = require ('country-code-lookup');
 
 // Defining methods for User Controllers
 module.exports = {
@@ -15,15 +15,17 @@ module.exports = {
 
     let newCountryCode;
 
-    if (req.body.source === "differentAdress") {
-      let countryCode = lookup.byCountry(req.body.user.Country);
-      console.log(`---------------------`+ JSON.stringify(countryCode));
-       newCountryCode = countryCode.iso2;
-      console.log(`code........`, newCountryCode);
+    if (req.body.source === 'differentAdress') {
+      let countryCode = lookup.byCountry (req.body.user.Country);
+      console.log (`---------------------` + JSON.stringify (countryCode));
+      newCountryCode = countryCode.iso2;
+      console.log (`code........`, newCountryCode);
     }
 
-    let country = req.body.user.Country ? req.body.user.Country : req.body.Country;
-    let stateS = req.body.user.State ? req.body.user.State: req.body.State;
+    let country = req.body.user.Country
+      ? req.body.user.Country
+      : req.body.Country;
+    let stateS = req.body.user.State ? req.body.user.State : req.body.State;
 
     const stateCode = countryAPI.state (
       // country,
@@ -31,7 +33,7 @@ module.exports = {
       req.body.user.Country,
       req.body.user.State
     );
-    console.log(`lo que devuelve el codigo del estado`, stateCode);
+    console.log (`lo que devuelve el codigo del estado`, stateCode);
 
     let estDelFee = 0;
     let upsRes;
@@ -67,7 +69,9 @@ module.exports = {
                 City: req.body.user.City,
                 StateProvinceCode: stateCode.abbreviation,
                 PostalCode: req.body.user.Zip,
-                CountryCode: req.body.source === "cart"? req.body.user.Country: newCountryCode,
+                CountryCode: req.body.source === 'cart'
+                  ? req.body.user.Country
+                  : newCountryCode,
               },
             },
             ShipFrom: {
@@ -138,7 +142,7 @@ module.exports = {
                 .MonetaryValue
             );
             totalDelivery += deliveryFee;
-            console.log(`%%%%%%%%%%%%%`, totalDelivery )
+            console.log (`%%%%%%%%%%%%%`, totalDelivery);
             return totalDelivery;
           })
           .catch (err => res.send (err));
@@ -231,7 +235,6 @@ module.exports = {
     });
   },
 
-
   sendEmailWhenOrderWasPlaced: (req, res) => {
     console.log (
       `esto es lo que llega para mandar el email al backend`,
@@ -239,7 +242,7 @@ module.exports = {
     );
 
     let orderOnline = {
-      ItemInfo: req.body.itemsBought,
+      ItemInfo: req.body.OrderInfo,
       //  {
       //   objectID: req.body.itemsBought.objectID,
       //   name: req.body.itemsBought.name,
@@ -266,7 +269,7 @@ module.exports = {
         Country: req.body.userInfo.Country,
         State: req.body.userInfo.State,
         Zip: req.body.userInfo.Zip,
-      }
+      },
     };
 
     let transporter = nodemailer.createTransport ({
@@ -274,16 +277,77 @@ module.exports = {
       port: 465,
       auth: {
         user: 'noreply@montagemosaics.com',
-        pass: 'N0Reply1234*',
+        // pass: 'N0Reply1234*',
+        pass: process.env.EMAIL_PASSWORD,
       },
     });
 
+    let message = '';
+
+    switch (req.body.OrderInfo.Product) {
+      case 'Mosaics':
+        message = `<p style='font-weight:bold;'> Client Data</p> 
+        <p>Name: ${req.body.userInfo.Name} </p> 
+        <p>Phone: ${req.body.userInfo.Phone} </p> 
+        <p>Email: ${req.body.userInfo.Email} </p>
+        <p>Account Type: ${req.body.userInfo.AccountType} </p>  
+        <p>Address: ${req.body.userInfo.Address1}, ${req.body.userInfo.Address2}, ${req.body.userInfo.City}, ${req.body.userInfo.State}, ${req.body.userInfo.Zip}, ${req.body.userInfo.Country}  </p>
+        <p style='font-weight:bold;'> Product Data </p>  
+        <p>Product: ${req.body.OrderInfo.Product} </p>
+        <p>Service: ${req.body.OrderInfo.Service} </p>
+        <p>Image or pattern: ${req.body.OrderInfo.ImagePath} </p>
+        <p>Frame: ${req.body.OrderInfo.FramePath} </p>
+        <p>Size: ${req.body.OrderInfo.Size} </p>
+        <p>Quantity: ${req.body.OrderInfo.Quantity} </p>
+        <p>Delivery Address: ${req.body.OrderInfo.Address1}, ${req.body.OrderInfo.Address2}, ${req.body.OrderInfo.City}, ${req.body.OrderInfo.State}, ${req.body.OrderInfo.Zip}, ${req.body.OrderInfo.Country}</p>
+        `;
+        break;
+      case 'HardwoodFlooring':
+        message = `<p style='font-weight:bold;'> Client Data</p> 
+          <p>Name: ${req.body.userInfo.Name} </p> 
+          <p>Phone: ${req.body.userInfo.Phone} </p> 
+          <p>Email: ${req.body.userInfo.Email} </p>
+          <p>Account Type: ${req.body.userInfo.AccountType} </p>  
+          <p>Address: ${req.body.userInfo.Address1}, ${req.body.userInfo.Address2}, ${req.body.userInfo.City}, ${req.body.userInfo.State}, ${req.body.userInfo.Zip}, ${req.body.userInfo.Country}  </p>
+          <p style='font-weight:bold;'>Product Data </p>  
+          <p>Product: ${req.body.OrderInfo.Product} </p>
+          <p>Hardwood Type: ${req.body.OrderInfo.HardwoodType} </p>
+          <p>Hardwood Style: ${req.body.OrderInfo.HardwoodStyle} </p>
+          <p>Hardwood Selected: ${req.body.OrderInfo.HardwoodSelected} </p>
+          <p>HardwoodFinish:  ${req.body.OrderInfo.HardwoodFinish} </p>
+          <p>HardwoodThickness: ${req.body.OrderInfo.HardwoodThickness} </p>
+          <p>Hardwood Width: ${req.body.OrderInfo.HardwoodWidth} </p>
+          <p>Hardwood Length: ${req.body.OrderInfo.HardwoodLength} </p>
+          <p>Quantity: ${req.body.OrderInfo.Quantity} </p>
+          <p>Delivery Address: ${req.body.OrderInfo.Address1}, ${req.body.OrderInfo.Address2}, ${req.body.OrderInfo.City}, ${req.body.OrderInfo.State}, ${req.body.OrderInfo.Zip}, ${req.body.OrderInfo.Country}</p>
+          `;
+        break;
+
+      default:
+        message = `<p style='font-weight:bold;'> Client Data</p> 
+        <p>Name: ${req.body.userInfo.Name} </p> 
+        <p>Phone: ${req.body.userInfo.Phone} </p> 
+        <p>Email: ${req.body.userInfo.Email} </p>
+        <p>Account Type: ${req.body.userInfo.AccountType} </p>  
+        <p>Address: ${req.body.userInfo.Address1}, ${req.body.userInfo.Address2}, ${req.body.userInfo.City}, ${req.body.userInfo.State}, ${req.body.userInfo.Zip}, ${req.body.userInfo.Country}  </p>
+        <p style='font-weight:bold;'> Product Data </p>  
+        <p>Product: ${req.body.OrderInfo.Product} </p>
+        <p>Service: ${req.body.OrderInfo.Service} </p>
+        <p>Image or pattern: ${req.body.OrderInfo.ImagePath} </p>
+        <p>Frame: ${req.body.OrderInfo.FramePath} </p>
+        <p>Size: ${req.body.OrderInfo.Size} </p>
+        <p>Quantity: ${req.body.OrderInfo.Quantity} </p>
+        <p>Delivery Address: ${req.body.OrderInfo.Address1}, ${req.body.OrderInfo.Address2}, ${req.body.OrderInfo.City}, ${req.body.OrderInfo.State}, ${req.body.OrderInfo.Zip}, ${req.body.OrderInfo.Country}</p>
+        `;
+        break;
+    }
+
     let mailOptions = {
       from: 'noreply@montagemosaics.com',
-      to: 'irina.machado@ontargetech.com',
-      // to: 'designstudio@montagemosaics.com',
+      to: 'designstudio@montagemosaics.com',
       subject: 'Order details',
-      text: JSON.stringify (orderOnline),
+      // text: JSON.stringify (orderOnline),
+      html: message,
     };
 
     transporter.sendMail (mailOptions, function (error, info) {
