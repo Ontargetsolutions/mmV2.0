@@ -133,7 +133,7 @@ export default {
         {
           menu_title: "sidebar.sales",
           new_item: false,
-          path: "/app/reports/sales"
+          path: "/app/sales"
         },
         {
           path: "/app/clientsR",

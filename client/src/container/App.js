@@ -78,6 +78,7 @@ class App extends Component {
         <Route path="/session/404" component={AsyncSessionPage404Component} />
         <Route path="/forgot-password" component={AsyncForgotPasswordComponent} />
         <Route path="/client" component={AsyncClientDashboardComponent} />
+        <Route path="/dashboard" component={AsyncClientDashboardComponent} />
       </RctThemeProvider>
     );
   }

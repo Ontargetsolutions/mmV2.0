@@ -16,7 +16,7 @@ export default class EcommerceDashboard extends Component {
       const { match } = this.props;
       return (
          <div className="ecom-dashboard-wrapper">
-            <PageTitleBar title={<IntlMessages id="sidebar.ecommerce" />} match={match} />
+            
          </div>
       )
    }

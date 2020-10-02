@@ -27,6 +27,10 @@ import {
   shippingAddressOk,
   sendEmailForQuotePostedFailure,
   sendEmailForQuotePostedSuccess,
+  getAllNoCompletedQuotesFailure,
+  getAllNoCompletedQuotesSuccess,
+  getAllCompletedQuotesFailure,
+  getAllCompletedQuotesSuccess,
 } from '../actions/QuoteActions';
 import {
   GET_ADOBE_STOCK_IMAGES,
@@ -41,6 +45,8 @@ import {
   BILLING_INFO,
   SHOP_DONE_EMAIL,
   QUOTE_DONE_EMAIL,
+  GET_ALL_QUOTES_NO_COMPLETED,
+  GET_ALL_QUOTES_COMPLETED,
 } from '../actions/types';
 import {all, call, fork, put, takeEvery} from 'redux-saga/effects';
 
@@ -79,6 +85,18 @@ const generateInvoiceNumberRequest = async order =>
 const getAllOrdersByProductRequest = async product =>
   await quoteAPI
     .getAllQuotesByProduct (product)
+    .then (number => number)
+    .catch (error => error);
+
+const getAllNoCompletedQuotesRequest = async product =>
+  await quoteAPI
+    .getNoCompletedQuotesByProuct (product)
+    .then (number => number)
+    .catch (error => error);
+
+const getAllCompletedQuotesRequest = async product =>
+  await quoteAPI
+    .getCompletedQuotesByProuct (product)
     .then (number => number)
     .catch (error => error);
 
@@ -190,6 +208,40 @@ function* getAllOrdersByProductsS (payload) {
     }
   } catch (error) {
     yield put (getMyQuotesListFailure (error));
+  }
+}
+
+/**
+ * GET ORDERS NO COMPLETED
+ */
+function* getAllNoCompletedQuotesS (payload) {
+  const product = payload.payload;
+  try {
+    const list = yield call (getAllNoCompletedQuotesRequest, product);
+    if (list.message) {
+      yield put (getAllNoCompletedQuotesFailure (list.message));
+    } else {
+      yield put (getAllNoCompletedQuotesSuccess (list.data));
+    }
+  } catch (error) {
+    yield put (getAllNoCompletedQuotesFailure (error));
+  }
+}
+
+/**
+ * GET ORDERS COMPLETED
+ */
+function* getAllCompletedQuotesS (payload) {
+  const product = payload.payload;
+  try {
+    const list = yield call (getAllCompletedQuotesRequest, product);
+    if (list.message) {
+      yield put (getAllCompletedQuotesFailure (list.message));
+    } else {
+      yield put (getAllCompletedQuotesSuccess (list.data));
+    }
+  } catch (error) {
+    yield put (getAllNoCompletedQuotesFailure (error));
   }
 }
 
@@ -621,6 +673,13 @@ export function* sendEmailOrderPlacedWatcher () {
   yield takeEvery (QUOTE_DONE_EMAIL, sendEmailQuoteDoneS);
 }
 
+export function* getAllNoCompletedQuotesWatcher () {
+  yield takeEvery (GET_ALL_QUOTES_NO_COMPLETED, getAllNoCompletedQuotesS);
+}
+
+export function* getAllCompletedQuotesWatcher () {
+  yield takeEvery (GET_ALL_QUOTES_COMPLETED, getAllCompletedQuotesS);
+}
 // // /**
 // //  * Save the billing info in the reducer
 // //  */
@@ -643,6 +702,9 @@ export default function* rootSaga () {
     fork (paymentWatcher),
     fork (sendEmailShopDoneWatcher),
     fork (sendEmailOrderPlacedWatcher),
+    fork (getAllNoCompletedQuotesWatcher),
+    fork (getAllCompletedQuotesWatcher),
+
     // fork(saveBillingInfoWatcher)
   ]);
 }

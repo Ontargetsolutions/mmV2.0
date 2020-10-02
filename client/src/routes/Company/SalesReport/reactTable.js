@@ -8,17 +8,15 @@ import Tooltip from "@material-ui/core/Tooltip";
 
 import { connect } from "react-redux";
 import Moment from "react-moment";
-import Notification from "./Notifications";
+
 // redux action
 import {
-  generAllQuotesByProducts,
-  manageNotificaionDialog,
-  getAllNoCompletedQuotes
+  getAllCompletedQuotes
 } from "../../../actions";
 
 class MyOrdersTable extends Component {
   componentDidMount() {
-    this.props.getAllNoCompletedQuotes("Mosaics");
+    this.props.getAllCompletedQuotes("Mosaics");
   }
 
   formatUserList = list => {
@@ -40,17 +38,14 @@ class MyOrdersTable extends Component {
     return dataFilteredArray;
   };
 
-  handleClickOpen = id => {
-    this.props.manageNotificaionDialog(id);
-  };
+
 
   render() {
-    let datafiltered = this.filterData(this.props.ordersNoCompleted);
+    let datafiltered = this.filterData(this.props.ordersCompleted);
     let dataOrganized = this.formatUserList(datafiltered);
 
     return (
       <React.Fragment>
-        <Notification />
 
         <ReactTable
           data={
@@ -130,13 +125,13 @@ class MyOrdersTable extends Component {
                           <i className="zmdi zmdi-edit" />
                         </IconButton>
 
-                        <IconButton
+                        {/* <IconButton
                           color="primary"
                           aria-label="Edit"
                           onClick={() => this.handleClickOpen(prop[27])}
                         >
                           <i className="zmdi zmdi-notifications-add" />
-                        </IconButton>
+                        </IconButton> */}
                       </div>
                     )
                   };
@@ -191,13 +186,11 @@ class MyOrdersTable extends Component {
 
 // map state to props
 const mapStateToProps = ({ quote, authUser }) => {
-  const { ordersNoCompleted } = quote;
+  const { ordersCompleted } = quote;
   const { userData } = authUser;
-  return { ordersNoCompleted, userData };
+  return { ordersCompleted, userData };
 };
 
 export default connect(mapStateToProps, {
-  generAllQuotesByProducts,
-  manageNotificaionDialog,
-  getAllNoCompletedQuotes
+  getAllCompletedQuotes
 })(MyOrdersTable);

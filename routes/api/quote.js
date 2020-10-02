@@ -18,6 +18,8 @@ router.route("/getAllQuotes/:product").get(Quote.getAllQuotesByProuct);
 
 router.route("/getNoCompleatedQuotes/:product").get(Quote.getNoCompletedQuotesByProuct);
 
+router.route("/getCompleatedQuotes/:product").get(Quote.getCompletedQuotesByProuct);
+
 router.route("/invoiceNumber/:id").put(Quote.getQuotesByDate);
 
 module.exports = router;

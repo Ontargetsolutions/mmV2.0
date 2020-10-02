@@ -66,6 +66,9 @@ import {
   VALIDATE_SHIPPING_ADDRESS,
   QUOTE_DONE_EMAIL_SUCCESS,
   QUOTE_DONE_EMAIL_FAILURE,
+  GET_ALL_QUOTES_COMPLETED,
+  GET_ALL_QUOTES_COMPLETED_SUCCESS,
+  GET_ALL_QUOTES_COMPLETED_FAILURE,
 } from './types';
 
 /**
@@ -494,5 +497,20 @@ export const getAllNoCompletedQuotesFailure = error => ({
 
 export const getAllNoCompletedQuotesSuccess = list => ({
   type: GET_ALL_QUOTES_NO_COMPLETED_SUCCESS,
+  payload: list,
+});
+
+export const getAllCompletedQuotes = data => ({
+  type: GET_ALL_QUOTES_COMPLETED,
+  payload: data,
+});
+
+export const getAllCompletedQuotesFailure = error => ({
+  type: GET_ALL_QUOTES_COMPLETED_FAILURE,
+  payload: error,
+});
+
+export const getAllCompletedQuotesSuccess = list => ({
+  type: GET_ALL_QUOTES_COMPLETED_SUCCESS,
   payload: list,
 });

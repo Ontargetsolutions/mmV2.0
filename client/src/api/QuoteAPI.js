@@ -36,4 +36,12 @@ export default {
     );
     return axios.get (`/api/quote/getNoCompleatedQuotes/${product}`);
   },
+
+  getCompletedQuotesByProuct: product => {
+    console.log (
+      `en la api frontend para obtener quotas no completadas ${JSON.stringify (product)}`
+    );
+    return axios.get (`/api/quote/getCompleatedQuotes/${product}`);
+  },
 };
+

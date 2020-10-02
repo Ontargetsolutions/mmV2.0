@@ -27,6 +27,8 @@ import {
   AsyncQuotesIznikComponent,
   AsyncViewAllQuoteComponent,
   // AsyncSuccessfulPaymentComponent
+  AsyncSalesComponent,
+  AsyncCompanyDashboardComponent
 } from "../components/AsyncComponent/AsyncComponent";
 
 export default [
@@ -43,12 +45,20 @@ export default [
     component: AsyncProfileComponent
   },
   {
+    path: "sales",
+    component: AsyncSalesComponent
+  },
+  {
     path: "myMosaicsQuotes",
     component: AsyncMyQuotesComponent
   },
   {
     path: "myIznikQuotes",
     component: AsyncMyQuotesIznikComponent
+  },
+  {
+    path: "app/dashboard",
+    component: AsyncCompanyDashboardComponent
   },
   {
     path: "myHardwoodQuotes",
@@ -131,10 +141,11 @@ export default [
     component: AsyncImagesComponent
   },
   {
+    path: "dashboard",
+    component: AsyncCompanyDashboardComponent
+  },
+  {
     path: "frames",
     component: AsyncFramesComponent
-  },   {
-    path: 'admin',
-    component: AsyncUserManagementComponent
- },
+  },   
 ];

@@ -56,6 +56,17 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
+  getCompletedQuotesByProuct: (req, res) => {
+    console.log(
+      `en el backend para obtener quota por productos ${JSON.stringify(
+        req.params
+      )}`
+    );
+    db.Order.findAll({ where: { Product: req.params.product, Status: {[Op.eq]: "Completed"} } })
+      .then(data => res.json(data))
+      .catch(err => res.status(422).json(err));
+  },
+
   getQuotesByDate: (req, res) => {getNoCompletedQuotesByProuct
     const newstr = req.body.InvoiceNumber.replace(/-|:|\.|\s/g,"");
     db.Order.findOne({ where: { id: req.params.id } })

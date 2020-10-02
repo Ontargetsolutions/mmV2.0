@@ -69,93 +69,109 @@ const AsyncClientDashboardComponent = Loadable ({
 });
 
 // Products Page
-const AsyncProductsComponent = Loadable({
-  loader: () => import("../../routes/Clients/Quote/Products/Mosaics"),
+const AsyncProductsComponent = Loadable ({
+  loader: () => import ('../../routes/Clients/Quote/Products/Mosaics'),
   loading: () => <RctPageLoader />,
 });
 
 // View Quote
-const AsyncViewQuoteComponent = Loadable({
-  loader: () => import("../../routes/Clients/ViewQuote"),
+const AsyncViewQuoteComponent = Loadable ({
+  loader: () => import ('../../routes/Clients/ViewQuote'),
   loading: () => <RctPageLoader />,
 });
 
 // View Quote
-const AsyncInvoiceComponent = Loadable({
-  loader: () => import("../../routes/Clients/Invoice"),
+const AsyncInvoiceComponent = Loadable ({
+  loader: () => import ('../../routes/Clients/Invoice'),
   loading: () => <RctPageLoader />,
 });
 
 // View Quote
-const AsyncCheckoutComponent = Loadable({
-  loader: () => import("../../routes/Clients/Checkout"),
+const AsyncCheckoutComponent = Loadable ({
+  loader: () => import ('../../routes/Clients/Checkout'),
   loading: () => <RctPageLoader />,
 });
 
 // Shop
-const AsyncShopComponent = Loadable({
-  loader: () => import("../../routes/Clients/Shop"),
+const AsyncShopComponent = Loadable ({
+  loader: () => import ('../../routes/Clients/Shop'),
   loading: () => <RctPageLoader />,
 });
 
 // Cart
-const AsyncCartComponent = Loadable({
-  loader: () => import("../../routes/Clients/Cart"),
+const AsyncCartComponent = Loadable ({
+  loader: () => import ('../../routes/Clients/Cart'),
   loading: () => <RctPageLoader />,
 });
 
 // ForgotPassword
-const AsyncForgotPasswordComponent = Loadable({
-  loader: () => import("../../routes/session/forgot-password"),
-  loading: () => <RctPageLoader />,
-});
-
-
-// Services Page
-const AsyncIznikServicesComponent = Loadable({
-  loader: () => import("../../routes/Clients/Quote/Products/IznikTiles/index"),
+const AsyncForgotPasswordComponent = Loadable ({
+  loader: () => import ('../../routes/session/forgot-password'),
   loading: () => <RctPageLoader />,
 });
 
 // Services Page
-const AsyncHardwoodServicesComponent = Loadable({
-  loader: () => import("../../routes/Clients/Quote/Products/HardwoodFlooring"),
+const AsyncIznikServicesComponent = Loadable ({
+  loader: () => import ('../../routes/Clients/Quote/Products/IznikTiles/index'),
   loading: () => <RctPageLoader />,
 });
 
+// Services Page
+const AsyncHardwoodServicesComponent = Loadable ({
+  loader: () => import ('../../routes/Clients/Quote/Products/HardwoodFlooring'),
+  loading: () => <RctPageLoader />,
+});
 
 // Services Page
-const AsyncViewAllNotificationsComponent = Loadable({
-  loader: () => import("../../routes/Clients/ViewAllNotifications"),
+const AsyncViewAllNotificationsComponent = Loadable ({
+  loader: () => import ('../../routes/Clients/ViewAllNotifications'),
   loading: () => <RctPageLoader />,
 });
 
 //Image
-const AsyncImagesComponent = Loadable({
-  loader: () => import("../../routes/Company/Images"),
+const AsyncImagesComponent = Loadable ({
+  loader: () => import ('../../routes/Company/Images'),
   loading: () => <RctPageLoader />,
 });
 //Frame
-const AsyncFramesComponent = Loadable({
-  loader: () => import("../../routes/Company/Frames"),
-  loading: () => <RctPageLoader />,
-});
-// User Report Page
-const AsyncUserReportComponent = Loadable({
-  loader: () => import("../../routes/Company/ClientsReport"),
-  loading: () => <RctPageLoader />,
-});
-// User Page
-const AsyncUserComponent = Loadable({
-  loader: () => import("../../routes/Company/users"),
-  loading: () => <RctPageLoader />,
-});
-// Users Management
-const AsyncUserManagementComponent = Loadable({
-  loader: () => import("../../routes/Company/Admin"),
+const AsyncFramesComponent = Loadable ({
+  loader: () => import ('../../routes/Company/Frames'),
   loading: () => <RctPageLoader />,
 });
 
+// User Report Page
+const AsyncUserReportComponent = Loadable ({
+  loader: () => import ('../../routes/Company/ClientsReport'),
+  loading: () => <RctPageLoader />,
+});
+
+// User Report Page
+const AsyncCompanyDashboardComponent = Loadable ({
+  loader: () => import ('../../routes/Company/CompanyDashboard/index'),
+  loading: () => <RctPageLoader />,
+});
+
+const AsyncReactChartsjs2Component = Loadable({
+  loader: () => import("../../routes/Company/charts/react-chartjs2"),
+  loading: () => <RctPageLoader />,
+});
+
+// User Page
+const AsyncUserComponent = Loadable ({
+  loader: () => import ('../../routes/Company/users'),
+  loading: () => <RctPageLoader />,
+});
+
+const AsyncSalesComponent = Loadable ({
+  loader: () => import ('../../routes/Company/SalesReport/index'),
+  loading: () => <RctPageLoader />,
+});
+
+// Users Management
+const AsyncUserManagementComponent = Loadable ({
+  loader: () => import ('../../routes/Company/Admin'),
+  loading: () => <RctPageLoader />,
+});
 
 // All quotes
 const AsyncQuotesMosaicsComponent = Loadable ({
@@ -175,14 +191,16 @@ const AsyncQuotesIznikComponent = Loadable ({
 //   loader: () => import ('../../routes/Clients/Checkout/components/SuccessfullPayment'),
 //   loading: () => <RctPageLoader />,
 // });
-const AsyncViewAllQuoteComponent = Loadable({
-  loader: () => import("../../routes/Company/ViewQuote"),
+const AsyncViewAllQuoteComponent = Loadable ({
+  loader: () => import ('../../routes/Company/ViewQuote'),
   loading: () => <RctPageLoader />,
 });
 
-
 export {
   // AsyncSuccessfulPaymentComponent,
+  AsyncReactChartsjs2Component,
+  AsyncCompanyDashboardComponent,
+  AsyncSalesComponent,
   AsyncViewAllQuoteComponent,
   AsyncQuotesMosaicsComponent,
   AsyncQuotesHardwoodComponent,
@@ -206,10 +224,10 @@ export {
   AsyncHardwoodServicesComponent,
   AsyncMyQuotesHardwoodComponent,
   AsyncMyQuotesIznikComponent,
-  AsyncViewAllNotificationsComponent, 
+  AsyncViewAllNotificationsComponent,
   AsyncUserReportComponent,
   AsyncFramesComponent,
   AsyncImagesComponent,
   AsyncUserComponent,
-  AsyncUserManagementComponent
+  AsyncUserManagementComponent,
 };
