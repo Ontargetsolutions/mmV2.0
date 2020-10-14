@@ -50,14 +50,14 @@ class Materials extends Component {
                   label="Extensive Graphic Library"
                 />} */}
               <FormControlLabel
-                value="Extensive Gallery"
-                control={<Radio />}
-                label="Extensive Graphic Library"
-              />
-              <FormControlLabel
                 value="Patterns"
                 control={<Radio />}
-                label="Patterns"
+                label="Montage Mosaics Premium Patterns"
+              />
+              <FormControlLabel
+                value="Extensive Gallery"
+                control={<Radio />}
+                label="Extensive Graphic Library Search"
               />
 
               <FormControlLabel

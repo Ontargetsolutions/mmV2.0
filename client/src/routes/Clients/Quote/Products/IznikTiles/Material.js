@@ -43,17 +43,17 @@ class Materials extends Component {
               value={this.state.artSource}
               onChange={e => this.handleChangeRadio(e, "artSource")}
             >
-              <FormControlLabel
+
+               <FormControlLabel
+                value="Patterns"
+                control={<Radio />}
+                label="Montage Mosaics Premium Patterns"
+              />
+               <FormControlLabel
                 value="Upload a pic"
                 control={<Radio />}
                 label="Upload your file"
               />
-              <FormControlLabel
-                value="Patterns"
-                control={<Radio />}
-                label="Patterns"
-              />
- 
             </RadioGroup>
           </FormControl>
         </div>
