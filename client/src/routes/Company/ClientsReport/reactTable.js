@@ -4,7 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ReactTable from 'react-table';
 
 import {connect} from 'react-redux';
-
+import Moment from "react-moment";
 
 // redux action
 import {getUserList, deteletUser} from '../../../actions';
@@ -42,7 +42,7 @@ class ClientsTable extends Component {
             name: prop[1],
             phone: prop[2],
             email: prop[5],
-            rol: prop[13],
+            rol: prop[14],
             actions: (
               <div className="actions-right">
                 <IconButton
@@ -86,8 +86,11 @@ class ClientsTable extends Component {
             accessor: 'email',
           },
           {
-            Header: 'Rol',
+            Header: 'Signup date',
             accessor: 'rol',
+            Cell: props => {
+              return <Moment format="YYYY/MM/DD">{props.value}</Moment>;
+            }
           },
           {
             Header: 'Actions',
